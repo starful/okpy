@@ -1,0 +1,37 @@
+<header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="header-home" aria-label="OKPy ホーム">
+            <img src="/static/images/favicon-32x32.png" alt="" width="28" height="28" class="header-home__icon">
+        </a>
+
+        <nav class="header-nav" aria-label="Main">
+            <div class="nav-dropdown">
+                <button type="button" class="nav-dropdown__toggle" aria-expanded="false" aria-haspopup="true" id="topics-toggle">
+                    トピック
+                    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+                </button>
+                <div class="nav-dropdown__menu" id="topics-menu" role="menu">
+                    <a href="/" role="menuitem" class="{% if not active_category %}is-active{% endif %}">すべて ({{ category_counts.all }})</a>
+                    {% for key, meta in categories.items() %}
+                    <a href="/category/{{ key }}" role="menuitem" class="{% if active_category == key %}is-active{% endif %}">
+                        {{ meta.emoji }} {{ meta.label }} ({{ category_counts[key] }})
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <a href="/#latest" class="nav-link">最新</a>
+            <a href="/#popular" class="nav-link">人気</a>
+        </nav>
+
+        <button type="button" class="nav-burger" id="nav-burger" aria-label="メニュー" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+
+    <div class="mobile-nav" id="mobile-nav" hidden>
+        <a href="/">すべての記事</a>
+        {% for key, meta in categories.items() %}
+        <a href="/category/{{ key }}">{{ meta.emoji }} {{ meta.label }}</a>
+        {% endfor %}
+    </div>
+</header>

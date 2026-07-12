@@ -1,0 +1,65 @@
+{
+  "updated_at": "2026-07-05T12:00:05Z",
+  "gsc_site_url": "sc-domain:okpy.net",
+  "gsc_range": {
+    "start": "2026-06-07",
+    "end": "2026-07-05",
+    "days": 28
+  },
+  "entries": [
+    {
+      "page": "https://okpy.net/entry/2025/06/02/073635",
+      "path": "/entry/2025/06/02/073635",
+      "slug": "データベース設計におけるpk-fk-インデックスの重要性",
+      "clicks": 12,
+      "impressions": 1149,
+      "ctr": 0.010443864229765013,
+      "position": 6.2236727589208005
+    },
+    {
+      "page": "https://okpy.net/entry/2025/02/18/143000",
+      "path": "/entry/2025/02/18/143000",
+      "slug": "マネージドデータベースサービスの選択-aws-rds-vs-gcp-cloud-sql",
+      "clicks": 11,
+      "impressions": 217,
+      "ctr": 0.05069124423963134,
+      "position": 19.677419354838708
+    },
+    {
+      "page": "https://okpy.net/entry/2025/12/29/090000_1",
+      "path": "/entry/2025/12/29/090000_1",
+      "slug": "python-easyocr-画像の文字起こし-まだ手作業で消耗してる",
+      "clicks": 9,
+      "impressions": 208,
+      "ctr": 0.04326923076923077,
+      "position": 8.360576923076923
+    },
+    {
+      "page": "https://okpy.net/entry/2026/01/01/090000_1",
+      "path": "/entry/2026/01/01/090000_1",
+      "slug": "python-imageio-画像と動画の読み書き-もっとシンプルにしませんか",
+      "clicks": 9,
+      "impressions": 177,
+      "ctr": 0.05084745762711865,
+      "position": 6.700564971751413
+    },
+    {
+      "page": "https://okpy.net/entry/2025/03/05/140722",
+      "path": "/entry/2025/03/05/140722",
+      "slug": "ネットワーク接続の革新-aws-direct-connect-vs-gcp-cloud-interconnec",
+      "clicks": 9,
+      "impressions": 130,
+      "ctr": 0.06923076923076923,
+      "position": 11.584615384615384
+    },
+    {
+      "page": "https://okpy.net/entry/2025/10/21/101204",
+      "path": "/entry/2025/10/21/101204",
+      "slug": "excel自動化の魔法-python-xlsxwriter入門",
+      "clicks": 8,
+      "impressions": 192,
+      "ctr": 0.041666666666666664,
+      "position": 6.192708333333333
+    }
+  ]
+}

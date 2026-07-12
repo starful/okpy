@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS Lambda vs GCP Cloud Functions vs Azure Functions — OKPy</title>
+  <meta name="description" content="サーバーレス関数の基本設計・運用・コストの観点で3大クラウドを比較">
+  <link rel="stylesheet" href="okpy-sample.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-top">
+        <a href="index.html" class="logo">OK<span>Py</span></a>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#latest">最新</a>
+          <a href="index.html#categories">カテゴリ</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <article class="article-wrap">
+    <p class="article-meta">
+      <a href="index.html#categories">☁️ Cloud</a>
+      · 2026-04-28
+      · 読了目安 8分
+    </p>
+
+    <nav class="toc" aria-label="目次">
+      <strong>📑 目次</strong>
+      <ol>
+        <li><a href="#intro">導入</a></li>
+        <li><a href="#compare">機能別比較</a></li>
+        <li><a href="#usecase">ユースケース</a></li>
+        <li><a href="#summary">まとめ</a></li>
+      </ol>
+    </nav>
+
+    <div class="article-body">
+      <h1>AWS Lambda vs GCP Cloud Functions vs Azure Functions</h1>
+      <p>イベント駆動の小さな処理を、サーバー管理なしで動かす代表サービスを、実務目線で比較します。</p>
+
+      <h2 id="intro">導入</h2>
+      <p>いずれも「関数をアップロードしてトリガーで実行」というモデルですが、<strong>周辺エコシステム</strong>と<strong>コールドスタート</strong>の体感が大きく異なります。</p>
+
+      <h2 id="compare">機能別比較</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>観点</th>
+            <th>AWS Lambda</th>
+            <th>GCP Cloud Functions</th>
+            <th>Azure Functions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>強み</td>
+            <td>サービス連携の幅</td>
+            <td>GCPデータ基盤との統合</td>
+            <td>.NET / Microsoft 連携</td>
+          </tr>
+          <tr>
+            <td>料金感</td>
+            <td>実行時間 + リクエスト</td>
+            <td>世代・リージョンで差</td>
+            <td>プラン依存</td>
+          </tr>
+          <tr>
+            <td>運用</td>
+            <td>CloudWatch</td>
+            <td>Cloud Logging</td>
+            <td>Application Insights</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="usecase">ユースケース</h2>
+      <ul>
+        <li><strong>AWS中心の既存基盤</strong> → Lambda</li>
+        <li><strong>BigQuery / Pub/Sub 中心</strong> → Cloud Functions (Gen2)</li>
+        <li><strong>Azure AD / .NET</strong> → Azure Functions</li>
+      </ul>
+
+      <h2>サンプル（Python / Lambda）</h2>
+      <pre><code>def handler(event, context):
+    name = event.get("name", "world")
+    return {"statusCode": 200, "body": f"Hello, {name}"}</code></pre>
+
+      <h2 id="summary">まとめ</h2>
+      <p>「どれが最強」ではなく、<strong>既存クラウドとチームスキル</strong>に合わせて選ぶのが現実的です。次回はコンテナベースの Cloud Run / Fargate との使い分けを整理します。</p>
+    </div>
+
+    <a class="back-link" href="index.html">← 記事一覧に戻る</a>
+  </article>
+
+  <footer class="site-footer">
+    <p><strong>OKPy</strong> · デザインサンプル（記事ページ）</p>
+  </footer>
+</body>
+</html>

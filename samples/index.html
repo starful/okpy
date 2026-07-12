@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OKPy — Python · AWS · GCP · Azure</title>
+  <meta name="description" content="Pythonライブラリ解説とマルチクラウド比較の技術ブログ">
+  <link rel="stylesheet" href="okpy-sample.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-top">
+        <a href="index.html" class="logo">OK<span>Py</span></a>
+        <nav class="nav-links" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="#latest">最新</a>
+          <a href="#categories">カテゴリ</a>
+          <a href="article.html">記事サンプル</a>
+        </nav>
+      </div>
+      <div class="theme-filter" role="tablist" aria-label="Category filter">
+        <button type="button" class="theme-btn active" data-filter="all">
+          すべて <span class="count-badge">128</span>
+        </button>
+        <button type="button" class="theme-btn" data-filter="python">
+          🐍 Python <span class="count-badge">81</span>
+        </button>
+        <button type="button" class="theme-btn" data-filter="cloud">
+          ☁️ Cloud <span class="count-badge">47</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="sample-banner">
+      <strong>デザインサンプル（静的HTML）</strong>
+      starful.biz のトーン + StatFacts 風の一覧構成。Flask テンプレート反映前のプレビュー用です。
+    </div>
+
+    <section class="hero">
+      <h1>🐍 Python とクラウドを、実務目線で。</h1>
+      <p>ライブラリ入門・AWS / GCP / Azure 徹底比較 — okpy.net 技術ブログ</p>
+    </section>
+
+    <div class="search-box">
+      <input type="search" placeholder="検索（例: Pydantic, Lambda, BigQuery）…" aria-label="記事検索">
+    </div>
+
+  <!-- StatFacts-style: Latest -->
+    <section id="latest">
+      <h2 class="section-title">📌 最新の記事</h2>
+      <div class="insight-list">
+        <a href="article.html" class="insight-card" data-cat="cloud">
+          <div class="insight-top">
+            <span class="tag tag-cloud">Cloud</span>
+            <span class="tag tag-new">New</span>
+            <span class="insight-date">2026-04-29</span>
+          </div>
+          <h3>AWS Bedrock vs GCP Vertex AI vs Azure OpenAI Service</h3>
+          <p class="insight-hook">生成AI基盤は「モデル」より「運用と統合」で選ぶ時代になった。</p>
+        </a>
+        <a href="article.html" class="insight-card" data-cat="python">
+          <div class="insight-top">
+            <span class="tag tag-python">Python</span>
+            <span class="insight-date">2026-04-28</span>
+          </div>
+          <h3>Pydantic入門：型で守るデータ検証</h3>
+          <p class="insight-hook">API境界のバリデーションを、型ヒントと一緒に書ける理由。</p>
+        </a>
+        <a href="article.html" class="insight-card" data-cat="cloud">
+          <div class="insight-top">
+            <span class="tag tag-cloud">Cloud</span>
+            <span class="insight-date">2026-04-27</span>
+          </div>
+          <h3>AWS Lambda vs GCP Cloud Functions vs Azure Functions</h3>
+          <p class="insight-hook">サーバーレス関数はコールドスタートとエコシステムで差がつく。</p>
+        </a>
+      </div>
+    </section>
+
+  <!-- StatFacts-style: Explore by topic -->
+    <section id="categories">
+      <h2 class="section-title">🗂️ カテゴリから探す</h2>
+      <div class="category-grid">
+        <a href="#" class="category-hub">
+          <h3>🐍 Python ライブラリ</h3>
+          <p>NumPy, FastAPI, LangChain など。インストールから実践サンプルまで。</p>
+          <span class="hub-count">81 記事 →</span>
+        </a>
+        <a href="#" class="category-hub">
+          <h3>☁️ クラウド比較</h3>
+          <p>AWS / GCP / Azure の同カテゴリサービスを表形式で比較。</p>
+          <span class="hub-count">47 記事 →</span>
+        </a>
+      </div>
+    </section>
+
+  <!-- starful-style: card grid -->
+    <section>
+      <h2 class="section-title">🔥 人気の記事</h2>
+      <div class="post-grid" id="post-grid">
+        <a href="article.html" class="post-card" data-cat="python">
+          <div class="card-meta python">🐍 Python</div>
+          <h3>FastAPIでAPIを最短構築する</h3>
+          <p>型ヒント・自動ドキュメント・非同期の3点が開発速度を変える。</p>
+          <span class="read-more">続きを読む →</span>
+        </a>
+        <a href="article.html" class="post-card" data-cat="cloud">
+          <div class="card-meta cloud">☁️ Cloud</div>
+          <h3>S3 vs Cloud Storage vs Blob Storage</h3>
+          <p>オブジェクトストレージの料金・階層・ライフサイクルを整理。</p>
+          <span class="read-more">続きを読む →</span>
+        </a>
+        <a href="article.html" class="post-card" data-cat="python">
+          <div class="card-meta python">🐍 Python</div>
+          <h3>PolarsはPandasの代替になるか</h3>
+          <p>大規模データでのメモリ効率とクエリAPIの違いを実測ベースで。</p>
+          <span class="read-more">続きを読む →</span>
+        </a>
+        <a href="article.html" class="post-card" data-cat="cloud">
+          <div class="card-meta cloud">☁️ Cloud</div>
+          <h3>GKE vs EKS vs AKS</h3>
+          <p>マネージド Kubernetes の運用負荷と周辺サービス連携。</p>
+          <span class="read-more">続きを読む →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>OKPy</strong> — Python libraries &amp; multi-cloud comparisons</p>
+    <p>© 2026 okpy.net · デザインサンプル</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.theme-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.theme-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var f = btn.getAttribute('data-filter');
+        document.querySelectorAll('[data-cat]').forEach(function (el) {
+          if (f === 'all' || el.getAttribute('data-cat') === f) {
+            el.style.display = '';
+          } else {
+            el.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

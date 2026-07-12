@@ -1,0 +1,26 @@
+{
+  "name": "OKPy",
+  "short_name": "OKPy",
+  "description": "Python and cloud technical blog",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#3a3a3a",
+  "icons": [
+    {
+      "src": "/static/images/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/logo-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

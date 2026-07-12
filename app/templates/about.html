@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — {{ site.site_name }}</title>
+    {% include '_head_icons.html' %}
+    <link rel="stylesheet" href="/static/css/okpy.css?v=7">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <main class="page">
+        <article class="article" style="max-width: var(--article-width);">
+            <header class="article-header">
+                <h1 class="article-title">About {{ site.site_name }}</h1>
+            </header>
+            <div class="article-body" style="font-family: var(--font-sans); font-size: 1rem;">
+                <p>
+                    <strong>{{ site.site_name }}</strong> は、Python ライブラリ解説・マルチクラウド比較・
+                    開発方法論・PMBOK・アジャイルなど、エンジニア向けの技術記事を公開するブログです。
+                </p>
+                <h2>トピック</h2>
+                <ul>
+                    {% for key, meta in categories.items() %}
+                    <li><a href="/category/{{ key }}">{{ meta.emoji }} {{ meta.label }}</a> — {{ meta.description }}</li>
+                    {% endfor %}
+                </ul>
+                <p>{{ site.footer_tagline }}</p>
+                <h2>お問い合わせ・プライバシー</h2>
+                <p>
+                    <a href="/contact.html">お問い合わせ</a> ·
+                    <a href="/privacy.html">プライバシーポリシー</a>
+                </p>
+            </div>
+        </article>
+    </main>
+
+    {% include 'footer.html' %}
+    <script src="/static/js/okpy.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} — {{ site.site_name }}</title>
+    <meta name="description" content="{{ post.summary or title }}">
+    <link rel="canonical" href="{{ canonical }}" />
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ post.summary or title }}">
+    <meta property="og:url" content="{{ canonical }}">
+    {% if cover_abs %}
+    <meta property="og:image" content="{{ cover_abs }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ cover_abs }}">
+    {% endif %}
+    {% include '_head_icons.html' %}
+    <link rel="stylesheet" href="/static/css/okpy.css?v=18">
+</head>
+<body class="page-article">
+    {% include 'header.html' %}
+
+    <article class="article{% if toc %} article--has-toc{% endif %}">
+        {% with back_nav_class='article-back--top' %}
+        {% include '_article_back_nav.html' %}
+        {% endwith %}
+
+        <header class="article-header">
+            <a href="/category/{{ category }}" class="article-cat tag tag-{{ category }}">{{ category_emoji }} {{ category_label }}</a>
+            <h1 class="article-title">{{ title }}</h1>
+            <p class="article-meta">
+                {% if post.date %}<time datetime="{{ post.date }}">{{ post.date }}</time>{% endif %}
+                {% if read_minutes %}<span>·</span><span>{{ read_minutes }} 分で読めます</span>{% endif %}
+            </p>
+        </header>
+
+        {% if cover %}
+        <figure class="article-hero">
+            <img src="{{ cover }}" alt="{{ title }}" width="1200" height="630">
+        </figure>
+        {% else %}
+        <figure class="article-hero article-hero--placeholder article-hero--{{ category }}">
+            <div class="article-hero__placeholder" aria-hidden="true">
+                <span class="article-hero__emoji">{{ category_emoji }}</span>
+                <span class="article-hero__label">{{ category_label }}</span>
+            </div>
+        </figure>
+        {% endif %}
+
+        <div class="article-layout">
+            {% if toc %}
+            <aside class="article-sidebar">
+                <nav class="toc" aria-label="目次">
+                    <p class="toc__label">目次</p>
+                    {{ toc | safe }}
+                </nav>
+                {% with back_nav_class='article-back--sidebar' %}
+                {% include '_article_back_nav.html' %}
+                {% endwith %}
+            </aside>
+            {% endif %}
+
+            <div class="article-body">
+                {{ content | safe }}
+            </div>
+        </div>
+
+        {% include '_amazon_box.html' %}
+
+        <footer class="article-footer">
+            <a class="back-link" href="/category/{{ category }}">← {{ category_label }} の記事一覧</a>
+            <a class="back-link back-link--secondary" href="/">ホームに戻る</a>
+        </footer>
+    </article>
+
+    {% include 'footer.html' %}
+    <script src="/static/js/copy-code.js?v=2"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": {{ title | tojson }},
+      "datePublished": {{ (post.date or '') | tojson }},
+      "description": {{ (post.summary or '') | tojson }},
+      {% if cover_abs %}"image": {{ cover_abs | tojson }},{% endif %}
+      "mainEntityOfPage": {{ canonical | tojson }},
+      "publisher": {
+        "@type": "Organization",
+        "name": {{ site.site_name | tojson }}
+      }
+    }
+    </script>
+</body>
+</html>

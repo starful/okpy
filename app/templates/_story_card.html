@@ -1,0 +1,23 @@
+{# Story card — Medium-style with cover image #}
+{% set card_cover = post.card_cover or post.cover %}
+<a href="/blog/{{ post.slug }}" class="story-card{% if featured and card_cover %} story-card--featured{% endif %}" data-cat="{{ post.category }}" data-searchable>
+    {% if card_cover %}
+    <div class="story-card__cover">
+        <img src="{{ card_cover }}" alt="" loading="lazy" width="640" height="360">
+    </div>
+    {% else %}
+    <div class="story-card__cover story-card__cover--placeholder story-card__cover--{{ post.category }}">
+        <span class="story-card__cover-emoji" aria-hidden="true">{{ categories[post.category].emoji }}</span>
+    </div>
+    {% endif %}
+    <div class="story-card__body">
+        <div class="story-card__top">
+            <span class="story-card__cat tag tag-{{ post.category }}">{{ categories[post.category].emoji }} {{ categories[post.category].label }}</span>
+            {% if post.date %}<time class="story-card__date" datetime="{{ post.date }}">{{ post.date }}</time>{% endif %}
+        </div>
+        <h3 class="story-card__title">{{ post.title }}</h3>
+        {% if post.summary %}
+        <p class="story-card__summary">{{ post.summary }}</p>
+        {% endif %}
+    </div>
+</a>

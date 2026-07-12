@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if active_category %}{{ categories[active_category].label }} — {% endif %}{{ site.site_name }} — {{ site.tagline }}</title>
+    {% if active_category %}
+    <meta name="description" content="{{ categories[active_category].description }}">
+    {% else %}
+    <meta name="description" content="Python・クラウド・開発方法論の技術ブログ — okpy.net">
+    {% endif %}
+    <link rel="canonical" href="{{ canonical }}" />
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ site.site_name }}">
+    <meta property="og:title" content="{% if active_category %}{{ categories[active_category].emoji }} {{ categories[active_category].label }} — {% endif %}{{ site.site_name }} — {{ site.tagline }}">
+    <meta property="og:description" content="{% if active_category %}{{ categories[active_category].description }}{% else %}Python・クラウド・開発方法論の技術ブログ — okpy.net{% endif %}">
+    <meta property="og:url" content="{{ canonical }}">
+    <meta property="og:image" content="{{ og_image }}">
+    <meta property="og:image:alt" content="{{ site.site_name }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% if active_category %}{{ categories[active_category].label }} — {% endif %}{{ site.site_name }}">
+    <meta name="twitter:description" content="{% if active_category %}{{ categories[active_category].description }}{% else %}Python・クラウド・開発方法論の技術ブログ — okpy.net{% endif %}">
+    <meta name="twitter:image" content="{{ og_image }}">
+    {% include '_head_icons.html' %}
+    <link rel="stylesheet" href="/static/css/okpy.css?v=19">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <main class="page">
+        {% if not active_category %}
+
+        <section class="brand-hero">
+            <a href="/" class="brand-hero__logo-link">
+                <img src="/static/images/logo.png" alt="OKPy — Indie Dev Blog Community" class="brand-hero__logo" width="640" height="349">
+            </a>
+            <p class="brand-hero__tagline">Python · Cloud · 開発方法論 — 実務目線の技術ブログ</p>
+            <p class="brand-hero__stats">{{ category_counts.all }} 記事 · {{ categories|length }} トピック</p>
+        </section>
+
+        {% include '_search_box.html' %}
+
+        {% if latest_posts %}
+        <section class="section" id="latest">
+            <div class="section__head">
+                <h2 class="section__title">最新の記事</h2>
+            </div>
+            <div class="story-grid">
+                {% for post in latest_posts %}
+                {% include '_story_card.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if popular_posts %}
+        <section class="section" id="popular">
+            <div class="section__head">
+                <h2 class="section__title">人気の記事</h2>
+                <p class="section__note">Search Console 上位（直近28日）</p>
+            </div>
+            <div class="story-grid">
+                {% for post in popular_posts %}
+                {% include '_story_card.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="section" id="topics">
+            <div class="section__head">
+                <h2 class="section__title">トピック</h2>
+            </div>
+            <div class="topic-grid">
+                {% for key, meta in categories.items() %}
+                <a href="/category/{{ key }}" class="topic-card topic-card--{{ key }}">
+                    {% if category_thumbnails.get(key) %}
+                    <div class="topic-card__thumb">
+                        <img src="{{ category_thumbnails[key] }}" alt="" loading="lazy" width="320" height="180">
+                    </div>
+                    {% endif %}
+                    <span class="topic-card__emoji">{{ meta.emoji }}</span>
+                    <span class="topic-card__label">{{ meta.label }}</span>
+                    <span class="topic-card__count">{{ category_counts[key] }} 記事</span>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+
+        {% for key, meta in categories.items() %}
+        {% set cat_posts = posts_by_category.get(key, []) %}
+        {% if cat_posts %}
+        <section class="section" id="cat-{{ key }}">
+            <div class="section__head">
+                <h2 class="section__title">{{ meta.emoji }} {{ meta.label }}</h2>
+                <a class="section__more" href="/category/{{ key }}">すべて見る →</a>
+            </div>
+            <div class="story-grid">
+                {% for post in cat_posts %}
+                {% include '_story_card.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        {% endfor %}
+
+        {% else %}
+
+        <section class="cat-hero cat-hero--{{ active_category }}">
+            <a href="/" class="cat-hero__back">← ホーム</a>
+            <h1 class="cat-hero__title">{{ categories[active_category].emoji }} {{ categories[active_category].label }}</h1>
+            <p class="cat-hero__desc">{{ categories[active_category].description }}</p>
+            <p class="cat-hero__count">{{ category_counts[active_category] }} 記事</p>
+            {% include '_amazon_box.html' %}
+        </section>
+
+        {% include '_search_box.html' %}
+
+        {% if posts %}
+        <section class="section">
+            <div class="story-grid" id="post-grid">
+                {% for post in posts %}
+                {% include '_story_card.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% else %}
+        <p class="empty-state">このカテゴリにはまだ記事がありません。</p>
+        {% endif %}
+
+        {% endif %}
+
+        <p class="search-empty" id="search-empty" hidden>該当する記事が見つかりませんでした。</p>
+    </main>
+
+    {% include 'footer.html' %}
+    <script src="/static/js/okpy.js?v=5"></script>
+</body>
+</html>
