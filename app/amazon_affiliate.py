@@ -14,6 +14,7 @@ ASSOCIATE_TAG = os.getenv("AMAZON_ASSOCIATE_TAG", "starful06-22")
 CATEGORY_KEYWORDS: dict[str, str] = {
     "python": "Python",
     "cloud": "AWS",  # overridden by _cloud_keyword() when possible
+    "terraform": "Terraform",
     "dev-method": "開発方法論",
     "data-model": "データモデル",
     "pmbok": "PMBOK",
@@ -24,6 +25,7 @@ CATEGORY_KEYWORDS: dict[str, str] = {
 BUTTON_LABELS: dict[str, str] = {
     "python": "Amazonで Python 関連を探す",
     "cloud": "Amazonでクラウド関連を探す",
+    "terraform": "Amazonで Terraform 関連を探す",
     "dev-method": "Amazonで開発方法論を探す",
     "data-model": "Amazonでデータモデルを探す",
     "pmbok": "Amazonで PMBOK を探す",

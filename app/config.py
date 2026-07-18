@@ -8,7 +8,7 @@ SITE_CONFIG = {
     "project_name": "okpy",
     "site_name": "OKPy",
     "site_url": os.getenv("SITE_URL", "https://okpy.net"),
-    "tagline": "Python · Cloud · 開発方法論 · PM",
+    "tagline": "Python · Cloud · Terraform · 開発方法論 · PM",
     "site_mode": "blog",
     "gcs_image_base": os.getenv(
         "GCS_IMAGE_BASE",
@@ -37,6 +37,12 @@ SITE_CONFIG = {
             "emoji": "☁️",
             "hub_suffix": "比較",
             "description": "AWS / GCP / Azure の同カテゴリサービスを表形式で比較。",
+        },
+        "terraform": {
+            "label": "Terraform",
+            "emoji": "🏗️",
+            "hub_suffix": "IaC",
+            "description": "Terraform / OpenTofu によるインフラコード化、モジュール、state 管理。",
         },
         "dev-method": {
             "label": "開発方法論",
@@ -70,6 +76,6 @@ SITE_CONFIG = {
         },
     },
 
-    "footer_tagline": "Python, cloud comparisons, and software engineering practices.",
+    "footer_tagline": "Python, cloud, Terraform, and software engineering practices.",
     "footer_year": "2026",
 }
