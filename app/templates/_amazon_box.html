@@ -9,14 +9,18 @@
         <a class="amazon-box__btn"
            href="{{ amazon_search_url }}"
            target="_blank"
-           rel="nofollow sponsored noopener noreferrer">
+           rel="nofollow sponsored noopener noreferrer"
+           data-track="affiliate_amazon"
+           data-track-label="amazon">
             {{ amazon_button_label }}
         </a>
         {% if rakuten_search_url %}
         <a class="amazon-box__btn amazon-box__btn--rakuten"
            href="{{ rakuten_search_url }}"
            target="_blank"
-           rel="nofollow sponsored noopener noreferrer">
+           rel="nofollow sponsored noopener noreferrer"
+           data-track="affiliate_rakuten"
+           data-track-label="rakuten">
             {{ rakuten_button_label }}
         </a>
         {% endif %}

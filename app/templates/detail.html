@@ -87,7 +87,12 @@
         <div class="booking-box">
             <h3>🏨 Stay Nearby</h3>
             <p>Find the best hotels near {{ post.address }} for your trip.</p>
-            <a href="{{ post.agoda }}" target="_blank" rel="nofollow" class="booking-btn">
+            <a href="{{ post.agoda }}"
+               target="_blank"
+               rel="nofollow sponsored noopener noreferrer"
+               class="booking-btn"
+               data-track="affiliate_agoda"
+               data-track-label="agoda">
                 Check Hotel Deals on Agoda →
             </a>
         </div>
