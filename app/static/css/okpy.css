@@ -23,6 +23,7 @@
 
   --cat-python: #4a6b5a;
   --cat-cloud: #4a5a6b;
+  --cat-terraform: #6b5a45;
   --cat-dev-method: #6b5a4a;
   --cat-data-model: #5a4a6b;
   --cat-pmbok: #6b4a5a;
@@ -445,6 +446,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 .story-card__cover--python { background: linear-gradient(145deg, #e8ede9 0%, #d4e0d8 100%); }
 .story-card__cover--cloud { background: linear-gradient(145deg, #e8eaed 0%, #d4dae3 100%); }
+.story-card__cover--terraform { background: linear-gradient(145deg, #edeae4 0%, #e0d6c8 100%); }
 .story-card__cover--dev-method { background: linear-gradient(145deg, #edeae6 0%, #e0d8cf 100%); }
 .story-card__cover--data-model { background: linear-gradient(145deg, #eae8ed 0%, #dcd4e3 100%); }
 .story-card__cover--pmbok { background: linear-gradient(145deg, #ede8ea 0%, #e0d4d9 100%); }
@@ -536,6 +538,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 .tag-python { background: #e8ede9; color: var(--cat-python); }
 .tag-cloud { background: #e8eaed; color: var(--cat-cloud); }
+.tag-terraform { background: #edeae4; color: var(--cat-terraform); }
 .tag-dev-method { background: #edeae6; color: var(--cat-dev-method); }
 .tag-data-model { background: #eae8ed; color: var(--cat-data-model); }
 .tag-pmbok { background: #ede8ea; color: var(--cat-pmbok); }
@@ -735,6 +738,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 .article-hero--python .article-hero__placeholder { background: linear-gradient(145deg, #e8ede9 0%, #d4e0d8 100%); }
 .article-hero--cloud .article-hero__placeholder { background: linear-gradient(145deg, #e8eaed 0%, #d4dae3 100%); }
+.article-hero--terraform .article-hero__placeholder { background: linear-gradient(145deg, #edeae4 0%, #e0d6c8 100%); }
 .article-hero--dev-method .article-hero__placeholder { background: linear-gradient(145deg, #edeae6 0%, #e0d8cf 100%); }
 .article-hero--data-model .article-hero__placeholder { background: linear-gradient(145deg, #eae8ed 0%, #dcd4e3 100%); }
 .article-hero--pmbok .article-hero__placeholder { background: linear-gradient(145deg, #ede8ea 0%, #e0d4d9 100%); }

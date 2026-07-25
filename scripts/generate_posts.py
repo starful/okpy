@@ -10,13 +10,16 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import base64
 import csv
 import os
 import re
+import subprocess
 import sys
 import time
 import unicodedata
-from datetime import date
+from datetime import date, datetime
+from io import BytesIO
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -32,7 +35,13 @@ load_dotenv(REPO_ROOT / ".env")
 load_dotenv()
 
 POSTS_DIR = REPO_ROOT / "app" / "content" / "posts"
+IMAGES_DIR = REPO_ROOT / "app" / "static" / "images" / "posts"
 CATEGORIES = ("python", "cloud", "terraform")
+GCS_IMAGE_BASE = os.getenv(
+    "GCS_IMAGE_BASE", "https://storage.googleapis.com/ok-project-assets/okpy"
+).rstrip("/")
+GCS_BUCKET = os.getenv("GCS_BUCKET", "gs://ok-project-assets/okpy")
+IMAGEN_MODEL = os.getenv("IMAGEN_MODEL", "imagen-4.0-fast-generate-001")
 
 COLUMN = {
     "python": "lib_name",
@@ -158,7 +167,93 @@ def _title_from_body(body: str, fallback: str) -> str:
     return fallback
 
 
-def _write_md(category: str, topic: str, body: str) -> Path:
+def _cover_prompt(category: str, topic: str) -> str:
+    theme = {
+        "python": "Python programming and libraries, soft green-gray accents",
+        "cloud": "multi-cloud infrastructure comparison, soft blue-gray accents",
+        "terraform": "Infrastructure as Code, blueprints and modules, soft terracotta accents",
+    }.get(category, "technology")
+    return (
+        "Editorial tech blog cover illustration, warm paper cream background, "
+        "soft graphite sketch style, abstract composition about "
+        f"{topic} ({theme}), "
+        "no text, no logos, no watermark, clean 16:9 composition, muted charcoal accents"
+    )
+
+
+def _optimize_cover_jpeg(raw: bytes, out_path: Path) -> None:
+    from PIL import Image
+
+    with Image.open(BytesIO(raw)) as img:
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
+        img.thumbnail((1200, 800), Image.LANCZOS)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        img.save(out_path, "JPEG", quality=82, optimize=True)
+
+
+def _upload_cover_to_gcs(local_path: Path) -> bool:
+    """Best-effort public upload; returns True on success."""
+    try:
+        dest = f"{GCS_BUCKET.rstrip('/')}/{local_path.name}"
+        subprocess.run(
+            ["gcloud", "storage", "cp", str(local_path), dest],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        subprocess.run(
+            ["gsutil", "acl", "ch", "-u", "AllUsers:R", dest],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        return True
+    except (FileNotFoundError, subprocess.CalledProcessError) as exc:
+        print(f"  cover upload skipped: {exc}", flush=True)
+        return False
+
+
+def _generate_cover(category: str, topic: str) -> str | None:
+    """Generate an Imagen cover, save locally, upload to GCS. Returns public URL."""
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        print("  cover skipped: GEMINI_API_KEY missing", flush=True)
+        return None
+    try:
+        from google import genai
+        from google.genai import types
+
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_images(
+            model=IMAGEN_MODEL,
+            prompt=_cover_prompt(category, topic),
+            config=types.GenerateImagesConfig(
+                number_of_images=1,
+                aspect_ratio="16:9",
+                output_mime_type="image/png",
+            ),
+        )
+        img_bytes = response.generated_images[0].image.image_bytes
+        if isinstance(img_bytes, str):
+            img_bytes = base64.b64decode(img_bytes)
+
+        name = datetime.now().strftime("%Y%m%d%H%M%S") + ".jpg"
+        out_path = IMAGES_DIR / name
+        _optimize_cover_jpeg(img_bytes, out_path)
+        uploaded = _upload_cover_to_gcs(out_path)
+        url = f"{GCS_IMAGE_BASE}/{name}"
+        if uploaded:
+            print(f"  cover {name}", flush=True)
+        else:
+            print(f"  cover saved locally {out_path.relative_to(REPO_ROOT)} (upload later)", flush=True)
+        return url
+    except Exception as exc:
+        print(f"  cover generation failed: {exc}", flush=True)
+        return None
+
+
+def _write_md(category: str, topic: str, body: str, cover: str | None = None) -> Path:
     title = _title_from_body(body, topic)
     slug = _slugify(topic)
     existing = _existing_slugs(category)
@@ -174,6 +269,18 @@ def _write_md(category: str, topic: str, body: str) -> Path:
 
     # Strip duplicate H1 if present — keep body after first heading block
     summary = _summary_from_body(body, topic)
+    cover_line = f"cover: {cover!r}\n" if cover else ""
+    body_text = body.strip()
+    if cover and "![" not in body_text:
+        lines = body_text.splitlines()
+        insert_at = 0
+        for idx, ln in enumerate(lines):
+            if ln.startswith("# "):
+                insert_at = idx + 1
+                break
+        lines.insert(insert_at, f"\n![cover]({cover})\n")
+        body_text = "\n".join(lines).lstrip("\n")
+
     fm = (
         "---\n"
         f"title: {title!r}\n"
@@ -181,10 +288,11 @@ def _write_md(category: str, topic: str, body: str) -> Path:
         f"category: {category}\n"
         f"slug: {slug}\n"
         f"summary: {summary!r}\n"
+        f"{cover_line}"
         "lang: ja\n"
         "---\n\n"
     )
-    path.write_text(fm + body.strip() + "\n", encoding="utf-8")
+    path.write_text(fm + body_text + "\n", encoding="utf-8")
     return path
 
 
@@ -233,7 +341,8 @@ def generate_category(category: str, limit: int | None = None) -> dict:
         if not body:
             failed += 1
             continue
-        path = _write_md(category, topic, body)
+        cover = _generate_cover(category, topic)
+        path = _write_md(category, topic, body, cover=cover)
         print(f"  saved {path.relative_to(REPO_ROOT)}", flush=True)
         generated += 1
         time.sleep(0.5)
