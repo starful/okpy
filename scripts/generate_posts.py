@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generate OKPy blog MD under app/content/posts/{python,cloud,terraform}/.
 
-One Gemini call per topic. Reads TOPIC_QUEUE_* CSVs from okadmin.
+One Claude CLI call per topic. Reads TOPIC_QUEUE_* CSVs from okadmin.
+Cover images still use Imagen (GEMINI_API_KEY) when available.
 Usage:
   python3 scripts/generate_posts.py python
   python3 scripts/generate_posts.py cloud
@@ -48,6 +49,16 @@ COLUMN = {
     "cloud": "Topic",
     "terraform": "Topic",
 }
+
+
+def _claude_md(prompt: str) -> str:
+    """MD text via Claude CLI subscription (not Claude API)."""
+    _shared = Path(__file__).resolve().parents[2] / "shared"
+    if str(_shared) not in sys.path:
+        sys.path.insert(0, str(_shared))
+    from site_llm import generate_md_text
+
+    return generate_md_text(prompt)
 
 
 def _slugify(text: str) -> str:
@@ -121,24 +132,12 @@ Terraform テーマ「{topic}」の実践ガイドを Markdown のみで書い�
 """
 
 
-def _setup_gemini():
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise SystemExit("GEMINI_API_KEY missing")
-    import google.generativeai as genai
-
-    genai.configure(api_key=api_key)
-    model_name = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
-    return genai.GenerativeModel(model_name)
-
-
-def _generate_body(model, category: str, topic: str) -> str | None:
+def _generate_body(category: str, topic: str) -> str | None:
     prompt = _prompt(category, topic)
     last_err = ""
     for attempt in range(2):
         try:
-            res = model.generate_content(prompt)
-            text = (res.text or "").strip()
+            text = (_claude_md(prompt) or "").strip()
             if text.startswith("```"):
                 text = re.sub(r"^```(?:markdown)?\s*", "", text)
                 text = re.sub(r"\s*```$", "", text)
@@ -333,11 +332,10 @@ def generate_category(category: str, limit: int | None = None) -> dict:
         print("✅ No pending topics")
         return {"ok": True, "generated": 0, "failed": 0, "topics": 0}
 
-    model = _setup_gemini()
     generated = failed = 0
     for topic in topics:
         print(f"→ {topic}", flush=True)
-        body = _generate_body(model, category, topic)
+        body = _generate_body(category, topic)
         if not body:
             failed += 1
             continue
