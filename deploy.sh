@@ -61,7 +61,7 @@ require_cmd() {
 sync_cloud_images_to_local() {
     print_step "STEP A: Cloud -> Local post images"
     mkdir -p "$POSTS_IMAGES"
-    gcloud storage rsync "$GCS_BUCKET" "$POSTS_IMAGES" --recursive --project="$GCP_PROJECT_ID"
+    gcloud storage rsync "${GCS_BUCKET}/" "${POSTS_IMAGES}/" --recursive --project="$GCP_PROJECT_ID"
     print_ok "Cloud image sync completed"
 }
 
@@ -71,7 +71,8 @@ upload_images_to_gcs() {
         print_info "No local posts images directory; skipping upload"
         return
     fi
-    gcloud storage rsync "$POSTS_IMAGES" "$GCS_BUCKET" --recursive --checksums-only --project="$GCP_PROJECT_ID"
+    # Trailing slashes: sync file contents only (never create okpy/posts/ on GCS).
+    gcloud storage rsync "${POSTS_IMAGES}/" "${GCS_BUCKET}/" --recursive --checksums-only --project="$GCP_PROJECT_ID"
     # Public read (bucket may already allow this)
     gsutil -m acl ch -u AllUsers:R "$GCS_BUCKET/**" >/dev/null 2>&1 || true
     print_ok "GCS upload completed"
