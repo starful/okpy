@@ -1,33 +1,34 @@
 # OKPy
 
-Technical blog for **okpy.net** — Python library guides and AWS/GCP/Azure comparisons.
+Technical blog for **[okpy.net](https://okpy.net)** — Python library guides and cloud (AWS/GCP/Azure) comparisons. Markdown in-repo, no database.
 
-Content is **Markdown in the repo** (no database). Posts are served by Flask on Cloud Run.
+| | |
+|--|--|
+| **Live** | [https://okpy.net](https://okpy.net) |
+| **GitHub** | [starful/okpy](https://github.com/starful/okpy) |
+| **Hub ID** | `okpy` |
+| **GA4** | Property `422211768` · GSC `sc-domain:okpy.net` |
 
-## Topics
+## Content categories
 
-| Category | Source (generation) | URL |
-|----------|---------------------|-----|
-| `python` | `hatena/csv/python.csv` → `unified_poster.py py` | `/category/python` |
-| `cloud` | `hatena/csv/cloud.csv` → `unified_poster.py cloud` | `/category/cloud` |
+| Category | URL | Generator |
+|----------|-----|-----------|
+| `python` | `/category/python` | `scripts/generate_posts.py python` |
+| `cloud` | `/category/cloud` | `scripts/generate_posts.py cloud` |
+| `terraform` | `/category/terraform` | `scripts/generate_posts.py terraform` |
 
-Sunday auto job (`/opt/work/ops/auto_register.sh`) can publish to Hatena; for **okpy.net**, add exported Markdown under `app/content/posts/`.
+Posts live in `app/content/posts/<slug>.md` with YAML frontmatter (`title`, `date`, `category`, `slug`, `summary`).
 
-## Post format
+## Tech stack
 
-Create `app/content/posts/<slug>.md`:
+- **Backend:** Flask
+- **Content:** Markdown → build step as needed
+- **Infra:** Cloud Run (`deploy.sh`, `cloudbuild.yaml`)
+- **Images:** GCS `ok-project-assets/okpy/` · Imagen prompt template in `sites.yaml`
 
-```yaml
----
-title: "記事タイトル"
-date: 2026-04-29
-category: python   # or cloud
-slug: my-post-slug
-summary: "一覧用の短い説明"
----
-```
+## OK Admin pipeline
 
-Body: Markdown (Japanese). H1 in body is optional; `title` in frontmatter is used for SEO.
+Separate limits: `PYTHON_LIMIT`, `CLOUD_LIMIT`, `TERRAFORM_LIMIT` (fallback: `CONTENT_LIMIT`). Each runs `scripts/generate_posts.py <category>`.
 
 ## Local run
 
@@ -38,9 +39,9 @@ pip install -r requirements.txt
 python run.py
 ```
 
-Open http://localhost:8080
+Open [http://localhost:8080](http://localhost:8080).
 
-## SEO: 301 from old Hatena paths
+## SEO: redirects from legacy Hatena
 
 Copy `data/redirects.csv.example` → `data/redirects.csv`:
 
@@ -49,33 +50,32 @@ old_path,new_url
 /entry/old-slug,https://okpy.net/blog/new-slug
 ```
 
-`old_path` is the path only (e.g. Hatena entry path). Restart app after changes.
+Restart the app after changes.
 
 ## Deploy
 
 ```bash
 chmod +x deploy.sh
 ./deploy.sh --deploy-only
-```
-
-With git push:
-
-```bash
 ./deploy.sh --deploy-only --with-git --with-deploy
 ```
 
-Defaults: `PROJECT_NAME=okpy`, `SERVICE_URL=https://okpy.net` (see `cloudbuild.yaml`).
+Defaults: `PROJECT_NAME=okpy`, `SERVICE_URL=https://okpy.net`.
 
 ## DNS note
 
-`okpy.net` can point to Cloud Run **or** Hatena — not both on the same host without a proxy. Typical migration:
-
-1. Run blog on Cloud Run (subdomain or path)
-2. Fill `data/redirects.csv` for moved articles
-3. Shift DNS when ready
+`okpy.net` can point to Cloud Run or Hatena — not both on the same host without a proxy. Typical migration: run on Cloud Run, fill `redirects.csv`, then switch DNS.
 
 ## Tests
 
 ```bash
 python -m pytest tests/ -q
 ```
+
+## OK Admin
+
+Hub **Content** tab for generation · **Git** tab Ship prep / **Deploy** tab from `main`.
+
+## Related
+
+- [OK Admin](../okadmin/README.md) · [WORK_ROOT](../README.md)
