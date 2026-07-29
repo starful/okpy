@@ -97,7 +97,6 @@ def main():
                 "address":     str(post.get('address', 'Japan')),
                 "published":   str(post.get('date', datetime.now().strftime('%Y-%m-%d'))),
                 "summary":     summary,
-                "agoda":       str(post.get('agoda', '')),
                 "link":        f"/item/{item_id}",
             })
         except Exception as e:
