@@ -47,6 +47,21 @@ REDIRECTS_CSV = os.path.join(DATA_DIR, "redirects.csv")
 CACHED_POSTS = []  # newest first
 REDIRECT_MAP = {}  # path -> full new_url
 
+# Hatena /archive/category/<name> → OKPy blog category
+ARCHIVE_CATEGORY_MAP = {
+    "python": "python",
+    "lib": "python",
+    "cloud": "cloud",
+    "gcp": "cloud",
+    "aws": "cloud",
+    "azure": "cloud",
+    "data model": "data-model",
+    "fit journey": "fit-journey",
+    "agile&scrum": "agile-scrum",
+    "開発方法論": "dev-method",
+    "project position": "fit-journey",
+}
+
 
 def _clean_md(text):
     text = re.sub(r"^```[a-z]*\n", "", text)
@@ -286,9 +301,41 @@ def load_redirects():
                 if not old.startswith("/"):
                     old = "/" + old
                 REDIRECT_MAP[old] = new
+
+        # Alias /entry/.../090000_1 → also accept /entry/.../090000 (Hatena variants)
+        extras = {}
+        for old, new in REDIRECT_MAP.items():
+            m = re.match(r"^(/entry/\d{4}/\d{2}/\d{2}/\d{6})_\d+$", old)
+            if m and m.group(1) not in REDIRECT_MAP:
+                extras[m.group(1)] = new
+        REDIRECT_MAP.update(extras)
         print(f"✅ Redirect rules loaded: {len(REDIRECT_MAP)}")
     except Exception as e:
         print(f"❌ Redirect load error: {e}")
+
+
+def _legacy_archive_redirect(path: str):
+    """Map Hatena archive URLs to home or a blog category."""
+    prefix = "/archive/category/"
+    if path.startswith(prefix):
+        raw = path[len(prefix) :]
+        name = urllib.parse.unquote(raw.split("/")[0]).strip()
+        cat = ARCHIVE_CATEGORY_MAP.get(name.lower()) or ARCHIVE_CATEGORY_MAP.get(name)
+        if cat and cat in SITE_CONFIG.get("blog_categories", {}):
+            return redirect(f"/category/{cat}", code=301)
+    return redirect("/", code=301)
+
+
+def _strip_page_query_redirect():
+    """Collapse Hatena ?page= soft-duplicates onto the clean path."""
+    if "page" not in request.args:
+        return None
+    args = request.args.to_dict(flat=True)
+    args.pop("page", None)
+    path = request.path or "/"
+    if args:
+        return redirect(f"{path}?{urllib.parse.urlencode(args)}", code=301)
+    return redirect(path, code=301)
 
 
 def load_posts():
@@ -359,12 +406,32 @@ def _footer_ctx():
 @app.before_request
 def apply_legacy_redirects():
     path = request.path
+
+    # Dead Hatena surfaces → consolidate crawl budget
+    if path == "/archive" or path.startswith("/archive/"):
+        return _legacy_archive_redirect(path)
+    if path == "/rss" or path.startswith("/rss/"):
+        return redirect("/", code=301)
+
     if path in REDIRECT_MAP:
         return redirect(REDIRECT_MAP[path], code=301)
+    if path != "/" and path.endswith("/"):
+        trimmed = path.rstrip("/") or "/"
+        if trimmed in REDIRECT_MAP:
+            return redirect(REDIRECT_MAP[trimmed], code=301)
     if path != "/" and not path.endswith("/"):
         alt = path + "/"
         if alt in REDIRECT_MAP:
             return redirect(REDIRECT_MAP[alt], code=301)
+
+    # Unmapped /entry/... (deleted or never imported) → home
+    if path.startswith("/entry/"):
+        return redirect("/", code=301)
+
+    # /?page=TIMESTAMP soft-duplicates of the homepage (and other paths)
+    page_redir = _strip_page_query_redirect()
+    if page_redir is not None:
+        return page_redir
 
 
 load_redirects()
