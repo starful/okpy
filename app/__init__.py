@@ -56,6 +56,7 @@ ARCHIVE_CATEGORY_MAP = {
     "aws": "cloud",
     "azure": "cloud",
     "data model": "data-model",
+    "data analysis": "data-analysis",
     "fit journey": "fit-journey",
     "agile&scrum": "agile-scrum",
     "開発方法論": "dev-method",

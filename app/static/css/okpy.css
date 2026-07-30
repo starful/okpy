@@ -26,6 +26,7 @@
   --cat-terraform: #6b5a45;
   --cat-dev-method: #6b5a4a;
   --cat-data-model: #5a4a6b;
+  --cat-data-analysis: #3d5a6b;
   --cat-pmbok: #6b4a5a;
   --cat-agile-scrum: #4a6b58;
   --cat-fit-journey: #6b5844;
@@ -413,6 +414,7 @@ img { max-width: 100%; height: auto; display: block; }
 .story-card__cover--terraform { background: linear-gradient(145deg, #edeae4 0%, #e0d6c8 100%); }
 .story-card__cover--dev-method { background: linear-gradient(145deg, #edeae6 0%, #e0d8cf 100%); }
 .story-card__cover--data-model { background: linear-gradient(145deg, #eae8ed 0%, #dcd4e3 100%); }
+.story-card__cover--data-analysis { background: linear-gradient(145deg, #e6ecef 0%, #d0dde4 100%); }
 .story-card__cover--pmbok { background: linear-gradient(145deg, #ede8ea 0%, #e0d4d9 100%); }
 .story-card__cover--agile-scrum { background: linear-gradient(145deg, #e8ede9 0%, #d4e0d8 100%); }
 .story-card__cover--fit-journey { background: linear-gradient(145deg, #edeae6 0%, #e0d4c4 100%); }
@@ -505,6 +507,7 @@ img { max-width: 100%; height: auto; display: block; }
 .tag-terraform { background: #edeae4; color: var(--cat-terraform); }
 .tag-dev-method { background: #edeae6; color: var(--cat-dev-method); }
 .tag-data-model { background: #eae8ed; color: var(--cat-data-model); }
+.tag-data-analysis { background: #e6ecef; color: var(--cat-data-analysis); }
 .tag-pmbok { background: #ede8ea; color: var(--cat-pmbok); }
 .tag-agile-scrum { background: #e8ede9; color: var(--cat-agile-scrum); }
 .tag-fit-journey { background: #edeae6; color: var(--cat-fit-journey); }
@@ -705,6 +708,7 @@ img { max-width: 100%; height: auto; display: block; }
 .article-hero--terraform .article-hero__placeholder { background: linear-gradient(145deg, #edeae4 0%, #e0d6c8 100%); }
 .article-hero--dev-method .article-hero__placeholder { background: linear-gradient(145deg, #edeae6 0%, #e0d8cf 100%); }
 .article-hero--data-model .article-hero__placeholder { background: linear-gradient(145deg, #eae8ed 0%, #dcd4e3 100%); }
+.article-hero--data-analysis .article-hero__placeholder { background: linear-gradient(145deg, #e6ecef 0%, #d0dde4 100%); }
 .article-hero--pmbok .article-hero__placeholder { background: linear-gradient(145deg, #ede8ea 0%, #e0d4d9 100%); }
 .article-hero--agile-scrum .article-hero__placeholder { background: linear-gradient(145deg, #e8ede9 0%, #d4e0d8 100%); }
 .article-hero--fit-journey .article-hero__placeholder { background: linear-gradient(145deg, #edeae6 0%, #e0d4c4 100%); }

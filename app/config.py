@@ -8,7 +8,7 @@ SITE_CONFIG = {
     "project_name": "okpy",
     "site_name": "OKPy",
     "site_url": os.getenv("SITE_URL", "https://okpy.net"),
-    "tagline": "Python · Cloud · Terraform · 開発方法論 · PM",
+    "tagline": "Python · Cloud · Terraform · Data Analysis · PM",
     "site_mode": "blog",
     "gcs_image_base": os.getenv(
         "GCS_IMAGE_BASE",
@@ -56,6 +56,12 @@ SITE_CONFIG = {
             "hub_suffix": "",
             "description": "概念・論理・物理データモデル、ERD、NoSQL、データガバナンス。",
         },
+        "data-analysis": {
+            "label": "Data Analysis",
+            "emoji": "📊",
+            "hub_suffix": "",
+            "description": "効果サイズ、A/Bテスト、計測・実験設計。ベンチマークと方法論。",
+        },
         "pmbok": {
             "label": "PMBOK",
             "emoji": "📋",
@@ -76,6 +82,6 @@ SITE_CONFIG = {
         },
     },
 
-    "footer_tagline": "Python, cloud, Terraform, and software engineering practices.",
+    "footer_tagline": "Python, cloud, Terraform, data analysis, and software engineering practices.",
     "footer_year": "2026",
 }

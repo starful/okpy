@@ -5,6 +5,7 @@ HATENA_TAG_PRIORITY = [
     ("Fit Journey", "fit-journey"),
     ("Agile&Scrum", "agile-scrum"),
     ("PMBOK", "pmbok"),
+    ("Data Analysis", "data-analysis"),
     ("Data Model", "data-model"),
     ("開発方法論", "dev-method"),
 ]
@@ -22,6 +23,7 @@ PRESERVE_CATEGORIES = frozenset(
         "terraform",
         "dev-method",
         "data-model",
+        "data-analysis",
         "pmbok",
         "agile-scrum",
         "fit-journey",

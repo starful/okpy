@@ -16,8 +16,20 @@ Technical blog for **[okpy.net](https://okpy.net)** — Python library guides an
 | `python` | `/category/python` | `scripts/generate_posts.py python` |
 | `cloud` | `/category/cloud` | `scripts/generate_posts.py cloud` |
 | `terraform` | `/category/terraform` | `scripts/generate_posts.py terraform` |
+| `data-analysis` | `/category/data-analysis` | StatFacts migrate + `scripts/rewrite_data_analysis_ja.py` |
 
-Posts live in `app/content/posts/<slug>.md` with YAML frontmatter (`title`, `date`, `category`, `slug`, `summary`).
+Archive categories (`dev-method`, `data-model`, `pmbok`, `agile-scrum`, `fit-journey`) are display-only.
+
+Posts live in `app/content/posts/<category>/<slug>.md` with YAML frontmatter (`title`, `date`, `category`, `slug`, `summary`, optional `cover`/`lang`).
+
+### StatFacts → Data Analysis
+
+```bash
+python3 scripts/migrate_statfacts.py          # EN import (insights + guides)
+DATA_ANALYSIS_JA_LIMIT=3 python3 scripts/rewrite_data_analysis_ja.py  # EN→JA batch
+```
+
+okadmin Content job **Data Analysis EN→JA**, or pipeline with `CONTENT_PIPELINE_WITH_JA=1`.
 
 ## Tech stack
 

@@ -17,6 +17,7 @@ CATEGORY_KEYWORDS: dict[str, str] = {
     "terraform": "Terraform",
     "dev-method": "開発方法論",
     "data-model": "データモデル",
+    "data-analysis": "データ分析",
     "pmbok": "PMBOK",
     "agile-scrum": "スクラム",
     "fit-journey": "新規事業",
@@ -28,6 +29,7 @@ BUTTON_LABELS: dict[str, str] = {
     "terraform": "Amazonで Terraform 関連を探す",
     "dev-method": "Amazonで開発方法論を探す",
     "data-model": "Amazonでデータモデルを探す",
+    "data-analysis": "Amazonでデータ分析を探す",
     "pmbok": "Amazonで PMBOK を探す",
     "agile-scrum": "Amazonでスクラムを探す",
     "fit-journey": "Amazonで新規事業を探す",
@@ -58,6 +60,9 @@ RAKUTEN_URLS: dict[str, str] = {
     ),
     "データモデル": _rakuten_url(
         "%25E3%2583%2587%25E3%2583%25BC%25E3%2582%25BF%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%2520%25E6%259C%25AC"
+    ),
+    "データ分析": _rakuten_url(
+        "%25E3%2583%2587%25E3%2583%25BC%25E3%2582%25BF%25E5%2588%2586%25E6%259E%2590%2520%25E6%259C%25AC"
     ),
     "PMBOK": _rakuten_url("PMBOK%2520%25E6%259C%25AC"),
     "スクラム": _rakuten_url(
