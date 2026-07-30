@@ -22,7 +22,7 @@
     <meta name="twitter:description" content="{% if active_category %}{{ categories[active_category].description }}{% else %}Python・クラウド・開発方法論の技術ブログ — okpy.net{% endif %}">
     <meta name="twitter:image" content="{{ og_image }}">
     {% include '_head_icons.html' %}
-    <link rel="stylesheet" href="/static/css/okpy.css?v=20">
+    <link rel="stylesheet" href="/static/css/okpy.css?v=21">
 </head>
 <body>
     {% include 'header.html' %}
@@ -37,8 +37,6 @@
             <p class="brand-hero__tagline">Python · Cloud · 開発方法論 — 実務目線の技術ブログ</p>
             <p class="brand-hero__stats">{{ category_counts.all }} 記事 · {{ categories|length }} トピック</p>
         </section>
-
-        {% include '_search_box.html' %}
 
         {% if latest_posts %}
         <section class="section" id="latest">
@@ -114,8 +112,6 @@
             {% include '_amazon_box.html' %}
         </section>
 
-        {% include '_search_box.html' %}
-
         {% if posts %}
         <section class="section">
             <div class="story-grid" id="post-grid">
@@ -129,11 +125,9 @@
         {% endif %}
 
         {% endif %}
-
-        <p class="search-empty" id="search-empty" hidden>該当する記事が見つかりませんでした。</p>
     </main>
 
     {% include 'footer.html' %}
-    <script src="/static/js/okpy.js?v=5"></script>
+    <script src="/static/js/okpy.js?v=6"></script>
 </body>
 </html>

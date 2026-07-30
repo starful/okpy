@@ -1,6 +1,6 @@
 {# Story card — Medium-style with cover image #}
 {% set card_cover = post.card_cover or post.cover %}
-<a href="/blog/{{ post.slug }}" class="story-card{% if featured and card_cover %} story-card--featured{% endif %}" data-cat="{{ post.category }}" data-searchable>
+<a href="/blog/{{ post.slug }}" class="story-card{% if featured and card_cover %} story-card--featured{% endif %}" data-cat="{{ post.category }}">
     {% if card_cover %}
     <div class="story-card__cover">
         <img src="{{ card_cover }}" alt="" loading="lazy" width="640" height="360">

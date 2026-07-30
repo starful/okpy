@@ -1,44 +1,4 @@
 (function () {
-  function bindSearch(inputs, cards, emptyEl) {
-    function runSearch(q) {
-      q = (q || '').trim().toLowerCase();
-      var visible = 0;
-      cards.forEach(function (el) {
-        if (!q) {
-          el.style.display = '';
-          visible++;
-          return;
-        }
-        var text = (el.textContent || '').toLowerCase();
-        var show = text.indexOf(q) !== -1;
-        el.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      if (emptyEl) {
-        emptyEl.hidden = !q || visible > 0;
-      }
-    }
-
-    inputs.forEach(function (input) {
-      if (!input) return;
-      input.addEventListener('input', function () {
-        var q = input.value;
-        inputs.forEach(function (other) {
-          if (other !== input) other.value = q;
-        });
-        runSearch(q);
-      });
-    });
-  }
-
-  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-searchable]'));
-  var emptyEl = document.getElementById('search-empty');
-  bindSearch(
-    [document.getElementById('post-search')],
-    cards,
-    emptyEl
-  );
-
   var dropdown = document.querySelector('.nav-dropdown');
   var toggle = document.getElementById('topics-toggle');
   if (dropdown && toggle) {
