@@ -1,0 +1,41 @@
+﻿id,topic_en,topic_ko,keywords
+benchmark-segmentation,Segmenting benchmarks by device and traffic source,,benchmark segmentation mobile desktop
+guardrail-metrics-ab-tests,Choosing guardrail metrics for A/B tests,,guardrail metrics ab test
+reading-meta-analysis-limits,What meta-analysis can and cannot tell product teams,,meta analysis limits product
+documenting-experiment-priors,Documenting external priors in experiment briefs,,experiment brief benchmark prior
+seasonality-and-benchmarks,Adjusting benchmarks for seasonality and campaigns,,seasonality benchmark context
+sample-ratio-mismatch,Detecting sample ratio mismatch in experiments,,srm sample ratio mismatch
+funnel-step-definitions,Defining funnel steps consistently across teams,,funnel definition analytics
+power-analysis-primer,Power analysis primer for product experiments,,power analysis ab test
+novelty-effects-experiments,Detecting novelty effects in long-running experiments,,novelty effect experiment
+how-to-read-benchmarks,How to read StatFacts benchmarks,StatFacts 벤치마크 읽는 법,read benchmarks effect size
+relative-vs-absolute-effects,Relative vs absolute effects,상대 효과 vs 절대 효과,relative percent percentage points
+confidence-levels-explained,Confidence levels explained,신뢰도 라벨 설명,meta-analysis ab test estimate
+when-not-to-use-a-benchmark,When not to use a benchmark,벤치마크를 쓰지 말아야 할 때,benchmark misuse context
+how-to-cite-in-a-deck,How to cite StatFacts in a deck,덱에서 StatFacts 인용하기,cite benchmark slide deck
+planning-ab-test-from-benchmark,Planning an A/B test from a benchmark,벤치마크로 A/B 테스트 계획,ab test planning mde
+handling-outliers-experiment-data,Handling outliers in revenue and engagement experiment data,,outliers winsorization truncation ab-testing revenue-metrics
+non-inferiority-ab-testing,How to run and interpret non-inferiority A/B tests,,non-inferiority hypothesis-testing statistics guardrail-tests
+defining-overall-evaluation-criterion,How to define an Overall Evaluation Criterion (OEC) for experiments,,oec metric-framework experimental-design primary-metrics
+multiple-comparisons-abn-testing,How to control for multiple comparisons in A/B/n testing,,multiple comparisons bonferroni false positive multi variant experimentation statistics
+cuped-variance-reduction,A product team's guide to CUPED and variance reduction,,cuped variance reduction sample size sensitivity power analysis regression adjustment
+experiment-interference-network-effects,Identifying and mitigating user interference and network effects,,network effects spillover user interference cluster randomization market level testing
+one-tailed-vs-two-tailed-testing,One-tailed vs. two-tailed hypothesis tests in product experiments,,statistics hypotheses statistical significance testing methodology statistical power
+low-traffic-ab-testing-strategies,Running A/B tests on low-traffic sites and products,,minimum detectable effect sample size conversion rate optimization startups heuristics
+choosing-unit-of-randomization,Choosing the correct unit of randomization in experiments,,experimental design user level session level statistical independence leakage
+calculating-minimum-detectable-effect,How to calculate Minimum Detectable Effect (MDE) for power analysis,,mde power-analysis sample-size statistical-power
+running-aa-tests-validation,Using A/A testing to validate experimentation platforms,,aa-test validation platform experiment-design
+preventing-p-hacking-experiments,How to prevent p-hacking and data dredging in post-hoc analysis,,p-hacking data-dredging ethics statistics false-positives
+bayesian-vs-frequentist-testing,Bayesian vs. frequentist approaches to A/B testing,,"bayesian ab testing, frequentist statistics, posterior probability, p-value, experimentation methodology"
+experiment-peeking-stopping-rules,Setting stopping rules to avoid peeking in experiments,,"peeking problem, stopping rules, sequential testing, alpha spending, false positive rate, ab testing"
+heterogeneous-treatment-effect-analysis,Analyzing heterogeneous treatment effects across segments,,"heterogeneous treatment effects, subgroup analysis, segment-level lift, experiment analysis, personalization"
+survivorship-bias-benchmark-data,Spotting survivorship bias in benchmark datasets,,"survivorship bias, benchmark data, selection bias, analytics"
+preregistration-experiment-analysis-plan,Pre-registering analysis plans before running an experiment,,"pre-registration, analysis plan, experiment design, p-hacking prevention"
+attribution-window-selection,Choosing the right attribution window for conversion events,,"attribution window, conversion tracking, analytics, experiment measurement"
+diff-in-diff-quasi-experiments,Using difference-in-differences when randomization isn't possible,,"difference in differences, quasi-experiment, causal inference, observational data, natural experiment"
+geo-holdout-experiment-design,Designing geo-based holdout experiments,,"geo experiment, holdout region, marketing measurement, incrementality, geo testing"
+multi-armed-bandit-tradeoffs,Multi-armed bandits vs fixed-horizon A/B tests,,"multi-armed bandit, exploration exploitation, adaptive allocation, ab testing tradeoffs"
+unequal-traffic-split-allocation,When and how to use unequal traffic splits in A/B experiments,,"traffic allocation, experiment design, statistical power, early stopping, risk management"
+retention-cohort-curve-analysis,Analyzing retention curves by user cohort,,"retention, cohort analysis, user segments, behavioral patterns, lifetime value"
+sequential-analysis-monitoring-continuous,Sequential analysis and continuous monitoring in A/B experiments,,sequential testing continuous monitoring optional stopping
+temporal-confounding-time-effects,Identifying and controlling for temporal confounding in experiment analysis,,temporal confounding time-of-day day-of-week seasonality

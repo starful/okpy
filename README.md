@@ -25,11 +25,15 @@ Posts live in `app/content/posts/<category>/<slug>.md` with YAML frontmatter (`t
 ### StatFacts → Data Analysis
 
 ```bash
-python3 scripts/migrate_statfacts.py          # EN import (insights + guides)
-DATA_ANALYSIS_JA_LIMIT=3 python3 scripts/rewrite_data_analysis_ja.py  # EN→JA batch
+python3 scripts/migrate_statfacts.py          # one-time EN import
+python3 scripts/generate_data_analysis.py insights 3
+python3 scripts/generate_data_analysis.py guides 2
+python3 scripts/fetch_data_analysis_images.py
+DATA_ANALYSIS_JA_LIMIT=3 python3 scripts/rewrite_data_analysis_ja.py
 ```
 
-okadmin Content job **Data Analysis EN→JA**, or pipeline with `CONTENT_PIPELINE_WITH_JA=1`.
+okadmin Content jobs: **Data Analysis 인사이트/가이드/이미지/EN→JA**.
+Covers live under `gs://ok-project-assets/okpy/` (migrated from `statfacts/` prefix).
 
 ## Tech stack
 
