@@ -23,7 +23,7 @@ OUT_DIR = REPO_ROOT / "app" / "content" / "posts" / "data-analysis"
 CATEGORY = "data-analysis"
 GCS_STATFACTS = os.getenv(
     "STATFACTS_GCS_BASE",
-    "https://storage.googleapis.com/ok-project-assets/statfacts",
+    "https://storage.googleapis.com/ok-project-assets/okpy",
 ).rstrip("/")
 
 
