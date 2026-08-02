@@ -49,7 +49,7 @@ CATEGORY = "data-analysis"
 
 
 def _claude_md(prompt: str) -> str:
-    shared = REPO_ROOT.parent / "shared"
+    shared = REPO_ROOT.parent / "_shared"
     if str(shared) not in sys.path:
         sys.path.insert(0, str(shared))
     from site_llm import generate_md_text

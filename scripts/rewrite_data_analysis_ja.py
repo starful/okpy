@@ -60,7 +60,7 @@ def _strip_fence(text: str) -> str:
 
 
 def _claude(prompt: str) -> str:
-    shared = REPO_ROOT.parent / "shared"
+    shared = REPO_ROOT.parent / "_shared"
     if str(shared) not in sys.path:
         sys.path.insert(0, str(shared))
     from site_llm import generate_md_text
