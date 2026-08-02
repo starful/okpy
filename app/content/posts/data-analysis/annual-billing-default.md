@@ -1,45 +1,44 @@
 ---
-title: Does defaulting to annual billing increase ARPU?
+title: 年払いをデフォルト表示にするとARPUは上がるのか
 date: '2026-05-09'
 category: data-analysis
 slug: annual-billing-default
-summary: Annual-by-default pricing layouts are commonly reported to increase annual
-  plan share by roughly 12–35% relative.
-lang: en
+summary: 料金ページで年払いプランをあらかじめ選択状態にしておく（月払いへの切り替えは可能）という設計は、年払い契約の比率を相対値で12〜35%程度押し上げるという報告が複数見られる。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/annual-billing-default.jpg
 ---
 
-## Effect snapshot
+## 効果サマリー
 
 | | |
 |--|--|
-| Intervention | Pre-select annual plan (with monthly toggle) on pricing page |
-| Outcome | Share of subscribers choosing annual billing |
-| Effect | 12–35 percent relative increase |
-| Confidence | `ab_test` |
-| Context | Subscription SaaS, US/EU consumers and SMB, 2022–2025 |
+| 施策 | 料金ページで年払いプランをデフォルト選択にする（月払いへの切り替えボタンあり） |
+| 指標 | 年払いを選択する契約者の比率 |
+| 効果 | 相対値で12〜35%の増加 |
+| 確度 | `ab_test`（A/Bテストによる検証） |
+| 対象文脈 | サブスクリプション型SaaS、米国・欧州の個人ユーザーおよび中小企業（SMB）、2022〜2025年 |
 
-### Sources
+### 出典
 
 - [ProfitWell — Pricing psychology](https://www.profitwell.com/recur/all/pricing-psychology)
 
-## What changes
+## 何が変わるのか
 
-Annual-by-default pricing layouts are commonly reported to increase annual plan share by roughly 12–35% relative.
+年払いプランをデフォルト表示にする料金ページ設計は、年払い契約の比率を相対値でおよそ12〜35%引き上げると報告されている。デフォルト選択肢を変えるだけで、ユーザーがあえて月払いに切り替える手間を発生させ、現状維持バイアスを年払い側に働かせる仕組みだと考えられる。
 
-## When this tends to work
+## 効きやすい条件
 
-- Conditions similar to: Subscription SaaS, US/EU consumers and SMB, 2022–2025
-- You can measure `Share of subscribers choosing annual billing` reliably
-- The intervention is implemented consistently, not half-measured
+- 引用元と近い文脈（サブスクリプション型SaaS、米国・欧州の個人ユーザーおよび中小企業、2022〜2025年）で運用している
+- 「年払いを選択する契約者の比率」を安定して計測できる
+- 施策を中途半端にせず、一貫した形で実装できている（例: 月払いへの切り替え導線は残しつつ、初期表示は年払いに統一する）
 
-## When to be careful
+## 注意すべき点
 
-- Your audience or product differs materially from the cited context
-- Compliance costs or second-order effects outweigh the lift
-- Evidence label is **ab_test**—treat wide ranges as planning bands, not promises
+- 対象ユーザー層やプロダクトが引用元の文脈と大きく異なる場合
+- 表示変更に伴うコンプライアンス上のコストや、解約率上昇などの二次的な影響が、ARPU向上によるメリットを上回る場合
+- 確度ラベルは **ab_test** であり、幅のある数値は「約束された効果」ではなく「計画立案用の目安」として扱うべき
 
-## Practical takeaway
+## 実務への示唆
 
-Use the cited range for prioritization and test design. Verify against your own data before scaling.
+上記のレンジは、優先順位付けやテスト設計の目安として活用するとよい。ただし本格展開の前には、自社データで効果を検証することが望ましい。
