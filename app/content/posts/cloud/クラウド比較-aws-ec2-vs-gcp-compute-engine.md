@@ -5,8 +5,12 @@ date: 2025-02-04
 hatena_path: /entry/2025/02/04/165238
 slug: クラウド比較-aws-ec2-vs-gcp-compute-engine
 summary: Amazon EC2（Elastic Compute Cloud）は、AWSが提供するIaaS（Infrastructure as a Service）ベースの仮想マシンサービスです。
-title: 'クラウド比較: AWS EC2 vs GCP Compute Engine'
+title: 'AWS EC2 vs GCP Compute Engine: コスト・パフォーマンス徹底比較'
+description: EC2とGoogle Compute Engineを徹底比較。料金、パフォーマンス、使いやすさを詳しく解説。クラウドサービス選びで失敗しない方法をご紹介します。
+seo_title: 'AWS EC2 vs GCP Compute Engine: コスト・パフォーマンス徹底比較 | OKPy'
+seo_description: EC2とGoogle Compute Engineを徹底比較。料金、パフォーマンス、使いやすさを詳しく解説。クラウドサービス選びで失敗しない方法をご紹介します。
 ---
+
 
 # クラウド比較: AWS EC2 vs GCP Compute Engine
 

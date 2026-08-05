@@ -5,8 +5,12 @@ date: 2025-12-26
 hatena_path: /entry/2025/12/26/090000
 slug: python-tesseract-ocr-画像の中の文字-まだ手で打ち込んでいませんか
 summary: Tesseract OCRは、画像ファイル（スキャンした書類や写真など）からテキストを自動で読み取るための強力なオープンソースOCRエンジンです。Pythonのpytesseractライブラリと組み合わせることで、文字認識のプロセスを驚くほど簡単に自動化できます。紙媒体の情報をデジタル化したり、画像内の特定のデータを抽…
-title: 'Python Tesseract OCR: 画像の中の文字、まだ手で打ち込んでいませんか？'
+title: 【Python OCR】Tesseractで画像から文字を自動抽出｜実装完全ガイド
+description: Tesseract OCRとPythonを使ったOCR実装の完全ガイド。スキャン書類や写真から文字を自動認識・抽出し、デジタル化する方法をコード例とともに詳しく解説。
+seo_title: 【Python OCR】Tesseractで画像から文字を自動抽出｜実装完全ガイド — OKPy
+seo_description: Python TesseractでOCR実装。画像から文字を自動抽出。スキャン書類のデジタル化も簡単。コード例と手順を完全解説。
 ---
+
 
 # Python Tesseract OCR: 画像の中の文字、まだ手で打ち込んでいませんか？
 

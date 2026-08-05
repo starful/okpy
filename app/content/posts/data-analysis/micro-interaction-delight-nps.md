@@ -1,5 +1,5 @@
 ---
-title: How Much Can Micro-Interactions Boost Your Net Promoter Score?
+title: How Micro-Interactions & Haptics Improve User Experience
 date: '2026-07-30'
 category: data-analysis
 slug: micro-interaction-delight-nps
@@ -8,7 +8,13 @@ summary: Layering subtle animation, press feedback, and haptics across a product
 lang: en
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/micro-interaction-delight-nps.jpg
+description: Strategic guide to using subtle animations and press feedback to enhance
+  UX and boost customer satisfaction.
+seo_title: 'Micro-Interactions: Improve UX & Boost NPS by 8-16% — OKPy'
+seo_description: Learn how micro-interactions and animations improve user experience
+  and increase NPS by 8-16%. Evidence-based UX design guide.
 ---
+
 
 ## Effect snapshot
 
