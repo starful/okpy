@@ -1,68 +1,66 @@
 ---
-title: Does replacing live phone screens with async video interviews improve candidate
-  completion rates?
+title: 対面電話面接を非同期動画面接に置き換えると、候補者の完了率は上がるか
 date: '2026-06-29'
 category: data-analysis
 slug: async-video-interview-completion
-summary: Switching from live phone screens to async one-way video interviews can increase
-  candidate screen completion rates by 12% to 30%.
-lang: en
+summary: 対面（ライブ）の電話一次面接を、候補者が好きなタイミングで回答を録画・提出できる非同期の動画面接に切り替えると、候補者のスクリーニング完了率が12〜30％（相対値）向上する可能性がある。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/async-video-interview-completion.jpg
 ---
 
-## Effect snapshot
+## 効果のスナップショット
 
 | | |
 |--|--|
-| Intervention | Replace live phone screen with async one-way video interview |
-| Outcome | Candidate screen completion rate |
-| Effect | 12–30 percent relative increase |
-| Confidence | `estimate` |
-| Context | For organizations streamlining their initial hiring funnel, particularly for high-volume roles or remote positions across various industries. |
+| 施策 | ライブ電話面接を非同期・一方向の動画面接に置き換える |
+| 指標 | 候補者のスクリーニング完了率 |
+| 効果 | 12〜30％の相対的な増加 |
+| 確信度 | `推定値` |
+| 適用文脈 | 採用初期のファネルを効率化したい組織。特に大量採用職種やリモート職種、業種を問わず幅広く該当 |
 
-### Sources
+### 出典
 
 - [https://www.shrm.org/resources-and-tools/hr-topics/talent-acquisition/pages/async-video-interviews-boost-completion.aspx](https://www.shrm.org/resources-and-tools/hr-topics/talent-acquisition/pages/async-video-interviews-boost-completion.aspx)
 - [https://www.talentboard.org/research/async-interview-impact/](https://www.talentboard.org/research/async-interview-impact/)
 
-## What changes
+## 何が変わるのか
 
-Traditionally, initial candidate screening often involves a live phone call between a recruiter and an applicant. This process, while seemingly straightforward, often faces scheduling challenges, time zone discrepancies, and last-minute cancellations, leading to significant drop-off rates in the hiring funnel.
+従来、候補者の一次スクリーニングはリクルーターと応募者による電話でのライブ通話が一般的だった。一見シンプルなプロセスに見えるが、実際には日程調整の難しさ、タイムゾーンのずれ、直前キャンセルなどが頻発し、採用ファネルにおける大きな離脱要因となってきた。
 
-Replacing these live phone screens with an asynchronous (async) one-way video interview fundamentally changes the interaction. Instead of a synchronous call, candidates receive a set of pre-recorded questions and are given a window (e.g., 24-72 hours) to record and submit their video responses at their convenience. Recruiters then review these submissions on their own schedule. This shift eliminates the need for real-time coordination, offering unparalleled flexibility to both candidates and hiring teams.
+このライブ電話面接を、非同期（async）の一方向動画面接に置き換えると、候補者とのやり取りの構造そのものが変わる。同期的な通話の代わりに、候補者はあらかじめ用意された質問セットを受け取り、一定の猶予期間（例：24〜72時間）の中で好きなタイミングに回答を録画・提出する。リクルーター側も自分のスケジュールでそれらの提出動画を確認すればよい。この仕組みによってリアルタイムでの日程調整が不要になり、候補者・採用チームの双方にとって柔軟性が大きく高まる。
 
-This intervention directly impacts the **candidate screen completion rate**. Studies and industry observations suggest that this strategic shift can lead to a **relative increase in completion rates ranging from 12% to 30%**. This means that for every 100 candidates invited to an initial screen, 12 to 30 more candidates are likely to complete the process compared to a live phone screen approach.
+この施策は**候補者のスクリーニング完了率**に直接影響する。複数の調査や業界での観測によれば、この移行により**完了率が相対的に12〜30％向上する**とされている。つまり一次スクリーニングに招待した候補者100人あたり、ライブ電話面接の場合と比べて12〜30人多く、プロセスを完了する計算になる。
 
-## When this tends to work
+## 効果が出やすいケース
 
-The adoption of async video interviews is particularly effective in several scenarios:
+非同期動画面接の導入は、特に次のようなシーンで効果を発揮しやすい。
 
-*   **High-Volume Recruiting:** For roles that attract a large number of applicants (e.g., customer service, entry-level positions, retail), async interviews drastically reduce the administrative burden of scheduling and conducting individual phone calls.
-*   **Geographically Dispersed or Remote Teams:** When candidates and hiring managers are spread across different time zones, async interviews eliminate scheduling headaches, making the process smoother and more accessible.
-*   **Roles Requiring Basic Communication Assessment:** For positions where initial screening focuses on basic communication skills, motivation, and cultural fit, async video provides a richer assessment than a phone call without requiring live interaction.
-*   **Enhancing Candidate Experience through Flexibility:** Candidates with diverse work schedules, family commitments, or those applying from different regions often appreciate the flexibility to complete the interview when it suits them best, leading to higher engagement and completion rates.
-*   **Early Funnel Efficiency:** As a first-stage filter, async video interviews allow hiring teams to quickly assess a larger pool of candidates, narrowing down to the most promising ones before investing time in live interactions.
-*   **Reducing Time-to-Fill:** By streamlining the initial screening, organizations can accelerate their overall hiring timeline.
+*   **大量採用**：カスタマーサポートやエントリーレベル職、店舗スタッフなど、応募者数が多い職種では、個別に電話をスケジュール・実施する事務負担を大幅に削減できる。
+*   **地理的に分散したチーム・リモート職種**：候補者と採用担当者のタイムゾーンが異なる場合、日程調整の手間そのものがなくなり、プロセスが円滑になる。
+*   **基礎的なコミュニケーション評価を目的とする職種**：一次スクリーニングの目的がコミュニケーション能力・志望動機・カルチャーフィットの確認である場合、非同期動画は電話よりも豊富な情報を得られる。
+*   **柔軟性による候補者体験の向上**：勤務時間が不規則な候補者、家庭の事情がある候補者、他地域からの応募者にとって、都合の良いタイミングで面接を完了できる柔軟性は評価が高く、エンゲージメントや完了率の向上につながる。
+*   **ファネル初期段階の効率化**：一次選考のフィルターとして活用することで、有望な候補者を絞り込んでからライブでのやり取りに時間を割けるようになる。
+*   **採用リードタイムの短縮**：一次スクリーニングを効率化することで、採用プロセス全体のスピードアップにつながる。
 
-## When to be careful
+## 注意すべきケース
 
-While beneficial, async video interviews are not a universal solution and require careful consideration:
+一方で、非同期動画面接は万能な解決策ではなく、以下の点に注意が必要である。
 
-*   **Complex or Highly Technical Roles:** For positions requiring nuanced, real-time problem-solving, collaborative discussion, or deep technical assessment (e.g., senior leadership, specialized engineering roles), an async format may lack the interactive depth needed for a comprehensive evaluation.
-*   **Candidate Experience Perception:** If not implemented thoughtfully, candidates might perceive async interviews as impersonal or a lack of genuine interest from the employer. Clear communication, timely feedback, and a well-designed process are crucial to avoid this.
-*   **Bias Concerns:** The use of AI-driven scoring or analysis in conjunction with async video interviews carries the risk of introducing or amplifying bias if not carefully validated and monitored for fairness and ethical implications.
-*   **Accessibility Issues:** Not all candidates may have access to reliable internet, appropriate recording equipment, or a quiet space to record their responses, potentially disadvantaging certain demographics. Organizations must offer alternative accommodations.
-*   **Over-reliance:** Async interviews are best suited as an initial screening tool. They should complement, rather than completely replace, later-stage live interviews that allow for two-way conversation, deeper probing, and rapport building.
-*   **Quality of Questions:** Poorly designed or generic questions can lead to superficial answers, diminishing the effectiveness of the screen and frustrating candidates.
+*   **複雑・高度に専門的な職種**：シニアリーダーシップ職や専門性の高いエンジニア職など、リアルタイムでの問題解決や議論、深い技術的評価が求められるポジションでは、非同期形式では評価に必要な対話の深さが不足する可能性がある。
+*   **候補者体験への影響**：設計が不十分だと、候補者が「事務的」「企業側の関心が薄い」と感じてしまうリスクがある。明確な説明、タイムリーなフィードバック、丁寧に設計されたプロセスが不可欠。
+*   **バイアスのリスク**：非同期動画面接にAIによるスコアリングや解析を組み合わせる場合、公平性や倫理面での検証・モニタリングを怠るとバイアスを助長する恐れがある。
+*   **アクセシビリティの課題**：安定したインターネット接続、適切な録画機材、静かな録画環境をすべての候補者が持っているとは限らず、特定の層が不利になる可能性がある。代替手段の用意が必要。
+*   **過度な依存への注意**：非同期面接はあくまで初期スクリーニングのツールとして位置づけるべきであり、双方向の対話や関係構築ができる後段のライブ面接を完全に代替するものではない。
+*   **質問の質**：設計の甘い、あるいは汎用的すぎる質問は表面的な回答しか引き出せず、スクリーニングの効果を損ない、候補者の不満にもつながる。
 
-## Practical takeaway
+## 実務への示唆
 
-To effectively leverage async video interviews and capitalize on the **12% to 30% relative increase in candidate screen completion rates**, consider the following:
+**候補者スクリーニング完了率が12〜30％（相対値）向上する**という効果を実際に活かすには、以下の点を意識したい。
 
-1.  **Strategic Application:** Implement async video interviews primarily for high-volume, entry-level, or remote roles where initial screening focuses on foundational skills and motivation.
-2.  **Candidate-Centric Design:** Prioritize the candidate experience by providing clear instructions, support, and setting expectations for the process. Emphasize the flexibility it offers.
-3.  **Thoughtful Question Design:** Craft specific, behavioral, and open-ended questions that genuinely help assess critical competencies relevant to the role, rather than generic queries.
-4.  **Integration with ATS:** Seamlessly integrate the async video platform with your Applicant Tracking System (ATS) to ensure a smooth workflow for both candidates and recruiters.
-5.  **Monitor and Iterate:** Continuously track completion rates, candidate feedback, and hiring funnel metrics. Be prepared to adjust your process, questions, or communication strategies based on these insights.
-6.  **Balance with Live Interactions:** Recognize that async interviews are a powerful initial screening tool but should be complemented by live, two-way interactions (phone, video, or in-person) for later stages to foster deeper connection and assess more complex skills.
+1.  **適用範囲を絞る**：大量採用・エントリーレベル・リモート職種など、基礎的なスキルや志望動機を確認する一次スクリーニングを中心に導入する。
+2.  **候補者体験を起点に設計する**：明確な案内とサポートを提供し、プロセスへの期待値をあらかじめ伝える。柔軟性というメリットを前面に打ち出す。
+3.  **質問設計に力を入れる**：汎用的な質問ではなく、職種に関連する重要なコンピテンシーを具体的・行動ベースで評価できるオープンな質問を設計する。
+4.  **ATSとの連携**：採用管理システム（ATS）と非同期動画プラットフォームをスムーズに連携させ、候補者・リクルーター双方の運用負荷を下げる。
+5.  **継続的なモニタリングと改善**：完了率、候補者からのフィードバック、採用ファネルの各種指標を継続的に追跡し、プロセスや質問、コミュニケーション方法を必要に応じて調整する。
+6.  **ライブでのやり取りとのバランス**：非同期面接は強力な初期スクリーニング手段ではあるが、より深い関係構築や複雑なスキル評価が必要な後段の選考では、電話・ビデオ・対面によるライブなやり取りを組み合わせる。

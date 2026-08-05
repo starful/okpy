@@ -1,45 +1,44 @@
 ---
-title: How Sleep Extension Improves Athletic Performance & Reaction Time
+title: 睡眠時間の延長がスポーツパフォーマンスと反応速度を改善する
 date: '2026-06-07'
 category: data-analysis
 slug: athlete-sleep-performance
-summary: Sleep extension interventions often report 8–15% relative improvements in
-  reaction and sprint metrics in student-athlete studies.
-lang: en
+summary: 学生アスリートを対象とした睡眠延長の研究では、反応時間やスプリントのスコアが8〜15%（相対値）改善したという報告が複数見られます。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/athlete-sleep-performance.jpg
 ---
 
-## Effect snapshot
+## 効果の概要
 
 | | |
 |--|--|
-| Intervention | Extend sleep toward 8–9 hours/night for 2+ weeks |
-| Outcome | Reaction time and sprint drill scores |
-| Effect | 8–15 percent relative increase |
-| Confidence | `study` |
-| Context | Collegiate basketball and soccer sleep extension studies |
+| 介入内容 | 2週間以上にわたり、1晩あたりの睡眠時間を8〜9時間に延長する |
+| アウトカム | 反応時間およびスプリントドリルのスコア |
+| 効果量 | 相対値で8〜15%の向上 |
+| 確からしさ | `study`（研究レベル） |
+| 対象コンテキスト | 大学バスケットボール・サッカー選手を対象とした睡眠延長研究 |
 
-### Sources
+### 出典
 
-- [Stanford sleep extension studies](https://stanford.edu/)
+- [スタンフォード大学の睡眠延長研究](https://stanford.edu/)
 
-## What changes
+## 何が変わるのか
 
-Sleep extension interventions often report 8–15% relative improvements in reaction and sprint metrics in student-athlete studies.
+学生アスリートを対象とした睡眠延長の介入研究では、反応時間やスプリントドリルのスコアが8〜15%（相対値）向上したという結果が複数報告されています。
 
-## When this tends to work
+## こういう条件では効果が出やすい
 
-- Conditions similar to: Collegiate basketball and soccer sleep extension studies
-- You can measure `Reaction time and sprint drill scores` reliably
-- The intervention is implemented consistently, not half-measured
+- 対象が「大学バスケットボール・サッカー選手を対象とした睡眠延長研究」に近い条件であること
+- `反応時間およびスプリントドリルのスコア` を継続的かつ信頼性高く測定できること
+- 睡眠延長という介入を、中途半端にせず一貫して実施できること
 
-## When to be careful
+## 注意すべき点
 
-- Your audience or product differs materially from the cited context
-- Compliance costs or second-order effects outweigh the lift
-- Evidence label is **study**—treat wide ranges as planning bands, not promises
+- 対象としているユーザーやプロダクトが、引用元の研究対象と大きく異なる場合
+- 睡眠時間を確保するためのコストや、それに伴う副次的な影響が、得られる効果を上回る場合
+- エビデンスレベルは **study（研究）** であり、幅のある効果量は「確約」ではなく「計画上の目安」として扱うべき点
 
-## Practical takeaway
+## 実務での活用ポイント
 
-Use the cited range for prioritization and test design. Verify against your own data before scaling.
+引用した効果量のレンジは、優先順位付けや検証設計の参考値として活用してください。本格的に展開する前に、必ず自分たちのデータで検証することをおすすめします。
