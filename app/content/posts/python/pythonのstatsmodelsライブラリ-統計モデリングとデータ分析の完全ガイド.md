@@ -5,11 +5,12 @@ date: 2025-03-21
 hatena_path: /entry/2025/03/21/143148
 slug: pythonのstatsmodelsライブラリ-統計モデリングとデータ分析の完全ガイド
 summary: Python の statsmodels は、統計モデリングとデータ分析を行うための強力なライブラリです。本記事では、statsmodels の主な機能と使い方を、10個の具体的なコード例とともに紹介します。
-title: Python statsmodelsの使い方｜回帰分析から時系列・統計解析まで徹底解説
-description: Pythonの統計モデリングライブラリ「statsmodels」の使い方をわかりやすく解説。OLSを用いた重回帰分析やロジスティック回帰、ARIMAモデルによる時系列分析、仮説検定まで、実践コード付きで網羅的に学べます。
-seo_title: Python statsmodelsの使い方｜回帰分析から時系列・統計解析まで徹底解説 — OKPy
-seo_description: Pythonの統計モデリングライブラリ「statsmodels」の使い方をわかりやすく解説。OLSを用いた重回帰分析やロジスティック回帰、ARIMAモデルによる時系列分析、仮説検定まで、実践コード付きで網羅的に学べます。
+title: Python statsmodelsの実践ガイド｜10コード例で学ぶ回帰分析・時系列解析 — OKPy
+description: statsmodelsの使い方を、すぐに使える実践コード10個で完全網羅。回帰分析から時系列解析まで、複雑な統計処理も分かりやすく解説します。
+seo_title: Python statsmodelsの実践ガイド｜10コード例で学ぶ回帰分析・時系列解析
+seo_description: statsmodelsの使い方を、すぐに使える実践コード10個で完全網羅。回帰分析から時系列解析まで、複雑な統計処理も分かりやすく解説します。
 ---
+
 
 
 

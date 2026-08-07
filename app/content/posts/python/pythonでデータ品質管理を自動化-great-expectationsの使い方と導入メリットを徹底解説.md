@@ -1,14 +1,15 @@
 ---
-title: データ品質管理を自動化！PythonのGreat Expectationsで信頼性の高いデータパイプラインを実現
+title: Great Expectations｜Pythonのデータ品質管理と自動テスト完全ガイド — OKPy
 date: 2026-04-28
 category: python
 slug: pythonでデータ品質管理を自動化-great-expectationsの使い方と導入メリットを徹底解説
 summary: データパイプラインの信頼性を劇的に向上させるPythonライブラリ「Great Expectations」の導入ガイドです。本記事では、データの「あるべき姿」を定義し、検品作業を自動化することで、データ品質に起因するトラブルを未然に防ぐ具体的な手法を詳しく解説します。
 hatena_path: /entry/2026/03/25/090000
-description: Great ExpectationsでPythonデータの品質チェックを自動化。検品作業を効率化し、不具合を未然に防ぐ実装手順と運用のコツを実例で解説。
-seo_title: Great ExpectationsでPythonデータ品質管理を自動化｜導入メリットと運用ガイド
-seo_description: PythonのGreat Expectationsでデータ品質チェックを自動化。検品を効率化し、品質トラブルを防ぐ導入方法と運用のコツを実例で解説。
+description: PythonのGreat Expectationsを使用したデータ品質管理の自動化方法。データ検証・テスト自動化により信頼性の高いパイプラインを構築する完全ガイドです。
+seo_title: Great Expectations｜Pythonのデータ品質管理と自動テスト完全ガイド — OKPy
+seo_description: PythonのGreat Expectationsでデータ品質を自動管理。データ検証・テスト自動化により、信頼性の高いパイプラインを実現する方法を解説。
 ---
+
 
 
 # Pythonでデータ品質管理を自動化！Great Expectationsの使い方と導入メリットを徹底解説
