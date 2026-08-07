@@ -1,88 +1,67 @@
-"""Amazon Associates (JP) search-link helpers for OKPy blog."""
+"""Amazon Associates (JP) + Rakuten Ichiba search-link helpers for OKPy blog."""
 
 from __future__ import annotations
 
 import os
 import re
 from typing import Any
-from urllib.parse import quote_plus
+from urllib.parse import quote, quote_plus
 
 # Tracking ID from Amazon Associates Central (override via env).
 ASSOCIATE_TAG = os.getenv("AMAZON_ASSOCIATE_TAG", "starful06-22")
+_RAKUTEN_UT = "eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9"
+_RAKUTEN_HGC = os.getenv(
+    "RAKUTEN_ICHIBA_HGC", "43cde6d2.98a376f7.43cde6d3.c7b92630"
+)
 
-# Default search keyword per blog category key.
+# Default search keyword per blog category key (book-weighted).
 CATEGORY_KEYWORDS: dict[str, str] = {
-    "python": "Python",
-    "cloud": "AWS",  # overridden by _cloud_keyword() when possible
-    "terraform": "Terraform",
-    "dev-method": "開発方法論",
-    "data-model": "データモデル",
-    "data-analysis": "データ分析",
-    "pmbok": "PMBOK",
-    "agile-scrum": "スクラム",
-    "fit-journey": "新規事業",
+    "python": "Python 本",
+    "cloud": "AWS 本",  # overridden by _cloud_keyword() when possible
+    "terraform": "Terraform 本",
+    "dev-method": "開発方法論 本",
+    "data-model": "データモデル 本",
+    "data-analysis": "データ分析 本",
+    "pmbok": "PMBOK 本",
+    "agile-scrum": "スクラム 本",
+    "fit-journey": "新規事業 本",
 }
 
 BUTTON_LABELS: dict[str, str] = {
-    "python": "Amazonで Python 関連を探す",
-    "cloud": "Amazonでクラウド関連を探す",
-    "terraform": "Amazonで Terraform 関連を探す",
-    "dev-method": "Amazonで開発方法論を探す",
-    "data-model": "Amazonでデータモデルを探す",
-    "data-analysis": "Amazonでデータ分析を探す",
-    "pmbok": "Amazonで PMBOK を探す",
-    "agile-scrum": "Amazonでスクラムを探す",
-    "fit-journey": "Amazonで新規事業を探す",
-}
-
-# Rakuten Affiliate text links (search: 「{keyword} 本」). Same hgc ID for all.
-_RAKUTEN_UT = "eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9"
-_RAKUTEN_HGC = "43cde6d2.98a376f7.43cde6d3.c7b92630"
-
-
-def _rakuten_url(pc_path_encoded: str) -> str:
-    """pc_path_encoded is the double-encoded mall path segment from Affiliate tool."""
-    return (
-        f"https://hb.afl.rakuten.co.jp/hgc/{_RAKUTEN_HGC}/"
-        f"?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2F"
-        f"{pc_path_encoded}%2F&link_type=text&ut={_RAKUTEN_UT}"
-    )
-
-
-# Keys match resolve_keyword() output.
-RAKUTEN_URLS: dict[str, str] = {
-    "Python": _rakuten_url("Python%2520%25E6%259C%25AC"),
-    "AWS": _rakuten_url("AWS%2520%25E6%259C%25AC"),
-    "GCP": _rakuten_url("GCP%2520%25E6%259C%25AC"),
-    "Azure": _rakuten_url("Azure%2520%25E6%259C%25AC"),
-    "開発方法論": _rakuten_url(
-        "%25E9%2596%258B%25E7%2599%25BA%25E6%2596%25B9%25E6%25B3%2595%25E8%25AB%2596%2520%25E6%259C%25AC"
-    ),
-    "データモデル": _rakuten_url(
-        "%25E3%2583%2587%25E3%2583%25BC%25E3%2582%25BF%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%2520%25E6%259C%25AC"
-    ),
-    "データ分析": _rakuten_url(
-        "%25E3%2583%2587%25E3%2583%25BC%25E3%2582%25BF%25E5%2588%2586%25E6%259E%2590%2520%25E6%259C%25AC"
-    ),
-    "PMBOK": _rakuten_url("PMBOK%2520%25E6%259C%25AC"),
-    "スクラム": _rakuten_url(
-        "%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%25A9%25E3%2583%25A0%2520%25E6%259C%25AC"
-    ),
-    "新規事業": _rakuten_url(
-        "%25E6%2596%25B0%25E8%25A6%258F%25E4%25BA%258B%25E6%25A5%25AD%2520%25E6%259C%25AC"
-    ),
+    "python": "Amazonで Python 本を探す",
+    "cloud": "Amazonでクラウド本を探す",
+    "terraform": "Amazonで Terraform 本を探す",
+    "dev-method": "Amazonで開発方法論の本を探す",
+    "data-model": "Amazonでデータモデルの本を探す",
+    "data-analysis": "Amazonでデータ分析の本を探す",
+    "pmbok": "Amazonで PMBOK 本を探す",
+    "agile-scrum": "Amazonでスクラム本を探す",
+    "fit-journey": "Amazonで新規事業の本を探す",
 }
 
 
 def _cloud_keyword(title: str = "", slug: str = "", body: str = "") -> str:
     text = f"{title} {slug} {body[:3000]}".lower()
     if re.search(r"\bazure\b|microsoft azure", text):
-        return "Azure"
+        return "Azure 本"
     if re.search(r"\bgcp\b|google cloud", text):
-        return "GCP"
+        return "GCP 本"
     if re.search(r"\baws\b|amazon web services|アマゾン ウェブ", text):
-        return "AWS"
-    return "AWS"
+        return "AWS 本"
+    return "AWS 本"
+
+
+def _python_keyword(title: str = "", slug: str = "", body: str = "") -> str:
+    text = f"{title} {slug} {body[:2000]}".lower()
+    if re.search(r"\bfastapi\b", text):
+        return "FastAPI 本"
+    if re.search(r"\bdjango\b", text):
+        return "Django 本"
+    if re.search(r"\bflask\b", text):
+        return "Flask 本"
+    if re.search(r"\bpandas\b", text):
+        return "pandas 本"
+    return "Python 本"
 
 
 def resolve_keyword(
@@ -95,7 +74,9 @@ def resolve_keyword(
     cat = (category or "python").strip().lower()
     if cat == "cloud":
         return _cloud_keyword(title=title, slug=slug, body=body)
-    return CATEGORY_KEYWORDS.get(cat, "Python")
+    if cat == "python":
+        return _python_keyword(title=title, slug=slug, body=body)
+    return CATEGORY_KEYWORDS.get(cat, "Python 本")
 
 
 def search_url(keyword: str, *, tag: str | None = None) -> str:
@@ -105,6 +86,16 @@ def search_url(keyword: str, *, tag: str | None = None) -> str:
         + quote_plus(keyword)
         + "&tag="
         + quote_plus(tag)
+    )
+
+
+def rakuten_search_url(keyword: str) -> str:
+    """Dynamic Ichiba search (same wrap style as campus sites)."""
+    dest = f"https://search.rakuten.co.jp/search/mall/{quote(keyword, safe='')}/"
+    pc = quote(dest, safe="")
+    return (
+        f"https://hb.afl.rakuten.co.jp/hgc/{_RAKUTEN_HGC}/"
+        f"?pc={pc}&link_type=text&ut={_RAKUTEN_UT}"
     )
 
 
@@ -119,16 +110,19 @@ def affiliate_context(
     cat = (category or "python").strip().lower()
     keyword = resolve_keyword(cat, title=title, slug=slug, body=body)
     if cat == "cloud":
-        label = f"Amazonで {keyword} 関連を探す"
-        rakuten_label = f"楽天で {keyword} 本を探す"
+        label = f"Amazonで {keyword} を探す"
+        rakuten_label = f"楽天で {keyword} を探す"
+    elif cat == "python":
+        label = f"Amazonで {keyword} を探す"
+        rakuten_label = f"楽天で {keyword} を探す"
     else:
         label = BUTTON_LABELS.get(cat, f"Amazonで {keyword} を探す")
-        rakuten_label = f"楽天で {keyword} 本を探す"
+        rakuten_label = f"楽天で {keyword} を探す"
     return {
         "amazon_keyword": keyword,
         "amazon_search_url": search_url(keyword),
         "amazon_button_label": label,
         "amazon_associate_tag": ASSOCIATE_TAG,
-        "rakuten_search_url": RAKUTEN_URLS.get(keyword, RAKUTEN_URLS["Python"]),
+        "rakuten_search_url": rakuten_search_url(keyword),
         "rakuten_button_label": rakuten_label,
     }
