@@ -1,5 +1,5 @@
 ---
-title: Does Cross-Platform Cloud Save Sync Improve 30-Day Player Retention?
+title: 'Cross-Platform Cloud Save Sync & Player Retention: A/B Test Data — OKPy'
 date: '2026-07-30'
 category: data-analysis
 slug: cross-platform-progress-sync-retention
@@ -9,7 +9,13 @@ summary: A/B tests show enabling seamless cloud progress sync across mobile, con
 lang: en
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/cross-platform-progress-sync-retention.jpg
+description: Cloud progress sync across mobile, console & PC increases 30-day retention
+  by 7-15%. Insights on seamless game progression across platforms.
+seo_title: 'Cloud Save Sync Impact on Player Retention: Cross-Platform A/B Test Results'
+seo_description: Cloud progress sync boosts 30-day player retention by 7-15% across
+  mobile, console & PC. Data-driven insights for game developers.
 ---
+
 
 ## Effect snapshot
 

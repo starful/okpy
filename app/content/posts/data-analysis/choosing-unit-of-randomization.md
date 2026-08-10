@@ -1,12 +1,18 @@
 ---
-title: Choosing the correct unit of randomization in experiments
+title: 'Unit of Randomization in Experiments: A/B Testing Design Guide'
 date: '2026-07-08'
 category: data-analysis
 slug: choosing-unit-of-randomization
 summary: Choosing the correct unit of randomization in experiments
 lang: en
 source: statfacts
+description: Learn how to choose the correct unit of randomization for accurate A/B
+  tests. Prevent bias and ensure statistical validity in your experiments.
+seo_title: 'Unit of Randomization in A/B Tests: Complete Design Guide'
+seo_description: Understand unit of randomization in experiments. Essential guide
+  to avoiding bias, ensuring statistical validity, and designing reliable A/B tests.
 ---
+
 
 ---
 
