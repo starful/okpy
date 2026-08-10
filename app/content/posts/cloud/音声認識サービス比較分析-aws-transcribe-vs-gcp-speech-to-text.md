@@ -5,8 +5,12 @@ date: 2025-03-10
 hatena_path: /entry/2025/03/10/105856
 slug: 音声認識サービス比較分析-aws-transcribe-vs-gcp-speech-to-text
 summary: 'AWS Transcribeは、音声を高精度でテキストに変換するフルマネージド音声認識（ASR: Automatic Speech Recognition）サービスです。リアルタイムとバッチ処理の両方に対応し、会話の文字起こしを効率的に行います。'
-title: '音声認識サービス比較分析: AWS Transcribe vs GCP Speech-to-Text'
+title: 'AWS Transcribe vs GCP Speech-to-Text: 音声認識サービス比較 | OKPy'
+description: AWS TranscribeとGCP Speech-to-Textを徹底比較。精度、料金、対応言語の違いを解説。あなたに最適なASRサービスの選び方。
+seo_title: 'AWS Transcribe vs GCP Speech-to-Text: 音声認識サービス比較'
+seo_description: AWS TranscribeとGCP Speech-to-Textを徹底比較。精度、料金、対応言語の違いを解説。あなたに最適なASRサービスの選び方。
 ---
+
 
 # 音声認識サービス比較分析: AWS Transcribe vs GCP Speech-to-Text
 

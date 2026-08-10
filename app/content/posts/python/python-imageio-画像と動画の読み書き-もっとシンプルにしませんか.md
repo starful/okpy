@@ -6,10 +6,11 @@ hatena_path: /entry/2026/01/01/090000_1
 slug: python-imageio-画像と動画の読み書き-もっとシンプルにしませんか
 summary: Imageioは、Pythonで様々な形式の画像や動画ファイルを驚くほど簡単に読み書きできるライブラリです。
 title: 'Python Imageio: 画像と動画の読み書き、もっとシンプルにしませんか？'
-description: Imageioは、Pythonで様々な形式の画像や動画ファイルを驚くほど簡単に読み書きできるライブラリです。
-seo_title: Pythonで画像・動画処理を簡単に | Imageio完全ガイド＆実装例 — OKPy
-seo_description: Imageioなら、複雑な画像・動画処理がわずか数行で実現。読み書き・フォーマット変換・フィルタリングまで実装例つきで解説します。
+description: Imageioライブラリでシンプルに画像・動画処理。Pythonの初心者向けガイド。
+seo_title: Python Imageioで画像・動画処理を完全マスター｜初心者向けガイド
+seo_description: Pythonで画像・動画処理が初めてなら必見。複雑に見える処理もImageioなら簡単に実装できます。基本から応用まで完全解説。
 ---
+
 
 
 # Python Imageio: 画像と動画の読み書き、もっとシンプルにしませんか？

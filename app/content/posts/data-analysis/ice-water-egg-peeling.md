@@ -1,5 +1,5 @@
 ---
-title: Does an ice bath improve hard-boiled egg peelability?
+title: 'How to Peel Hard-Boiled Eggs Perfectly: The Ice Bath Method — OKPy'
 date: '2026-07-25'
 category: data-analysis
 slug: ice-water-egg-peeling
@@ -8,7 +8,13 @@ summary: Applying an ice water shock to hard-boiled eggs immediately after cooki
 lang: en
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/ice-water-egg-peeling.jpg
+description: Master the ice bath method to peel hard-boiled eggs effortlessly. Proven
+  to work 25-40% better than traditional techniques.
+seo_title: 'How to Peel Hard-Boiled Eggs Perfectly: The Ice Bath Method — OKPy'
+seo_description: Master the ice bath method to peel hard-boiled eggs effortlessly.
+  Proven to work 25-40% better than traditional techniques.
 ---
+
 
 ## Effect snapshot
 
