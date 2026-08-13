@@ -80,6 +80,12 @@ SITE_CONFIG = {
             "hub_suffix": "",
             "description": "CPF・PMF・SPF・GTM — スタートアップの成長ロードマップ。",
         },
+        "eng-comms": {
+            "label": "エンジニアのコミュニケーション",
+            "emoji": "💬",
+            "hub_suffix": "",
+            "description": "非エンジニアへの提案・説得・合意形成。技術判断をたとえ話で伝える実践集。",
+        },
     },
 
     "footer_tagline": "Python, cloud, Terraform, data analysis, and software engineering practices.",

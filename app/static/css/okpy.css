@@ -30,6 +30,7 @@
   --cat-pmbok: #6b4a5a;
   --cat-agile-scrum: #4a6b58;
   --cat-fit-journey: #6b5844;
+  --cat-eng-comms: #4a5a58;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -418,6 +419,7 @@ img { max-width: 100%; height: auto; display: block; }
 .story-card__cover--pmbok { background: linear-gradient(145deg, #ede8ea 0%, #e0d4d9 100%); }
 .story-card__cover--agile-scrum { background: linear-gradient(145deg, #e8ede9 0%, #d4e0d8 100%); }
 .story-card__cover--fit-journey { background: linear-gradient(145deg, #edeae6 0%, #e0d4c4 100%); }
+.story-card__cover--eng-comms { background: linear-gradient(145deg, #e8ebea 0%, #d4dddb 100%); }
 
 .story-card--featured .story-card__title {
   font-size: 1.35rem;
@@ -511,6 +513,7 @@ img { max-width: 100%; height: auto; display: block; }
 .tag-pmbok { background: #ede8ea; color: var(--cat-pmbok); }
 .tag-agile-scrum { background: #e8ede9; color: var(--cat-agile-scrum); }
 .tag-fit-journey { background: #edeae6; color: var(--cat-fit-journey); }
+.tag-eng-comms { background: #e8ebea; color: var(--cat-eng-comms); }
 
 /* ── Topic grid ── */
 .topic-grid {
@@ -712,6 +715,7 @@ img { max-width: 100%; height: auto; display: block; }
 .article-hero--pmbok .article-hero__placeholder { background: linear-gradient(145deg, #ede8ea 0%, #e0d4d9 100%); }
 .article-hero--agile-scrum .article-hero__placeholder { background: linear-gradient(145deg, #e8ede9 0%, #d4e0d8 100%); }
 .article-hero--fit-journey .article-hero__placeholder { background: linear-gradient(145deg, #edeae6 0%, #e0d4c4 100%); }
+.article-hero--eng-comms .article-hero__placeholder { background: linear-gradient(145deg, #e8ebea 0%, #d4dddb 100%); }
 
 .article-cat {
   margin-bottom: 16px;

@@ -61,6 +61,7 @@ ARCHIVE_CATEGORY_MAP = {
     "agile&scrum": "agile-scrum",
     "開発方法論": "dev-method",
     "project position": "fit-journey",
+    "エンジニアのコミュニケーション": "eng-comms",
 }
 
 
