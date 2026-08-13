@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate OKPy blog MD under app/content/posts/{python,cloud,terraform}/.
+"""Generate OKPy blog MD under app/content/posts/{python,cloud,terraform,eng-comms}/.
 
 One Claude CLI call per topic. Reads TOPIC_QUEUE_* CSVs from okadmin.
 Cover images still use Imagen (GEMINI_API_KEY) when available.
@@ -7,6 +7,7 @@ Usage:
   python3 scripts/generate_posts.py python
   python3 scripts/generate_posts.py cloud
   python3 scripts/generate_posts.py terraform
+  python3 scripts/generate_posts.py eng-comms
 """
 from __future__ import annotations
 
@@ -29,7 +30,12 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 sys.path.insert(0, str(SCRIPT_DIR))
 
-from batch_limits import cloud_limit, python_limit, terraform_limit  # noqa: E402
+from batch_limits import (  # noqa: E402
+    cloud_limit,
+    eng_comms_limit,
+    python_limit,
+    terraform_limit,
+)
 from topic_queue_csv import resolve as resolve_queue_csv  # noqa: E402
 
 load_dotenv(REPO_ROOT / ".env")
@@ -37,7 +43,14 @@ load_dotenv()
 
 POSTS_DIR = REPO_ROOT / "app" / "content" / "posts"
 IMAGES_DIR = REPO_ROOT / "app" / "static" / "images" / "posts"
-CATEGORIES = ("python", "cloud", "terraform")
+CATEGORIES = ("python", "cloud", "terraform", "eng-comms")
+# okadmin topic bank id (underscore) → blog category / posts folder (hyphen)
+QUEUE_BANK = {
+    "python": "python",
+    "cloud": "cloud",
+    "terraform": "terraform",
+    "eng-comms": "eng_comms",
+}
 GCS_IMAGE_BASE = os.getenv(
     "GCS_IMAGE_BASE", "https://storage.googleapis.com/ok-project-assets/okpy"
 ).rstrip("/")
@@ -48,6 +61,7 @@ COLUMN = {
     "python": "lib_name",
     "cloud": "Topic",
     "terraform": "Topic",
+    "eng-comms": "Topic",
 }
 
 
@@ -119,6 +133,25 @@ AWS / GCP / Azure を横断比較する記事を Markdown のみで書いてく�
 - 目安 5000〜8000文字
 - 前置き不要。H1から開始
 """
+    if category == "eng-comms":
+        return f"""あなたは日本語の技術ブログ「OKPy」の編集者です。
+カテゴリ「エンジニアのコミュニケーション」の記事を Markdown のみで書いてください。
+テーマ（状況）: 「{topic}」
+
+要件:
+- 必ず日本語のみ（韓国語禁止）
+- 先頭は `# タイトル` の H1
+- 構成は必ず次を含める:
+  1. 状況（非エンジニアからの要望）
+  2. たとえ（日常・ビジネスの比喩）
+  3. 提案の型（受け取り→たとえ→言い換え→段階案）
+  4. ミーティングで使える一文（引用ブロック）
+  5. 例外（このたとえを使わない／肯定すべきケース）
+  6. まとめ表（相手の言葉 / たとえ / 返し）
+- 説教調を避け、現場で使える話し方にする
+- 目安 2500〜4500文字
+- 前置き不要。H1から開始
+"""
     return f"""あなたは日本語の技術ブログ「OKPy」の編集者です。
 Terraform テーマ「{topic}」の実践ガイドを Markdown のみで書いてください。
 
@@ -130,6 +163,21 @@ Terraform テーマ「{topic}」の実践ガイドを Markdown のみで書い�
 - 目安 4000〜7000文字
 - 前置き不要。H1から開始
 """
+
+
+def _cover_prompt(category: str, topic: str) -> str:
+    theme = {
+        "python": "Python programming and libraries, soft green-gray accents",
+        "cloud": "multi-cloud infrastructure comparison, soft blue-gray accents",
+        "terraform": "Infrastructure as Code, blueprints and modules, soft terracotta accents",
+        "eng-comms": "engineer explaining with everyday business analogies, soft teal charcoal accents",
+    }.get(category, "technology")
+    return (
+        "Editorial tech blog cover illustration, warm paper cream background, "
+        "soft graphite sketch style, abstract composition about "
+        f"{topic} ({theme}), "
+        "no text, no logos, no watermark, clean 16:9 composition, muted charcoal accents"
+    )
 
 
 def _generate_body(category: str, topic: str) -> str | None:
@@ -164,20 +212,6 @@ def _title_from_body(body: str, fallback: str) -> str:
     if m:
         return re.sub(r"\*+", "", m.group(1)).strip()
     return fallback
-
-
-def _cover_prompt(category: str, topic: str) -> str:
-    theme = {
-        "python": "Python programming and libraries, soft green-gray accents",
-        "cloud": "multi-cloud infrastructure comparison, soft blue-gray accents",
-        "terraform": "Infrastructure as Code, blueprints and modules, soft terracotta accents",
-    }.get(category, "technology")
-    return (
-        "Editorial tech blog cover illustration, warm paper cream background, "
-        "soft graphite sketch style, abstract composition about "
-        f"{topic} ({theme}), "
-        "no text, no logos, no watermark, clean 16:9 composition, muted charcoal accents"
-    )
 
 
 def _optimize_cover_jpeg(raw: bytes, out_path: Path) -> None:
@@ -296,8 +330,9 @@ def _write_md(category: str, topic: str, body: str, cover: str | None = None) ->
 
 
 def _read_queue(category: str, limit: int) -> list[str]:
-    default = REPO_ROOT / "data" / f"{category}.csv"
-    csv_path = resolve_queue_csv(category, str(default))
+    bank = QUEUE_BANK.get(category, category)
+    default = REPO_ROOT / "data" / f"{bank}.csv"
+    csv_path = resolve_queue_csv(bank, str(default))
     col = COLUMN[category]
     topics: list[str] = []
     if not os.path.isfile(csv_path):
@@ -324,6 +359,7 @@ def generate_category(category: str, limit: int | None = None) -> dict:
             "python": python_limit(),
             "cloud": cloud_limit(),
             "terraform": terraform_limit(),
+            "eng-comms": eng_comms_limit(),
         }[category]
 
     topics = _read_queue(category, limit)

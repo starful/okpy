@@ -36,3 +36,10 @@ def terraform_limit() -> int:
     if raw is not None and str(raw).strip() != "":
         return _non_negative_int(raw, 3)
     return content_limit()
+
+
+def eng_comms_limit() -> int:
+    raw = os.getenv("ENG_COMMS_LIMIT")
+    if raw is not None and str(raw).strip() != "":
+        return _non_negative_int(raw, 1)
+    return 0
