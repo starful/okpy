@@ -86,6 +86,12 @@ SITE_CONFIG = {
             "hub_suffix": "",
             "description": "非エンジニアへの提案・説得・合意形成。技術判断をたとえ話で伝える実践集。",
         },
+        "ai-models": {
+            "label": "AIモデル比較",
+            "emoji": "🤖",
+            "hub_suffix": "比較",
+            "description": "GPT / Claude / Gemini などLLMの品質・コスト・日本語・用途別の選び方。ツールやエージェントではなくモデル選定。",
+        },
     },
 
     "footer_tagline": "Python, cloud, Terraform, data analysis, and software engineering practices.",

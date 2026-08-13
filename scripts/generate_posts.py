@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate OKPy blog MD under app/content/posts/{python,cloud,terraform,eng-comms}/.
+"""Generate OKPy blog MD under app/content/posts/{python,cloud,terraform,eng-comms,ai-models}/.
 
 One Claude CLI call per topic. Reads TOPIC_QUEUE_* CSVs from okadmin.
 Cover images still use Imagen (GEMINI_API_KEY) when available.
@@ -8,6 +8,7 @@ Usage:
   python3 scripts/generate_posts.py cloud
   python3 scripts/generate_posts.py terraform
   python3 scripts/generate_posts.py eng-comms
+  python3 scripts/generate_posts.py ai-models
 """
 from __future__ import annotations
 
@@ -31,6 +32,7 @@ REPO_ROOT = SCRIPT_DIR.parent
 sys.path.insert(0, str(SCRIPT_DIR))
 
 from batch_limits import (  # noqa: E402
+    ai_models_limit,
     cloud_limit,
     eng_comms_limit,
     python_limit,
@@ -43,13 +45,14 @@ load_dotenv()
 
 POSTS_DIR = REPO_ROOT / "app" / "content" / "posts"
 IMAGES_DIR = REPO_ROOT / "app" / "static" / "images" / "posts"
-CATEGORIES = ("python", "cloud", "terraform", "eng-comms")
+CATEGORIES = ("python", "cloud", "terraform", "eng-comms", "ai-models")
 # okadmin topic bank id (underscore) → blog category / posts folder (hyphen)
 QUEUE_BANK = {
     "python": "python",
     "cloud": "cloud",
     "terraform": "terraform",
     "eng-comms": "eng_comms",
+    "ai-models": "ai_models",
 }
 GCS_IMAGE_BASE = os.getenv(
     "GCS_IMAGE_BASE", "https://storage.googleapis.com/ok-project-assets/okpy"
@@ -62,6 +65,7 @@ COLUMN = {
     "cloud": "Topic",
     "terraform": "Topic",
     "eng-comms": "Topic",
+    "ai-models": "Topic",
 }
 
 
@@ -152,6 +156,21 @@ AWS / GCP / Azure を横断比較する記事を Markdown のみで書いてく�
 - 目安 2500〜4500文字
 - 前置き不要。H1から開始
 """
+    if category == "ai-models":
+        return f"""あなたは日本語の技術ブログ「OKPy」の編集者です。
+カテゴリ「AIモデル比較」の記事を Markdown のみで書いてください。
+テーマ: 「{topic}」
+
+要件:
+- 必ず日本語のみ（韓国語禁止）
+- ツール／エージェント構築のハウツーではなく、LLMモデル選定・比較に焦点
+- 先頭は `# タイトル` の H1（可能なら検証年月を含める）
+- 比較表を1つ以上
+- 実務での選び方、注意（陳腐化・検証日）、ミーティングで使える一文
+- 特定ベンダーの宣伝調を避ける
+- 目安 2500〜4500文字
+- 前置き不要。H1から開始
+"""
     return f"""あなたは日本語の技術ブログ「OKPy」の編集者です。
 Terraform テーマ「{topic}」の実践ガイドを Markdown のみで書いてください。
 
@@ -171,6 +190,7 @@ def _cover_prompt(category: str, topic: str) -> str:
         "cloud": "multi-cloud infrastructure comparison, soft blue-gray accents",
         "terraform": "Infrastructure as Code, blueprints and modules, soft terracotta accents",
         "eng-comms": "engineer explaining with everyday business analogies, soft teal charcoal accents",
+        "ai-models": "comparing abstract neural network blocks and balance scales, soft slate blue accents",
     }.get(category, "technology")
     return (
         "Editorial tech blog cover illustration, warm paper cream background, "
@@ -360,6 +380,7 @@ def generate_category(category: str, limit: int | None = None) -> dict:
             "cloud": cloud_limit(),
             "terraform": terraform_limit(),
             "eng-comms": eng_comms_limit(),
+            "ai-models": ai_models_limit(),
         }[category]
 
     topics = _read_queue(category, limit)

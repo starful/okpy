@@ -62,6 +62,7 @@ ARCHIVE_CATEGORY_MAP = {
     "開発方法論": "dev-method",
     "project position": "fit-journey",
     "エンジニアのコミュニケーション": "eng-comms",
+    "AIモデル比較": "ai-models",
 }
 
 

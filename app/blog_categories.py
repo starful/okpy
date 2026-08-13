@@ -2,6 +2,7 @@
 
 # Higher priority first when multiple Hatena tags match.
 HATENA_TAG_PRIORITY = [
+    ("AIモデル比較", "ai-models"),
     ("エンジニアのコミュニケーション", "eng-comms"),
     ("Fit Journey", "fit-journey"),
     ("Agile&Scrum", "agile-scrum"),
@@ -29,6 +30,7 @@ PRESERVE_CATEGORIES = frozenset(
         "agile-scrum",
         "fit-journey",
         "eng-comms",
+        "ai-models",
     }
 )
 

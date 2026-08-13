@@ -43,3 +43,10 @@ def eng_comms_limit() -> int:
     if raw is not None and str(raw).strip() != "":
         return _non_negative_int(raw, 1)
     return 0
+
+
+def ai_models_limit() -> int:
+    raw = os.getenv("AI_MODELS_LIMIT")
+    if raw is not None and str(raw).strip() != "":
+        return _non_negative_int(raw, 1)
+    return 0
