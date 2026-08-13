@@ -1,13 +1,17 @@
 ---
-title: '「マルチクラウドにしたい」と言われたら：銀行口座のたとえで話す'
-date: 2026-08-11
 category: eng-comms
-slug: multi-cloud-vs-single-bank
-summary: 'ベンダーロックイン回避としてのマルチクラウド要望に、複数銀行口座のたとえで応える。単一クラウドを主口座にし、必要なら目的別口座を足す話し方。'
+cover: https://storage.googleapis.com/ok-project-assets/okpy/2026081407440303.jpg
+date: 2026-08-11
 lang: ja
+slug: multi-cloud-vs-single-bank
+summary: ベンダーロックイン回避としてのマルチクラウド要望に、複数銀行口座のたとえで応える。単一クラウドを主口座にし、必要なら目的別口座を足す話し方。
+title: 「マルチクラウドにしたい」と言われたら：銀行口座のたとえで話す
 ---
 
 # 「マルチクラウドにしたい」と言われたら：銀行口座のたとえで話す
+
+![cover](https://storage.googleapis.com/ok-project-assets/okpy/2026081407440303.jpg)
+
 
 ## 状況
 

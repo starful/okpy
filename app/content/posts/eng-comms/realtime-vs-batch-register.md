@@ -1,13 +1,17 @@
 ---
-title: '「全部リアルタイムにしたい」と言われたら：レジと夜の精算のたとえ'
-date: 2026-08-12
 category: eng-comms
-slug: realtime-vs-batch-register
-summary: 'リアルタイム処理の要望はコストと複雑さを伴う。店のレジ（その場）と夜の精算（まとめて）にたとえて、どこまで即時が必要かを合意する話し方。'
+cover: https://storage.googleapis.com/ok-project-assets/okpy/2026081407435502.jpg
+date: 2026-08-12
 lang: ja
+slug: realtime-vs-batch-register
+summary: リアルタイム処理の要望はコストと複雑さを伴う。店のレジ（その場）と夜の精算（まとめて）にたとえて、どこまで即時が必要かを合意する話し方。
+title: 「全部リアルタイムにしたい」と言われたら：レジと夜の精算のたとえ
 ---
 
 # 「全部リアルタイムにしたい」と言われたら：レジと夜の精算のたとえ
+
+![cover](https://storage.googleapis.com/ok-project-assets/okpy/2026081407435502.jpg)
+
 
 ## 状況
 

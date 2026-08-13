@@ -1,13 +1,17 @@
 ---
-title: '「MacとWindowsアプリを作りたい」と言われたら：出店のたとえでウェブ提案する話し方'
-date: 2026-08-14
 category: eng-comms
-slug: native-app-vs-web-tokyo-osaka
-summary: '非エンジニアから「MacとWindowsのアプリを両方作りたい」と言われたとき、技術の正しさだけでは合意が取れません。東京と大阪に店舗を出すたとえで、まずウェブサービスを提案する話し方をまとめます。'
+cover: https://storage.googleapis.com/ok-project-assets/okpy/2026081407434200.jpg
+date: 2026-08-14
 lang: ja
+slug: native-app-vs-web-tokyo-osaka
+summary: 非エンジニアから「MacとWindowsのアプリを両方作りたい」と言われたとき、技術の正しさだけでは合意が取れません。東京と大阪に店舗を出すたとえで、まずウェブサービスを提案する話し方をまとめます。
+title: 「MacとWindowsアプリを作りたい」と言われたら：出店のたとえでウェブ提案する話し方
 ---
 
 # 「MacとWindowsアプリを作りたい」と言われたら：出店のたとえでウェブ提案する話し方
+
+![cover](https://storage.googleapis.com/ok-project-assets/okpy/2026081407434200.jpg)
+
 
 ## 状況
 

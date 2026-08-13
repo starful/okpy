@@ -1,13 +1,17 @@
 ---
-title: '「マイクロサービスに分割したい」と言われたら：店を分けるたとえで話す方法'
-date: 2026-08-13
 category: eng-comms
-slug: microservices-vs-monolith-shops
-summary: 'マイクロサービス化の要望は、組織・運用の話であることが多い。一つの大きな店を複数の専門店に分けるたとえで、いつ分けるべきかを非エンジニアに伝える話し方。'
+cover: https://storage.googleapis.com/ok-project-assets/okpy/2026081407434801.jpg
+date: 2026-08-13
 lang: ja
+slug: microservices-vs-monolith-shops
+summary: マイクロサービス化の要望は、組織・運用の話であることが多い。一つの大きな店を複数の専門店に分けるたとえで、いつ分けるべきかを非エンジニアに伝える話し方。
+title: 「マイクロサービスに分割したい」と言われたら：店を分けるたとえで話す方法
 ---
 
 # 「マイクロサービスに分割したい」と言われたら：店を分けるたとえで話す方法
+
+![cover](https://storage.googleapis.com/ok-project-assets/okpy/2026081407434801.jpg)
+
 
 ## 状況
 

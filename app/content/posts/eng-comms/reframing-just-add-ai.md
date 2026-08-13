@@ -1,13 +1,17 @@
 ---
-title: '「とりあえずAIを入れて」と言われたら：断らずに定義し直す話し方'
-date: 2026-08-10
 category: eng-comms
-slug: reframing-just-add-ai
-summary: '「とりあえずAI」は要望ではなくラベルであることが多い。否定せず、仕事・成功条件・人間の役割に分解して提案し直すエンジニアのコミュニケーション。'
+cover: https://storage.googleapis.com/ok-project-assets/okpy/2026081407440904.jpg
+date: 2026-08-10
 lang: ja
+slug: reframing-just-add-ai
+summary: 「とりあえずAI」は要望ではなくラベルであることが多い。否定せず、仕事・成功条件・人間の役割に分解して提案し直すエンジニアのコミュニケーション。
+title: 「とりあえずAIを入れて」と言われたら：断らずに定義し直す話し方
 ---
 
 # 「とりあえずAIを入れて」と言われたら：断らずに定義し直す話し方
+
+![cover](https://storage.googleapis.com/ok-project-assets/okpy/2026081407440904.jpg)
+
 
 ## 状況
 
