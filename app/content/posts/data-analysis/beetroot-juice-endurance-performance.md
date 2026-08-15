@@ -1,52 +1,51 @@
 ---
-title: Can Beetroot Juice Before Exercise Extend Time to Exhaustion?
+title: 運動前のビートルートジュースは疲労困憊までの時間を延ばすか
 date: '2026-07-25'
 category: data-analysis
 slug: beetroot-juice-endurance-performance
-summary: Meta-analyses show beetroot juice taken 2-3 hours before exercise raises
-  time-to-exhaustion by 4-10% in high-intensity endurance efforts.
-lang: en
+summary: 複数のメタアナリシスによると、運動の2〜3時間前に硝酸塩を多く含むビートルートジュースを摂取すると、高強度の持久系運動において疲労困憊までの時間が4〜10%（相対値）延びることが示されている。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/beetroot-juice-endurance-performance.jpg
 ---
 
-## Effect snapshot
+## 効果の概要
 
 | | |
 |--|--|
-| Intervention | Consuming dietary nitrate-rich beetroot juice 2-3 hours prior to athletic exertion to enhance muscle oxygenation |
-| Outcome | Time-to-exhaustion during high-intensity endurance running or cycling |
-| Effect | 4–10 percent relative increase |
-| Confidence | `meta_analysis` |
-| Context | Recreational and trained endurance athletes performing high-intensity running or cycling time-to-exhaustion trials |
+| 介入 | 筋の酸素利用効率を高める目的で、運動の2〜3時間前に硝酸塩を多く含むビートルートジュースを摂取する |
+| アウトカム | 高強度の持久系ランニングまたはサイクリングにおける疲労困憊までの時間 |
+| 効果量 | 相対値で4〜10%の増加 |
+| 確からしさ | `メタアナリシス` |
+| 対象 | 高強度の疲労困憊テストを行うレクリエーションレベルおよび訓練を積んだ持久系アスリート |
 
-### Sources
+### 出典
 
 - [International Society of Sports Nutrition](https://jissn.biomedcentral.com)
 - [National Institutes of Health (NIH) - PubMed](https://pubmed.ncbi.nlm.nih.gov)
 
-## The Nitrate-to-Nitric-Oxide Pathway
+## 硝酸塩から一酸化窒素へ
 
-Beetroot juice is one of the most concentrated dietary sources of inorganic nitrate. Once swallowed, nitrate is absorbed into the bloodstream, concentrated in the salivary glands, and converted by oral bacteria into nitrite. Swallowed nitrite is then reduced further into nitric oxide, a molecule that relaxes blood vessels and improves blood flow to working muscle. In exercise physiology terms, this matters because nitric oxide appears to lower the oxygen cost of submaximal exercise and improve the efficiency of mitochondrial respiration. That combination — more oxygen delivered, less oxygen wasted — is the mechanistic story behind why beetroot juice shows up so often in endurance-performance research.
+ビートルートジュースは、食事由来の無機硝酸塩を最も高濃度に含む食品のひとつだ。摂取された硝酸塩は血中に吸収され、唾液腺に濃縮された後、口腔内の細菌によって亜硝酸塩に変換される。飲み込まれた亜硝酸塩はさらに還元され、血管を弛緩させて活動筋への血流を改善する一酸化窒素になる。運動生理学の観点から重要なのは、一酸化窒素がサブマキシマル強度の運動における酸素コストを下げ、ミトコンドリア呼吸の効率を高めると考えられている点だ。「より多くの酸素を届け、無駄になる酸素を減らす」というこの組み合わせが、ビートルートジュースが持久系パフォーマンス研究で頻繁に取り上げられる背景にあるメカニズムだ。
 
-## How Much Longer Athletes Lasted
+## どれだけ長く運動を続けられたか
 
-Pooled results across controlled trials put the effect on time-to-exhaustion in the range of a 4-10% relative improvement compared with a nitrate-depleted placebo. In practical terms, an athlete who could previously sustain a hard effort for 10 minutes might extend that to roughly 10 minutes 24 seconds to 11 minutes. The effect is measured almost exclusively in high-intensity constant-load tests — cycling or running at an intensity that would exhaust most people within 5 to 15 minutes — rather than in ultra-endurance or very low-intensity settings, where the oxygen-cost mechanism has less room to matter.
+対照試験を統合した結果では、硝酸塩を除去したプラセボと比較して、疲労困憊までの時間は相対値で4〜10%改善するという範囲に収まっている。実際の感覚としては、これまで10分間ハードな運動を続けられたアスリートであれば、それがおよそ10分24秒〜11分程度まで延びる計算になる。この効果が確認されているのはほぼ、5〜15分で疲労困憊に至るような高強度の一定負荷テスト（サイクリングやランニング）に限られており、超長距離や非常に低強度の条件では、酸素コストの改善というメカニズムが働く余地が小さいため効果が確認されにくい。
 
-## The 2-3 Hour Loading Window
+## 2〜3時間前という摂取タイミング
 
-Timing is not incidental to this effect — it's central to it. Plasma nitrite peaks roughly 2 to 3 hours after ingestion, which is the window in which the ergogenic effect has been most consistently observed. Drinking beetroot juice immediately before a warm-up, or the night before competition, misses the peak physiological window. Some protocols use multi-day loading (beetroot juice for 3-6 days before an event) to build nitrate stores, but a single acute dose taken 2-3 hours pre-exertion is the most-studied and most reproducible approach in the underlying trials.
+このタイミングは付随的なものではなく、効果の中心をなす要素だ。血漿中の亜硝酸濃度は摂取からおよそ2〜3時間後にピークを迎え、この時間帯にエルゴジェニック（パフォーマンス向上）効果が最も一貫して観察されている。ウォームアップの直前や競技前夜に摂取しても、この生理学的なピークの窓を逃してしまう。プロトコルによっては、大会前3〜6日間にわたって摂取を続け硝酸塩の体内貯蔵量を高める「ローディング」を用いる場合もあるが、運動の2〜3時間前に単回摂取する方法が、元となる試験の中で最も研究され、再現性が確認されているアプローチだ。
 
-## Who Sees the Biggest Gains
+## 効果が出やすいのは誰か
 
-The effect is not uniform across athletes. Recreationally active and moderately trained individuals tend to show larger relative improvements than highly trained or elite endurance athletes, who often already have higher baseline nitric oxide production from years of aerobic training. This ceiling effect means a club-level runner or cyclist is statistically more likely to land near the upper end of the 4-10% range, while a national-caliber athlete may see a smaller — though still potentially competition-relevant — benefit.
+この効果はすべてのアスリートで一様というわけではない。レクリエーションレベルや中程度に訓練を積んだ人は、エリートクラスの持久系アスリートよりも相対的に大きな改善を示す傾向がある。エリートアスリートは長年の有酸素トレーニングによって、すでにベースラインの一酸化窒素産生能力が高いことが多いためだ。この「天井効果」により、クラブレベルのランナーやサイクリストは統計的に4〜10%のレンジの上限付近に位置しやすい一方、全国レベルのアスリートが得られる恩恵は小さくなりがちだが、それでも競技結果に影響し得る水準ではある。
 
-## Dosing and Beetroot Juice Practicalities
+## 摂取量とビートルートジュース利用の実際
 
-Trials generally use concentrated beetroot juice shots delivering roughly 300-600 mg of nitrate, equivalent to about 70-140 ml of concentrated beet juice "shot" products or a larger volume of raw juice. Whole beets, beet powder, and juice all supply nitrate, but concentration varies widely by product and by growing conditions, so consistency between doses matters more than the specific source. Using antibacterial mouthwash around the dosing window is worth avoiding, since it kills the oral bacteria responsible for the first nitrate-to-nitrite conversion step and can blunt the entire pathway.
+試験で一般的に用いられているのは、硝酸塩をおよそ300〜600mg含む濃縮ビートルートジュースのショットで、濃縮タイプの「ショット」製品なら約70〜140ml、生ジュースならより多い量に相当する。ビート丸ごと、パウダー、ジュースのいずれも硝酸塩を供給できるが、濃度は製品や栽培条件によって大きく異なるため、特定の摂取源そのものよりも、摂取量を毎回一定に保つことのほうが重要だ。摂取タイミングの前後で殺菌力の強いマウスウォッシュを使うのは避けたほうがよい。硝酸塩から亜硝酸塩への最初の変換を担う口腔内細菌を殺してしまい、この経路全体の働きを弱めてしまう可能性があるためだ。
 
-## Where the Evidence Gets Murky
+## エビデンスが曖昧な部分
 
-Not every study finds a significant effect, and heterogeneity between trials is real: exercise mode (cycling versus running), fitness level, dose, and test protocol all shift the result. Gastrointestinal discomfort, beeturia (harmless reddish urine), and variable individual nitrate-reducing bacterial populations in the mouth also contribute to why some athletes respond strongly and others barely at all. The 4-10% figure represents a pooled average across meta-analyzed trials, not a guarantee for any single athlete or single race day.
+すべての研究で有意な効果が確認されているわけではなく、試験間のばらつきは実際に存在する。運動様式（サイクリングかランニングか）、体力レベル、摂取量、テストプロトコルはいずれも結果を左右する要因だ。消化器系の不快感、無害な赤色尿（ビーツリア）、口腔内の硝酸塩還元菌叢の個人差なども、反応が強く出るアスリートとほとんど出ないアスリートがいる理由に関わっている。4〜10%という数値は、メタアナリシスに含まれた試験を統合した平均値であり、特定の選手や特定のレース当日の結果を保証するものではない。
 
-A reasonable use of this evidence: trial a 2-3 hour pre-exercise beetroot juice dose during training sessions that mimic race-day intensity, track your own time-to-exhaustion or time-trial results over several attempts, and only carry the protocol into competition once you've confirmed it works for your physiology.
+このエビデンスの妥当な使い方としては、レースの強度を模したトレーニングセッションで運動の2〜3時間前にビートルートジュースを摂取するプロトコルを試し、複数回にわたって自分自身の疲労困憊までの時間やタイムトライアルの結果を記録し、自分の生理反応において効果が確認できて初めて本番の競技に持ち込む、という進め方が考えられる。

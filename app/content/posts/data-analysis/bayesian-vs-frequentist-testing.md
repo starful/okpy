@@ -1,76 +1,72 @@
 ---
-title: 'Bayesian vs. Frequentist A/B Testing: Choosing the Right Framework'
+title: ベイズ統計 vs 頻度主義：A/Bテストで正しいフレームワークを選ぶ方法
 date: '2026-07-26'
 category: data-analysis
 slug: bayesian-vs-frequentist-testing
-summary: Frequentist p-values and Bayesian posterior probabilities answer different
-  questions about the same experiment. Here's how to pick the right one and read StatFacts
-  benchmarks correctly under each.
-lang: en
+summary: 頻度主義のp値とベイズ統計の事後確率は、同じ実験データを見ていても実は異なる問いに答えている。それぞれの読み方の違いと、OKPy Data Analysisが公開しているベンチマークを両フレームワークの下でどう正しく解釈すればよいかを整理する。
+lang: ja
 source: statfacts
 ---
 
-Every A/B testing platform eventually forces a choice: does "significant" mean a p-value crossed 0.05, or does it mean a posterior probability crossed 95%? The two frameworks often agree on which variant wins, but they answer different questions, fail differently under peeking, and require different discipline when you're comparing your results against a StatFacts insight card. Getting this wrong doesn't just confuse a debrief — it changes how much you should trust the number you're about to ship on.
+どのA/Bテスト基盤を使っていても、いずれ「有意」の定義を決めなければならない場面が来る。p値が0.05を下回ったことを指すのか、それとも事後確率が95%を超えたことを指すのか。この2つのフレームワークは、どちらの変化案が勝っているかについては一致することが多いものの、答えている問いそのものが異なり、ピーキング（早期の覗き見）に対する壊れ方も違い、ベンチマークと自分の結果を比較する際に必要な注意点も異なる。ここを取り違えると、単に振り返りミーティングが混乱するだけでなく、これからリリースしようとしている数値をどれだけ信用してよいかという判断そのものが狂ってしまう。
 
-## Two Questions That Sound Like One
+## 似ているようで違う、2つの問い
 
-The core confusion is linguistic before it's mathematical.
+この混乱は、数学以前に言葉の使い方から生まれている。
 
-- **Frequentist statistics** ask: *if there were truly no difference between variants, how surprising would data this extreme be?* The p-value is that surprise, computed under a fixed null hypothesis, using a test statistic whose distribution is defined by imagining the experiment repeated infinitely.
-- **Bayesian AB testing** asks: *given the data I've observed and what I believed beforehand, how probable is it that B beats A, and by how much?* The output is a posterior probability — a direct statement about the hypothesis, not about hypothetical repeated sampling.
+- **頻度主義統計**が問うのは、「もし変化案の間に本当に差がないとしたら、これほど極端なデータが観測される確率はどれくらい驚くべきものか」ということだ。p値はその「驚きの度合い」であり、固定された帰無仮説の下で計算され、実験を無限回繰り返すという仮想的な設定によって定義される検定統計量の分布に基づいている。
+- **ベイズA/Bテスト**が問うのは、「観測されたデータと事前に持っていた知識を踏まえると、BがAより優れている確率はどれくらいで、どの程度優れているのか」ということだ。出力されるのは事後確率であり、これは仮説そのものについての直接的な主張であって、仮想的な反復サンプリングについての主張ではない。
 
-A p-value of 0.03 does not mean "97% chance B is better." That's the single most common misreading in growth teams, and it's a category error: p-values describe the data's compatibility with the null, not the probability of any hypothesis being true. A Bayesian posterior probability of 97% for "B > A" is a direct answer to the question most stakeholders actually asked in the meeting.
+p値0.03は「Bが優れている確率が97%」という意味ではない。これはグロースチームで最もよくある誤読であり、カテゴリーエラーそのものだ。p値はデータが帰無仮説とどれだけ整合するかを表すものであり、いずれかの仮説が真である確率を表すものではない。一方、「B＞A」に対するベイズの事後確率97%は、ミーティングで多くの関係者が実際に知りたがっている問いへの直接的な答えになる。
 
-## Where Each Framework Breaks Down in Practice
+## 実務でそれぞれが破綻するポイント
 
-Neither approach is safe by default — each has a specific failure mode that shows up in real dashboards.
+どちらの手法もデフォルトのままでは安全とは言えず、実際のダッシュボード運用で顕在化する固有の失敗モードを持っている。
 
-### Frequentist: the peeking problem
+### 頻度主義：ピーキング問題
 
-Classical significance testing assumes you fix your sample size (or stopping rule) in advance and look once. Checking the dashboard daily and stopping the moment p < 0.05 inflates the false-positive rate far above 5% — sometimes past 20-30% depending on how often you peek. This is why StatFacts' guide on [preventing p-hacking](/blog/preventing-p-hacking-experiments) treats early stopping as a primary risk, not an edge case. Sequential correction methods (alpha-spending, always-valid p-values) fix this, but plain t-tests and chi-square tests checked repeatedly do not.
+古典的な有意性検定は、サンプルサイズ（あるいは停止ルール）を事前に固定し、一度だけ結果を確認することを前提としている。ダッシュボードを毎日チェックし、p<0.05になった瞬間に止めてしまうと、偽陽性率は5%をはるかに超えて膨れ上がる。覗き見の頻度によっては20〜30%を超えることもある。[p-hackingを防ぐ方法](/blog/preventing-p-hacking-experiments)で早期停止を副次的なリスクではなく主要なリスクとして扱っているのはこのためだ。逐次検定の補正手法（アルファ消費法、常に有効なp値など）はこの問題を解決できるが、素朴なt検定やカイ二乗検定を繰り返しチェックする運用では解決されない。
 
-### Bayesian: the prior problem
+### ベイズ統計：事前分布問題
 
-Bayesian methods handle continuous monitoring more gracefully — the posterior updates honestly as data arrives and doesn't require a pre-committed stopping rule in the same way. But the framework shifts the risk into the prior. A strongly informative prior pulling toward "no effect" will understate a real lift; a flat, uninformative prior on a low-traffic test can make noisy early results look more decisive than they are. Teams that switch to Bayesian dashboards to escape peeking penalties sometimes just relocate the same optimism into prior selection, especially when the prior is quietly set to "whatever made last quarter's test look good."
+ベイズ手法は継続的なモニタリングにより適しており、事後分布はデータが増えるたびに素直に更新され、頻度主義のような形での事前確定の停止ルールを必ずしも必要としない。しかしその代わりに、リスクは事前分布の設定へと移動する。「効果なし」に強く引き寄せる情報事前分布は本物のリフトを過小評価してしまい、トラフィックの少ないテストにフラットで無情報な事前分布を使うと、ノイズの多い初期結果が実際以上に決定的に見えてしまうことがある。ピーキングのペナルティから逃れるためにベイズのダッシュボードへ移行したチームが、結局は同じ楽観バイアスを事前分布の選び方に持ち込んでしまうケースも珍しくない。特に、事前分布が「前四半期のテストが良く見えるように」こっそり調整されている場合はなおさらだ。
 
-## Reading the Same Effect Two Ways
+## 同じ効果を2通りに読む
 
-| Question | Frequentist answer | Bayesian answer |
+| 問い | 頻度主義の答え | ベイズ統計の答え |
 |---|---|---|
-| "Is this real?" | p = 0.02 (reject null at α=0.05) | P(B > A) = 96% |
-| "How big is it?" | Point estimate + 95% confidence interval | Posterior mean + 95% credible interval |
-| "Can I stop early?" | Only with pre-specified sequential design | Yes, posterior is valid at any point, given the prior is reasonable |
-| "What if I run it again?" | CI covers the true effect 95% of the time across repeated experiments | Credible interval contains the true effect with 95% probability, given the model |
+| 「これは本物の効果か？」 | p = 0.02（α=0.05で帰無仮説を棄却） | P(B > A) = 96% |
+| 「どれくらいの大きさか？」 | 点推定値 + 95%信頼区間 | 事後平均 + 95%確信区間 |
+| 「早期に止めてよいか？」 | 事前に規定した逐次デザインがある場合のみ | 事前分布が妥当であれば、どの時点でも事後分布は有効 |
+| 「もう一度実験したらどうなるか？」 | 繰り返し実験を行った場合、真の効果を95%の頻度で区間がカバーする | モデルが正しければ、真の効果がこの区間に含まれる確率は95% |
 
-The interval language is where teams trip most often: a 95% confidence interval is a statement about the *procedure's* long-run coverage, not a 95% probability that this specific interval contains the true effect. A 95% credible interval is exactly the latter. When a StatFacts insight card reports an effect range alongside a confidence label, treat the range as descriptive of typical outcomes across studies — not as either kind of interval from a single test — and don't collapse the two definitions when you cite it.
+区間の言葉遣いこそ、チームが最も躓きやすいポイントだ。95%信頼区間は「その手続き」の長期的なカバー率についての主張であり、「この特定の区間」が真の効果を95%の確率で含むという意味ではない。95%確信区間はまさにその後者の意味そのものだ。OKPy Data Analysisのベンチマークカードに信頼度ラベルとともに効果範囲が示されている場合、その範囲は複数の研究における典型的な結果を記述したものとして扱い、単一のテストから得られたいずれの種類の区間とも同一視しない、という点に注意して引用する必要がある。
 
-## Matching the Framework to the Decision
+## 意思決定に合わせてフレームワークを選ぶ
 
-Neither approach is universally correct; the right choice depends on what the test is for.
+どちらの手法も万能ではなく、正しい選択はそのテストが何のために行われるかによって決まる。
 
-- **High-stakes, one-shot launches** (pricing changes, checkout flow rewrites) benefit from frequentist rigor with a pre-registered stopping rule, because the cost of a false positive is high and stakeholders want a defensible, standardized threshold.
-- **High-velocity iteration** (headline copy, button color, onboarding microcopy) favors Bayesian monitoring, because teams need to make continuous ship/kill calls without waiting for a fixed sample size, and the cost of any single wrong call is low.
-- **Low-traffic experiments** (B2B, enterprise, niche segments) generally favor Bayesian methods with a modest, honestly-documented prior — frequentist tests on small samples either never reach significance or require impractically long run times.
-- **Cross-team or cross-company comparisons**, including checking your result against a StatFacts benchmark, are easier in frequentist terms, since most published effect sizes and `sample_context` fields on insight cards are reported from classical A/B tests rather than posterior distributions.
+- **一発勝負の高リスクなリリース**（価格変更、決済フローの刷新など）には、事前登録された停止ルールを伴う頻度主義的な厳密さが向いている。偽陽性のコストが高く、関係者が防御可能で標準化された閾値を求めるためだ。
+- **高速に反復する施策**（見出しコピー、ボタンの色、オンボーディングの細かい文言など）にはベイズによるモニタリングが向いている。固定サンプルサイズに達するのを待たずに継続的なリリース／中止の判断を下す必要があり、1回あたりの誤判断のコストが低いためだ。
+- **トラフィックの少ない実験**（B2B、エンタープライズ、ニッチなセグメントなど）は、控えめで正直に文書化された事前分布を用いたベイズ手法が概ね適している。小さなサンプルに対する頻度主義の検定は、有意水準に到達しないか、実務上非現実的な期間の実験を必要とするためだ。
+- **チーム間・企業間の比較**（OKPy Data Analysisのベンチマークと自分の結果を照らし合わせる場合を含む）は、頻度主義の枠組みで行う方が容易だ。公開されている効果量やベンチマークカードの`sample_context`フィールドの多くは、事後分布ではなく古典的なA/Bテストから報告されているためだ。
 
-## Using StatFacts Benchmarks Under Either Framework
+## どちらのフレームワークでもベンチマークを活用する
 
-When you pull up an insight card to sanity-check a result, the `confidence` label tells you what kind of evidence generated the effect range — most StatFacts A/B test entries are frequentist in origin, so an observed effect near the low end of the range with a Bayesian posterior probability just above 90% is not a contradiction; it's two lenses on modest evidence. Two habits keep both frameworks honest against benchmark data:
+結果の妥当性を確認するためにベンチマークカードを開いたとき、`confidence`ラベルはその効果範囲がどのような種類の証拠から生成されたかを示している。OKPy Data Analysisに掲載されているA/Bテストのエントリの多くは頻度主義由来のものだ。したがって、観測された効果が範囲の下限付近にあり、ベイズの事後確率が90%をわずかに超える程度である場合、それは矛盾ではなく、控えめな証拠を2つの視点から見ているに過ぎない。ベンチマークデータに対して両フレームワークを正しく使うには、次の2つの習慣が役立つ。
 
-1. **Compare magnitude, not just the decision.** A p < 0.05 result or a posterior > 95% only tells you a direction is likely. Line the point estimate or posterior mean up against the insight card's effect range to judge whether the lift is typical, unusually large, or too small to matter operationally.
-2. **Check `sample_context` before trusting either interval.** A tight frequentist confidence interval or a concentrated posterior from a test run on a narrow user segment doesn't transfer to a different product surface just because the interval looks precise. Precision and relevance are separate questions.
+1. **意思決定だけでなく、効果の大きさを比較する。** p<0.05や事後確率>95%という結果は、方向性がありそうだということしか教えてくれない。点推定値または事後平均をベンチマークカードの効果範囲と照らし合わせ、そのリフトが典型的な範囲なのか、異例に大きいのか、実務上無視できるほど小さいのかを判断する。
+2. **いずれの区間を信用する前にも`sample_context`を確認する。** 狭いユーザーセグメントで実施されたテストから得られた、幅の狭い頻度主義の信頼区間や集中したベイズの事後分布は、区間が精密に見えるからといって別のプロダクト面にそのまま適用できるわけではない。精密さと関連性は別の問題だ。
 
-## Practical Setup Notes
+## 実務上の運用メモ
 
-- If your experimentation platform supports both, run Bayesian posterior tracking for internal go/no-go calls and report frequentist p-values in documents that leave the team, since external reviewers and most cited literature still default to that language.
-- Document your prior (or your significance threshold) before the test starts, in the same spirit as the pre-registration practice described in the [p-hacking guide](/blog/preventing-p-hacking-experiments) — a prior chosen after seeing early results is no more honest than a stopping rule chosen after seeing early p-values.
-- Report an interval alongside any point estimate, and always label which kind it is. "95% CI" and "95% credible interval" are not interchangeable in a deck, even though they're often typed as if they were.
+- 実験基盤が両方に対応しているなら、社内のGo/No-Go判断にはベイズの事後確率トラッキングを使い、チーム外に出す資料では頻度主義のp値を報告するとよい。外部のレビュアーや引用される文献の多くは、いまだにその言葉づかいをデフォルトとしているためだ。
+- テスト開始前に、事前分布（またはp値の有意水準）を文書化しておく。これは[p-hackingを防ぐガイド](/blog/preventing-p-hacking-experiments)で述べられている事前登録の考え方と同じ精神だ。初期結果を見てから選ばれた事前分布は、初期のp値を見てから選ばれた停止ルールと同じくらい不誠実になり得る。
+- 点推定値には必ず区間を添え、どちらの種類の区間かを明記する。「95%信頼区間」と「95%確信区間」は、資料の中でしばしば同じもののように書かれがちだが、決して互換性のある表現ではない。
 
 ---
 
-**Related Resources from StatFacts:**
+**OKPy Data Analysisの関連リソース：**
 
-- For guidance on interpreting effect ranges, confidence labels, and sample context on any insight card: [How to Read Benchmarks Effectively](/blog/how-to-read-benchmarks)
-- To check your own experiment's sample size and expected precision before choosing a framework: [Benchmark Calculator](/tools/benchmark-calculator)
-
-Let me know if you'd like this saved to `app/content/guides/bayesian-vs-frequentist-ab-testing.md` — the write attempt is pending your approval.
+- ベンチマークカードの効果範囲・信頼度ラベル・サンプル背景情報の読み方については、[ベンチマークを正しく読む方法](/blog/how-to-read-benchmarks)を参照。
+- フレームワークを選ぶ前に、自分の実験のサンプルサイズと期待される精度を確認するには、[ベンチマーク計算ツール](/tools/benchmark-calculator)を利用する。

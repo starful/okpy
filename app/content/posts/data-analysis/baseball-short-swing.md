@@ -1,45 +1,45 @@
 ---
-title: Does a shorter swing path improve contact in MLB?
+title: 短いスイングはミートを改善するのか？MLBデータで検証する
 date: '2026-05-15'
 category: data-analysis
 slug: baseball-short-swing
-summary: Shorter swings correlate with higher batting average (.258 vs .235) and lower
-  whiff rate (19% vs 30%), but lower slugging (.359 vs .422).
-lang: en
+summary: スイングの軌道が短いバッターは打率が高く空振り率も低い（.258 vs .235、19% vs 30%）一方で、長打力は下がる（長打率.359 vs
+  .422）傾向がある。これはあくまで集団単位の相関であり、個々の打者に短いスイングが最適とは限らない。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/baseball-short-swing.jpg
 ---
 
-## Effect snapshot
+## 効果のスナップショット
 
 | | |
 |--|--|
-| Intervention | Use a shorter-than-average swing path (Statcast swing length) |
-| Outcome | Batting average and whiff rate |
-| Effect | 2.3–11 percent point mixed |
-| Confidence | `study` |
-| Context | MLB Statcast bat-tracking, early 2024 season splits |
+| 介入 | 平均より短いスイング軌道を使う（Statcastのスイングレングス） |
+| 結果 | 打率と空振り率 |
+| 効果 | 2.3〜11ポイントの範囲で、指標により向きが混在 |
+| 確度 | `study`（研究・データ分析レベル） |
+| 文脈 | MLB Statcastのバットトラッキングデータ、2024年シーズン序盤の分割集計 |
 
-### Sources
+### 出典
 
 - [MLB.com — Swing Length glossary](https://www.mlb.com/glossary/statcast/swing-length)
 - [ESPN — Statcast bat-tracking takeaways](https://www.espn.com/mlb/story/_/id/40120458/mlb-statcast-bat-tracking-data-giancarlo-stanton-luis-arraez)
 
-## What changes
+## 何が変わるのか
 
-A shorter swing path (measured in feet along the bat barrel) tends to prioritize contact over maximum power.
+スイング軌道の長さは、バットのバレル部分が描く軌跡の距離（フィート）で測定される。この軌道が短いバッターは、最大パワーよりもコンタクト（ミート）を優先する傾向がある。
 
-## Reported split (MLB, 2024 early season)
+## 報告されているデータ分割（MLB、2024年シーズン序盤）
 
-| Swing length | BA | SLG | Whiff |
+| スイング長 | 打率 | 長打率 | 空振り率 |
 |---|---|---|---|
-| Shorter than avg | .258 | .359 | 19% |
-| Longer than avg | .235 | .422 | 30% |
+| 平均より短い | .258 | .359 | 19% |
+| 平均より長い | .235 | .422 | 30% |
 
-## Important nuance
+## 重要な注意点
 
-This is **correlation from population splits**, not proof that every hitter should shorten mechanically. Player skill, pitch recognition, and count strategy still dominate.
+このデータは**母集団の分割から得られた相関関係**であり、すべての打者が機構的にスイングを短くすべきだという証明ではない。選手個人の技術、球種の見極め、カウントごとの戦略といった要因の影響の方がはるかに大きい。
 
-## Practical takeaway
+## 実践的な結論
 
-Shorter swings trade some power for contact. The decision is player-specific—not a universal +X% home-run swap.
+短いスイングはパワーの一部を犠牲にしてコンタクトを高める傾向がある。ただしこの判断は選手ごとの特性に依存するものであり、「+X%のホームラン増加」といった一律の交換式が成り立つわけではない。

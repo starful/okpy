@@ -1,45 +1,44 @@
 ---
-title: Does a shorter battle pass season increase completion rate?
+title: バトルパスのシーズン期間を短縮すると、完走率は上がるのか？
 date: '2026-05-15'
 category: data-analysis
 slug: battle-pass-completion
-summary: Shorter battle pass seasons are often associated with a 12–28% relative increase
-  in completion and attach rate.
-lang: en
+summary: バトルパスのシーズン期間を12週間から8週間に短縮すると、完走率・アタッチ率が12〜28%（相対値）向上する傾向が報告されている。競争型マルチプレイヤーのF2Pタイトル（コンソール・PC、2022〜2025年）を対象とした事例に基づく推定値である。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/battle-pass-completion.jpg
 ---
 
-## Effect snapshot
+## 効果のスナップショット
 
 | | |
 |--|--|
-| Intervention | Reduce battle pass season length from 12 weeks to 8 weeks |
-| Outcome | Battle pass completion rate |
-| Effect | 12–28 percent relative increase |
-| Confidence | `estimate` |
-| Context | Competitive multiplayer F2P, console and PC, 2022–2025 |
+| 施策 | バトルパスのシーズン期間を12週間から8週間に短縮する |
+| 指標 | バトルパス完走率 |
+| 効果 | 12〜28%の相対的増加 |
+| 確度 | `推定（estimate）` |
+| 対象領域 | 競争型マルチプレイヤーF2P、コンソール・PC、2022〜2025年 |
 
-### Sources
+### 出典
 
 - [Newzoo — Games market](https://newzoo.com/resources)
 
-## What changes
+## 何が変わるのか
 
-Shorter battle pass seasons are often associated with a 12–28% relative increase in completion and attach rate.
+バトルパスのシーズン期間を短くすると、完走率およびアタッチ率が12〜28%（相対値）向上する傾向がしばしば見られる。シーズンが短くなるほど、プレイヤーが「これなら最後まで終わらせられそうだ」と感じやすくなり、途中離脱が減ると考えられる。
 
-## When this tends to work
+## 効果が出やすい条件
 
-- Conditions similar to: Competitive multiplayer F2P, console and PC, 2022–2025
-- You can measure `Battle pass completion rate` reliably
-- The intervention is implemented consistently, not half-measured
+- 引用元と近い条件（競争型マルチプレイヤーF2P、コンソール・PC、2022〜2025年）であること
+- 「バトルパス完走率」を安定して計測できる仕組みがあること
+- 施策を中途半端にせず、一貫して実装できること
 
-## When to be careful
+## 注意すべき点
 
-- Your audience or product differs materially from the cited context
-- Compliance costs or second-order effects outweigh the lift
-- Evidence label is **estimate**—treat wide ranges as planning bands, not promises
+- 自社のオーディエンスやプロダクトが、引用元の条件と大きく異なる場合
+- 運用コストや副次的な影響（例：シーズンあたりの制作負荷増）が、得られる効果を上回る場合
+- 確度ラベルは「推定（estimate）」——幅のある数値は約束ではなく、計画段階の目安として扱うこと
 
-## Practical takeaway
+## 実務への示唆
 
-Use the cited range for prioritization and test design. Verify against your own data before scaling.
+ここで示した数値は、施策の優先順位付けやテスト設計の参考値として活用する。本番展開の前には、必ず自社データで効果を検証すること。
