@@ -11,6 +11,8 @@ import os
 import random
 import re
 import sys
+import tempfile
+import urllib.request
 from pathlib import Path
 
 import frontmatter
@@ -23,9 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 POSTS_DIR = BASE_DIR / "app" / "content" / "posts"
 HISTORY_PATH = BASE_DIR / "data" / "posted_to_x.json"
 SITE_URL = os.getenv("SITE_URL", "https://okpy.net").rstrip("/")
+GCS_IMAGE_BASE = os.getenv(
+    "GCS_IMAGE_BASE",
+    "https://storage.googleapis.com/ok-project-assets/okpy",
+).rstrip("/")
 HISTORY_KEEP = 60
 TWEET_WEIGHTED_LIMIT = 280
 URL_WEIGHTED_LENGTH = 23
+MAX_IMAGE_BYTES = 4_800_000
 
 CATEGORY_TAGS = {
     "python": ["#Python"],
@@ -99,17 +106,19 @@ def load_posts() -> list[dict]:
         if not slug or not title:
             continue
         summary = str(post.get("summary") or "").strip()
+        body = post.content or ""
         if not summary:
-            body = re.sub(r"!\[.*?\]\(.*?\)", "", post.content or "")
-            body = re.sub(r"[#*`>_-]", " ", body)
-            body = re.sub(r"\s+", " ", body).strip()
-            summary = body[:180]
+            plain = re.sub(r"!\[.*?\]\(.*?\)", "", body)
+            plain = re.sub(r"[#*`>_-]", " ", plain)
+            plain = re.sub(r"\s+", " ", plain).strip()
+            summary = plain[:180]
         posts.append(
             {
                 "slug": slug,
                 "title": title,
                 "summary": summary,
                 "category": str(post.get("category") or "").strip().lower(),
+                "cover": resolve_cover(post.get("cover"), body),
             }
         )
     if not posts:
@@ -117,10 +126,24 @@ def load_posts() -> list[dict]:
     return posts
 
 
+def resolve_cover(cover, body: str) -> str:
+    url = str(cover or "").strip()
+    if not url:
+        match = re.search(r"!\[[^\]]*\]\(([^)]+)\)", body or "")
+        url = match.group(1).strip() if match else ""
+    if not url:
+        return ""
+    for prefix in ("/static/images/posts/", "static/images/posts/"):
+        if url.startswith(prefix):
+            return f"{GCS_IMAGE_BASE}/{url[len(prefix):]}"
+    return url
+
+
 def pick_post(posts: list[dict], recent: list[str]) -> dict:
     recent_set = set(recent)
-    candidates = [p for p in posts if p["slug"] not in recent_set] or posts
-    return random.choice(candidates)
+    pool = [p for p in posts if p["slug"] not in recent_set] or posts
+    with_cover = [p for p in pool if p.get("cover")]
+    return random.choice(with_cover or pool)
 
 
 def build_tweet(post: dict) -> str:
@@ -156,7 +179,7 @@ def build_tweet(post: dict) -> str:
     return tweet
 
 
-def client() -> tweepy.Client:
+def credentials() -> tuple[str, str, str, str]:
     key = os.getenv("X_API_KEY")
     secret = os.getenv("X_API_SECRET")
     token = os.getenv("X_ACCESS_TOKEN")
@@ -173,12 +196,64 @@ def client() -> tweepy.Client:
     ]
     if missing:
         raise SystemExit(f"Missing env: {', '.join(missing)}")
+    return key, secret, token, token_secret
+
+
+def v2_client() -> tweepy.Client:
+    key, secret, token, token_secret = credentials()
     return tweepy.Client(
         consumer_key=key,
         consumer_secret=secret,
         access_token=token,
         access_token_secret=token_secret,
     )
+
+
+def v1_api() -> tweepy.API:
+    key, secret, token, token_secret = credentials()
+    auth = tweepy.OAuth1UserHandler(key, secret, token, token_secret)
+    return tweepy.API(auth)
+
+
+def download_cover(url: str) -> Path | None:
+    if not url.startswith(("http://", "https://")):
+        return None
+    suffix = Path(url.split("?", 1)[0]).suffix.lower()
+    if suffix not in {".jpg", ".jpeg", ".png", ".webp", ".gif"}:
+        suffix = ".jpg"
+    tmp = tempfile.NamedTemporaryFile(prefix="okpy-x-", suffix=suffix, delete=False)
+    tmp.close()
+    dest = Path(tmp.name)
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": "okpy-x-poster/1.0"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = resp.read(MAX_IMAGE_BYTES + 1)
+        if not data or len(data) > MAX_IMAGE_BYTES:
+            dest.unlink(missing_ok=True)
+            return None
+        dest.write_bytes(data)
+        return dest
+    except Exception as exc:
+        print(f"cover download failed: {exc}", file=sys.stderr)
+        dest.unlink(missing_ok=True)
+        return None
+
+
+def upload_cover(url: str) -> str | None:
+    path = download_cover(url)
+    if not path:
+        return None
+    try:
+        media = v1_api().media_upload(filename=str(path))
+        return str(media.media_id)
+    except tweepy.TweepyException as exc:
+        print(f"cover upload failed: {exc}", file=sys.stderr)
+        return None
+    finally:
+        path.unlink(missing_ok=True)
 
 
 def main() -> None:
@@ -188,6 +263,7 @@ def main() -> None:
     chosen = pick_post(posts, recent)
     tweet = build_tweet(chosen)
     print(f"slug={chosen['slug']}")
+    print(f"cover={chosen.get('cover') or '(none)'}")
     print("--- tweet ---")
     print(tweet)
     print("-------------")
@@ -196,9 +272,21 @@ def main() -> None:
         print("DRY_RUN=1 — not posting")
         return
 
-    api = client()
+    media_ids = None
+    if chosen.get("cover"):
+        media_id = upload_cover(chosen["cover"])
+        if media_id:
+            media_ids = [media_id]
+            print(f"attached media_id={media_id}")
+        else:
+            print("posting without image")
+
+    api = v2_client()
     try:
-        api.create_tweet(text=tweet)
+        kwargs = {"text": tweet}
+        if media_ids:
+            kwargs["media_ids"] = media_ids
+        api.create_tweet(**kwargs)
     except tweepy.TweepyException as exc:
         raise SystemExit(f"X API error: {exc}") from exc
 
