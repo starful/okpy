@@ -2,6 +2,7 @@
 """Post one random okpy article to X (@X_okpy).
 
 Used by .github/workflows/post_to_x.yml (08:00 JST).
+Alternates daily between eng-comms and data-analysis.
 """
 
 from __future__ import annotations
@@ -33,6 +34,7 @@ HISTORY_KEEP = 60
 TWEET_WEIGHTED_LIMIT = 280
 URL_WEIGHTED_LENGTH = 23
 MAX_IMAGE_BYTES = 4_800_000
+ALLOWED_CATEGORIES = ("eng-comms", "data-analysis")
 
 CATEGORY_TAGS = {
     "python": ["#Python"],
@@ -71,23 +73,37 @@ def trim_weighted(text: str, limit: int) -> str:
     return "".join(out).rstrip()
 
 
-def load_history() -> list[str]:
+def load_history() -> tuple[list[str], str]:
     if not HISTORY_PATH.exists():
-        return []
+        return [], ""
     try:
         data = json.loads(HISTORY_PATH.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
-        return []
-    slugs = data.get("slugs") if isinstance(data, dict) else data
+        return [], ""
+    if isinstance(data, list):
+        return [str(s) for s in data], ""
+    if not isinstance(data, dict):
+        return [], ""
+    slugs = data.get("slugs") or []
     if not isinstance(slugs, list):
-        return []
-    return [str(s) for s in slugs]
+        slugs = []
+    last = str(data.get("last_category") or "").strip().lower()
+    if last not in ALLOWED_CATEGORIES:
+        last = ""
+    return [str(s) for s in slugs], last
 
 
-def save_history(slugs: list[str]) -> None:
+def save_history(slugs: list[str], last_category: str) -> None:
     HISTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
     HISTORY_PATH.write_text(
-        json.dumps({"slugs": slugs[-HISTORY_KEEP:]}, ensure_ascii=False, indent=2)
+        json.dumps(
+            {
+                "last_category": last_category,
+                "slugs": slugs[-HISTORY_KEEP:],
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
         + "\n",
         encoding="utf-8",
     )
@@ -112,17 +128,22 @@ def load_posts() -> list[dict]:
             plain = re.sub(r"[#*`>_-]", " ", plain)
             plain = re.sub(r"\s+", " ", plain).strip()
             summary = plain[:180]
+        category = str(post.get("category") or "").strip().lower()
+        if category not in ALLOWED_CATEGORIES:
+            continue
         posts.append(
             {
                 "slug": slug,
                 "title": title,
                 "summary": summary,
-                "category": str(post.get("category") or "").strip().lower(),
+                "category": category,
                 "cover": resolve_cover(post.get("cover"), body),
             }
         )
     if not posts:
-        raise FileNotFoundError(f"No markdown posts under {POSTS_DIR}")
+        raise FileNotFoundError(
+            f"No markdown posts in {', '.join(ALLOWED_CATEGORIES)} under {POSTS_DIR}"
+        )
     return posts
 
 
@@ -139,11 +160,35 @@ def resolve_cover(cover, body: str) -> str:
     return url
 
 
-def pick_post(posts: list[dict], recent: list[str]) -> dict:
+def next_category(last: str) -> str:
+    if last == "eng-comms":
+        return "data-analysis"
+    if last == "data-analysis":
+        return "eng-comms"
+    return "eng-comms"
+
+
+def pick_post(posts: list[dict], recent: list[str], last_category: str) -> dict:
     recent_set = set(recent)
-    pool = [p for p in posts if p["slug"] not in recent_set] or posts
-    with_cover = [p for p in pool if p.get("cover")]
-    return random.choice(with_cover or pool)
+    target = next_category(last_category)
+
+    def pool_for(cat: str) -> list[dict]:
+        cands = [p for p in posts if p["category"] == cat]
+        unused = [p for p in cands if p["slug"] not in recent_set]
+        base = unused or cands
+        with_cover = [p for p in base if p.get("cover")]
+        return with_cover or base
+
+    pool = pool_for(target)
+    if not pool:
+        other = "data-analysis" if target == "eng-comms" else "eng-comms"
+        pool = pool_for(other)
+        target = other
+    if not pool:
+        raise SystemExit("No posts in eng-comms or data-analysis")
+    chosen = random.choice(pool)
+    print(f"category={chosen['category']} (target={target})")
+    return chosen
 
 
 def build_tweet(post: dict) -> str:
@@ -259,8 +304,8 @@ def upload_cover(url: str) -> str | None:
 def main() -> None:
     dry_run = os.getenv("DRY_RUN", "").lower() in {"1", "true", "yes"}
     posts = load_posts()
-    recent = load_history()
-    chosen = pick_post(posts, recent)
+    recent, last_category = load_history()
+    chosen = pick_post(posts, recent, last_category)
     tweet = build_tweet(chosen)
     print(f"slug={chosen['slug']}")
     print(f"cover={chosen.get('cover') or '(none)'}")
@@ -291,7 +336,7 @@ def main() -> None:
         raise SystemExit(f"X API error: {exc}") from exc
 
     recent.append(chosen["slug"])
-    save_history(recent)
+    save_history(recent, chosen["category"])
     print(f"posted: {chosen['title']}")
 
 
