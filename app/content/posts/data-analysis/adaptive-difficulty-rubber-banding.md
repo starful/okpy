@@ -1,5 +1,5 @@
 ---
-title: アダプティブ難易度調整（ラバーバンディング）はセッション時間とリテンションを伸ばすのか
+title: ラバーバンディングでセッション時間とD7リテンションが8-18%向上した理由 — OKPy
 date: '2026-07-26'
 category: data-analysis
 slug: adaptive-difficulty-rubber-banding
@@ -7,7 +7,11 @@ summary: ラバーバンディング（プレイヤーの成績に応じて難�
 lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/adaptive-difficulty-rubber-banding.jpg
+description: プレイヤーのスキルに応じた動的な難易度調整「ラバーバンディング」のA/Bテスト結果。セッション時間とリテンション改善の仕組みを解説します。
+seo_title: ラバーバンディング｜セッション時間とリテンションを8-18%改善 - OKPy
+seo_description: ラバーバンディング（動的難易度調整）でセッション時間とD7リテンションが8～18%向上。プレイヤーを離脱させない難易度設計とA/Bテスト結果を解説。
 ---
+
 
 ## 効果のスナップショット
 
