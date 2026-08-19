@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Post one random okpy article to X (@X_okpy).
 
-Used by .github/workflows/post_to_x.yml (08:00 and 14:00 JST).
+Used by .github/workflows/post_to_x.yml (08:00 JST).
 """
 
 from __future__ import annotations

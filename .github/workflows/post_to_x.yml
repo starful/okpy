@@ -4,8 +4,6 @@ on:
   schedule:
     # 08:00 JST (UTC 23:00)
     - cron: "0 23 * * *"
-    # 14:00 JST (UTC 05:00)
-    - cron: "0 5 * * *"
   workflow_dispatch:
 
 permissions:
