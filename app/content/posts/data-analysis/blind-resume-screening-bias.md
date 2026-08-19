@@ -1,44 +1,41 @@
 ---
-title: Does Removing Names and Graduation Years From Resumes Reduce Hiring Bias?
+title: 履歴書から氏名・卒業年を削除すると採用バイアスは減るのか
 date: '2026-07-25'
 category: data-analysis
 slug: blind-resume-screening-bias
-summary: Stripping names, gender cues, and graduation years from resumes raises underrepresented
-  candidates' odds of reaching a first phone interview by 18-32%.
-lang: en
+summary: 履歴書から氏名・性別を示唆する情報・卒業年を取り除くと、過小評価されている候補者が最初の電話面接に進む確率が18〜32%（相対値）向上するという分析結果がある。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/blind-resume-screening-bias.jpg
 ---
 
-## Effect snapshot
+## 効果サマリー
 
 | | |
 |--|--|
-| Intervention | Removing demographic indicators such as candidate name, gender, and graduation years from resumes before hiring manager review |
-| Outcome | Underrepresented candidate progression to initial phone interviews |
-| Effect | 18–32 percent relative increase |
-| Confidence | `meta_analysis` |
-| Context | Corporate and public-sector hiring pipelines using structured resume review, screening for entry- to mid-level roles before a first phone interview |
+| 介入 | 採用担当者によるレビュー前に、履歴書から氏名・性別・卒業年などの属性を示す情報を削除する |
+| 成果指標 | 過小評価されている候補者の一次電話面接への進出率 |
+| 効果量 | 18〜32%の相対的増加 |
+| 確度 | `メタ分析` |
+| 対象文脈 | 一次電話面接前の構造化された履歴書レビューを用いる、民間・公共セクターのエントリー〜ミドルレベル採用パイプライン |
 
-### Sources
+### 出典
 
 - [Society for Human Resource Management](https://www.shrm.org)
 - [Harvard Business Review](https://hbr.org)
 
-## The Mechanics of Removing Identity Cues
+## 「属性を隠す」ことの具体的な仕組み
 
-Blind resume screening works on a narrow, deliberate premise: hiring managers cannot act on bias they cannot see. The intervention strips out the fields that most reliably signal race, gender, and age — candidate name, gender-coded pronouns or honorifics, and graduation years that hint at a candidate's age or how long they've been out of the workforce. What remains is the substance a screener is supposed to evaluate: skills, employment history, measurable achievements, and education credentials without the dates attached. This is typically implemented through an applicant tracking system (ATS) rule or a manual redaction step performed by a recruiter before the resume reaches the hiring manager, so the reviewer sees a functionally anonymized document rather than a curated one.
+ブラインド履歴書スクリーニングは、シンプルで明確な前提に基づいている。採用担当者は「見えないバイアス」には基づいて判断できない、というものだ。この介入では、人種・性別・年齢を推測させる手がかりとして最も強く働く項目——氏名、性別を示す代名詞や敬称、そして候補者の年齢や離職期間を推測させる卒業年——を取り除く。残るのは、本来スクリーナーが評価すべき中身、すなわちスキル、職歴、定量的な実績、そして日付を伴わない学歴だけだ。実装方法としては、採用管理システム(ATS)側でのルール設定、あるいは履歴書が採用担当者に届く前にリクルーターが手作業で該当箇所を削除する、といった形が一般的であり、レビュアーは「編集された履歴書」ではなく「実質的に匿名化された履歴書」を目にすることになる。
 
-## Why the Effect Clusters Between 18 and 32 Percent
+## なぜ効果量は18〜32%という幅に収まるのか
 
-Across meta-analytic evidence, removing these identity markers increases the rate at which underrepresented candidates advance to an initial phone interview by 18 to 32 percent relative to standard, non-blinded review. The range reflects real variation in how "blind" the process actually is: organizations that also strip undergraduate institution names or extracurricular activities tied to demographic signaling tend to land at the higher end, while those that redact only name and graduation year see gains closer to the lower bound. The effect is concentrated specifically at the phone-screen gate — the first point where a resume is judged by a human rather than a keyword filter — because that is where implicit pattern-matching on a name or a decade of graduation has historically done the most damage.
+複数の分析結果を通じて見ると、これらの属性情報を削除することで、過小評価されている候補者が一次電話面接に進む割合は、通常の（属性を伏せない）レビューと比べて18〜32%（相対値）高くなる。この幅は、実際の「ブラインド度合い」のばらつきを反映している。出身大学名や、属性を推測させかねない課外活動の記載まで併せて削除している組織では効果が高めに出る傾向があり、氏名と卒業年のみを削除している組織では効果が下限寄りになる傾向がある。この効果が特に集中して現れるのは電話面接前の一次スクリーニング段階だ。ここはキーワードによる自動フィルタリングではなく人間が初めて履歴書を判断する地点であり、氏名や卒業年代からの無意識のパターンマッチングがこれまで最も大きな影響を及ぼしてきた場所でもある。
 
-## Where the Effect Is Strongest, and Where It Fades
+## 効果が大きく出る場面、弱まる場面
 
-The gains are largest in high-volume screening for entry- and mid-level roles, where a single reviewer is triaging dozens of resumes quickly and defaulting to fast, associative judgments. The effect is weaker in senior or highly specialized hiring, where small applicant pools and distinctive career trajectories make true anonymization difficult — a reviewer can often infer identity from a niche employer, a publication, or a patent regardless of redaction. Blind screening also loses power if bias simply migrates downstream: if the phone interview or panel round reintroduces the same unstructured judgment the resume stage removed, the pipeline gain at the top can wash out by the offer stage.
+効果が最も大きく出るのは、エントリー〜ミドルレベルの職種における大量スクリーニングの場面だ。一人のレビュアーが数十件の履歴書を短時間でさばく必要があり、素早く連想的な判断に頼りがちな状況である。一方、シニア職や高度に専門性の高いポジションの採用では効果が弱まる。応募者プールが小さく、経歴が個性的であるため、真の匿名化が難しいからだ。ニッチな勤務先、論文、特許などから、属性情報を伏せていてもレビュアーが本人を推測できてしまうことが多い。また、バイアスが単に下流の選考段階へ移動するだけであれば、ブラインドスクリーニングの効果は薄れる。仮に電話面接やパネル面接の段階で、履歴書段階では排除した構造化されていない主観的判断が再び持ち込まれれば、入り口で得られた向上効果は、最終的なオファー段階までに相殺されてしまう可能性がある。
 
-## Building a Redaction Process That Actually Holds
+## 実効性のある削除プロセスを構築するには
 
-The intervention only delivers its stated effect if the redaction is systematic rather than ad hoc. That means codifying which fields are removed in the ATS configuration rather than trusting individual recruiters to remember, auditing a sample of "blinded" resumes to confirm no indirect identifiers slipped through (a sorority listed under activities, a name still visible in a file's metadata), and pairing the resume-stage change with structured, criteria-based interviews so the bias reduction isn't undone one round later. Treat the 18-32% range as an upper bound on what resume redaction alone can deliver — it is a gate-opening intervention, not a substitute for auditing the rest of the funnel.
-
-Let me know if you'd like this saved to a specific file in the repo (e.g. under `content/`).
+この介入が謳われた効果を発揮するのは、属性情報の削除が場当たり的ではなく、体系立てて行われている場合に限られる。具体的には、削除対象の項目をATSの設定として明文化し、個々のリクルーターの裁量や記憶に依存しないこと。「匿名化済み」の履歴書のサンプルを監査し、間接的な識別情報（課外活動欄に記載されたソロリティ名、ファイルのメタデータに残った氏名など）が漏れていないか確認すること。そして、履歴書段階での変更を、基準に基づいた構造化面接と組み合わせ、次の選考段階でバイアス削減効果が失われないようにすることが重要だ。18〜32%という幅は、履歴書の属性情報削除単体がもたらしうる効果の上限と捉えるべきだろう。これはあくまで「入り口を開く」介入であり、選考プロセス全体を監査する取り組みの代替にはならない。

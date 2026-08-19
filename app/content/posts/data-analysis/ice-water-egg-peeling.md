@@ -1,5 +1,5 @@
 ---
-title: 'How to Peel Hard-Boiled Eggs Perfectly: The Ice Bath Method — OKPy'
+title: 'How to Peel Hard-Boiled Eggs Perfectly: The Ice Bath Method'
 date: '2026-07-25'
 category: data-analysis
 slug: ice-water-egg-peeling
@@ -8,12 +8,13 @@ summary: Applying an ice water shock to hard-boiled eggs immediately after cooki
 lang: en
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/ice-water-egg-peeling.jpg
-description: Master the ice bath method to peel hard-boiled eggs effortlessly. Proven
-  to work 25-40% better than traditional techniques.
-seo_title: 'How to Peel Hard-Boiled Eggs Perfectly: The Ice Bath Method — OKPy'
-seo_description: Master the ice bath method to peel hard-boiled eggs effortlessly.
-  Proven to work 25-40% better than traditional techniques.
+description: Master the ice bath method to peel hard-boiled eggs without tearing.
+  Works perfectly on fresh eggs in just 30 seconds.
+seo_title: 'Peel Hard-Boiled Eggs Perfectly: The Ice Bath Method'
+seo_description: Stop ruining eggs. The ice bath method works perfectly every time—even
+  on fresh eggs. Takes 30 seconds.
 ---
+
 
 
 ## Effect snapshot

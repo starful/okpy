@@ -1,45 +1,44 @@
 ---
-title: How much does caffeine before endurance events help?
+title: 持久系レースの前にカフェインを摂ると、どれくらい効果があるのか
 date: '2026-06-10'
 category: data-analysis
 slug: caffeine-endurance-performance
-summary: Caffeine dosing is commonly associated with a 2–4% relative improvement in
-  endurance time-trial performance in meta-analyses.
-lang: en
+summary: メタアナリシスでは、レース前のカフェイン摂取が持久系タイムトライアルのパフォーマンスを2〜4%（相対値）向上させるという報告が一般的です。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/caffeine-endurance-performance.jpg
 ---
 
-## Effect snapshot
+## 効果のスナップショット
 
 | | |
 |--|--|
-| Intervention | Take ~3–6 mg/kg caffeine 60 minutes pre-race |
-| Outcome | Time trial completion time |
-| Effect | 2–4 percent relative decrease |
-| Confidence | `meta_analysis` |
-| Context | Cycling and running time trials, trained amateurs, WADA-legal dosing |
+| 介入 | レース60分前に体重1kgあたり約3〜6mgのカフェインを摂取 |
+| アウトカム | タイムトライアルの完走タイム |
+| 効果 | 2〜4%の相対的な短縮 |
+| 確からしさ | `meta_analysis`（メタアナリシス） |
+| 前提条件 | 自転車・ランニングのタイムトライアル、トレーニング経験のあるアマチュア、WADA（世界アンチ・ドーピング機構）で認められる範囲の摂取量 |
 
-### Sources
+### 出典
 
 - [IOC consensus — Caffeine and performance](https://stillmed.olympics.com/)
 
-## What changes
+## 何が変わるのか
 
-Caffeine dosing is commonly associated with a 2–4% relative improvement in endurance time-trial performance in meta-analyses.
+複数のメタアナリシスにおいて、カフェイン摂取は持久系タイムトライアルの完走タイムを2〜4%程度（相対値）短縮する効果と関連づけられています。これは劇的な変化ではありませんが、僅差で勝敗が決まる競技レベルでは無視できない差です。
 
-## When this tends to work
+## 効果が出やすい条件
 
-- Conditions similar to: Cycling and running time trials, trained amateurs, WADA-legal dosing
-- You can measure `Time trial completion time` reliably
-- The intervention is implemented consistently, not half-measured
+- 前提条件と近い状況であること：自転車・ランニングのタイムトライアル、トレーニング経験のあるアマチュア、WADAで認められる範囲の摂取量
+- `タイムトライアルの完走タイム` を安定して計測できること
+- 中途半端にではなく、一貫したプロトコルで介入を実施できること
 
-## When to be careful
+## 注意すべき点
 
-- Your audience or product differs materially from the cited context
-- Compliance costs or second-order effects outweigh the lift
-- Evidence label is **meta_analysis**—treat wide ranges as planning bands, not promises
+- 対象とする競技者や状況が、引用元の前提条件と大きく異なる場合
+- 摂取のタイミングや個人差によるリスク・副作用（不眠、動悸など）が、期待できる効果を上回る場合
+- エビデンスレベルは **meta_analysis** であり、幅のある数値は「約束された効果」ではなく「計画上の目安」として扱うべき点
 
-## Practical takeaway
+## 実践への示唆
 
-Use the cited range for prioritization and test design. Verify against your own data before scaling.
+ここで示した効果の範囲は、優先順位付けや検証計画の目安として活用してください。実際に取り入れる前には、自分自身のデータで効果を確認することをおすすめします。関連して、パフォーマンスに影響する他の要因については [OKPy Data Analysis](/blog/) の他の記事も参考にしてください。
