@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>A chatbot is not a single model — OKPy Special</title>
+  <meta name="description" content="Interactive map of agentic AI: Agent, Context Layer, retrieval tools, RAG methodologies, and how Cursor, ChatGPT, Claude, and Gemini map to the same architecture.">
+  <link rel="canonical" href="https://okpy.net/guide/agentic-system">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OKPy">
+  <meta property="og:title" content="A chatbot is not a single model — OKPy Special">
+  <meta property="og:description" content="Interactive map of agentic AI systems: Agent vs Context, parallel tools, RAG methods, and product mapping.">
+  <meta property="og:url" content="https://okpy.net/guide/agentic-system">
+  <meta property="og:image" content="https://okpy.net/static/images/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A chatbot is not a single model — OKPy Special">
+  <meta name="twitter:description" content="Interactive map of agentic AI: Agent, Context, tools, RAG, and product mapping.">
+  <meta name="twitter:image" content="https://okpy.net/static/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#070b14;--panel:#0f1628;--node:#141e33;--line:#2d3f63;--text:#f2f6ff;--muted:#8fa3c4;--spine:#5b7ab0;--teal:#2fd6c4}
+    *{box-sizing:border-box}body{margin:0;font-family:"IBM Plex Sans KR","Noto Sans JP",-apple-system,sans-serif;background:radial-gradient(800px 400px at 50% 0,rgba(77,141,255,.12),transparent 55%),var(--bg);color:var(--text);line-height:1.55}
+    button{font:inherit}.page{width:min(1100px,calc(100% - 1.25rem));margin:auto;padding:1.2rem 0 3rem}
+    header{text-align:center;margin-bottom:1.2rem;position:relative;padding-top:2.8rem}header h1{margin:0;font-size:clamp(1.45rem,3.5vw,2rem);letter-spacing:-.035em}header p{margin:.4rem 0 0;color:var(--muted);font-size:.9rem}
+    .site-bar{position:absolute;left:0;top:0;display:flex;align-items:center;gap:.45rem;font-size:.78rem}.site-bar a{color:var(--teal);text-decoration:none;font-weight:600}.site-bar a:hover{text-decoration:underline}.site-bar span{color:var(--muted)}
+    .seo-intro{max-width:46rem;margin:.85rem auto 0;text-align:left;color:var(--muted);font-size:.88rem}.seo-intro p{margin:.45rem 0}.seo-intro strong{color:var(--text)}
+    .langs{position:absolute;right:0;top:0;display:flex;align-items:center;gap:.15rem;padding:.25rem;border:1px solid #243553;border-radius:10px;background:#0c1424}.langs button{border:0;background:transparent;color:var(--muted);padding:.3rem .5rem;border-radius:7px;cursor:pointer;font-size:.75rem}.langs button.active{background:#1c2a46;color:var(--text)}.langs span{color:#344665;font-size:.7rem}
+    .diagram-shell{background:linear-gradient(180deg,#0c1424,#0a101c);border:1px solid #243553;border-radius:18px;padding:1.5rem 1rem;box-shadow:0 20px 50px rgba(0,0,0,.4);overflow-x:auto}
+    .system-flow{display:flex;flex-direction:column;align-items:center;min-width:980px}.node{text-align:center}.icon{width:56px;height:56px;margin:0 auto .3rem;border-radius:14px;display:grid;place-items:center;background:var(--node);border:1.5px solid var(--line);font-size:1.35rem;box-shadow:0 8px 22px rgba(0,0,0,.35)}.icon.sm{width:44px;height:44px;font-size:1.05rem;border-radius:12px}.label{font-weight:800;font-size:.82rem}.caption{margin-top:.1rem;font-size:.61rem;color:var(--muted);line-height:1.35}
+    .v-arrow{width:2px;height:24px;background:var(--spine);position:relative;margin:3px 0}.v-arrow:after{content:"";position:absolute;left:50%;bottom:-1px;width:8px;height:8px;border-right:2px solid var(--spine);border-bottom:2px solid var(--spine);transform:translateX(-50%) rotate(45deg)}
+    .with-side{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:430px}.with-side .side{justify-self:end;width:120px;text-align:center}.with-side .main{justify-self:center}
+    .gate{width:540px;border:1.5px solid rgba(47,214,196,.45);border-radius:16px;background:rgba(47,214,196,.05);padding:.85rem .9rem 1rem;box-shadow:0 0 28px rgba(47,214,196,.08)}.gate-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:.75rem}.gate-head .side{justify-self:end;width:110px;text-align:center}.gate-head .main{justify-self:center}.gate-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem}.pillar{text-align:center;background:var(--node);border:1px solid var(--line);border-radius:12px;padding:.55rem .3rem}.p-title{font-weight:800;font-size:.8rem}.p-ask{font-size:.66rem;color:var(--teal);font-weight:600}.p-desc{font-size:.6rem;color:var(--muted);margin-top:.2rem}.gate-out{text-align:center;color:var(--muted);font-size:.7rem;margin-top:.65rem}
+    .branch-label,.tool-group h3{font-family:"JetBrains Mono",monospace;font-size:.67rem;letter-spacing:.06em;color:var(--muted);text-align:center}.branch-label{margin:.35rem 0}.fan{width:920px;height:28px}.fan svg{width:100%;height:100%}.tools-tier{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:980px}.tool-group{border:1px solid #243553;border-radius:14px;padding:.7rem .55rem .85rem;background:rgba(255,255,255,.015)}.tool-group h3{margin:0 0 .65rem}.tool-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem}.tool-col{text-align:center;padding:.2rem .05rem}.tool-col .label{font-size:.67rem}.tool-col .caption{font-size:.55rem}.v-mini{width:2px;height:12px;margin:.18rem auto;background:#5b7ab0;opacity:.65}
+    .red .icon{border-color:#ff5c6c;box-shadow:0 0 16px rgba(255,92,108,.28)}.blue .icon{border-color:#4d8dff;box-shadow:0 0 16px rgba(77,141,255,.28)}.teal .icon{border-color:#2fd6c4;box-shadow:0 0 16px rgba(47,214,196,.28)}.pink .icon{border-color:#ff6fb5;box-shadow:0 0 16px rgba(255,111,181,.28)}.yellow .icon{border-color:#f5c542}.orange .icon{border-color:#ff8f4a}.purple .icon{border-color:#a78bfa}.green .icon{border-color:#5dcaa5}.cyan .icon{border-color:#22d3ee}.lime .icon{border-color:#a3e635}.dashed .icon{border-style:dashed}
+    section{margin-top:1.8rem}h2{margin:0 0 .65rem;font-size:1.1rem}.hint{color:var(--muted);margin:-.15rem 0 .75rem;font-size:.84rem}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}.panel{background:var(--panel);border:1px solid #243553;border-radius:14px;padding:1rem 1.05rem}.detail-card:first-child{border-color:rgba(77,141,255,.45)}.detail-card:nth-child(2){border-color:rgba(47,214,196,.45)}.panel h3{margin:0 0 .35rem;font-size:1.02rem}.lead{margin:0 0 .7rem;color:var(--muted);font-size:.86rem}.panel h4,.modal h4{margin:.8rem 0 .3rem;font-size:.8rem;color:#c5d4ef}.panel ul,.modal ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.82rem}.panel li,.modal li{margin:.25rem 0}.panel strong,.callout strong,.modal strong{color:var(--text)}.criteria-box{margin-top:.85rem;border-color:rgba(77,141,255,.35)}
+    .scroll{overflow-x:auto;border-radius:12px}table{width:100%;border-collapse:collapse;font-size:.78rem;background:var(--panel)}th,td{padding:.52rem;border-bottom:1px solid #243553;text-align:left;vertical-align:top}th{background:#121b2f;color:var(--text);white-space:nowrap}td{color:var(--muted)}tr:last-child td{border-bottom:0}.criteria-table td:first-child,.map td:first-child{color:var(--text);font-weight:700;white-space:nowrap}.map{min-width:930px}.map .cat{background:#0d1526;color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:.65rem}.map .meaning{color:#b8c7e0;min-width:12rem}.how{display:block;color:#7f92b3;font-size:.69rem;margin-top:.2rem}.criteria-table{min-width:700px}.criteria-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.75rem}.criteria-mini{background:rgba(0,0,0,.22);border:1px solid #243553;border-radius:10px;padding:.7rem .8rem;font-size:.8rem;color:var(--muted)}.criteria-mini strong{display:block;color:var(--text);margin-bottom:.25rem}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:.85rem}.card{background:var(--panel);border:1px solid #243553;border-radius:12px;padding:.75rem .8rem}.card h3{margin:0 0 .2rem;font-size:.84rem}.card p{margin:0;color:var(--muted);font-size:.75rem}.tag{font-family:"JetBrains Mono",monospace;font-size:.61rem;padding:.08rem .3rem;border:1px solid currentColor;border-radius:5px;margin-right:.25rem}.tag.cursor{color:var(--teal)}.tag.chatgpt{color:#9fd4c5}.tag.claude{color:#d4a574}.tag.gemini{color:#8ab4f8}
+    .callout{background:rgba(47,214,196,.06);border:1px solid rgba(47,214,196,.25);border-radius:12px;padding:.85rem 1rem;margin:.85rem 0;font-size:.83rem;color:var(--muted)}
+    .paths{display:grid;gap:.65rem}.path-card{background:var(--panel);border:1px solid #243553;border-radius:12px;padding:.85rem .95rem}.ask{font-weight:800;font-size:.9rem;margin-bottom:.5rem}.ask small{color:var(--muted);margin-right:.35rem}.flow-chips{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem}.chip{padding:.27rem .52rem;border-radius:8px;font-size:.74rem;font-weight:600;background:#141e33;border:1px solid #2d3f63;color:#d7e3f8}.chip.q{border-color:#ff5c6c}.chip.agent{border-color:#4d8dff}.chip.ctx{border-color:#2fd6c4}.chip.tool{border-color:#f5c542}.chip.src{border-color:#a78bfa}.chip.out{border-color:#5dcaa5}.arrow{color:var(--muted)}.path-note{color:var(--muted);font-size:.76rem;margin-top:.4rem}
+    .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.method-card{background:var(--panel);border:1px solid #243553;border-radius:12px;padding:.85rem .9rem;cursor:pointer;text-align:left;color:inherit;transition:.15s}.method-card.other{border-color:rgba(167,139,250,.35)}.method-card:hover,.method-card:focus-visible{border-color:rgba(47,214,196,.65);background:#152038;transform:translateY(-1px);outline:0}.method-card .num{font:500 .67rem "JetBrains Mono";color:var(--teal)}.method-card h3{margin:.15rem 0 .3rem;font-size:.9rem}.method-card p{margin:0;color:var(--muted);font-size:.78rem}.when{margin-top:.4rem;color:#9eb6d8;font-size:.71rem}.more{margin-top:.45rem;color:var(--teal);font-size:.69rem;font-weight:600}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(4,8,16,.75);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:1rem;z-index:1000}.modal-backdrop.open{display:flex}.modal{width:min(580px,100%);max-height:85vh;overflow:auto;background:#0f1628;border:1px solid #2d3f63;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.5);padding:1.15rem 1.2rem}.modal-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem}.modal-top h3{margin:0;font-size:1.15rem}.tagline{margin:.2rem 0 0;color:var(--muted);font-size:.83rem}.modal-close{width:36px;height:36px;flex:none;border-radius:10px;border:1px solid #2d3f63;background:#141e33;color:var(--text);cursor:pointer;font-size:1.2rem}.modal-flow{padding:.65rem .75rem;border-radius:10px;background:rgba(0,0,0,.28);border:1px solid #243553;color:#c5d4ef;font-size:.8rem}
+    footer{text-align:center;color:var(--muted);font-size:.73rem;margin-top:1.5rem}
+    @media(max-width:900px){.tools-tier{grid-template-columns:1fr;width:920px}.detail-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.method-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){header{padding-top:3rem}.langs{left:50%;right:auto;transform:translateX(-50%);white-space:nowrap}.cards,.method-grid,.criteria-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="site-bar">
+      <a href="/">← OKPy</a>
+      <span data-i18n="header.badge">Special feature</span>
+    </div>
+    <nav class="langs" aria-label="Language">
+      <button type="button" data-lang="en">English</button><span>|</span>
+      <button type="button" data-lang="ja">日本語</button><span>|</span>
+      <button type="button" data-lang="ko">한국어</button>
+    </nav>
+    <h1 data-i18n="header.title">A chatbot is not a single model</h1>
+    <p data-i18n-html="header.subtitle">The <strong>Agent</strong> chooses how · <strong>Context</strong> controls where and what · tools run in parallel</p>
+    <div class="seo-intro">
+      <p data-i18n="header.intro1">Modern AI chat products are not a single LLM. An agent chooses tools, a context layer controls scope and policy, and retrieval or action tools run in parallel.</p>
+      <p data-i18n="header.intro2">This OKPy special maps Agent vs Context, web search vs browser automation, nine RAG styles, and how Cursor, ChatGPT, Claude, and Gemini fit the same architecture.</p>
+    </div>
+  </header>
+
+  <div class="diagram-shell">
+    <div class="system-flow">
+      <div class="node red"><div class="icon">❓</div><div class="label" data-i18n="diagram.question">Question</div><div class="caption" data-i18n="diagram.unknown">The model does not know</div></div>
+      <div class="v-arrow"></div>
+      <div class="with-side">
+        <div class="side yellow dashed"><div class="icon">📜</div><div class="label" data-i18n="diagram.long">Long Context</div><div class="caption" data-i18n="diagram.longCap">Skip search · expensive</div></div>
+        <div class="main node blue"><div class="icon">🧭</div><div class="label" data-i18n="diagram.agent">Agent</div><div class="caption" data-i18n="diagram.agentCap">Decide how to answer</div></div><div></div>
+      </div>
+      <div class="v-arrow"></div>
+      <div class="gate">
+        <div class="gate-head"><div class="side pink"><div class="icon sm">🧠</div><div class="label" data-i18n="diagram.memory">Memory</div><div class="caption" data-i18n="diagram.memoryCap">Dialogue · experience</div></div><div class="main node teal"><div class="icon">⚙️</div><div class="label" data-i18n="diagram.context">Context Layer</div><div class="caption" data-i18n="diagram.contextCap">Gate · where · what</div></div><div></div></div>
+        <div class="gate-pillars">
+          <div class="pillar"><div class="p-title" data-i18n="diagram.meaning">Meaning</div><div class="p-ask" data-i18n="diagram.meaningAsk">What is being asked?</div><div class="p-desc" data-i18n-html="diagram.meaningDesc">Clarify the request<br>and narrow ambiguity</div></div>
+          <div class="pillar"><div class="p-title" data-i18n="diagram.permission">Permission</div><div class="p-ask" data-i18n="diagram.permissionAsk">Where may it go?</div><div class="p-desc" data-i18n-html="diagram.permissionDesc">Allow only visible<br>data and systems</div></div>
+          <div class="pillar"><div class="p-title" data-i18n="diagram.policy">Policy</div><div class="p-ask" data-i18n="diagram.policyAsk">What is allowed?</div><div class="p-desc" data-i18n-html="diagram.policyDesc">Filter harm, secrets<br>and personal data</div></div>
+        </div>
+        <div class="gate-out" data-i18n="diagram.passed">Only passed scope ↓ to tools</div>
+      </div>
+      <div class="v-arrow"></div><div class="branch-label" data-i18n="diagram.parallel">PARALLEL TOOLS · choices at the same tier</div>
+      <div class="fan" aria-hidden="true"><svg viewBox="0 0 920 28" fill="none"><path d="M460 0V10M40 10H880" stroke="#5b7ab0" stroke-width="2"/><path d="M40 10V28M250 10V28" stroke="#2fd6c4" stroke-width="2"/><path d="M670 10V28M880 10V28" stroke="#ff6fb5" stroke-width="2"/></svg></div>
+      <div class="tools-tier">
+        <div class="tool-group"><h3 data-i18n="diagram.retrieval">RETRIEVAL</h3><div class="tool-row" id="retrieval-tools"></div></div>
+        <div class="tool-group"><h3 data-i18n="diagram.actionGroup">ACTION · SENSE · SOLVE</h3><div class="tool-row" id="action-tools"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section><h2 data-i18n="detail.title">Agent &amp; Context in detail</h2><div class="detail-grid" id="detail-grid"></div><div class="panel criteria-box"><h3 data-i18n="criteria.title">🧭 Where tool-selection criteria live</h3><p class="lead" data-i18n-html="criteria.lead">The rules are not only “inside the model.” Developers provide <strong>descriptions, rules and routing.</strong></p><div class="scroll"><table class="criteria-table"><thead id="criteria-head"></thead><tbody id="criteria-body"></tbody></table></div><div class="criteria-grid" id="criteria-minis"></div></div><div class="callout" data-i18n-html="callouts.block"><strong>In short:</strong> The Agent may choose the database, but Context can block it or narrow its scope.</div></section>
+
+  <section><h2 data-i18n="products.title">Product comparison, in plain language</h2><p class="hint" data-i18n="products.hint">How Cursor, ChatGPT, Claude and Gemini cover the same roles</p><div class="cards" id="product-cards"></div><div class="callout" data-i18n-html="callouts.web"><strong>Easy to confuse:</strong> Realtime web is a search API, not Chrome. Clicking Chrome is GUI Agent / Computer Use.</div><div class="scroll"><table class="map"><thead id="comparison-head"></thead><tbody id="comparison-body"></tbody></table></div></section>
+
+  <section><h2 data-i18n="paths.title">Real paths · how a question moves</h2><p class="hint" data-i18n="paths.hint">A rough path from request to answer</p><div class="paths" id="paths"></div></section>
+
+  <section><h2 data-i18n="methods.ragTitle">9 RAG methodologies</h2><p class="hint" data-i18n="methods.hint">Select a card to see details</p><div class="method-grid" id="rag-methods"></div></section>
+  <section><h2 data-i18n="methods.otherTitle">9 other methodologies</h2><p class="hint" data-i18n="methods.otherHint">Approaches that complement RAG or do not retrieve document chunks</p><div class="method-grid" id="other-methods"></div><div class="callout" data-i18n-html="callouts.choose"><strong>Rule of thumb:</strong> documents → RAG · relationships → GraphRAG · numbers → SQL · current facts → web · complex work → Agentic tools.</div></section>
+  <footer data-i18n="footer">An approachable map of agentic AI systems</footer>
+</div>
+
+<div class="modal-backdrop" id="method-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal"><div class="modal-top"><div><h3 id="modal-title"></h3><p class="tagline" id="modal-tagline"></p></div><button type="button" class="modal-close" id="modal-close" aria-label="Close">×</button></div><div id="modal-body"></div></div>
+</div>
+
+<script>
+const baseMethods = [
+  ["naive","Naive RAG"],["advanced","Advanced RAG"],["modular","Modular RAG"],["fusion","RAG-Fusion"],["hyde","HyDE"],["selfrag","Self-RAG"],["crag","CRAG"],["adaptive","Adaptive RAG"],["graph-agentic","GraphRAG · Agentic"],
+  ["longctx","Long Context"],["cag","CAG"],["finetune","Fine-tuning"],["raptor","RAPTOR"],["contextual","Contextual Retrieval"],["react","ReAct"],["text2sql","Text-to-SQL"],["kg","Knowledge Graph"],["computeruse","Computer Use"]
+];
+const M=(title,tagline,flow,what,steps,when,care,summary,cardWhen)=>({title,tagline,flow,what,steps,when,care,summary,cardWhen});
+const I18N={
+en:{
+  header:{title:"A chatbot is not a single model",badge:"Special feature",subtitle:"The <strong>Agent</strong> chooses how · <strong>Context</strong> controls where and what · tools run in parallel",intro1:"Modern AI chat products are not a single LLM. An agent chooses tools, a context layer controls scope and policy, and retrieval or action tools run in parallel.",intro2:"This OKPy special maps Agent vs Context, web search vs browser automation, nine RAG styles, and how Cursor, ChatGPT, Claude, and Gemini fit the same architecture."},
+  diagram:{question:"Question",unknown:"The model does not know",long:"Long Context",longCap:"Skip search · expensive",agent:"Agent",agentCap:"Decide how to answer",memory:"Memory",memoryCap:"Dialogue · experience",context:"Context Layer",contextCap:"Gate · where · what",meaning:"Meaning",meaningAsk:"What is being asked?",meaningDesc:"Clarify the request<br>and narrow ambiguity",permission:"Permission",permissionAsk:"Where may it go?",permissionDesc:"Allow only visible<br>data and systems",policy:"Policy",policyAsk:"What is allowed?",policyDesc:"Filter harm, secrets<br>and personal data",passed:"Only passed scope ↓ to tools",parallel:"PARALLEL TOOLS · choices at the same tier",retrieval:"RETRIEVAL",actionGroup:"ACTION · SENSE · SOLVE"},
+  tools:[
+    ["🌐","Web Search","Current information","📡","Realtime Web","News · weather"],["🔍","RAG","Unstructured text","📄","Docs / PDF","Manuals · policies"],["🗄️","Text-to-SQL","Structured data","🛢️","Database","Exact numbers"],["⚡","Code Exec","Compute now","📊","Uploaded files","Sheets · charts"],["🕸️","GraphRAG","Relations · context","🔗","Knowledge Graph","Connections"],
+    ["🔌","Action","API · IoT","📅","External systems","Book · pay"],["👁️","Multimodal","Eyes and ears","🎨","Vision · Voice","Image · speech"],["∑","Symbolic","Math · optimize","🧮","Solver","Wolfram etc."],["🖱️","GUI Agent","Operate screens","💻","Computer Use","Browser · RPA"],["👥","Multi-Agent","Other AIs","🧩","Sub-Agents","Research · writing"]
+  ],
+  detail:{title:"Agent & Context in detail",cards:[
+    {title:"🧭 Agent",lead:"<strong>Which tool</strong> should answer?",sections:[["What it does",["Reads intent and chooses Web, RAG, DB, Action or GUI","Calls tools in sequence or in parallel","Combines results into the final answer"]],["How it is developed",["LLM tool calling with JSON schemas","An orchestrator loop: decide → run → observe → repeat","Frameworks such as LangGraph or agent SDKs","Prompts and evaluations that improve routing"]],["It does not decide",["Whether this user may read a table","Whether personal data may appear in the answer"]]]},
+    {title:"⚙️ Context Layer",lead:"A gate for <strong>where and what</strong>.",sections:[["What it does",["Meaning: clarifies the request","Permission: limits data and systems","Policy: filters unsafe, secret or personal content","Memory: adds useful dialogue and experience"]],["How it is developed",["Intent parsing and query rewriting","ACL/RBAC filters tied to the signed-in user","Guardrails and output checks","Conversation stores and summarized memory","Middleware before and after every tool call"]],["It does not decide",["Which tool is best by itself","The full tool order and combination"]]]}
+  ]},
+  criteria:{title:"🧭 Where tool-selection criteria live",lead:"The rules are not only “inside the model.” Developers provide <strong>descriptions, rules and routing.</strong>",headers:["Location","What it contains","Simple analogy"],rows:[["Tool schema","Name, description and parameters for each tool","Labels on a toolbox"],["System prompt","Rules such as “current → web, company docs → RAG”","Work manual"],["Intent router","Classifies the question and offers only likely tools","Information desk"],["Context layer","Removes forbidden tools or blocks execution","Access gate"],["Runtime feedback","Retries with another tool when results are weak","Try another tool"]],minis:[["Question type → tool","Current → Web Search<br>Company docs → RAG<br>Totals → Text-to-SQL<br>Files/charts → Code Execution<br>Relations → GraphRAG<br>Booking/payment → Action<br>Image/audio → Multimodal<br>No API → GUI Agent<br>Split work → Multi-Agent<br>Read everything → Long Context"],["What the model actually sees","1) User question<br>2) System rules<br>3) Tool names, descriptions and parameters<br>4) Sometimes only tools allowed by Context<br>→ It outputs a tool call. Clear descriptions matter."]]},
+  callouts:{block:"<strong>In short:</strong> The Agent may choose the database, but Context can block it or narrow its scope.",web:"<strong>Easy to confuse:</strong> Realtime web uses a <strong>search API</strong>; it does not click Chrome. Operating a browser screen is <strong>GUI Agent → Computer Use</strong>.",choose:"<strong>Rule of thumb:</strong> documents → RAG · relationships → GraphRAG · numbers → Text-to-SQL · current facts → Web Search · fixed small knowledge → Long Context/CAG · complex work → Agentic tools."},
+  products:{title:"Product comparison, in plain language",hint:"How Cursor, ChatGPT, Claude and Gemini cover the same roles",headers:["Role","Plain explanation","Cursor","ChatGPT","Claude","Gemini"],cards:[["cursor","Cursor","Coding assistant","Works directly with code and terminals"],["chatgpt","ChatGPT","General assistant","Broad web, file, voice and tool support"],["claude","Claude","Documents and work","Strong long-form analysis and Computer Use"],["gemini","Gemini","Google-connected","Strong search, Drive and multimodal support"]],cats:["DECIDE · REMEMBER","RETRIEVAL","ACTION · SENSE · SOLVE"],rows:[
+    ["Agent","Chooses which tool should answer","Agent / Composer","GPT chooses tools","Claude chooses tools","Gemini chooses tools"],["Long Context","Reads whole files without retrieval","Attach files/folders","Upload full files","Projects / uploads","Large context uploads"],["Memory","Carries preferences and past context","Rules, Memories","Memory, instructions","Projects, conversation","Memory, Gems"],["Context Layer","Controls meaning, permission and policy","Approvals, Privacy Mode","Safety and admin controls","Safety and permissions","Safety and Workspace controls"],
+    ["Web Search","Current information via search API","Web search / fetch","Search","Web search","Google Search"],["RAG","Finds relevant parts of docs or PDFs","Codebase search","Files / Knowledge","Projects search","Uploads / NotebookLM"],["Text-to-SQL","Turns a question into a DB query","DB via MCP/tools","Connectors/tools","Connectors/tools","Connectors/tools"],["Code Execution","Computes over uploaded files","Terminal","Data analysis","Analysis tools","Code execution"],["GraphRAG","Answers relationship questions","Code symbols/refs","Custom setup","Custom setup","Custom setup"],
+    ["Action","Changes an external system","MCP, APIs, CLI","Actions/connectors","MCP/APIs","Extensions/Workspace"],["Multimodal","Understands image, audio or video","Read/generate images","Vision, voice, images","Vision and documents","Image, video, audio"],["Symbolic","Uses a math or optimization solver","Code/external solver","Code + solver","Code/tools","Code/tools"],["GUI Agent","Clicks and types on screens","Browser automation","Computer agent","Computer Use","Product-dependent"],["Multi-Agent","Delegates work to sub-agents","Tasks/subagents","Custom/API workflows","Parallel tasks","Agent workflows"]
+  ]},
+  paths:{title:"Real paths · how a question moves",hint:"A rough path from request to answer",question:"Question",items:[
+    ["Summarize yesterday’s AI news in three lines",["Question","Agent: Web Search","Context: public web allowed","Web Search","Realtime Web (API)","Answer"],"No Chrome clicks; a search API returns results."],
+    ["What is our company vacation policy?",["Question","Agent: RAG","Context: check document access","RAG","Relevant Docs/PDF passages","Answer"],"RAG retrieves relevant passages instead of attaching everything."],
+    ["What were last month’s sales for customers in their 30s?",["Question","Agent: Text-to-SQL","Context: scope, DB access, privacy","Text-to-SQL","Database","Exact number"],"The Agent picks DB; Context limits rows and fields."],
+    ["Chart monthly sales from this CSV",["Question","Agent: Code Execution","Context: uploaded file only","Code Execution","File + chart","Graph"],""],
+    ["Book a dentist tomorrow at 10 AM",["Question","Agent: Action","Context: confirm permission","Action","Booking API","Booked"],""],
+    ["Find the person in red in this image",["Question","Agent: Multimodal","Context: uploaded image allowed","Multimodal","Vision","Description"],""],
+    ["Download the spreadsheet from our legacy site",["Question","Agent: GUI Agent","Context: site access allowed?","GUI Agent","Computer Use","File"],"This path really clicks and types in a browser."],
+    ["Create a launch marketing strategy",["Question","Agent: Multi-Agent","Context: scope and tone","Multi-Agent","Research · copy · design agents","Combined answer"],""],
+    ["Read this whole code folder and explain its structure",["Question","Agent: Long Context","Context: attach allowed folder","Skip retrieval","Long Context","Answer"],"Everything is placed in context; token cost can be high."]
+  ]},
+  methods:{ragTitle:"9 RAG methodologies",otherTitle:"9 other methodologies",hint:"Select a card to see details",otherHint:"Approaches that complement RAG or do not retrieve document chunks",more:"View details →",whenLabel:"Best for: ",modal:{flow:"Flow",what:"What it is",steps:"How it works",when:"When to use it",care:"Watch out",close:"Close"},data:{
+    naive:M("Naive RAG","The simplest retrieve-and-attach pattern","Question → embedding → top-k vector search → prompt → answer",["Splits documents into chunks and stores vectors.","Retrieves similar chunks and gives them to the model."],["Chunk and embed documents","Run similarity search","Generate with retrieved context"],["Prototypes","Clean, well-structured documents"],["Irrelevant chunks can increase hallucinations","Weak on broad overview questions"],"Retrieve similar passages, attach them, answer.","Fast prototypes"),
+    advanced:M("Advanced RAG","Improve quality before and after retrieval","Rewrite → hybrid search → rerank and compress → answer",["Adds pre- and post-retrieval processing.","Reduces noisy or duplicated evidence."],["Rewrite or expand the query","Combine keyword and vector search","Rerank, deduplicate and compress"],["When basic RAG often misses","Production systems"],["More latency and tuning points"],"Rewrite, rerank and filter for better evidence.","When basic RAG misses"),
+    modular:M("Modular RAG","Build retrieval like interchangeable blocks","Router → selected retriever → ranker → generator → verifier",["Keeps retrieval, ranking, generation and checks separate."],["Define module interfaces","Route each question","Swap and evaluate modules"],["Multiple products or domains"],["More design and observability work"],"Compose retrieval and generation modules by need.","Multiple pipelines"),
+    fusion:M("RAG-Fusion","Search several versions of one question","Question → query variants → parallel search → rank fusion → answer",["Bridges wording differences between users and documents."],["Generate query variants","Search in parallel","Fuse rankings such as RRF"],["Synonyms and varied phrasing"],["More searches, cost and noise"],"Search multiple phrasings and merge the results.","Vocabulary gaps"),
+    hyde:M("HyDE","Search with an imagined answer document","Question → hypothetical document → embed → real documents → answer",["Creates a draft answer-like document to improve matching."],["Generate hypothetical document","Embed and search with it","Answer from real evidence"],["Question and document wording differ"],["A bad hypothetical document can mislead retrieval"],"Imagine an answer-shaped document, then find real ones.","Large wording gaps"),
+    selfrag:M("Self-RAG","The model decides when evidence is needed","Need retrieval? → retrieve → useful? → answer → supported?",["The model judges retrieval need and evidence quality."],["Decide whether to retrieve","Evaluate relevance and support","Retry or revise"],["Mixed traffic","Reducing unsupported answers"],["Judgment errors can create long loops"],"Retrieve and reflect only when needed.","Selective retrieval"),
+    crag:M("CRAG","Correct weak retrieval before answering","Retrieve → grade → use another source if weak → refine → answer",["Rejects poor evidence and may use web or another source."],["Grade retrieved evidence","Branch on quality","Correct and regenerate"],["Old or incomplete internal docs"],["External sources raise trust and security issues"],"Grade weak evidence and correct the search.","Stale knowledge"),
+    adaptive:M("Adaptive RAG","Choose a path by question difficulty","Classify → no retrieval / one search / multi-step search",["Avoids using an expensive pipeline for every question."],["Classify complexity","Route to a strategy","Run that strategy"],["Mixed easy and hard questions"],["A wrong classification chooses the wrong path"],"Use no, light or deep retrieval as needed.","Mixed complexity"),
+    "graph-agentic":M("GraphRAG · Agentic","Relations plus an agent-controlled search loop","Graph: entities → links → summaries; Agentic: decide → retrieve → evaluate → repeat",["GraphRAG models relationships.","Agentic RAG selects and repeats retrieval strategies."],["Build/query a graph","Let the agent call retrievers","Collect supported evidence"],["Organizations, supply chains, multi-hop questions"],["Graph build cost and agent-loop control"],"Use graphs and an agent for complex connected questions.","Relationship questions"),
+    longctx:M("Long Context","Skip retrieval and include everything","Whole files → context window → answer",["Places complete material directly in the prompt."],["Load files","Fit them within token limits","Answer in one context"],["Small corpora","Tasks that require the whole text"],["High cost, latency and context limits"],"Read all content without chunk search.","Whole small corpora"),
+    cag:M("CAG","Cache frequently used knowledge","Preload knowledge cache → question → cached generation",["Avoids repeated retrieval for stable knowledge."],["Select fixed knowledge","Warm the cache","Reuse it for requests"],["Stable FAQs and manuals"],["Cache invalidation when knowledge changes"],"Preload stable knowledge and reuse it.","Stable repeated knowledge"),
+    finetune:M("Fine-tuning","Teach behavior through model weights","Training data → fine-tune → evaluate → serve",["Learns tone, format and repeated patterns.","Often complements rather than replaces RAG."],["Build a dataset","Train with SFT/LoRA","Evaluate and deploy"],["Strict formats and stable style"],["Facts are hard to update; retraining costs"],"Train stable behavior into the model.","Style and format"),
+    raptor:M("RAPTOR","Retrieve details and summaries from a tree","Chunks → clusters → recursive summaries → tree search → answer",["Stores both detail leaves and high-level summaries."],["Build a summary tree","Search multiple levels","Generate from selected nodes"],["Long reports and books"],["Index cost; summary errors can propagate"],"Search a hierarchy of details and summaries.","Long documents"),
+    contextual:M("Contextual Retrieval","Add document context to every chunk","Chunk + short context label → embed/index → retrieve",["Explains where a chunk belongs before indexing."],["Generate chunk context","Index context plus chunk","Retrieve normally"],["Contracts and policy documents"],["Extra indexing cost; bad labels confuse"],"Give each chunk enough context to stand alone.","Ambiguous chunks"),
+    react:M("ReAct","Alternate reasoning and tool use","Decide → tool action → observation → repeat → final answer",["Calls search, code, APIs, DBs or browsers in one loop."],["Define tool schemas","Let the model choose a call","Feed results back"],["Multi-step external work"],["Prevent loops and enforce Context permissions"],"Reason, act with a tool, observe and repeat.","Multi-step work"),
+    text2sql:M("Text-to-SQL","Turn natural language into an exact database query","Question → schema → SQL → validate → run → explain",["Gets aggregates from structured data instead of guessing."],["Provide schema and examples","Generate and validate SQL","Execute and explain"],["Metrics, totals and counts"],["SQL safety and row/column permissions"],"Query structured data for exact numbers.","Metrics and totals"),
+    kg:M("Knowledge Graph","Query entities and relationships directly","Extract entities/links → graph DB → graph query → answer",["Uses paths and relationships rather than text similarity."],["Extract entities and links","Store graph","Run pattern/path queries"],["Ownership, organization and supply chains"],["Build cost and persistent extraction errors"],"Ask a graph database about relationships.","Relationship paths"),
+    computeruse:M("Computer Use","Operate a screen like a person","Screenshot → choose click/type → execute → repeat",["Works with sites or legacy apps that have no API."],["Prepare browser or VM","Run vision-action loop","Collect result/state"],["Legacy systems and UI-only tasks"],["Slow, fragile UI and high permission risk"],"Click and type when no reliable API exists.","Legacy interfaces")
+  }},
+  footer:"An approachable map of agentic AI systems"
+},
+ja:{
+  header:{title:"チャットボットは単一のモデルではない",badge:"特集",subtitle:"<strong>Agent</strong> は手段を選び · <strong>Context</strong> は場所と内容を制御し · ツールは並列に動きます",intro1:"いまのAIチャットは単一のLLMではありません。Agentがツールを選び、Context層が範囲とポリシーを制御し、検索や実行ツールが並列に動きます。",intro2:"このOKPy特集では Agent と Context の違い、Web検索とブラウザ操作の違い、RAGの9手法、Cursor / ChatGPT / Claude / Gemini の対応関係を一枚で整理します。"},
+  diagram:{question:"質問",unknown:"モデルが知らないこと",long:"Long Context",longCap:"検索を省略 · 高コスト",agent:"Agent",agentCap:"どう答えるかを判断",memory:"Memory",memoryCap:"対話 · 経験",context:"Context Layer",contextCap:"ゲート · どこへ · 何を",meaning:"意味",meaningAsk:"何を聞いている？",meaningDesc:"質問を明確化し<br>曖昧さを絞る",permission:"権限",permissionAsk:"どこへ行ける？",permissionDesc:"閲覧可能なデータと<br>システムだけ許可",policy:"ポリシー",policyAsk:"何を許可する？",policyDesc:"有害情報・秘密・<br>個人情報を制限",passed:"通過した範囲だけ ↓ ツールへ",parallel:"PARALLEL TOOLS · 同じ階層の選択肢",retrieval:"RETRIEVAL · 取得",actionGroup:"ACTION · SENSE · SOLVE"},
+  tools:[
+    ["🌐","Web Search","最新情報","📡","リアルタイムWeb","ニュース · 天気"],["🔍","RAG","非構造テキスト","📄","文書 / PDF","マニュアル · 規程"],["🗄️","Text-to-SQL","構造化データ","🛢️","データベース","正確な数値"],["⚡","Code Exec","その場で計算","📊","アップロードファイル","表 · グラフ"],["🕸️","GraphRAG","関係 · 文脈","🔗","Knowledge Graph","つながり"],
+    ["🔌","Action","API · IoT","📅","外部システム","予約 · 決済"],["👁️","Multimodal","目と耳","🎨","Vision · Voice","画像 · 音声"],["∑","Symbolic","数学 · 最適化","🧮","Solver","Wolframなど"],["🖱️","GUI Agent","画面操作","💻","Computer Use","ブラウザ · RPA"],["👥","Multi-Agent","別のAI","🧩","Sub-Agents","調査 · 作成"]
+  ],
+  detail:{title:"Agent と Context の詳細",cards:[
+    {title:"🧭 Agent",lead:"<strong>どのツールで</strong>答えるかを決めます。",sections:[["役割",["意図を読み、Web・RAG・DB・Action・GUIから選ぶ","ツールを順番または並列で呼ぶ","結果をまとめて最終回答を作る"]],["開発方法",["JSONスキーマを使うLLM Tool Calling","判断 → 実行 → 観察 → 再判断のループ","LangGraphや各種Agents SDK","ルーティング用プロンプトと評価"]],["決めないこと",["この利用者が表を閲覧できるか","個人情報を回答に含めてよいか"]]]},
+    {title:"⚙️ Context Layer",lead:"<strong>どこへ・何を</strong>のゲートです。",sections:[["役割",["意味：質問を明確化","権限：データとシステムを制限","ポリシー：危険・秘密・個人情報を制限","Memory：対話と経験を追加"]],["開発方法",["意図解析とクエリ書き換え","ログイン利用者に紐づくACL/RBAC","ガードレールと出力検査","会話ストアと要約Memory","ツール呼び出し前後のミドルウェア"]],["決めないこと",["最適なツールそのもの","ツールの全順序と組み合わせ"]]]}
+  ]},
+  criteria:{title:"🧭 ツール選択基準はどこにあるか",lead:"基準はモデルの中だけではなく、開発者が用意する<strong>説明・規則・ルーティング</strong>にあります。",headers:["場所","書かれていること","簡単なたとえ"],rows:[["ツールスキーマ","名前・説明・パラメータ","工具箱のラベル"],["システムプロンプト","「最新→Web、社内文書→RAG」などの規則","作業マニュアル"],["Intent Router","質問を分類し候補だけを渡す","案内窓口"],["Context Layer","禁止ツールを除外し実行を止める","入場ゲート"],["実行結果のフィードバック","結果が弱ければ別ツールで再試行","別の工具を試す"]],minis:[["質問タイプ → ツール","最新情報 → Web Search<br>社内文書 → RAG<br>集計 → Text-to-SQL<br>ファイル・グラフ → Code Execution<br>関係 → GraphRAG<br>予約・決済 → Action<br>画像・音声 → Multimodal<br>APIなし → GUI Agent<br>分担 → Multi-Agent<br>全文を読む → Long Context"],["モデルが実際に見るもの","1) 利用者の質問<br>2) システム規則<br>3) ツール名・説明・パラメータ<br>4) 場合により許可済みツールだけ<br>→ その中からツール呼び出しを出力します。"]]},
+  callouts:{block:"<strong>要点：</strong>Agent がDBを選んでも、Context は実行を止めたり範囲を狭めたりできます。",web:"<strong>混同しやすい点：</strong>リアルタイムWebはChrome操作ではなく<strong>検索API</strong>です。画面をクリックするのは <strong>GUI Agent → Computer Use</strong> です。",choose:"<strong>目安：</strong>文書 → RAG · 関係 → GraphRAG · 数値 → Text-to-SQL · 最新情報 → Web Search · 小さな固定知識 → Long Context/CAG · 複雑な業務 → Agentic tools"},
+  products:{title:"製品比較（やさしい説明）",hint:"Cursor・ChatGPT・Claude・Geminiが同じ役割をどう担うか",headers:["役割","簡単な説明","Cursor","ChatGPT","Claude","Gemini"],cards:[["cursor","Cursor","コーディング支援","コードとターミナルを直接扱う"],["chatgpt","ChatGPT","汎用アシスタント","Web・ファイル・音声・ツールを幅広く扱う"],["claude","Claude","文書と作業","長文分析とComputer Useに強い"],["gemini","Gemini","Google連携","検索・Drive・マルチモーダルに強い"]],cats:["判断 · 記憶","RETRIEVAL · 取得","ACTION · SENSE · SOLVE"],rows:[
+    ["Agent","どのツールで答えるか選ぶ","Agent / Composer","GPTが選択","Claudeが選択","Geminiが選択"],["Long Context","検索せず全文を読む","ファイル/フォルダ添付","全文アップロード","Projects / upload","大容量コンテキスト"],["Memory","過去の会話や好みを継ぐ","Rules, Memories","Memory, 指示","Projects, 会話","Memory, Gems"],["Context Layer","意味・権限・ポリシーのゲート","承認, Privacy Mode","安全・管理設定","安全・権限","安全・Workspace管理"],
+    ["Web Search","検索APIで最新情報を取得","Web検索/取得","Search","Web検索","Google Search"],["RAG","文書/PDFの関連部分を探す","コードベース検索","Files / Knowledge","Projects検索","Upload / NotebookLM"],["Text-to-SQL","自然文をDBクエリへ","MCP等でDB接続","Connector/Tool","Connector/Tool","Connector/Tool"],["Code Execution","ファイルを計算・可視化","ターミナル","データ分析","分析ツール","コード実行"],["GraphRAG","関係をたどって答える","シンボル/参照","個別構築","個別構築","個別構築"],
+    ["Action","外部システムを変更","MCP, API, CLI","Actions/Connector","MCP/API","Extensions"],["Multimodal","画像・音声・動画を理解","画像の読取/生成","Vision, Voice","Vision/文書","画像・動画・音声"],["Symbolic","数式・最適化Solverを使う","コード/外部Solver","Code + Solver","Code/Tool","Code/Tool"],["GUI Agent","画面をクリック・入力","ブラウザ自動化","Computer Agent","Computer Use","製品による"],["Multi-Agent","Sub-Agentへ分担","Task/Subagent","Custom/API","並列タスク","Agent Workflow"]
+  ]},
+  paths:{title:"実際の経路 · 質問はどう進むか",hint:"依頼から回答までのおおまかな流れ",question:"質問",items:[
+    ["昨日のAIニュースを3行でまとめて",["質問","Agent: Web Search","Context: 公開Webを許可","Web Search","リアルタイムWeb（API）","回答"],"Chromeは操作せず、検索APIから結果を受け取ります。"],["会社の休暇規程を教えて",["質問","Agent: RAG","Context: 文書権限を確認","RAG","関連する文書/PDF","回答"],"全文ではなく関連箇所だけを取得します。"],["先月の30代顧客の売上は？",["質問","Agent: Text-to-SQL","Context: 範囲・DB権限・個人情報","Text-to-SQL","データベース","正確な数値"],"AgentがDBを選び、Contextが行と列を制限します。"],["このCSVから月別売上グラフを作って",["質問","Agent: Code Execution","Context: アップロードファイルのみ","Code Execution","ファイル + グラフ","回答"],""],["明日10時に歯医者を予約して",["質問","Agent: Action","Context: 実行権限を確認","Action","予約API","予約完了"],""],["写真の赤い服の人を見つけて",["質問","Agent: Multimodal","Context: 画像を許可","Multimodal","Vision","説明"],""],["古い社内サイトからExcelを取得して",["質問","Agent: GUI Agent","Context: サイト権限を確認","GUI Agent","Computer Use","ファイル"],"この経路は実際にブラウザをクリック・入力します。"],["新製品のマーケティング戦略を作って",["質問","Agent: Multi-Agent","Context: 範囲とトーン","Multi-Agent","調査 · コピー · デザイン","統合回答"],""],["このコードフォルダ全体を読んで構造を説明して",["質問","Agent: Long Context","Context: フォルダ添付を許可","検索省略","Long Context","回答"],"全文をContextに入れるため、トークン費用が高くなります。"]]},
+  methods:{ragTitle:"RAGの9手法",otherTitle:"RAG以外の9手法",hint:"カードを選ぶと詳細を表示します",otherHint:"RAGを補完する、または文書チャンク検索ではない方法",more:"詳細を見る →",whenLabel:"向いている場面：",modal:{flow:"流れ",what:"概要",steps:"動作",when:"使う場面",care:"注意点",close:"閉じる"},data:{}},
+  footer:"Agentic AIシステムをやさしく整理したマップ"
+},
+ko:{
+  header:{title:"챗봇은 모델 하나가 아니다",badge:"특집",subtitle:"<strong>Agent</strong>는 도구를 고르고 · <strong>Context</strong>는 어디에·무엇을 통제하고 · 도구는 병렬로 움직입니다",intro1:"요즘 AI 챗봇은 단일 LLM이 아닙니다. Agent가 도구를 고르고, Context 층이 범위와 정책을 통제하며, 검색·실행 도구가 병렬로 동작합니다.",intro2:"이 OKPy 특집에서는 Agent와 Context의 차이, 웹 검색과 브라우저 조작의 차이, RAG 9가지, Cursor·ChatGPT·Claude·Gemini 대응을 한눈에 정리합니다."},
+  diagram:{question:"질문",unknown:"모델이 모르는 것",long:"Long Context",longCap:"검색 생략 · 비쌈",agent:"Agent",agentCap:"뭘로 답할지 결정",memory:"Memory",memoryCap:"대화 · 경험",context:"Context Layer",contextCap:"게이트 · 어디에 · 무엇을",meaning:"의미",meaningAsk:"무엇을 묻나?",meaningDesc:"질문 뜻을 명확히<br>애매한 범위를 정리",permission:"권한",permissionAsk:"어디에 가나?",permissionDesc:"볼 수 있는 데이터와<br>시스템만 허용",policy:"정책",policyAsk:"무엇을 허용?",policyDesc:"유해·비밀·개인정보<br>필터와 응답 제한",passed:"통과한 범위만 ↓ 도구로",parallel:"PARALLEL TOOLS · 같은 단의 선택지",retrieval:"RETRIEVAL · 조회",actionGroup:"ACTION · SENSE · SOLVE"},
+  tools:[
+    ["🌐","Web Search","최신 정보","📡","실시간 웹","뉴스 · 날씨"],["🔍","RAG","비정형 문서","📄","문서 / PDF","매뉴얼 · 사규"],["🗄️","Text-to-SQL","정형 데이터","🛢️","데이터베이스","정확한 숫자"],["⚡","Code Exec","그 자리 계산","📊","올린 파일","엑셀 · 차트"],["🕸️","GraphRAG","관계 · 맥락","🔗","Knowledge Graph","연결 고리"],
+    ["🔌","Action","API · IoT","📅","외부 시스템","예약 · 결제"],["👁️","Multimodal","눈과 귀","🎨","Vision · Voice","이미지 · 음성"],["∑","Symbolic","수학 · 최적화","🧮","Solver","Wolfram 등"],["🖱️","GUI Agent","화면 조작","💻","Computer Use","브라우저 · RPA"],["👥","Multi-Agent","다른 AI","🧩","Sub-Agents","조사 · 작성"]
+  ],
+  detail:{title:"Agent · Context 상세",cards:[
+    {title:"🧭 Agent",lead:"<strong>어떤 도구로</strong> 답할지 정합니다.",sections:[["하는 일",["의도를 보고 Web·RAG·DB·Action·GUI 중 선택","도구를 순서대로 또는 병렬로 호출","결과를 모아 최종 답변 작성"]],["어떻게 개발하나",["JSON 스키마를 쓰는 LLM Tool Calling","판단 → 실행 → 관찰 → 재판단 오케스트레이터 루프","LangGraph나 각종 Agents SDK","라우팅 프롬프트와 평가"]],["정하지 않는 것",["이 사용자가 테이블을 볼 수 있는지","개인정보를 답에 넣어도 되는지"]]]},
+    {title:"⚙️ Context Layer",lead:"<strong>어디에·무엇을</strong> 정하는 게이트입니다.",sections:[["하는 일",["의미: 질문을 명확히 함","권한: 데이터와 시스템 범위를 제한","정책: 유해·비밀·개인정보를 필터","Memory: 대화와 경험을 붙임"]],["어떻게 개발하나",["의도 분석과 질의 재작성","로그인 사용자 기반 ACL/RBAC","가드레일과 출력 검사","대화 저장소와 요약 Memory","도구 호출 전후 미들웨어"]],["정하지 않는 것",["어떤 도구가 최적인지 자체","전체 도구 순서와 조합"]]]}
+  ]},
+  criteria:{title:"🧭 도구 선택 기준은 어디에 있나",lead:"기준은 모델 머릿속에만 있지 않고, 개발자가 넣은 <strong>설명·규칙·라우팅</strong>에 있습니다.",headers:["기준이 있는 곳","무엇이 적혀 있나","쉬운 비유"],rows:[["도구 스키마","도구 이름·설명·파라미터","공구함 라벨"],["시스템 프롬프트","“최신→웹, 사내 문서→RAG” 같은 규칙","작업 매뉴얼"],["의도 라우터","질문을 분류해 후보 도구만 전달","안내 창구"],["Context Layer","금지된 도구를 제거하거나 실행 차단","출입 게이트"],["실행 결과 피드백","결과가 약하면 다른 도구로 재시도","다른 공구 시도"]],minis:[["질문 성격 → 도구","최신 → Web Search<br>사내 문서 → RAG<br>집계 → Text-to-SQL<br>파일·차트 → Code Execution<br>관계 → GraphRAG<br>예약·결제 → Action<br>이미지·음성 → Multimodal<br>API 없음 → GUI Agent<br>일 분담 → Multi-Agent<br>전부 읽기 → Long Context"],["모델이 실제로 보는 것","1) 사용자 질문<br>2) 시스템 규칙<br>3) 도구 이름·설명·파라미터<br>4) 경우에 따라 허용된 도구만<br>→ 그중 하나의 도구 호출을 출력합니다."]]},
+  callouts:{block:"<strong>한 줄:</strong> Agent가 DB를 골라도 Context는 실행을 막거나 범위를 줄일 수 있습니다.",web:"<strong>헷갈리기 쉬운 것:</strong> 실시간 웹은 Chrome 조작이 아니라 <strong>검색 API</strong>입니다. 화면을 직접 클릭하는 것은 <strong>GUI Agent → Computer Use</strong>입니다.",choose:"<strong>고르는 감:</strong> 문서 → RAG · 관계 → GraphRAG · 숫자 → Text-to-SQL · 최신 정보 → Web Search · 짧은 고정 지식 → Long Context/CAG · 복잡한 업무 → Agentic tools"},
+  products:{title:"제품별 비교 (쉬운 말)",hint:"Cursor · ChatGPT · Claude · Gemini가 같은 역할을 어떻게 하는지",headers:["역할","쉬운 설명","Cursor","ChatGPT","Claude","Gemini"],cards:[["cursor","Cursor","코딩 도우미","코드와 터미널을 직접 다룸"],["chatgpt","ChatGPT","만능 비서","웹·파일·음성·도구를 폭넓게 지원"],["claude","Claude","문서와 작업","긴 글 분석과 Computer Use에 강함"],["gemini","Gemini","구글 연동","검색·Drive·멀티모달에 강함"]],cats:["판단 · 기억","RETRIEVAL · 조회","ACTION · SENSE · SOLVE"],rows:[
+    ["Agent","어떤 도구로 답할지 선택","Agent / Composer","GPT가 도구 선택","Claude가 도구 선택","Gemini가 도구 선택"],["Long Context","검색 없이 파일 전체를 읽음","파일/폴더 첨부","전체 파일 업로드","Projects / upload","대용량 컨텍스트"],["Memory","이전 대화와 취향을 이어감","Rules, Memories","Memory, 지시","Projects, 대화","Memory, Gems"],["Context Layer","의미·권한·정책 게이트","승인, Privacy Mode","안전·관리 설정","안전·권한","안전·Workspace 관리"],
+    ["Web Search","검색 API로 최신 정보 조회","웹 검색/가져오기","Search","웹 검색","Google Search"],["RAG","문서/PDF 관련 부분 검색","코드베이스 검색","Files / Knowledge","Projects 검색","Upload / NotebookLM"],["Text-to-SQL","자연어를 DB 질의로 변환","MCP 등 DB 연결","Connector/Tool","Connector/Tool","Connector/Tool"],["Code Execution","파일 계산과 시각화","터미널","데이터 분석","분석 도구","코드 실행"],["GraphRAG","관계를 따라 답변","심볼/참조","직접 구축","직접 구축","직접 구축"],
+    ["Action","외부 시스템 변경","MCP, API, CLI","Actions/Connector","MCP/API","Extensions"],["Multimodal","이미지·음성·영상 이해","이미지 읽기/생성","Vision, Voice","Vision/문서","이미지·영상·음성"],["Symbolic","수학·최적화 Solver 사용","코드/외부 Solver","Code + Solver","Code/Tool","Code/Tool"],["GUI Agent","화면 클릭과 입력","브라우저 자동화","Computer Agent","Computer Use","제품별 상이"],["Multi-Agent","Sub-Agent에 일 분담","Task/Subagent","Custom/API","병렬 작업","Agent Workflow"]
+  ]},
+  paths:{title:"실제 경로 · 질문이 지나가는 길",hint:"요청에서 답변까지의 대략적인 흐름",question:"질문",items:[
+    ["어제 AI 뉴스 3줄로 요약해줘",["질문","Agent: Web Search","Context: 공개 웹 허용","Web Search","실시간 웹(API)","답변"],"Chrome을 조작하지 않고 검색 API로 결과만 가져옵니다."],["우리 회사 휴가 규정 알려줘",["질문","Agent: RAG","Context: 문서 권한 확인","RAG","관련 문서/PDF","답변"],"전체가 아니라 관련 문단만 가져옵니다."],["지난달 30대 고객 매출은?",["질문","Agent: Text-to-SQL","Context: 범위·DB 권한·개인정보","Text-to-SQL","데이터베이스","정확한 숫자"],"Agent는 DB를 고르고 Context는 행과 열 범위를 제한합니다."],["이 CSV로 월별 매출 차트 그려줘",["질문","Agent: Code Execution","Context: 올린 파일만","Code Execution","파일 + 차트","답변"],""],["내일 오전 10시 치과 예약해줘",["질문","Agent: Action","Context: 실행 권한 확인","Action","예약 API","예약 완료"],""],["사진에서 빨간 옷 입은 사람 찾아줘",["질문","Agent: Multimodal","Context: 이미지 허용","Multimodal","Vision","설명"],""],["사내 레거시 사이트에서 엑셀 받아와",["질문","Agent: GUI Agent","Context: 사이트 권한 확인","GUI Agent","Computer Use","파일"],"이 경로는 실제로 브라우저를 클릭하고 입력합니다."],["신제품 마케팅 전략 짜줘",["질문","Agent: Multi-Agent","Context: 범위와 톤","Multi-Agent","조사 · 카피 · 디자인","취합 답변"],""],["이 코드 폴더 전부 읽고 구조 설명해줘",["질문","Agent: Long Context","Context: 폴더 첨부 허용","검색 생략","Long Context","답변"],"전체를 Context에 넣으므로 토큰 비용이 커질 수 있습니다."]]},
+  methods:{ragTitle:"RAG 방법론 9가지",otherTitle:"RAG 외 방법론 9가지",hint:"카드를 누르면 상세 설명이 열립니다",otherHint:"RAG를 보완하거나 문서 조각 검색이 아닌 접근",more:"상세 보기 →",whenLabel:"언제: ",modal:{flow:"흐름",what:"무엇인가",steps:"어떻게 동작하나",when:"언제 쓰나",care:"주의",close:"닫기"},data:{}},
+  footer:"에이전틱 AI 시스템을 쉽게 정리한 지도"
+}};
+
+const localizedMethodText={
+ja:{
+  naive:["最も単純な検索して添付する方式","質問 → 埋め込み → ベクトル検索 → プロンプト → 回答",["文書をチャンクとベクトルにします。","似たチャンクをモデルへ渡します。"],["チャンク化・埋め込み","類似検索","根拠付き生成"],["試作","整理された文書"],["無関係なチャンク","全体像の質問に弱い"],"似た箇所を検索して回答に添えます。","すばやい試作"],
+  advanced:["検索の前後を改善","書き換え → ハイブリッド検索 → 再順位・圧縮 → 回答",["前処理と後処理でノイズを減らします。"],["質問を書き換える","キーワード+ベクトル検索","再順位と重複除去"],["基本RAGが外れる時"],["遅延と調整箇所が増える"],"書き換え・再順位・フィルタで精度を上げます。","基本RAGが外れる時"],
+  modular:["交換可能な部品として構成","Router → Retriever → Ranker → Generator → Verifier",["検索・順位・生成・検証を独立させます。"],["インターフェース定義","質問ごとに経路選択","交換して評価"],["複数製品や領域"],["設計と監視が複雑"],"必要に合わせてモジュールを組みます。","複数パイプライン"],
+  fusion:["一つの質問を複数表現で検索","質問 → 言い換え → 並列検索 → 順位統合 → 回答",["利用者と文書の言い回しの差を埋めます。"],["言い換え生成","並列検索","RRFなどで統合"],["同義語が多い時"],["検索費用とノイズ"],"複数の言い換え結果を統合します。","語彙の差"],
+  hyde:["仮の回答文書で検索","質問 → 仮想文書 → 埋め込み → 実文書 → 回答",["回答らしい文書を先に作り照合します。"],["仮想文書生成","それで検索","実根拠で回答"],["質問と文書の表現が違う時"],["仮想文書が誤ると検索もずれる"],"仮想回答から本物の文書を探します。","大きな表現差"],
+  selfrag:["必要な検索をモデルが判断","検索必要? → 検索 → 有用? → 回答 → 根拠確認",["検索要否と根拠品質を自己評価します。"],["検索判断","関連性評価","再試行・修正"],["検索不要な質問も混じる時"],["判断ミスでループが長くなる"],"必要な時だけ検索し振り返ります。","選択的検索"],
+  crag:["弱い検索を補正","検索 → 評価 → 別ソース → 精製 → 回答",["悪い根拠を捨て、Webなどで補います。"],["根拠評価","品質で分岐","補正して生成"],["古い社内文書"],["外部ソースの信頼・安全"],"検索結果を評価して補正します。","古い知識"],
+  adaptive:["難易度で経路を選択","分類 → 検索なし / 1回 / 多段検索",["全質問に重い検索を使いません。"],["複雑度分類","戦略へRouting","実行"],["簡単・難しい質問が混在"],["誤分類で経路を誤る"],"質問に合わせて検索量を変えます。","難易度混在"],
+  "graph-agentic":["関係検索とAgentループ","Graph: 個体 → 関係 → 要約; Agentic: 判断 → 検索 → 評価 → 反復",["GraphRAGは関係を、Agenticは検索戦略を扱います。"],["Graph構築/照会","AgentがRetrieverを選択","根拠を統合"],["組織・供給網・多段質問"],["構築費とループ制御"],"GraphとAgentで複雑な関係を探します。","関係質問"],
+  longctx:["検索せず全体を入れる","全文 → Context Window → 回答",["資料全体をPromptに直接入れます。"],["読込","Token上限に収める","回答"],["小さな資料","全文が必要"],["費用・遅延・上限"],"チャンク検索なしで全文を読みます。","小さな全文"],
+  cag:["よく使う知識をCache","知識を事前ロード → 質問 → Cache利用",["安定した知識の検索を省きます。"],["知識選定","Cache準備","再利用"],["FAQ・固定Manual"],["更新時の無効化"],"固定知識を事前ロードします。","固定知識"],
+  finetune:["重みに振る舞いを学習","学習データ → Fine-tune → 評価 → 提供",["口調・形式・反復パターンを学びます。"],["データ作成","SFT/LoRA","評価・配布"],["厳格な形式とStyle"],["事実更新と再学習費"],"安定した振る舞いをモデルに学習します。","形式とStyle"],
+  raptor:["要約Treeで詳細と全体を検索","Chunk → Cluster → 再帰要約 → Tree検索",["詳細と上位要約を一緒に保持します。"],["要約Tree構築","複数Level検索","生成"],["長い報告書・書籍"],["構築費・要約誤り"],"詳細と要約の階層を検索します。","長文書"],
+  contextual:["Chunkに文書文脈を追加","Chunk + 文脈ラベル → Index → 検索",["各Chunkがどこに属すか説明します。"],["文脈生成","一緒にIndex","通常検索"],["契約・規程"],["追加費用・誤った文脈"],"Chunk単独でも意味が通るようにします。","曖昧なChunk"],
+  react:["思考とTool利用を反復","判断 → Tool → 観察 → 反復 → 回答",["検索・Code・API・DB・Browserを呼びます。"],["Schema定義","Modelが選択","結果を戻す"],["外部の多段作業"],["Loop防止と権限制御"],"考え、行動し、観察して繰り返します。","多段作業"],
+  text2sql:["自然文を正確なDB Queryへ","質問 → Schema → SQL → 検証 → 実行 → 説明",["構造化Dataから集計します。"],["Schema提供","SQL生成・検証","実行・説明"],["指標・合計・件数"],["SQL安全性と権限"],"DBから正確な数値を得ます。","指標と集計"],
+  kg:["個体と関係を直接照会","個体/関係抽出 → Graph DB → Query → 回答",["Text類似度ではなくPathを使います。"],["個体・関係抽出","Graph保存","Path Query"],["組織・所有・供給網"],["構築費・抽出誤り"],"Graph DBへ関係を問い合わせます。","関係Path"],
+  computeruse:["人のように画面操作","Screenshot → Click/Input判断 → 実行 → 反復",["APIのないSiteやLegacy Appを操作します。"],["Browser/VM準備","Vision-Action Loop","結果回収"],["Legacy System"],["遅い・UI変更・権限Risk"],"APIがない時にクリック・入力します。","Legacy画面"]
+},
+ko:{
+  naive:["가장 단순한 검색-첨부 방식","질문 → 임베딩 → 벡터 검색 → 프롬프트 → 답변",["문서를 청크와 벡터로 저장합니다.","비슷한 청크를 모델에 줍니다."],["청킹·임베딩","유사도 검색","근거로 생성"],["프로토타입","잘 정리된 문서"],["무관한 청크","큰 그림 질문에 약함"],"비슷한 문단을 찾아 붙여 답합니다.","빠른 프로토타입"],
+  advanced:["검색 전후를 다듬어 품질 향상","재작성 → 하이브리드 검색 → 재순위·압축 → 답변",["전처리와 후처리로 노이즈를 줄입니다."],["질의 재작성","키워드+벡터 검색","재순위·중복 제거"],["기본 RAG가 자주 빗나갈 때"],["지연과 튜닝 지점 증가"],"재작성·재순위·필터로 근거를 개선합니다.","기본 RAG 실패"],
+  modular:["교체 가능한 모듈로 조립","라우터 → 검색기 → 랭커 → 생성기 → 검증기",["검색·순위·생성·검증을 독립시킵니다."],["인터페이스 정의","질문별 경로 선택","교체·평가"],["여러 제품과 도메인"],["설계와 관측이 복잡"],"필요에 따라 RAG 모듈을 조립합니다.","여러 파이프라인"],
+  fusion:["질문을 여러 표현으로 검색","질문 → 변형 질의 → 병렬 검색 → 순위 융합 → 답변",["사용자 표현과 문서 표현의 차이를 메웁니다."],["질의 변형","병렬 검색","RRF 등으로 융합"],["동의어와 다양한 표현"],["검색 비용과 노이즈"],"여러 말로 검색한 결과를 합칩니다.","어휘 차이"],
+  hyde:["가상 정답 문서로 검색","질문 → 가상 문서 → 임베딩 → 실제 문서 → 답변",["정답처럼 생긴 문서를 먼저 만들어 매칭합니다."],["가상 문서 생성","그 문서로 검색","실제 근거로 답변"],["질문과 문서 표현이 다를 때"],["가상 문서가 틀리면 검색도 빗나감"],"가상 답변에서 실제 문서를 찾습니다.","큰 표현 차이"],
+  selfrag:["검색 필요성을 모델이 판단","검색 필요? → 검색 → 유용? → 답변 → 근거 확인",["검색 여부와 근거 품질을 스스로 평가합니다."],["검색 결정","관련성 평가","재시도·수정"],["검색 불필요 질문도 섞일 때"],["판단 오류로 긴 루프"],"필요할 때만 검색하고 반성합니다.","선택적 검색"],
+  crag:["약한 검색을 교정","검색 → 평가 → 다른 출처 → 정제 → 답변",["나쁜 근거를 버리고 웹 등으로 보완합니다."],["근거 평가","품질에 따라 분기","교정 후 생성"],["오래된 내부 문서"],["외부 출처 신뢰와 보안"],"검색 결과를 평가해 교정합니다.","낡은 지식"],
+  adaptive:["난이도별 경로 선택","분류 → 검색 없음 / 1회 / 다단계 검색",["모든 질문에 무거운 검색을 쓰지 않습니다."],["복잡도 분류","전략 라우팅","실행"],["쉬운·어려운 질문 혼재"],["오분류 시 잘못된 경로"],"질문에 따라 검색 깊이를 바꿉니다.","혼합 난이도"],
+  "graph-agentic":["관계 검색과 Agent 루프","Graph: 개체 → 관계 → 요약; Agentic: 판단 → 검색 → 평가 → 반복",["GraphRAG는 관계를, Agentic은 검색 전략을 다룹니다."],["Graph 구축·질의","Agent가 검색기 선택","근거 취합"],["조직·공급망·멀티홉"],["구축 비용과 루프 통제"],"Graph와 Agent로 복잡한 관계를 찾습니다.","관계 질문"],
+  longctx:["검색 없이 전부 넣기","전체 파일 → Context Window → 답변",["자료 전체를 프롬프트에 직접 넣습니다."],["로드","토큰 한도 배치","답변"],["작은 자료","전체가 필요할 때"],["비용·지연·한도"],"청크 검색 없이 전체를 읽습니다.","작은 전체 자료"],
+  cag:["자주 쓰는 지식을 캐시","지식 사전 적재 → 질문 → 캐시 활용",["안정된 지식의 반복 검색을 생략합니다."],["지식 선정","캐시 준비","재사용"],["FAQ·고정 매뉴얼"],["지식 변경 시 무효화"],"고정 지식을 미리 올려 재사용합니다.","고정 지식"],
+  finetune:["가중치에 행동 방식 학습","학습 데이터 → Fine-tune → 평가 → 서비스",["말투·형식·반복 패턴을 학습합니다."],["데이터 구축","SFT/LoRA","평가·배포"],["엄격한 형식과 스타일"],["사실 업데이트와 재학습 비용"],"안정된 행동을 모델에 학습시킵니다.","형식과 스타일"],
+  raptor:["요약 트리로 세부와 전체 검색","청크 → 클러스터 → 재귀 요약 → 트리 검색",["세부 문단과 상위 요약을 함께 둡니다."],["요약 트리 구축","여러 레벨 검색","생성"],["긴 보고서·책"],["구축 비용·요약 오류"],"세부와 요약의 계층을 검색합니다.","긴 문서"],
+  contextual:["청크에 문서 맥락 추가","청크 + 맥락 라벨 → 인덱스 → 검색",["각 청크가 어디에 속하는지 설명합니다."],["맥락 생성","함께 인덱싱","일반 검색"],["계약·규정"],["추가 비용·잘못된 맥락"],"청크만 봐도 뜻이 통하게 합니다.","애매한 청크"],
+  react:["생각과 도구 사용 반복","판단 → 도구 → 관찰 → 반복 → 답변",["검색·코드·API·DB·브라우저를 호출합니다."],["스키마 정의","모델이 선택","결과 재투입"],["외부 다단계 작업"],["루프 방지와 권한 통제"],"생각하고 행동하고 관찰해 반복합니다.","다단계 작업"],
+  text2sql:["자연어를 정확한 DB 질의로","질문 → 스키마 → SQL → 검증 → 실행 → 설명",["정형 데이터에서 집계합니다."],["스키마 제공","SQL 생성·검증","실행·설명"],["지표·합계·건수"],["SQL 안전과 권한"],"DB에서 정확한 숫자를 얻습니다.","지표와 집계"],
+  kg:["개체와 관계를 직접 질의","개체/관계 추출 → Graph DB → 질의 → 답변",["텍스트 유사도 대신 경로를 씁니다."],["개체·관계 추출","Graph 저장","경로 질의"],["조직·소유·공급망"],["구축 비용·추출 오류"],"Graph DB에 관계를 물어봅니다.","관계 경로"],
+  computeruse:["사람처럼 화면 조작","화면 캡처 → 클릭/입력 판단 → 실행 → 반복",["API 없는 사이트와 레거시 앱을 조작합니다."],["브라우저/VM 준비","Vision-Action 루프","결과 회수"],["레거시 시스템"],["느림·UI 변경·권한 위험"],"API가 없을 때 클릭하고 입력합니다.","레거시 화면"]
+}};
+
+for(const lang of ["ja","ko"]){
+  for(const [id,title] of baseMethods){
+    const x=localizedMethodText[lang][id];
+    I18N[lang].methods.data[id]=M(title,x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7]);
+  }
+}
+
+let currentLang="en",openMethod=null,lastTrigger=null;
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const get=(obj,path)=>path.split(".").reduce((v,k)=>v&&v[k],obj);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toolHtml(t,i){const colors=["teal","blue","yellow","orange","purple","red","cyan","lime","green","pink"];return `<div class="tool-col"><div class="node ${colors[i]}"><div class="icon sm">${t[0]}</div><div class="label">${esc(t[1])}</div><div class="caption">${esc(t[2])}</div></div><div class="v-mini"></div><div class="node ${colors[i]}"><div class="icon sm">${t[3]}</div><div class="label">${esc(t[4])}</div><div class="caption">${esc(t[5])}</div></div></div>`}
+function renderDetail(d){
+  $("#detail-grid").innerHTML=d.detail.cards.map(c=>`<article class="panel detail-card"><h3>${c.title}</h3><p class="lead">${c.lead}</p>${c.sections.map(s=>`<h4>${esc(s[0])}</h4><ul>${s[1].map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`).join("")}</article>`).join("");
+  $("#criteria-head").innerHTML=`<tr>${d.criteria.headers.map(x=>`<th>${esc(x)}</th>`).join("")}</tr>`;
+  $("#criteria-body").innerHTML=d.criteria.rows.map(r=>`<tr>${r.map(x=>`<td>${esc(x)}</td>`).join("")}</tr>`).join("");
+  $("#criteria-minis").innerHTML=d.criteria.minis.map(x=>`<div class="criteria-mini"><strong>${esc(x[0])}</strong>${x[1]}</div>`).join("");
+}
+function renderProducts(d){
+  $("#product-cards").innerHTML=d.products.cards.map(c=>`<div class="card"><h3><span class="tag ${c[0]}">${c[1]}</span>${esc(c[2])}</h3><p>${esc(c[3])}</p></div>`).join("");
+  $("#comparison-head").innerHTML=`<tr>${d.products.headers.map(x=>`<th>${esc(x)}</th>`).join("")}</tr>`;
+  const breaks={0:d.products.cats[0],4:d.products.cats[1],9:d.products.cats[2]};
+  $("#comparison-body").innerHTML=d.products.rows.map((r,i)=>(breaks[i]?`<tr><td colspan="6" class="cat">${esc(breaks[i])}</td></tr>`:"")+`<tr>${r.map((x,j)=>`<td class="${j===1?"meaning":""}">${esc(x)}</td>`).join("")}</tr>`).join("");
+}
+function renderPaths(d){
+  const classes=["q","agent","ctx","tool","src","out"];
+  $("#paths").innerHTML=d.paths.items.map(p=>`<article class="path-card"><div class="ask"><small>${esc(d.paths.question)}</small>“${esc(p[0])}”</div><div class="flow-chips">${p[1].map((x,i)=>`${i?'<span class="arrow">→</span>':""}<span class="chip ${classes[Math.min(i,5)]}">${esc(x)}</span>`).join("")}</div>${p[2]?`<div class="path-note">${esc(p[2])}</div>`:""}</article>`).join("");
+}
+function renderMethods(d){
+  const render=(list,other)=>list.map(([id],i)=>{const m=d.methods.data[id];return `<button type="button" class="method-card ${other?"other":""}" data-method="${id}"><div class="num">${other?String.fromCharCode(65+i):String(i+1).padStart(2,"0")}</div><h3>${esc(m.title)}</h3><p>${esc(m.summary)}</p><div class="when">${esc(d.methods.whenLabel+m.cardWhen)}</div><div class="more">${esc(d.methods.more)}</div></button>`}).join("");
+  $("#rag-methods").innerHTML=render(baseMethods.slice(0,9),false);
+  $("#other-methods").innerHTML=render(baseMethods.slice(9),true);
+  $$("[data-method]").forEach(b=>b.addEventListener("click",()=>openModal(b.dataset.method,b)));
+}
+function listHtml(items){return `<ul>${items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`}
+function openModal(id,trigger){
+  const d=I18N[currentLang],m=d.methods.data[id];if(!m)return;
+  openMethod=id;lastTrigger=trigger||lastTrigger;$("#modal-title").textContent=m.title;$("#modal-tagline").textContent=m.tagline;
+  const h=d.methods.modal;$("#modal-body").innerHTML=`<h4>${esc(h.flow)}</h4><div class="modal-flow">${esc(m.flow)}</div><h4>${esc(h.what)}</h4>${listHtml(m.what)}<h4>${esc(h.steps)}</h4>${listHtml(m.steps)}<h4>${esc(h.when)}</h4>${listHtml(m.when)}<h4>${esc(h.care)}</h4>${listHtml(m.care)}`;
+  const modal=$("#method-modal");modal.hidden=false;modal.classList.add("open");document.body.style.overflow="hidden";$("#modal-close").focus();
+}
+function closeModal(){const modal=$("#method-modal");modal.classList.remove("open");modal.hidden=true;document.body.style.overflow="";openMethod=null;if(lastTrigger)lastTrigger.focus()}
+function setLang(lang){
+  if(!I18N[lang])lang="en";currentLang=lang;localStorage.setItem("ai-map-lang",lang);document.documentElement.lang=lang;document.title=I18N[lang].header.title+" — OKPy";
+  $$("[data-lang]").forEach(b=>{const active=b.dataset.lang===lang;b.classList.toggle("active",active);b.setAttribute("aria-pressed",active)});
+  $$("[data-i18n]").forEach(el=>{const v=get(I18N[lang],el.dataset.i18n);if(v!=null)el.textContent=v});
+  $$("[data-i18n-html]").forEach(el=>{const v=get(I18N[lang],el.dataset.i18nHtml);if(v!=null)el.innerHTML=v});
+  const d=I18N[lang];$("#retrieval-tools").innerHTML=d.tools.slice(0,5).map(toolHtml).join("");$("#action-tools").innerHTML=d.tools.slice(5).map((t,i)=>toolHtml(t,i+5)).join("");
+  renderDetail(d);renderProducts(d);renderPaths(d);renderMethods(d);$("#modal-close").setAttribute("aria-label",d.methods.modal.close);
+  if(openMethod)openModal(openMethod,lastTrigger);
+}
+$$("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+$("#modal-close").addEventListener("click",closeModal);
+$("#method-modal").addEventListener("click",e=>{if(e.target===e.currentTarget)closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#method-modal").classList.contains("open"))closeModal()});
+let saved="en";try{saved=localStorage.getItem("ai-map-lang")||"en"}catch(e){}setLang(saved);
+</script>
+</body>
+</html>

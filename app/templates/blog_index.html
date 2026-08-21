@@ -22,7 +22,7 @@
     <meta name="twitter:description" content="{% if active_category %}{{ categories[active_category].description }}{% else %}Python・クラウド・開発方法論の技術ブログ — okpy.net{% endif %}">
     <meta name="twitter:image" content="{{ og_image }}">
     {% include '_head_icons.html' %}
-    <link rel="stylesheet" href="/static/css/okpy.css?v=24">
+    <link rel="stylesheet" href="/static/css/okpy.css?v=25">
 </head>
 <body>
     {% include 'header.html' %}
@@ -36,6 +36,20 @@
             </a>
             <p class="brand-hero__tagline">Python · Cloud · 開発方法論 — 実務目線の技術ブログ</p>
             <p class="brand-hero__stats">{{ category_counts.all }} 記事 · {{ categories|length }} トピック</p>
+        </section>
+
+        <section class="section" id="special">
+            <div class="section__head">
+                <h2 class="section__title">特集</h2>
+            </div>
+            <a href="/guide/agentic-system" class="feature-card">
+                <div class="feature-card__badge">SPECIAL</div>
+                <div class="feature-card__body">
+                    <h3 class="feature-card__title">チャットボットは単一のモデルではない</h3>
+                    <p class="feature-card__desc">Agent / Context / RAG / ツール連携を一枚で整理。Cursor・ChatGPT・Claude・Gemini の対応表と、インタラクティブな図解（EN / 日本語 / 한국어）。</p>
+                    <span class="feature-card__cta">特集を見る →</span>
+                </div>
+            </a>
         </section>
 
         {% if latest_posts %}
@@ -109,6 +123,16 @@
             <h1 class="cat-hero__title">{{ categories[active_category].emoji }} {{ categories[active_category].label }}</h1>
             <p class="cat-hero__desc">{{ categories[active_category].description }}</p>
             <p class="cat-hero__count">{{ category_counts[active_category] }} 記事</p>
+            {% if active_category in ['dev-method', 'ai-models'] %}
+            <a href="/guide/agentic-system" class="feature-card feature-card--compact">
+                <div class="feature-card__badge">特集</div>
+                <div class="feature-card__body">
+                    <h3 class="feature-card__title">チャットボットは単一のモデルではない</h3>
+                    <p class="feature-card__desc">Agent・Context・RAG手法と製品対応をインタラクティブに解説</p>
+                    <span class="feature-card__cta">特集を見る →</span>
+                </div>
+            </a>
+            {% endif %}
             {% include '_amazon_box.html' %}
         </section>
 

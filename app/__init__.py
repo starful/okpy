@@ -585,17 +585,19 @@ def ads_txt():
 def sitemap_xml():
     base = SITE_CONFIG["site_url"].rstrip("/")
     today = datetime.now().strftime("%Y-%m-%d")
-    urls = [f"{base}/"]
+    urls = [f"{base}/", f"{base}/guide/agentic-system"]
     for cat in SITE_CONFIG.get("blog_categories", {}):
         urls.append(f"{base}/category/{cat}")
     for p in CACHED_POSTS:
         urls.append(f"{base}/blog/{p['slug']}")
 
     nodes = []
-    for loc in urls:
+    for i, loc in enumerate(urls):
+        # Home + special guide slightly higher priority
+        priority = "1.0" if i == 0 else ("0.9" if i == 1 else "0.8")
         nodes.append(
             f"<url><loc>{loc}</loc><lastmod>{today}</lastmod>"
-            f"<changefreq>weekly</changefreq><priority>0.8</priority></url>"
+            f"<changefreq>weekly</changefreq><priority>{priority}</priority></url>"
         )
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>'
@@ -604,6 +606,17 @@ def sitemap_xml():
         + "</urlset>"
     )
     return Response(xml, mimetype="application/xml")
+
+
+@app.route("/guide/agentic-system")
+@app.route("/guide/agentic-system/")
+def guide_agentic_system():
+    """Interactive special: agentic AI system map (EN/JA/KO)."""
+    return send_from_directory(
+        os.path.join(STATIC_DIR, "guides"),
+        "agentic-system.html",
+        mimetype="text/html",
+    )
 
 
 @app.route("/about.html")

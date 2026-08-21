@@ -365,6 +365,73 @@ img { max-width: 100%; height: auto; display: block; }
 
 .section__more:hover { color: var(--accent-hover); }
 
+/* ── Special feature (特集) ── */
+.feature-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--border, #e2e6ea);
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.03), rgba(45, 112, 168, 0.06)),
+    #fff;
+  padding: 1.25rem 1.35rem;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.feature-card:hover {
+  border-color: var(--accent, #2d70a8);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.feature-card__badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: #0f172a;
+  border-radius: 999px;
+  padding: 0.22rem 0.6rem;
+  margin-bottom: 0.65rem;
+}
+
+.feature-card__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.feature-card__desc {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.feature-card__cta {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent, #2d70a8);
+}
+
+.feature-card--compact {
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+}
+
+.feature-card--compact .feature-card__title {
+  font-size: 1.05rem;
+}
+
+.feature-card--compact .feature-card__desc {
+  font-size: 0.86rem;
+  margin-bottom: 0.5rem;
+}
+
 /* ── Story cards (Medium-style) ── */
 .story-grid {
   display: grid;
