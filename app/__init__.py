@@ -14,6 +14,7 @@ app = Flask(__name__)
 Compress(app)
 
 try:
+    from .a8_affiliate import a8_banner_context
     from .amazon_affiliate import affiliate_context
     from .config import SITE_CONFIG
     from .home_data import (
@@ -26,6 +27,7 @@ try:
         posts_by_category,
     )
 except ImportError:
+    from a8_affiliate import a8_banner_context
     from amazon_affiliate import affiliate_context
     from config import SITE_CONFIG
     from home_data import (
@@ -477,6 +479,7 @@ def category_list(category):
     ctx = _footer_ctx()
     canonical = f"{SITE_CONFIG['site_url'].rstrip('/')}/category/{category}"
     amazon = affiliate_context(category)
+    a8 = a8_banner_context(category)
     thumb = (ctx.get("category_thumbnails") or {}).get(category) or ""
     og_image = _absolute_url(thumb) if thumb else _default_og_image()
     return render_template(
@@ -486,6 +489,7 @@ def category_list(category):
         canonical=canonical,
         og_image=og_image,
         **amazon,
+        **a8,
         **ctx,
     )
 
@@ -533,6 +537,7 @@ def blog_post(slug):
     amazon = affiliate_context(
         category, title=title, slug=slug, body=body
     )
+    a8 = a8_banner_context(category)
 
     return render_template(
         "blog_post.html",
@@ -549,6 +554,7 @@ def blog_post(slug):
         category_emoji=cat_meta.get("emoji", ""),
         canonical=canonical,
         **amazon,
+        **a8,
         **_footer_ctx(),
     )
 

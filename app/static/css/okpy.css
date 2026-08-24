@@ -380,6 +380,34 @@ img { max-width: 100%; height: auto; display: block; }
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
 }
 
+.feature-card--with-thumb {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) 1fr;
+  gap: 1.1rem;
+  align-items: center;
+  padding: 0.85rem;
+  overflow: hidden;
+}
+
+.feature-card__thumb {
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f4efe6;
+}
+
+.feature-card__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.feature-card__content {
+  min-width: 0;
+  padding: 0.35rem 0.5rem 0.35rem 0;
+}
+
 .feature-card:hover {
   border-color: var(--accent, #2d70a8);
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
@@ -421,6 +449,12 @@ img { max-width: 100%; height: auto; display: block; }
 .feature-card--compact {
   margin-top: 1rem;
   padding: 1rem 1.1rem;
+}
+
+.feature-card--compact.feature-card--with-thumb {
+  grid-template-columns: minmax(140px, 220px) 1fr;
+  gap: 0.85rem;
+  padding: 0.75rem;
 }
 
 .feature-card--compact .feature-card__title {
@@ -1061,6 +1095,46 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--muted);
 }
 
+/* A8 Neuro Dive / @PRO人 (300×250) */
+.a8-box {
+  text-align: center;
+}
+.a8-box--neuro_dive {
+  background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-color: #0ea5e9;
+}
+.a8-box--pro_jin {
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+  border-color: #6366f1;
+}
+.a8-box__link {
+  display: inline-block;
+  margin: 4px auto 0;
+  line-height: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.a8-box__link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.a8-box__img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.a8-affiliate-pixel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.cat-hero .a8-box {
+  margin-top: 16px;
+}
+
 .article-footer {
   margin-top: 48px;
   padding-top: 24px;
@@ -1177,6 +1251,16 @@ img { max-width: 100%; height: auto; display: block; }
 
   .topic-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feature-card--with-thumb {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .feature-card__content {
+    padding: 0 0.15rem 0.15rem;
   }
 
   .article-body { font-size: 1.1rem; }

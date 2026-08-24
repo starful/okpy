@@ -1,0 +1,27 @@
+{# A8.net banner — Neuro Dive / @PRO人 (300×250) #}
+{% if show_a8_banner and a8_banner %}
+{% set banner = a8_banner %}
+<aside class="a8-box amazon-box a8-box--{{ banner.id }}"
+       role="complementary"
+       aria-label="アフィリエイト広告">
+    <p class="amazon-box__title">{{ a8_banner_title }}</p>
+    <p class="amazon-box__desc">{{ banner.desc }}</p>
+    <a class="a8-box__link"
+       href="{{ banner.click_url }}"
+       target="_blank"
+       rel="nofollow sponsored noopener noreferrer"
+       title="{{ banner.alt }}"
+       data-track="affiliate_a8"
+       data-track-label="{{ banner.id }}">
+        <img class="a8-box__img"
+             src="{{ banner.image_url }}"
+             alt="{{ banner.alt }}"
+             width="300"
+             height="250"
+             loading="lazy"
+             decoding="async">
+    </a>
+    <img class="a8-affiliate-pixel" src="{{ banner.pixel_url }}" width="1" height="1" alt="" aria-hidden="true">
+    <p class="amazon-box__note">{{ a8_banner_note }}</p>
+</aside>
+{% endif %}

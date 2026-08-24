@@ -22,7 +22,7 @@
     <meta name="twitter:description" content="{% if active_category %}{{ categories[active_category].description }}{% else %}Python・クラウド・開発方法論の技術ブログ — okpy.net{% endif %}">
     <meta name="twitter:image" content="{{ og_image }}">
     {% include '_head_icons.html' %}
-    <link rel="stylesheet" href="/static/css/okpy.css?v=25">
+    <link rel="stylesheet" href="/static/css/okpy.css?v=27">
 </head>
 <body>
     {% include 'header.html' %}
@@ -42,12 +42,17 @@
             <div class="section__head">
                 <h2 class="section__title">特集</h2>
             </div>
-            <a href="/guide/agentic-system" class="feature-card">
-                <div class="feature-card__badge">SPECIAL</div>
-                <div class="feature-card__body">
-                    <h3 class="feature-card__title">チャットボットは単一のモデルではない</h3>
-                    <p class="feature-card__desc">Agent / Context / RAG / ツール連携を一枚で整理。Cursor・ChatGPT・Claude・Gemini の対応表と、インタラクティブな図解（EN / 日本語 / 한국어）。</p>
-                    <span class="feature-card__cta">特集を見る →</span>
+            <a href="/guide/agentic-system" class="feature-card feature-card--with-thumb">
+                <div class="feature-card__thumb">
+                    <img src="/static/images/guide-agentic-system.jpg" alt="Agent · Context · Tools 図解" loading="lazy" width="640" height="360">
+                </div>
+                <div class="feature-card__content">
+                    <div class="feature-card__badge">SPECIAL</div>
+                    <div class="feature-card__body">
+                        <h3 class="feature-card__title">チャットボットは単一のモデルではない</h3>
+                        <p class="feature-card__desc">Agent / Context / RAG / ツール連携を一枚で整理。Cursor・ChatGPT・Claude・Gemini の対応表と、インタラクティブな図解（EN / 日本語 / 한국어）。</p>
+                        <span class="feature-card__cta">特集を見る →</span>
+                    </div>
                 </div>
             </a>
         </section>
@@ -124,16 +129,22 @@
             <p class="cat-hero__desc">{{ categories[active_category].description }}</p>
             <p class="cat-hero__count">{{ category_counts[active_category] }} 記事</p>
             {% if active_category in ['dev-method', 'ai-models'] %}
-            <a href="/guide/agentic-system" class="feature-card feature-card--compact">
-                <div class="feature-card__badge">特集</div>
-                <div class="feature-card__body">
-                    <h3 class="feature-card__title">チャットボットは単一のモデルではない</h3>
-                    <p class="feature-card__desc">Agent・Context・RAG手法と製品対応をインタラクティブに解説</p>
-                    <span class="feature-card__cta">特集を見る →</span>
+            <a href="/guide/agentic-system" class="feature-card feature-card--compact feature-card--with-thumb">
+                <div class="feature-card__thumb">
+                    <img src="/static/images/guide-agentic-system.jpg" alt="Agent · Context · Tools 図解" loading="lazy" width="640" height="360">
+                </div>
+                <div class="feature-card__content">
+                    <div class="feature-card__badge">特集</div>
+                    <div class="feature-card__body">
+                        <h3 class="feature-card__title">チャットボットは単一のモデルではない</h3>
+                        <p class="feature-card__desc">Agent・Context・RAG手法と製品対応をインタラクティブに解説</p>
+                        <span class="feature-card__cta">特集を見る →</span>
+                    </div>
                 </div>
             </a>
             {% endif %}
             {% include '_amazon_box.html' %}
+            {% include '_a8_banner.html' %}
         </section>
 
         {% if posts %}
