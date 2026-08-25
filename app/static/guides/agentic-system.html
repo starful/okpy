@@ -12,31 +12,103 @@
   <meta property="og:title" content="A chatbot is not a single model — OKPy Special">
   <meta property="og:description" content="Interactive map of agentic AI: Agent vs LLM model families, Context, tools, RAG, and product mapping.">
   <meta property="og:url" content="https://okpy.net/guide/agentic-system">
-  <meta property="og:image" content="https://okpy.net/static/images/logo.png">
+  <meta property="og:image" content="https://okpy.net/static/images/guide-agentic-system.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="A chatbot is not a single model — OKPy Special">
   <meta name="twitter:description" content="Interactive map of agentic AI: Agent, Context, tools, RAG, and product mapping.">
-  <meta name="twitter:image" content="https://okpy.net/static/images/logo.png">
+  <meta name="twitter:image" content="https://okpy.net/static/images/guide-agentic-system.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{--bg:#070b14;--panel:#0f1628;--node:#141e33;--line:#2d3f63;--text:#f2f6ff;--muted:#8fa3c4;--spine:#5b7ab0;--teal:#2fd6c4}
     *{box-sizing:border-box}body{margin:0;font-family:"IBM Plex Sans KR","Noto Sans JP",-apple-system,sans-serif;background:radial-gradient(800px 400px at 50% 0,rgba(77,141,255,.12),transparent 55%),var(--bg);color:var(--text);line-height:1.55}
-    button{font:inherit}.page{width:min(1100px,calc(100% - 1.25rem));margin:auto;padding:1.2rem 0 3rem}
+    button{font:inherit}
+    .layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:1.15rem;width:min(1420px,calc(100% - 1.25rem));margin:auto;padding:1.2rem 0 3rem;align-items:start}
+    .side-nav{position:sticky;top:1rem;align-self:start;padding:.75rem .7rem .85rem;background:rgba(12,20,36,.94);border:1px solid #243553;border-radius:14px;backdrop-filter:blur(8px);z-index:20;max-height:calc(100vh - 2rem);overflow:auto;display:flex;flex-direction:column;gap:.65rem}
+    .side-nav .nav-label{font-family:"JetBrains Mono",monospace;font-size:.62rem;letter-spacing:.06em;color:var(--muted);margin:0 0 .4rem;padding:0 .2rem}
+    .side-nav .toc{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.18rem}
+    .side-nav .toc a{display:block;padding:.38rem .5rem;border-radius:8px;color:var(--muted);text-decoration:none;font-size:.74rem;font-weight:600;line-height:1.35;border:1px solid transparent;transition:.15s}
+    .side-nav .toc a:hover,.side-nav .toc a:focus-visible{color:var(--text);background:#152038;outline:0}
+    .side-nav .toc a.active{color:var(--text);background:rgba(47,214,196,.1);border-color:rgba(47,214,196,.4)}
+    .side-paths{border-top:1px solid #243553;padding-top:.65rem}
+    .side-paths h2{margin:0 0 .25rem;font-size:.82rem;line-height:1.35;letter-spacing:-.02em}
+    .side-paths .hint{margin:0 0 .55rem;font-size:.68rem;line-height:1.4}
+    .side-paths .paths{gap:.4rem}
+    .side-paths .path-card{padding:.55rem .6rem;border-radius:10px}
+    .side-paths .ask{font-size:.74rem;margin-bottom:.25rem;line-height:1.35;font-weight:700}
+    .side-paths .path-role{display:inline-block;margin:0 0 .2rem;padding:.08rem .35rem;border-radius:5px;border:1px solid rgba(47,214,196,.35);background:rgba(47,214,196,.08);color:var(--teal);font:600 .58rem "JetBrains Mono",monospace;letter-spacing:.02em}
+    .side-paths .ask small{display:none}
+    .side-paths .flow-chips{display:none}
+    .side-paths .path-roles{display:grid;gap:.35rem}
+    .side-paths .role-btn{all:unset;display:flex;align-items:center;justify-content:space-between;gap:.4rem;width:100%;box-sizing:border-box;padding:.55rem .6rem;border-radius:10px;border:1px solid #243553;background:var(--panel);cursor:pointer;color:inherit;transition:.15s}
+    .side-paths .role-btn:hover,.side-paths .role-btn:focus-visible{border-color:rgba(47,214,196,.65);background:#152038;outline:0}
+    .side-paths .role-btn .role-name{font-size:.78rem;font-weight:800}
+    .side-paths .role-btn .role-count{font:600 .58rem "JetBrains Mono",monospace;color:var(--teal)}
+    .side-paths .path-back{all:unset;display:inline-flex;align-items:center;gap:.25rem;margin:0 0 .45rem;color:var(--teal);font-size:.68rem;font-weight:700;cursor:pointer}
+    .side-paths .path-back:hover,.side-paths .path-back:focus-visible{text-decoration:underline;outline:0}
+    .side-paths .path-role-title{margin:0 0 .45rem;font-size:.8rem;font-weight:800}
+    .side-paths .path-why{margin:.15rem 0 .1rem;font-size:.6rem;line-height:1.35;color:var(--teal);font-weight:600}
+    .agent-criteria-btn{all:unset;display:inline-block;margin-top:.35rem;padding:.22rem .45rem;border-radius:7px;border:1px solid rgba(77,141,255,.45);background:rgba(77,141,255,.1);color:#9ec1ff;font-size:.55rem;font-weight:700;cursor:pointer;line-height:1.3}
+    .agent-criteria-btn:hover,.agent-criteria-btn:focus-visible{border-color:rgba(77,141,255,.85);background:rgba(77,141,255,.18);outline:0}
+    .modal .criteria-table{font-size:.74rem;min-width:0;width:100%}
+    .modal .criteria-grid{margin-top:.65rem}.side-paths .path-note{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:.15rem 0 .15rem;font-size:.62rem;line-height:1.35;color:#9eb6d8}
+    .side-paths .path-play{margin-top:.15rem;font-size:.62rem}
+    .page{min-width:0;width:100%;padding:0}
+    .nav-toggle{display:none}
+    section[id],.diagram-shell[id]{scroll-margin-top:1.1rem}
     header{text-align:center;margin-bottom:1.2rem;position:relative;padding-top:2.8rem}header h1{margin:0;font-size:clamp(1.45rem,3.5vw,2rem);letter-spacing:-.035em}header p{margin:.4rem 0 0;color:var(--muted);font-size:.9rem}
     .site-bar{position:absolute;left:0;top:0;display:flex;align-items:center;gap:.45rem;font-size:.78rem}.site-bar a{color:var(--teal);text-decoration:none;font-weight:600}.site-bar a:hover{text-decoration:underline}.site-bar span{color:var(--muted)}
     .seo-intro{max-width:46rem;margin:.85rem auto 0;text-align:left;color:var(--muted);font-size:.88rem}.seo-intro p{margin:.45rem 0}.seo-intro strong{color:var(--text)}
     .langs{position:absolute;right:0;top:0;display:flex;align-items:center;gap:.15rem;padding:.25rem;border:1px solid #243553;border-radius:10px;background:#0c1424}.langs button{border:0;background:transparent;color:var(--muted);padding:.3rem .5rem;border-radius:7px;cursor:pointer;font-size:.75rem}.langs button.active{background:#1c2a46;color:var(--text)}.langs span{color:#344665;font-size:.7rem}
-    .diagram-shell{background:linear-gradient(180deg,#0c1424,#0a101c);border:1px solid #243553;border-radius:18px;padding:1.5rem 1rem;box-shadow:0 20px 50px rgba(0,0,0,.4);overflow-x:auto}
-    .system-flow{display:flex;flex-direction:column;align-items:center;min-width:980px}.node{text-align:center}.icon{width:56px;height:56px;margin:0 auto .3rem;border-radius:14px;display:grid;place-items:center;background:var(--node);border:1.5px solid var(--line);font-size:1.35rem;box-shadow:0 8px 22px rgba(0,0,0,.35)}.icon.sm{width:44px;height:44px;font-size:1.05rem;border-radius:12px}.label{font-weight:800;font-size:.82rem}.caption{margin-top:.1rem;font-size:.61rem;color:var(--muted);line-height:1.35}
+    .diagram-shell{background:linear-gradient(180deg,#0c1424,#0a101c);border:1px solid #243553;border-radius:18px;padding:1.5rem 1rem;box-shadow:0 20px 50px rgba(0,0,0,.4);overflow-x:auto;position:relative}.path-live{display:none;position:fixed;z-index:90;max-width:min(300px,calc(100vw - 1.5rem));padding:.45rem .65rem;border-radius:10px;border:1px solid rgba(47,214,196,.55);background:rgba(10,16,28,.96);box-shadow:0 10px 28px rgba(0,0,0,.5);backdrop-filter:blur(12px);text-align:center;pointer-events:none;transform:translate(-50%,0)}.path-live.is-on{display:block}.path-live.is-above{transform:translate(-50%,-100%)}.path-live .live-label{display:block;font:600 .55rem "JetBrains Mono",monospace;letter-spacing:.05em;color:var(--teal);margin-bottom:.12rem}.path-live .live-text{font-size:.78rem;font-weight:700;color:var(--text);line-height:1.4;display:block}.path-live .live-main{display:block}.path-live .live-sub{display:block;margin-top:.28rem;font-size:.7rem;font-weight:600;color:#9eb6d8;line-height:1.35}
+    .system-flow{display:flex;flex-direction:column;align-items:center;min-width:980px;padding:0 .5rem 0.5rem}.node{text-align:center}.icon{width:56px;height:56px;margin:0 auto .3rem;border-radius:14px;display:grid;place-items:center;background:var(--node);border:1.5px solid var(--line);font-size:1.35rem;box-shadow:0 8px 22px rgba(0,0,0,.35)}.icon.sm{width:44px;height:44px;font-size:1.05rem;border-radius:12px}.label{font-weight:800;font-size:.82rem}.caption{margin-top:.1rem;font-size:.61rem;color:var(--muted);line-height:1.35}
     .v-arrow{width:2px;height:24px;background:var(--spine);position:relative;margin:3px 0}.v-arrow:after{content:"";position:absolute;left:50%;bottom:-1px;width:8px;height:8px;border-right:2px solid var(--spine);border-bottom:2px solid var(--spine);transform:translateX(-50%) rotate(45deg)}
     .with-side{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:430px}.with-side .side{justify-self:end;width:120px;text-align:center}.with-side .main{justify-self:center}
-    .agent-box{display:flex;flex-direction:column;align-items:center}.agent-brain{margin-top:.35rem;padding:.28rem .45rem;border-radius:9px;border:1px solid rgba(34,211,238,.45);background:rgba(34,211,238,.08);max-width:150px}.agent-brain .brain-label{font-family:"JetBrains Mono",monospace;font-size:.55rem;color:#7dd3fc;letter-spacing:.04em}.agent-brain .brain-models{margin-top:.08rem;font-size:.58rem;color:#c5d4ef;line-height:1.3;font-weight:600}
-    .gate{width:540px;border:1.5px solid rgba(47,214,196,.45);border-radius:16px;background:rgba(47,214,196,.05);padding:.85rem .9rem 1rem;box-shadow:0 0 28px rgba(47,214,196,.08)}.gate-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:.75rem}.gate-head .side{justify-self:end;width:110px;text-align:center}.gate-head .main{justify-self:center}.gate-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem}.pillar{text-align:center;background:var(--node);border:1px solid var(--line);border-radius:12px;padding:.55rem .3rem}.p-title{font-weight:800;font-size:.8rem}.p-ask{font-size:.66rem;color:var(--teal);font-weight:600}.p-desc{font-size:.6rem;color:var(--muted);margin-top:.2rem}.gate-out{text-align:center;color:var(--muted);font-size:.7rem;margin-top:.65rem}
-    .branch-label,.tool-group h3{font-family:"JetBrains Mono",monospace;font-size:.67rem;letter-spacing:.06em;color:var(--muted);text-align:center}.branch-label{margin:.35rem 0}.fan{width:920px;height:28px}.fan svg{width:100%;height:100%}.tools-tier{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:980px}.tool-group{border:1px solid #243553;border-radius:14px;padding:.7rem .55rem .85rem;background:rgba(255,255,255,.015)}.tool-group h3{margin:0 0 .65rem}.tool-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem}.tool-col{text-align:center;padding:.2rem .05rem}.tool-col .label{font-size:.67rem}.tool-col .caption{font-size:.55rem}.v-mini{width:2px;height:12px;margin:.18rem auto;background:#5b7ab0;opacity:.65}
+    .agent-box{display:flex;flex-direction:column;align-items:center;max-width:200px}.agent-box .caption{white-space:nowrap}.agent-brain{margin-top:.35rem;padding:.28rem .45rem;border-radius:9px;border:1px solid rgba(34,211,238,.45);background:rgba(34,211,238,.08);max-width:150px}.agent-brain .brain-label{font-family:"JetBrains Mono",monospace;font-size:.55rem;color:#7dd3fc;letter-spacing:.04em}.agent-brain .brain-models{margin-top:.08rem;font-size:.58rem;color:#c5d4ef;line-height:1.3;font-weight:600}
+    .gate{width:540px;border:1.5px solid rgba(47,214,196,.45);border-radius:16px;background:rgba(47,214,196,.05);padding:.85rem .9rem 1rem;box-shadow:0 0 28px rgba(47,214,196,.08)}.gate.agent-gate{border-color:rgba(77,141,255,.45);background:rgba(77,141,255,.05);box-shadow:0 0 28px rgba(77,141,255,.08)}.gate-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:.75rem}.gate-head .side{justify-self:end;width:110px;text-align:center}.gate-head .main{justify-self:center}.gate-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem}.pillar{text-align:center;background:var(--node);border:1px solid var(--line);border-radius:12px;padding:.55rem .3rem}.judge-chip{all:unset;display:block;width:100%;box-sizing:border-box;text-align:center;cursor:pointer;background:var(--node);border:1px solid var(--line);border-radius:12px;padding:.55rem .3rem;color:inherit;transition:.15s}.judge-chip:hover,.judge-chip:focus-visible{border-color:rgba(77,141,255,.75);background:#172338;outline:0}.judge-chip.is-focus{border-color:rgba(77,141,255,.95)!important;box-shadow:0 0 16px rgba(77,141,255,.35);background:#172338}.p-title{font-weight:800;font-size:.8rem}.p-ask{font-size:.66rem;color:var(--teal);font-weight:600}.judge-chip .p-ask{color:#8ab4f8}.p-desc{font-size:.6rem;color:var(--muted);margin-top:.2rem}.gate-out{text-align:center;color:var(--muted);font-size:.7rem;margin-top:.65rem}.agent-gate .gate-out .agent-criteria-btn{margin-top:.15rem}.agent-gate .agent-judge-label{margin:0 0 .45rem;font-size:.68rem;font-weight:700;color:#9eb6d8;text-align:center}
+    .map-hint-pulse{animation:pathPulse 1.1s ease}.tools-tier.map-hint-pulse{outline:1px solid rgba(77,141,255,.45);border-radius:14px}
+    .branch-label,.tool-group h3{font-family:"JetBrains Mono",monospace;font-size:.67rem;letter-spacing:.06em;color:var(--muted);text-align:center}.branch-label{margin:.35rem 0}.fan{width:960px;height:28px;margin:0 auto}.fan svg{width:100%;height:100%}.tools-tier{display:flex;flex-direction:column;gap:.75rem;width:960px;align-items:stretch}.tools-same{text-align:center;font:600 .62rem "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--muted);margin:-.15rem 0}.tool-group{border:1px solid #243553;border-radius:14px;padding:.75rem .65rem .9rem;background:rgba(255,255,255,.015)}.tool-group h3{margin:0 0 .65rem}.tool-row{display:grid;gap:.4rem}.tool-row.retrieval{grid-template-columns:repeat(8,minmax(0,1fr))}.tool-row.action{grid-template-columns:repeat(6,minmax(0,1fr))}.tool-col{text-align:center;padding:.2rem .15rem;min-width:0}.tool-col .label{font-size:.62rem}.tool-col .caption{font-size:.52rem}.tool-col button.tool-hit{all:unset;display:block;width:100%;cursor:pointer;border-radius:12px;padding:.15rem .05rem;transition:.15s}.tool-col button.tool-hit:hover,.tool-col button.tool-hit:focus-visible{background:rgba(47,214,196,.08);outline:0;transform:translateY(-1px)}.tool-hit-hint{display:block;margin-top:.15rem;font-size:.48rem;color:var(--teal);font-weight:600;opacity:.85}.v-mini{width:2px;height:12px;margin:.18rem auto;background:#5b7ab0;opacity:.65}
+    .disclose-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem;margin-bottom:.75rem}.disclose-row.product-disclose,.disclose-row.model-disclose{grid-template-columns:repeat(4,1fr)}.disclose-btn{display:flex;flex-direction:column;align-items:flex-start;gap:.25rem;text-align:left;cursor:pointer;color:inherit;background:var(--panel);border:1px solid #243553;border-radius:14px;padding:.95rem 1rem;transition:.15s}.disclose-btn:hover,.disclose-btn:focus-visible,.disclose-btn[aria-expanded="true"]{border-color:rgba(47,214,196,.65);background:#152038;outline:0}.disclose-btn .disclose-ico{font-size:1.35rem;line-height:1}.disclose-btn .disclose-title{font-weight:800;font-size:.92rem}.disclose-btn .disclose-sub{color:var(--muted);font-size:.74rem;line-height:1.4}.disclose-btn .disclose-more{color:var(--teal);font-size:.69rem;font-weight:600;margin-top:.2rem}.disclose-panel{display:none;margin-top:.75rem}.disclose-panel.open{display:block}
+    .path-card{cursor:pointer;transition:.15s}.path-card:hover,.path-card:focus-visible,.path-card.path-selected{border-color:rgba(47,214,196,.65);background:#152038;outline:0}.path-card .path-play{display:block;margin-top:.45rem;color:var(--teal);font-size:.69rem;font-weight:600}
+    .diagram-shell.path-playing{outline:1px solid rgba(47,214,196,.35)}
+    .icon{position:relative;overflow:visible}.icon>.fx{z-index:1}.icon .fx{position:absolute;pointer-events:none;opacity:0;transition:opacity .2s}
+    .icon .fx-ring{inset:-7px;border-radius:inherit;border:2px solid transparent;border-top-color:#2fd6c4;border-right-color:rgba(77,141,255,.55)}
+    .icon .fx-orbit{inset:-12px}.icon .fx-orbit i{position:absolute;width:6px;height:6px;border-radius:50%;background:#2fd6c4;box-shadow:0 0 8px #2fd6c4;left:50%;top:50%;margin:-3px 0 0 -3px;transform:rotate(0deg) translateY(-30px)}
+    .icon .fx-orbit i:nth-child(2){background:#4d8dff;box-shadow:0 0 8px #4d8dff}.icon .fx-orbit i:nth-child(3){background:#f5c542;box-shadow:0 0 8px #f5c542}
+    .icon .fx-scan{inset:4px;border-radius:8px;overflow:hidden}.icon .fx-scan:before{content:"";position:absolute;left:0;right:0;height:35%;background:linear-gradient(180deg,transparent,rgba(47,214,196,.55),transparent);animation:fxScan 2s ease-in-out infinite}
+    .path-active{position:relative;z-index:2}
+    .path-active .icon,.node.path-active .icon{animation:pathPulse 1.2s ease;box-shadow:0 0 0 2px rgba(47,214,196,.95),0 0 28px rgba(47,214,196,.55)!important;transform:scale(1.06)}
+    .path-active .icon .fx-ring{opacity:1;animation:fxSpin 1.8s linear infinite}
+    [data-node^="tool-"].path-active .icon .fx-scan{opacity:1}
+    [data-node="question"].path-active .icon .fx-ring,[data-node="long"].path-active .icon .fx-ring,[data-node="memory"].path-active .icon .fx-ring,[data-node="context"].path-active .icon .fx-ring{opacity:1}
+    .tool-col.path-active .tool-hit,.tool-hit.path-active{background:rgba(47,214,196,.14);border-radius:12px;box-shadow:0 0 0 1px rgba(47,214,196,.45)}
+    .gate.path-active{border-color:rgba(47,214,196,.95);box-shadow:0 0 32px rgba(47,214,196,.25)}
+    .pillar.path-active{border-color:rgba(47,214,196,.9);box-shadow:0 0 18px rgba(47,214,196,.35);background:#172338;position:relative}
+    .pillar.path-active:after{content:"";position:absolute;inset:-4px;border-radius:14px;border:1px solid rgba(47,214,196,.5);animation:fxPulseRing 1.2s ease-out infinite;pointer-events:none}
+    .judge-chip.path-active{border-color:rgba(77,141,255,.95)!important;box-shadow:0 0 18px rgba(77,141,255,.4);background:#172338;position:relative}
+    .judge-chip.path-active:after{content:"";position:absolute;inset:-4px;border-radius:14px;border:1px solid rgba(77,141,255,.55);animation:fxPulseRing 1.2s ease-out infinite;pointer-events:none}
+    .with-side .side.path-active .icon{border-style:solid}
+    .agent-box.path-active .agent-brain,.agent-gate.path-active .agent-brain{border-color:rgba(77,141,255,.85);box-shadow:0 0 16px rgba(77,141,255,.25)}.agent-gate.path-active{border-color:rgba(77,141,255,.95);box-shadow:0 0 32px rgba(77,141,255,.25)}.agent-gate.path-active .judge-chip:not(.path-active){border-color:rgba(77,141,255,.45)}
+    .agent-gate.path-active .agent-box .icon{animation:pathPulse 1.2s ease;box-shadow:0 0 0 2px rgba(77,141,255,.95),0 0 28px rgba(77,141,255,.55)!important;transform:scale(1.06)}
+    .agent-gate.path-active .agent-box .icon .fx-orbit{opacity:1}.agent-gate.path-active .agent-box .icon .fx-orbit i{animation:fxOrbit 2.8s linear infinite}.agent-gate.path-active .agent-box .icon .fx-orbit i:nth-child(2){animation-delay:-.45s}.agent-gate.path-active .agent-box .icon .fx-orbit i:nth-child(3){animation-delay:-.9s}
+    .agent-gate.path-active .agent-box .icon .fx-ring{opacity:1;animation:fxSpin 1.8s linear infinite}
+    .agent-gate.path-active .side[data-node="long"] .icon{animation:none!important;transform:none!important;box-shadow:none!important}
+    .agent-gate.path-active .side[data-node="long"] .icon .fx{opacity:0!important;animation:none!important}
+    .v-arrow.path-flow{background:linear-gradient(180deg,transparent,#2fd6c4 30%,#4d8dff 70%,transparent);background-size:100% 200%;animation:arrowFlow 3.6s linear infinite}
+    .v-arrow.path-flow:after{border-color:#2fd6c4}
+    .fan path.fan-base{stroke:#5b7ab0;stroke-opacity:.7}.fan .fan-anim{opacity:0}.fan.path-flow .fan-anim{opacity:1;stroke:#2fd6c4;stroke-width:2.5;stroke-dasharray:14 12;animation:fanDash 3.6s linear infinite;filter:drop-shadow(0 0 5px rgba(47,214,196,.85))}
+    @keyframes pathPulse{0%{transform:scale(1)}35%{transform:scale(1.08)}100%{transform:scale(1.05)}}
+    @keyframes arrowFlow{0%{background-position:0 0}100%{background-position:0 100%}}
+    @keyframes fanDash{to{stroke-dashoffset:-44}}
+    @keyframes fxSpin{to{transform:rotate(360deg)}}
+    @keyframes fxOrbit{to{transform:rotate(360deg) translateY(-30px)}}
+    @keyframes fxScan{0%{top:-40%}100%{top:110%}}
+    @keyframes fxPulseRing{0%{opacity:.9;transform:scale(.92)}100%{opacity:0;transform:scale(1.12)}}
+    @media(prefers-reduced-motion:reduce){.path-active .icon,.node.path-active .icon,.agent-gate.path-active .agent-box .icon,.v-arrow.path-flow,.fan.path-flow .fan-anim,.path-active .icon .fx-ring,.path-active .icon .fx-orbit i,.agent-gate.path-active .agent-box .icon .fx-orbit i,.path-active .icon .fx-scan:before,.pillar.path-active:after,.judge-chip.path-active:after{animation:none}}
+
     .red .icon{border-color:#ff5c6c;box-shadow:0 0 16px rgba(255,92,108,.28)}.blue .icon{border-color:#4d8dff;box-shadow:0 0 16px rgba(77,141,255,.28)}.teal .icon{border-color:#2fd6c4;box-shadow:0 0 16px rgba(47,214,196,.28)}.pink .icon{border-color:#ff6fb5;box-shadow:0 0 16px rgba(255,111,181,.28)}.yellow .icon{border-color:#f5c542}.orange .icon{border-color:#ff8f4a}.purple .icon{border-color:#a78bfa}.green .icon{border-color:#5dcaa5}.cyan .icon{border-color:#22d3ee}.lime .icon{border-color:#a3e635}.dashed .icon{border-style:dashed}
-    section{margin-top:1.8rem}h2{margin:0 0 .65rem;font-size:1.1rem}.hint{color:var(--muted);margin:-.15rem 0 .75rem;font-size:.84rem}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}.panel{background:var(--panel);border:1px solid #243553;border-radius:14px;padding:1rem 1.05rem}.detail-card:first-child{border-color:rgba(77,141,255,.45)}.detail-card:nth-child(2){border-color:rgba(47,214,196,.45)}.panel h3{margin:0 0 .35rem;font-size:1.02rem}.lead{margin:0 0 .7rem;color:var(--muted);font-size:.86rem}.panel h4,.modal h4{margin:.8rem 0 .3rem;font-size:.8rem;color:#c5d4ef}.panel ul,.modal ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.82rem}.panel li,.modal li{margin:.25rem 0}.panel strong,.callout strong,.modal strong{color:var(--text)}.criteria-box{margin-top:.85rem;border-color:rgba(77,141,255,.35)}
+    section{margin-top:1.8rem}h2{margin:0 0 .65rem;font-size:1.1rem}.hint{color:var(--muted);margin:-.15rem 0 .75rem;font-size:.84rem}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}.panel{background:var(--panel);border:1px solid #243553;border-radius:14px;padding:1rem 1.05rem}.detail-card:first-child{border-color:rgba(77,141,255,.45)}.detail-card:nth-child(2){border-color:rgba(47,214,196,.45)}.panel h3{margin:0 0 .35rem;font-size:1.02rem}.lead{margin:0 0 .7rem;color:var(--muted);font-size:.86rem}.panel h4,.modal h4{margin:.8rem 0 .3rem;font-size:.8rem;color:#c5d4ef}.panel ul,.modal ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.82rem}.panel li,.modal li{margin:.25rem 0}.panel strong,.callout strong,.modal strong{color:var(--text)}.criteria-box{margin-top:0;border-color:rgba(77,141,255,.35)}
     .scroll{overflow-x:auto;border-radius:12px}table{width:100%;border-collapse:collapse;font-size:.78rem;background:var(--panel)}th,td{padding:.52rem;border-bottom:1px solid #243553;text-align:left;vertical-align:top}th{background:#121b2f;color:var(--text);white-space:nowrap}td{color:var(--muted)}tr:last-child td{border-bottom:0}.criteria-table td:first-child,.map td:first-child{color:var(--text);font-weight:700;white-space:nowrap}.map{min-width:930px}.map .cat{background:#0d1526;color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:.65rem}.map .meaning{color:#b8c7e0;min-width:12rem}.how{display:block;color:#7f92b3;font-size:.69rem;margin-top:.2rem}.criteria-table{min-width:700px}.criteria-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.75rem}.criteria-mini{background:rgba(0,0,0,.22);border:1px solid #243553;border-radius:10px;padding:.7rem .8rem;font-size:.8rem;color:var(--muted)}.criteria-mini strong{display:block;color:var(--text);margin-bottom:.25rem}
     .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:.85rem}.card{background:var(--panel);border:1px solid #243553;border-radius:12px;padding:.75rem .8rem}.card h3{margin:0 0 .2rem;font-size:.84rem}.card p{margin:0;color:var(--muted);font-size:.75rem}.tag{font-family:"JetBrains Mono",monospace;font-size:.61rem;padding:.08rem .3rem;border:1px solid currentColor;border-radius:5px;margin-right:.25rem}.tag.cursor{color:var(--teal)}.tag.chatgpt{color:#9fd4c5}.tag.claude{color:#d4a574}.tag.gemini{color:#8ab4f8}.tag.openai{color:#9fd4c5}.tag.anthropic{color:#d4a574}.tag.meta{color:#a78bfa}
     .model-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:.75rem 0}.tier{background:var(--panel);border:1px solid #243553;border-radius:12px;padding:.75rem .85rem}.tier .tier-label{font-family:"JetBrains Mono",monospace;font-size:.62rem;color:var(--teal);letter-spacing:.04em}.tier h3{margin:.2rem 0 .3rem;font-size:.88rem}.tier p{margin:0;color:var(--muted);font-size:.76rem}.model-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin:.75rem 0}.model-card{background:var(--panel);border:1px solid #243553;border-radius:12px;padding:.8rem .85rem}.model-card h3{margin:0 0 .45rem;font-size:.86rem}.model-card ul{margin:0;padding-left:1rem;color:var(--muted);font-size:.74rem}.model-card li{margin:.2rem 0}.model-card li strong{color:var(--text);font-weight:700}.models-table{min-width:860px}
@@ -45,11 +117,29 @@
     .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.method-card{background:var(--panel);border:1px solid #243553;border-radius:12px;padding:.85rem .9rem;cursor:pointer;text-align:left;color:inherit;transition:.15s}.method-card.other{border-color:rgba(167,139,250,.35)}.method-card:hover,.method-card:focus-visible{border-color:rgba(47,214,196,.65);background:#152038;transform:translateY(-1px);outline:0}.method-card .num{font:500 .67rem "JetBrains Mono";color:var(--teal)}.method-card h3{margin:.15rem 0 .3rem;font-size:.9rem}.method-card p{margin:0;color:var(--muted);font-size:.78rem}.when{margin-top:.4rem;color:#9eb6d8;font-size:.71rem}.more{margin-top:.45rem;color:var(--teal);font-size:.69rem;font-weight:600}
     .modal-backdrop{position:fixed;inset:0;background:rgba(4,8,16,.75);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:1rem;z-index:1000}.modal-backdrop.open{display:flex}.modal{width:min(580px,100%);max-height:85vh;overflow:auto;background:#0f1628;border:1px solid #2d3f63;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.5);padding:1.15rem 1.2rem}.modal-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem}.modal-top h3{margin:0;font-size:1.15rem}.tagline{margin:.2rem 0 0;color:var(--muted);font-size:.83rem}.modal-close{width:36px;height:36px;flex:none;border-radius:10px;border:1px solid #2d3f63;background:#141e33;color:var(--text);cursor:pointer;font-size:1.2rem}.modal-flow{padding:.65rem .75rem;border-radius:10px;background:rgba(0,0,0,.28);border:1px solid #243553;color:#c5d4ef;font-size:.8rem}
     footer{text-align:center;color:var(--muted);font-size:.73rem;margin-top:1.5rem}
-    @media(max-width:900px){.tools-tier{grid-template-columns:1fr;width:920px}.detail-grid{grid-template-columns:1fr}.cards,.model-cards{grid-template-columns:1fr 1fr}.model-tiers{grid-template-columns:1fr}.method-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:600px){header{padding-top:3rem}.langs{left:50%;right:auto;transform:translateX(-50%);white-space:nowrap}.cards,.model-cards,.method-grid,.criteria-grid{grid-template-columns:1fr}}
+    @media(max-width:1100px){.layout{grid-template-columns:1fr;width:min(1100px,calc(100% - 1.25rem))}.side-nav{position:sticky;top:0;z-index:30;margin-bottom:.5rem;padding:.55rem .6rem;max-height:none;overflow:visible}.side-nav .toc{flex-direction:row;flex-wrap:wrap;gap:.25rem}.side-nav .toc a{font-size:.72rem;padding:.35rem .5rem}.side-nav>.nav-label{display:none}.side-paths{border-top:1px solid #243553}.side-paths .paths{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.4rem}}
+    @media(max-width:900px){.tools-tier,.fan,.system-flow{width:min(960px,100%);min-width:0}.detail-grid{grid-template-columns:1fr}.disclose-row{grid-template-columns:1fr 1fr}.cards,.model-cards{grid-template-columns:1fr 1fr}.model-tiers{grid-template-columns:1fr}.method-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){header{padding-top:3rem}.langs{left:50%;right:auto;transform:translateX(-50%);white-space:nowrap}.cards,.model-cards,.method-grid,.criteria-grid,.disclose-row{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
+<div class="layout">
+<aside class="side-nav" aria-label="Contents">
+  <div>
+    <p class="nav-label" data-i18n="nav.label">Contents</p>
+    <ul class="toc">
+      <li><a href="#sec-diagram" data-i18n="nav.diagram">System map</a></li>
+      <li><a href="#sec-models" data-i18n="nav.models">Models</a></li>
+      <li><a href="#sec-detail" data-i18n="nav.detail">Agent · Context</a></li>
+      <li><a href="#sec-products" data-i18n="nav.products">Products</a></li>
+    </ul>
+  </div>
+  <div class="side-paths" id="sec-paths">
+    <h2 data-i18n="paths.title">Real paths · how a question moves</h2>
+    <p class="hint" data-i18n="paths.hint">Pick a role, then a real question</p>
+    <div class="paths" id="paths"></div>
+  </div>
+</aside>
 <div class="page">
   <header>
     <div class="site-bar">
@@ -69,61 +159,117 @@
     </div>
   </header>
 
-  <div class="diagram-shell">
+  <div class="diagram-shell" id="sec-diagram">
     <div class="system-flow">
-      <div class="node red"><div class="icon">❓</div><div class="label" data-i18n="diagram.question">Question</div><div class="caption" data-i18n="diagram.unknown">The model does not know</div></div>
-      <div class="v-arrow"></div>
-      <div class="with-side">
-        <div class="side yellow dashed"><div class="icon">📜</div><div class="label" data-i18n="diagram.long">Long Context</div><div class="caption" data-i18n="diagram.longCap">Skip search · expensive</div></div>
-        <div class="main node blue agent-box">
-          <div class="icon">🧭</div>
-          <div class="label" data-i18n="diagram.agent">Agent</div>
-          <div class="caption" data-i18n="diagram.agentCap">Decide how to answer</div>
-          <div class="agent-brain">
-            <div class="brain-label" data-i18n="diagram.llm">runs on LLM</div>
-            <div class="brain-models" data-i18n="diagram.llmCap">Flash · Pro · GPT · Claude</div>
+      <div class="node red" data-node="question"><div class="icon"><span class="fx fx-ring" aria-hidden="true"></span><span class="fx fx-orbit" aria-hidden="true"><i></i><i></i><i></i></span><span class="fx fx-scan" aria-hidden="true"></span>❓</div><div class="label" data-i18n="diagram.question">Question</div><div class="caption" data-i18n="diagram.unknown">The model does not know</div></div>
+      <div class="v-arrow" data-edge="qa"></div>
+      <div class="gate agent-gate" data-node="agent" id="agent-judge">
+        <div class="gate-head">
+          <div class="side yellow dashed" data-node="long"><div class="icon"><span class="fx fx-ring" aria-hidden="true"></span><span class="fx fx-orbit" aria-hidden="true"><i></i><i></i><i></i></span><span class="fx fx-scan" aria-hidden="true"></span>📜</div><div class="label" data-i18n="diagram.long">Long Context</div><div class="caption" data-i18n="diagram.longCap">Skip search · expensive</div></div>
+          <div class="main node blue agent-box">
+            <div class="icon"><span class="fx fx-ring" aria-hidden="true"></span><span class="fx fx-orbit" aria-hidden="true"><i></i><i></i><i></i></span><span class="fx fx-scan" aria-hidden="true"></span>🧭</div>
+            <div class="label" data-i18n="diagram.agent">Agent</div>
+            <div class="caption" data-i18n="diagram.agentCap">Judge · choose how</div>
+            <div class="agent-brain">
+              <div class="brain-label" data-i18n="diagram.llm">runs on LLM</div>
+              <div class="brain-models" data-i18n="diagram.llmCap">Flash · Pro · GPT · Claude</div>
+            </div>
           </div>
+          <div></div>
         </div>
-        <div></div>
-      </div>
-      <div class="v-arrow"></div>
-      <div class="gate">
-        <div class="gate-head"><div class="side pink"><div class="icon sm">🧠</div><div class="label" data-i18n="diagram.memory">Memory</div><div class="caption" data-i18n="diagram.memoryCap">Dialogue · experience</div></div><div class="main node teal"><div class="icon">⚙️</div><div class="label" data-i18n="diagram.context">Context Layer</div><div class="caption" data-i18n="diagram.contextCap">Gate · where · what</div></div><div></div></div>
+        <div class="agent-judge-label" data-i18n="diagram.judgeTitle">How the Agent picks a tool</div>
         <div class="gate-pillars">
-          <div class="pillar"><div class="p-title" data-i18n="diagram.meaning">Meaning</div><div class="p-ask" data-i18n="diagram.meaningAsk">What is being asked?</div><div class="p-desc" data-i18n-html="diagram.meaningDesc">Clarify the request<br>and narrow ambiguity</div></div>
-          <div class="pillar"><div class="p-title" data-i18n="diagram.permission">Permission</div><div class="p-ask" data-i18n="diagram.permissionAsk">Where may it go?</div><div class="p-desc" data-i18n-html="diagram.permissionDesc">Allow only visible<br>data and systems</div></div>
-          <div class="pillar"><div class="p-title" data-i18n="diagram.policy">Policy</div><div class="p-ask" data-i18n="diagram.policyAsk">What is allowed?</div><div class="p-desc" data-i18n-html="diagram.policyDesc">Filter harm, secrets<br>and personal data</div></div>
+          <button type="button" class="judge-chip" data-criteria="intent" data-node="intent">
+            <div class="p-title" data-i18n="diagram.intent">Intent</div>
+            <div class="p-ask" data-i18n="diagram.intentAsk">What kind of ask?</div>
+            <div class="p-desc" data-i18n-html="diagram.intentDesc">News · docs · numbers<br>image · change system</div>
+          </button>
+          <button type="button" class="judge-chip" data-criteria="schema" data-node="schema">
+            <div class="p-title" data-i18n="diagram.schema">Tool schema</div>
+            <div class="p-ask" data-i18n="diagram.schemaAsk">What can each tool do?</div>
+            <div class="p-desc" data-i18n-html="diagram.schemaDesc">Name · description<br>parameters (toolbox labels)</div>
+          </button>
+          <button type="button" class="judge-chip" data-criteria="rules" data-node="rules">
+            <div class="p-title" data-i18n="diagram.rules">System rules</div>
+            <div class="p-ask" data-i18n="diagram.rulesAsk">Which rule applies?</div>
+            <div class="p-desc" data-i18n-html="diagram.rulesDesc">Current → Web<br>Docs → RAG · …</div>
+          </button>
+        </div>
+        <div class="gate-out"><button type="button" class="agent-criteria-btn" id="agent-criteria-btn" data-i18n="diagram.judgeMore">This is how it chooses → details</button></div>
+      </div>
+      <div class="v-arrow" data-edge="ac"></div>
+      <div class="gate" data-node="context">
+        <div class="gate-head"><div class="side pink" data-node="memory"><div class="icon sm"><span class="fx fx-ring" aria-hidden="true"></span><span class="fx fx-orbit" aria-hidden="true"><i></i><i></i><i></i></span><span class="fx fx-scan" aria-hidden="true"></span>🧠</div><div class="label" data-i18n="diagram.memory">Memory</div><div class="caption" data-i18n="diagram.memoryCap">Dialogue · experience</div></div><div class="main node teal"><div class="icon"><span class="fx fx-ring" aria-hidden="true"></span><span class="fx fx-orbit" aria-hidden="true"><i></i><i></i><i></i></span><span class="fx fx-scan" aria-hidden="true"></span>⚙️</div><div class="label" data-i18n="diagram.context">Context Layer</div><div class="caption" data-i18n="diagram.contextCap">Gate · where · what</div></div><div></div></div>
+        <div class="gate-pillars">
+          <div class="pillar" data-node="meaning"><div class="p-title" data-i18n="diagram.meaning">Meaning</div><div class="p-ask" data-i18n="diagram.meaningAsk">What is being asked?</div><div class="p-desc" data-i18n-html="diagram.meaningDesc">Clarify the request<br>and narrow ambiguity</div></div>
+          <div class="pillar" data-node="permission"><div class="p-title" data-i18n="diagram.permission">Permission</div><div class="p-ask" data-i18n="diagram.permissionAsk">Where may it go?</div><div class="p-desc" data-i18n-html="diagram.permissionDesc">Allow only visible<br>data and systems</div></div>
+          <div class="pillar" data-node="policy"><div class="p-title" data-i18n="diagram.policy">Policy</div><div class="p-ask" data-i18n="diagram.policyAsk">What is allowed?</div><div class="p-desc" data-i18n-html="diagram.policyDesc">Filter harm, secrets<br>and personal data</div></div>
         </div>
         <div class="gate-out" data-i18n="diagram.passed">Only passed scope ↓ to tools</div>
       </div>
-      <div class="v-arrow"></div><div class="branch-label" data-i18n="diagram.parallel">PARALLEL TOOLS · choices at the same tier</div>
-      <div class="fan" aria-hidden="true"><svg viewBox="0 0 920 28" fill="none"><path d="M460 0V10M40 10H880" stroke="#5b7ab0" stroke-width="2"/><path d="M40 10V28M250 10V28" stroke="#2fd6c4" stroke-width="2"/><path d="M670 10V28M880 10V28" stroke="#ff6fb5" stroke-width="2"/></svg></div>
+      <div class="v-arrow" data-edge="ct"></div><div class="branch-label" data-i18n="diagram.parallel">PARALLEL TOOLS · choices at the same tier</div>
+      <p class="hint" style="text-align:center;margin:.15rem 0 .55rem" data-i18n="ui.toolHint">Click a tool icon for details</p>
+      <div class="fan" data-edge="fan" aria-hidden="true"><svg viewBox="0 0 960 28" fill="none"><path class="fan-base" d="M480 0V10M40 10H920M40 10V28M160 10V28M320 10V28M480 10V28M640 10V28M800 10V28M920 10V28" stroke="#5b7ab0" stroke-width="2"/><path class="fan-anim" d="M480 0V10M40 10H920M40 10V28M160 10V28M320 10V28M480 10V28M640 10V28M800 10V28M920 10V28" stroke="#2fd6c4" stroke-width="2.5"/></svg></div>
       <div class="tools-tier">
-        <div class="tool-group"><h3 data-i18n="diagram.retrieval">RETRIEVAL</h3><div class="tool-row" id="retrieval-tools"></div></div>
-        <div class="tool-group"><h3 data-i18n="diagram.actionGroup">ACTION · SENSE · SOLVE</h3><div class="tool-row" id="action-tools"></div></div>
+        <div class="tool-group"><h3 data-i18n="diagram.retrieval">RETRIEVAL</h3><div class="tool-row retrieval" id="retrieval-tools"></div></div>
+        <div class="tools-same" data-i18n="diagram.sameTier">↕ same tier · parallel choices</div>
+        <div class="tool-group"><h3 data-i18n="diagram.actionGroup">ACTION · SENSE · SOLVE</h3><div class="tool-row action" id="action-tools"></div></div>
       </div>
     </div>
   </div>
 
-  <section>
+  <section id="sec-models">
     <h2 data-i18n="models.title">Representative models · the Agent’s brain</h2>
-    <p class="hint" data-i18n="models.hint">Model family chooses which brain runs the Agent — not which retrieval tool to call</p>
-    <div class="callout" data-i18n-html="models.callout"><strong>Model ≠ tool:</strong> Gemini Flash / GPT mini / Claude Haiku sit with the Agent. Web Search, RAG and Action sit in the tool tier below.</div>
-    <div class="model-tiers" id="model-tiers"></div>
-    <div class="model-cards" id="model-cards"></div>
-    <div class="scroll"><table class="models-table"><thead id="models-head"></thead><tbody id="models-body"></tbody></table></div>
+    <p class="hint" data-i18n="ui.detailHint">Select a card to expand details</p>
+    <div class="disclose-row model-disclose" id="model-disclose-row"></div>
+    <div class="disclose-panel" id="panel-models" hidden>
+      <div class="callout" data-i18n-html="models.callout"><strong>Model ≠ tool:</strong> Gemini Flash / GPT mini / Claude Haiku sit with the Agent. Web Search, RAG and Action sit in the tool tier below.</div>
+      <div class="model-tiers" id="model-tiers"></div>
+      <div class="scroll"><table class="models-table"><thead id="models-head"></thead><tbody id="models-body"></tbody></table></div>
+    </div>
   </section>
 
-  <section><h2 data-i18n="detail.title">Agent &amp; Context in detail</h2><div class="detail-grid" id="detail-grid"></div><div class="panel criteria-box"><h3 data-i18n="criteria.title">🧭 Where tool-selection criteria live</h3><p class="lead" data-i18n-html="criteria.lead">The rules are not only “inside the model.” Developers provide <strong>descriptions, rules and routing.</strong></p><div class="scroll"><table class="criteria-table"><thead id="criteria-head"></thead><tbody id="criteria-body"></tbody></table></div><div class="criteria-grid" id="criteria-minis"></div></div><div class="callout" data-i18n-html="callouts.block"><strong>In short:</strong> The Agent may choose the database, but Context can block it or narrow its scope.</div></section>
+  <section id="sec-detail">
+    <h2 data-i18n="detail.title">Agent &amp; Context in detail</h2>
+    <p class="hint" data-i18n="ui.detailHint">Select a card to expand details</p>
+    <div class="disclose-row" id="disclose-row"></div>
+    <div class="disclose-panel" id="panel-agent" hidden></div>
+    <div class="disclose-panel" id="panel-context" hidden></div>
+    <div class="disclose-panel" id="panel-criteria" hidden>
+      <div class="panel criteria-box">
+        <h3 data-i18n="criteria.title">🧭 Where tool-selection criteria live</h3>
+        <p class="lead" data-i18n-html="criteria.lead">The rules are not only “inside the model.” Developers provide <strong>descriptions, rules and routing.</strong></p>
+        <div class="scroll"><table class="criteria-table"><thead id="criteria-head"></thead><tbody id="criteria-body"></tbody></table></div>
+        <div class="criteria-grid" id="criteria-minis"></div>
+      </div>
+      <div class="callout" data-i18n-html="callouts.block"><strong>In short:</strong> The Agent may choose the database, but Context can block it or narrow its scope.</div>
+    </div>
+    <div class="disclose-panel" id="panel-rag" hidden>
+      <h3 data-i18n="methods.ragTitle">9 RAG methodologies</h3>
+      <p class="hint" data-i18n="methods.hint">Select a card to see details</p>
+      <div class="method-grid" id="rag-methods"></div>
+    </div>
+    <div class="disclose-panel" id="panel-other" hidden>
+      <h3 data-i18n="methods.otherTitle">9 other methodologies</h3>
+      <p class="hint" data-i18n="methods.otherHint">Approaches that complement RAG or do not retrieve document chunks</p>
+      <div class="method-grid" id="other-methods"></div>
+    </div>
+  </section>
 
-  <section><h2 data-i18n="products.title">Product comparison, in plain language</h2><p class="hint" data-i18n="products.hint">How Cursor, ChatGPT, Claude and Gemini cover the same roles</p><div class="cards" id="product-cards"></div><div class="callout" data-i18n-html="callouts.web"><strong>Easy to confuse:</strong> Realtime web is a search API, not Chrome. Clicking Chrome is GUI Agent / Computer Use.</div><div class="scroll"><table class="map"><thead id="comparison-head"></thead><tbody id="comparison-body"></tbody></table></div></section>
+  <section id="sec-products">
+    <h2 data-i18n="products.title">Product comparison</h2>
+    <p class="hint" data-i18n="ui.detailHint">Select a card to expand details</p>
+    <div class="disclose-row product-disclose" id="product-disclose-row"></div>
+    <div class="disclose-panel" id="panel-products" hidden>
+      <div class="scroll"><table class="map"><thead id="comparison-head"></thead><tbody id="comparison-body"></tbody></table></div>
+    </div>
+  </section>
 
-  <section><h2 data-i18n="paths.title">Real paths · how a question moves</h2><p class="hint" data-i18n="paths.hint">A rough path from request to answer</p><div class="paths" id="paths"></div></section>
-
-  <section><h2 data-i18n="methods.ragTitle">9 RAG methodologies</h2><p class="hint" data-i18n="methods.hint">Select a card to see details</p><div class="method-grid" id="rag-methods"></div></section>
-  <section><h2 data-i18n="methods.otherTitle">9 other methodologies</h2><p class="hint" data-i18n="methods.otherHint">Approaches that complement RAG or do not retrieve document chunks</p><div class="method-grid" id="other-methods"></div><div class="callout" data-i18n-html="callouts.choose"><strong>Rule of thumb:</strong> documents → RAG · relationships → GraphRAG · numbers → SQL · current facts → web · complex work → Agentic tools.</div></section>
   <footer data-i18n="footer">An approachable map of agentic AI systems</footer>
 </div>
+</div>
+
+<div class="path-live" id="path-live" aria-live="polite"><span class="live-label" data-i18n="paths.now">Now</span><span class="live-text" id="path-live-text"></span></div>
 
 <div class="modal-backdrop" id="method-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
   <div class="modal"><div class="modal-top"><div><h3 id="modal-title"></h3><p class="tagline" id="modal-tagline"></p></div><button type="button" class="modal-close" id="modal-close" aria-label="Close">×</button></div><div id="modal-body"></div></div>
@@ -138,34 +284,42 @@ const M=(title,tagline,flow,what,steps,when,care,summary,cardWhen)=>({title,tagl
 const I18N={
 en:{
   header:{title:"A chatbot is not a single model",badge:"Special feature",subtitle:"The <strong>Agent</strong> chooses how · <strong>Context</strong> controls where and what · tools run in parallel",intro1:"Modern AI chat products are not a single LLM. An agent chooses tools, a context layer controls scope and policy, and retrieval or action tools run in parallel.",intro2:"This OKPy special maps Agent vs Context, which LLM brain powers the Agent (Flash / Pro / GPT / Claude), web search vs browser automation, nine RAG styles, and how Cursor, ChatGPT, Claude, and Gemini fit the same architecture."},
-  diagram:{question:"Question",unknown:"The model does not know",long:"Long Context",longCap:"Skip search · expensive",agent:"Agent",agentCap:"Decide how to answer",llm:"runs on LLM",llmCap:"Flash · Pro · GPT · Claude",memory:"Memory",memoryCap:"Dialogue · experience",context:"Context Layer",contextCap:"Gate · where · what",meaning:"Meaning",meaningAsk:"What is being asked?",meaningDesc:"Clarify the request<br>and narrow ambiguity",permission:"Permission",permissionAsk:"Where may it go?",permissionDesc:"Allow only visible<br>data and systems",policy:"Policy",policyAsk:"What is allowed?",policyDesc:"Filter harm, secrets<br>and personal data",passed:"Only passed scope ↓ to tools",parallel:"PARALLEL TOOLS · choices at the same tier",retrieval:"RETRIEVAL",actionGroup:"ACTION · SENSE · SOLVE"},
+  diagram:{question:"Question",unknown:"The model does not know",long:"Long Context",longCap:"Skip search · expensive",agent:"Agent",agentCap:"Judge · pick a tool",judgeTitle:"How the Agent picks a tool",intent:"Intent",intentAsk:"What kind of ask?",intentDesc:"News · docs · numbers<br>image · change system",schema:"Tool schema",schemaAsk:"What can each tool do?",schemaDesc:"Name · description<br>parameters (toolbox labels)",rules:"System rules",rulesAsk:"Which rule applies?",rulesDesc:"Current → Web<br>Docs → RAG · …",judgeMore:"This is how it chooses → details",llm:"runs on LLM",llmCap:"Flash · Pro · GPT · Claude",memory:"Memory",memoryCap:"Dialogue · experience",context:"Context Layer",contextCap:"Gate · where · what",meaning:"Meaning",meaningAsk:"What is being asked?",meaningDesc:"Clarify the request<br>and narrow ambiguity",permission:"Permission",permissionAsk:"Where may it go?",permissionDesc:"Allow only visible<br>data and systems",policy:"Policy",policyAsk:"What is allowed?",policyDesc:"Filter harm, secrets<br>and personal data",passed:"Only passed scope ↓ to tools",parallel:"PARALLEL TOOLS · choices at the same tier",retrieval:"RETRIEVAL",actionGroup:"ACTION · SENSE · SOLVE",sameTier:"↕ same tier · parallel choices"},
+nav:{label:"Contents",diagram:"System map",models:"Models · Agent brain",detail:"Agent · Context",products:"Product comparison",paths:"Real paths · how a question moves"},
+    ui:{toolHint:"Click a tool icon for details",detailHint:"Select a card to expand details",tap:"Details →",open:"Open details →",hide:"Hide",pathHint:"Click a question to play it on the map",pathPlay:"Play →",layerRetrieval:"RETRIEVAL",layerAction:"ACTION · SENSE · SOLVE",source:"Connects to",what:"What it does",when:"Best for",care:"Watch out",toolModalClose:"Close",ragSub:"9 retrieve-and-answer styles",otherSub:"Approaches beyond document RAG"},
   models:{title:"Representative models · the Agent’s brain",hint:"Model family chooses which brain runs the Agent — not which retrieval tool to call",callout:"<strong>Model ≠ tool:</strong> Gemini Flash / GPT mini / Claude Haiku sit with the Agent. Web Search, RAG and Action sit in the tool tier below.",tiers:[["Fast · cheap","Flash · mini · Haiku","Low latency and cost. Best for routing, short answers, and high-volume tool loops."],["Balanced","Pro · Sonnet · GPT-4.1","Everyday agent work: coding, documents, multi-step tools with good quality."],["Max capability","Opus · thinking / Ultra class","Hard reasoning, long plans, and high-stakes answers — slower and more expensive."]],families:[["gemini","Google · Gemini",[["Flash","Fast, cheap, strong multimodal"],["Pro","Deeper reasoning and tool use"],["Ultra / thinking","Highest capability tier"]]],["openai","OpenAI · GPT",[["mini / 4o-mini","Routing and bulk calls"],["GPT-4.1 / 4o","General agent brain"],["o-series / thinking","Deep reasoning paths"]]],["anthropic","Anthropic · Claude",[["Haiku","Fast and economical"],["Sonnet","Balanced default for agents"],["Opus","Hard analysis and long work"]]],["meta","Open weights · Llama etc.",[["8B–70B class","Self-host / fine-tune"],["Instruct variants","Local agents and RAG"],["Tool-tuned builds","Custom enterprise stacks"]]]],headers:["Family","Representative models","Traits","Best for"],rows:[["Google Gemini","Flash · Pro · Ultra / thinking","Flash = speed & cost · Pro = quality · thinking for hard tasks","Search-heavy and multimodal agents"],["OpenAI GPT","mini · 4o / 4.1 · o-series","mini for volume · flagship for quality · o for deep reason","General assistants and coding agents"],["Anthropic Claude","Haiku · Sonnet · Opus","Haiku fast · Sonnet everyday · Opus hardest work","Documents, coding, Computer Use"],["Open weights","Llama · Qwen · Mistral…","Self-host, fine-tune, data control","Private / on-prem agent stacks"],["In products","Cursor · ChatGPT · Claude · Gemini apps","Same Agent + Context + Tools; different default brains","Pick product UX, then pick model tier"]]},
   tools:[
-    ["🌐","Web Search","Current information","📡","Realtime Web","News · weather"],["🔍","RAG","Unstructured text","📄","Docs / PDF","Manuals · policies"],["🗄️","Text-to-SQL","Structured data","🛢️","Database","Exact numbers"],["⚡","Code Exec","Compute now","📊","Uploaded files","Sheets · charts"],["🕸️","GraphRAG","Relations · context","🔗","Knowledge Graph","Connections"],
-    ["🔌","Action","API · IoT","📅","External systems","Book · pay"],["👁️","Multimodal","Eyes and ears","🎨","Vision · Voice","Image · speech"],["∑","Symbolic","Math · optimize","🧮","Solver","Wolfram etc."],["🖱️","GUI Agent","Operate screens","💻","Computer Use","Browser · RPA"],["👥","Multi-Agent","Other AIs","🧩","Sub-Agents","Research · writing"]
+    ["🌐","Web Search","Current information","📡","Realtime Web","News · weather"],["🔍","RAG","Unstructured text","📄","Docs / PDF","Manuals · policies"],["🗄️","Text-to-SQL","Structured data","🛢️","Database","Exact numbers"],["⚡","Code Exec","Compute now","📊","Uploaded files","Sheets · charts"],["🕸️","GraphRAG","Relations · context","🔗","Knowledge Graph","Connections"],["📄","llms.txt","AI site map","🔗","/llms.txt","Docs · API index"],["🔎","SEO Research","Search demand · SERP","📈","Keywords / GSC","Volume · ranking"],["📚","Terminology","Word · phrase choice","🗂","Glossary / Style","Brand terms"],
+    ["🔌","Action","API · IoT","📅","External systems","Book · pay"],["👁️","Multimodal","Eyes and ears","🎨","Vision · Voice","Image · speech"],["∑","Symbolic","Math · optimize","🧮","Solver","Wolfram etc."],["🖱️","GUI Agent","Operate screens","💻","Computer Use","Browser · RPA"],["👥","Multi-Agent","Other AIs","🧩","Sub-Agents","Research · writing"],["✍️","SEO Action","Meta · publish · submit","📰","CMS / Search","Titles · sitemap"]
+  ],
+  toolExtras:[
+    ["Fetches current public facts via a search API.","News, prices, weather, recent events","Not a browser; no clicking pages."],
+    ["Retrieves relevant passages from docs or PDFs.","Manuals, policies, knowledge bases","Bad chunks can mislead answers."],
+    ["Turns a natural-language question into SQL.","Totals, metrics, exact counts","Needs schema access and safety checks."],
+    ["Runs code on uploaded files or sandboxes.","Charts, transforms, calculations","Scope to allowed files only."],
+    ["Follows entities and relationships in a graph.","Org charts, supply chains, multi-hop links","Graph build and maintenance cost."],
+    ["Reads a curated Markdown map of site content for AI agents.","Docs hubs, API indexes, product maps","Not robots.txt or sitemap.xml; not a confirmed ranking signal."],
+    ["Looks up keywords, SERP and Search Console signals.","Landing-page keyword shortlists","Research only — publishing is SEO Action."],
+    ["Looks up approved brand wording and style rules.","Product names, banned terms, tone","Do not invent off-glossary brand language."],
+    ["Calls APIs or external systems to change state.","Booking, payment, IoT commands","Needs permission and confirmation."],
+    ["Understands images, audio or video inputs.","Screenshots, voice notes, product photos","Upload and privacy rules still apply."],
+    ["Uses math or optimization solvers.","Equations, constraints, exact math","Prefer solvers over free-form guessing."],
+    ["Clicks and types on real screens like a person.","Legacy sites without APIs","Slow, fragile UI, high permission risk."],
+    ["Delegates work to specialized sub-agents.","Research + writing + design splits","Needs clear scope and handoff rules."],
+    ["Publishes or updates SEO assets in live systems.","Meta tags, CMS edits, sitemap submit","Requires write permission; separate from research."]
   ],
   detail:{title:"Agent & Context in detail",cards:[
     {title:"🧭 Agent",lead:"<strong>Which tool</strong> should answer?",sections:[["What it does",["Reads intent and chooses Web, RAG, DB, Action or GUI","Calls tools in sequence or in parallel","Combines results into the final answer"]],["How it is developed",["LLM tool calling with JSON schemas","An orchestrator loop: decide → run → observe → repeat","Frameworks such as LangGraph or agent SDKs","Prompts and evaluations that improve routing"]],["It does not decide",["Whether this user may read a table","Whether personal data may appear in the answer"]]]},
     {title:"⚙️ Context Layer",lead:"A gate for <strong>where and what</strong>.",sections:[["What it does",["Meaning: clarifies the request","Permission: limits data and systems","Policy: filters unsafe, secret or personal content","Memory: adds useful dialogue and experience"]],["How it is developed",["Intent parsing and query rewriting","ACL/RBAC filters tied to the signed-in user","Guardrails and output checks","Conversation stores and summarized memory","Middleware before and after every tool call"]],["It does not decide",["Which tool is best by itself","The full tool order and combination"]]]}
   ]},
-  criteria:{title:"🧭 Where tool-selection criteria live",lead:"The rules are not only “inside the model.” Developers provide <strong>descriptions, rules and routing.</strong>",headers:["Location","What it contains","Simple analogy"],rows:[["Tool schema","Name, description and parameters for each tool","Labels on a toolbox"],["System prompt","Rules such as “current → web, company docs → RAG”","Work manual"],["Intent router","Classifies the question and offers only likely tools","Information desk"],["Context layer","Removes forbidden tools or blocks execution","Access gate"],["Runtime feedback","Retries with another tool when results are weak","Try another tool"]],minis:[["Question type → tool","Current → Web Search<br>Company docs → RAG<br>Totals → Text-to-SQL<br>Files/charts → Code Execution<br>Relations → GraphRAG<br>Booking/payment → Action<br>Image/audio → Multimodal<br>No API → GUI Agent<br>Split work → Multi-Agent<br>Read everything → Long Context"],["What the model actually sees","1) User question<br>2) System rules<br>3) Tool names, descriptions and parameters<br>4) Sometimes only tools allowed by Context<br>→ It outputs a tool call. Clear descriptions matter."]]},
-  callouts:{block:"<strong>In short:</strong> The Agent may choose the database, but Context can block it or narrow its scope.",web:"<strong>Easy to confuse:</strong> Realtime web uses a <strong>search API</strong>; it does not click Chrome. Operating a browser screen is <strong>GUI Agent → Computer Use</strong>.",choose:"<strong>Rule of thumb:</strong> documents → RAG · relationships → GraphRAG · numbers → Text-to-SQL · current facts → Web Search · fixed small knowledge → Long Context/CAG · complex work → Agentic tools."},
-  products:{title:"Product comparison, in plain language",hint:"How Cursor, ChatGPT, Claude and Gemini cover the same roles",headers:["Role","Plain explanation","Cursor","ChatGPT","Claude","Gemini"],cards:[["cursor","Cursor","Coding assistant","Works directly with code and terminals"],["chatgpt","ChatGPT","General assistant","Broad web, file, voice and tool support"],["claude","Claude","Documents and work","Strong long-form analysis and Computer Use"],["gemini","Gemini","Google-connected","Strong search, Drive and multimodal support"]],cats:["DECIDE · REMEMBER","RETRIEVAL","ACTION · SENSE · SOLVE"],rows:[
+  criteria:{focus:{intent:{title:"Intent · what kind of ask?",tag:"Classifies the question before picking a tool",lead:"The Agent first reads <strong>what kind of question</strong> this is — news, company docs, exact numbers, images, or a system change.",points:["Current / public facts → Web Search","Company docs / policy → RAG","Exact totals → Text-to-SQL","Files & charts → Code Execution","Relations → GraphRAG","Image / audio → Multimodal","Change a system → Action","No API / legacy UI → GUI Agent"],map:"Highlights the Question node — that is what Intent reads."},schema:{title:"Tool schema · toolbox labels",tag:"Each tool’s name, description and parameters",lead:"Developers give every tool a <strong>label</strong> the model can read — like tags on a toolbox.",points:["Tool name (e.g. SEO Research)","Short description of what it does","Parameters the call may need","Clear labels → better tool choice"],map:"Pulses the tool tier — those icons are the labeled toolbox."},rules:{title:"System rules · work manual",tag:"Routing rules such as current → web, docs → RAG",lead:"A <strong>system prompt / router</strong> encodes habits: which question type maps to which tool.",points:["Written by developers, not only “inside the model”","Can limit which tools are offered","Works with Context (which can still block a tool)","Runtime feedback can retry another tool if results are weak"],map:"Highlights the Agent brain — rules steer that LLM."}},title:"🧭 Where tool-selection criteria live",lead:"The rules are not only “inside the model.” Developers provide <strong>descriptions, rules and routing.</strong>",headers:["Location","What it contains","Simple analogy"],rows:[["Tool schema","Name, description and parameters for each tool","Labels on a toolbox"],["System prompt","Rules such as “current → web, company docs → RAG”","Work manual"],["Intent router","Classifies the question and offers only likely tools","Information desk"],["Context layer","Removes forbidden tools or blocks execution","Access gate"],["Runtime feedback","Retries with another tool when results are weak","Try another tool"]],minis:[["Question type → tool","Current → Web Search<br>Company docs → RAG<br>Totals → Text-to-SQL<br>Files/charts → Code Execution<br>Relations → GraphRAG<br>Site map for AI → llms.txt<br>Keywords / SERP → SEO Research<br>Brand wording → Terminology<br>Booking/payment → Action<br>Image/audio → Multimodal<br>No API → GUI Agent<br>Split work → Multi-Agent<br>Publish meta / CMS → SEO Action<br>Read everything → Long Context"],["What the model actually sees","1) User question<br>2) System rules<br>3) Tool names, descriptions and parameters<br>4) Sometimes only tools allowed by Context<br>→ It outputs a tool call. Clear descriptions matter."]]},
+  callouts:{block:"<strong>In short:</strong> The Agent may choose the database, but Context can block it or narrow its scope.",choose:"<strong>Rule of thumb:</strong> documents → RAG · relationships → GraphRAG · numbers → Text-to-SQL · current facts → Web Search · AI site map → llms.txt · keywords → SEO Research · brand words → Terminology · publish → SEO Action · fixed small knowledge → Long Context/CAG · complex work → Agentic tools."},
+  products:{title:"Product comparison",hint:"How Cursor, ChatGPT, Claude and Gemini cover the same roles",headers:["Role","Plain explanation","Cursor","ChatGPT","Claude","Gemini"],cards:[["cursor","Cursor","Coding assistant","Works directly with code and terminals"],["chatgpt","ChatGPT","General assistant","Broad web, file, voice and tool support"],["claude","Claude","Documents and work","Strong long-form analysis and Computer Use"],["gemini","Gemini","Google-connected","Strong search, Drive and multimodal support"]],cats:["DECIDE · REMEMBER","RETRIEVAL","ACTION · SENSE · SOLVE"],breaks:[0,4,12],rows:[
     ["Agent","Chooses which tool should answer","Agent / Composer","GPT chooses tools","Claude chooses tools","Gemini chooses tools"],["Long Context","Reads whole files without retrieval","Attach files/folders","Upload full files","Projects / uploads","Large context uploads"],["Memory","Carries preferences and past context","Rules, Memories","Memory, instructions","Projects, conversation","Memory, Gems"],["Context Layer","Controls meaning, permission and policy","Approvals, Privacy Mode","Safety and admin controls","Safety and permissions","Safety and Workspace controls"],
-    ["Web Search","Current information via search API","Web search / fetch","Search","Web search","Google Search"],["RAG","Finds relevant parts of docs or PDFs","Codebase search","Files / Knowledge","Projects search","Uploads / NotebookLM"],["Text-to-SQL","Turns a question into a DB query","DB via MCP/tools","Connectors/tools","Connectors/tools","Connectors/tools"],["Code Execution","Computes over uploaded files","Terminal","Data analysis","Analysis tools","Code execution"],["GraphRAG","Answers relationship questions","Code symbols/refs","Custom setup","Custom setup","Custom setup"],
-    ["Action","Changes an external system","MCP, APIs, CLI","Actions/connectors","MCP/APIs","Extensions/Workspace"],["Multimodal","Understands image, audio or video","Read/generate images","Vision, voice, images","Vision and documents","Image, video, audio"],["Symbolic","Uses a math or optimization solver","Code/external solver","Code + solver","Code/tools","Code/tools"],["GUI Agent","Clicks and types on screens","Browser automation","Computer agent","Computer Use","Product-dependent"],["Multi-Agent","Delegates work to sub-agents","Tasks/subagents","Custom/API workflows","Parallel tasks","Agent workflows"]
+    ["Web Search","Current information via search API","Web search / fetch","Search","Web search","Google Search"],["RAG","Finds relevant parts of docs or PDFs","Codebase search","Files / Knowledge","Projects search","Uploads / NotebookLM"],["Text-to-SQL","Turns a question into a DB query","DB via MCP/tools","Connectors/tools","Connectors/tools","Connectors/tools"],["Code Execution","Computes over uploaded files","Terminal","Data analysis","Analysis tools","Code execution"],["GraphRAG","Answers relationship questions","Code symbols/refs","Custom setup","Custom setup","Custom setup"],["llms.txt","Reads a curated AI site map","Fetch / docs map","Custom / fetch","Custom / fetch","Custom / fetch"],["SEO Research","Keywords, SERP and Search Console","Custom / MCP","Custom / tools","Custom / tools","Custom / tools"],["Terminology","Brand glossary and wording rules","Rules / docs","Custom / files","Projects / files","Custom / files"],
+    ["Action","Changes an external system","MCP, APIs, CLI","Actions/connectors","MCP/APIs","Extensions/Workspace"],["Multimodal","Understands image, audio or video","Read/generate images","Vision, voice, images","Vision and documents","Image, video, audio"],["Symbolic","Uses a math or optimization solver","Code/external solver","Code + solver","Code/tools","Code/tools"],["GUI Agent","Clicks and types on screens","Browser automation","Computer agent","Computer Use","Product-dependent"],["Multi-Agent","Delegates work to sub-agents","Tasks/subagents","Custom/API workflows","Parallel tasks","Agent workflows"],["SEO Action","Publishes meta, CMS updates, sitemap","Custom / CMS MCP","Custom / Actions","Custom / MCP","Custom / Extensions"]
   ]},
-  paths:{title:"Real paths · how a question moves",hint:"A rough path from request to answer",question:"Question",items:[
-    ["Summarize yesterday’s AI news in three lines",["Question","Agent: Web Search","Context: public web allowed","Web Search","Realtime Web (API)","Answer"],"No Chrome clicks; a search API returns results."],
-    ["What is our company vacation policy?",["Question","Agent: RAG","Context: check document access","RAG","Relevant Docs/PDF passages","Answer"],"RAG retrieves relevant passages instead of attaching everything."],
-    ["What were last month’s sales for customers in their 30s?",["Question","Agent: Text-to-SQL","Context: scope, DB access, privacy","Text-to-SQL","Database","Exact number"],"The Agent picks DB; Context limits rows and fields."],
-    ["Chart monthly sales from this CSV",["Question","Agent: Code Execution","Context: uploaded file only","Code Execution","File + chart","Graph"],""],
-    ["Book a dentist tomorrow at 10 AM",["Question","Agent: Action","Context: confirm permission","Action","Booking API","Booked"],""],
-    ["Find the person in red in this image",["Question","Agent: Multimodal","Context: uploaded image allowed","Multimodal","Vision","Description"],""],
-    ["Download the spreadsheet from our legacy site",["Question","Agent: GUI Agent","Context: site access allowed?","GUI Agent","Computer Use","File"],"This path really clicks and types in a browser."],
-    ["Create a launch marketing strategy",["Question","Agent: Multi-Agent","Context: scope and tone","Multi-Agent","Research · copy · design agents","Combined answer"],""],
-    ["Read this whole code folder and explain its structure",["Question","Agent: Long Context","Context: attach allowed folder","Skip retrieval","Long Context","Answer"],"Everything is placed in context; token cost can be high."]
-  ]},
+  paths:{title:"Real paths · how a question moves",hint:"Pick a role, then a real question",rolePick:"Choose a role",back:"← Roles",count:"{n} asks",criteriaBtn:"Judgment criteria",criteriaTag:"How the Agent picks a tool",question:"Question",now:"NOW · what is happening",live:{question:"Receives the ask",agent:"Starts judgment → {tool}",agentWhy:"{why}",intent:"Classifies what kind of ask this is",schema:"Reads tool labels (name · params)",rules:"Applies routing rules → {tool}",context:"Opens the gate (meaning · permission · policy)",meaning:"Clarifies what is being asked",permission:"Limits allowed data and systems",policy:"Filters harm, secrets, personal data",long:"Loads the whole folder into context (skips search)",memory:"Attaches dialogue / experience",tool:"Runs {name} → {src}",result:"Output: {out}",done:"Path finished"},items:[["Marketing", "Which keywords should our spring campaign landing page target?", ["Question", "Agent: SEO Research", "Context: public SERP / GSC allowed", "SEO Research", "Keywords · SERP", "Shortlist"], "Looks up SERP / GSC keywords — does not publish.", "Keyword / SERP → SEO Research"], ["Marketing", "Rewrite this ad copy with approved brand terms only", ["Question", "Agent: Terminology", "Context: glossary access", "Terminology", "Glossary / Style", "Approved wording"], "Rewrites copy from the brand glossary only.", "Brand wording → Terminology"], ["Marketing", "Update the /pricing meta description and publish", ["Question", "Agent: SEO Action", "Context: CMS write permission", "SEO Action", "CMS / Search Console", "Published"], "Writes meta in CMS and publishes live.", "Publish / CMS → SEO Action"], ["Marketing", "Summarize competitors’ campaign news from this week", ["Question", "Agent: Web Search", "Context: public web allowed", "Web Search", "Realtime Web (API)", "Answer"], "Fetches current news via search API.", "Current public facts → Web Search"], ["Marketing", "Critique this ad creative for mobile readability", ["Question", "Agent: Multimodal", "Context: uploaded image allowed", "Multimodal", "Vision", "Feedback"], "Vision reviews the creative image.", "Image / creative → Multimodal"], ["Marketing", "Draft a launch campaign brief with research, copy and design notes", ["Question", "Agent: Multi-Agent", "Context: scope and tone", "Multi-Agent", "Research · copy · design agents", "Combined answer"], "Splits work across sub-agents.", "Split work → Multi-Agent"], ["Planning", "Draft Q3 OKR candidates from our strategy docs", ["Question", "Agent: RAG", "Context: check document access", "RAG", "Relevant Docs/PDF passages", "Draft"], "Retrieves strategy passages and drafts OKRs.", "Company docs → RAG"], ["Planning", "What was conversion by channel last quarter?", ["Question", "Agent: Text-to-SQL", "Context: scope, DB access, privacy", "Text-to-SQL", "Database", "Exact number"], "Queries the DB for exact conversion.", "Exact metrics → Text-to-SQL"], ["Planning", "Which roadmap items block Payments launch?", ["Question", "Agent: GraphRAG", "Context: roadmap graph access", "GraphRAG", "Knowledge Graph", "Answer"], "Follows dependency links in the graph.", "Relationships → GraphRAG"], ["Planning", "Forecast next quarter from this CSV of weekly signups", ["Question", "Agent: Code Execution", "Context: uploaded file only", "Code Execution", "File + chart", "Graph"], "Computes the export and charts a forecast.", "File compute → Code Execution"], ["Planning", "Read this whole PRD folder and list open decisions", ["Question", "Agent: Long Context", "Context: attach allowed folder", "Skip retrieval", "Long Context", "Findings"], "Loads the whole PRD folder into context.", "Whole folder → Long Context"], ["Planning", "Build a go-to-market outline with research and messaging drafts", ["Question", "Agent: Multi-Agent", "Context: scope and tone", "Multi-Agent", "Research · messaging agents", "Combined answer"], "Delegates research and messaging.", "Split work → Multi-Agent"], ["CS", "What is our refund window for digital products?", ["Question", "Agent: RAG", "Context: check document access", "RAG", "Relevant Docs/PDF passages", "Answer"], "Answers from the policy knowledge base.", "Company docs → RAG"], ["CS", "Open a ticket and refund order #48291", ["Question", "Agent: Action", "Context: confirm permission", "Action", "Booking API", "Done"], "Creates a ticket and runs the refund API.", "External change → Action"], ["CS", "Rewrite this reply using our CS tone guide", ["Question", "Agent: Terminology", "Context: glossary access", "Terminology", "Glossary / Style", "Approved wording"], "Applies approved CS wording.", "Brand wording → Terminology"], ["CS", "How many tickets by reason code last week?", ["Question", "Agent: Text-to-SQL", "Context: scope, DB access, privacy", "Text-to-SQL", "Database", "Exact number"], "Queries ticket metrics from the DB.", "Exact metrics → Text-to-SQL"], ["CS", "What error does this customer screenshot show?", ["Question", "Agent: Multimodal", "Context: uploaded image allowed", "Multimodal", "Vision", "Description"], "Vision reads the screenshot.", "Image / screenshot → Multimodal"], ["CS", "Is there a public outage notice for our payments page right now?", ["Question", "Agent: Web Search", "Context: public web allowed", "Web Search", "Realtime Web (API)", "Answer"], "Checks current public status via search API.", "Current facts → Web Search"], ["Designer", "Critique this hero mockup for mobile spacing", ["Question", "Agent: Multimodal", "Context: uploaded image allowed", "Multimodal", "Vision", "Feedback"], "Vision reviews spacing on the mockup.", "Image / mockup → Multimodal"], ["Designer", "Align these UI labels with our brand glossary", ["Question", "Agent: Terminology", "Context: glossary access", "Terminology", "Glossary / Style", "Approved wording"], "Normalizes UI labels to approved terms.", "Brand wording → Terminology"], ["Designer", "Extract the primary colors from this reference image", ["Question", "Agent: Multimodal", "Context: uploaded image allowed", "Multimodal", "Vision", "Description"], "Vision extracts colors from the image.", "Image analysis → Multimodal"], ["Designer", "Find spacing and type rules in our design-system docs", ["Question", "Agent: RAG", "Context: check document access", "RAG", "Relevant Docs/PDF passages", "Answer"], "Retrieves design-system passages.", "Company docs → RAG"], ["Designer", "Read the full brand guidelines PDF and summarize do/don’t", ["Question", "Agent: Long Context", "Context: attach allowed folder", "Skip retrieval", "Long Context", "Findings"], "Reads the whole guidelines in context.", "Whole file → Long Context"], ["Designer", "Propose a landing concept with layout and copy directions", ["Question", "Agent: Multi-Agent", "Context: scope and tone", "Multi-Agent", "Layout · copy agents", "Combined answer"], "Splits layout and copy work.", "Split work → Multi-Agent"], ["Engineer", "Read this auth folder and find race conditions", ["Question", "Agent: Long Context", "Context: attach allowed folder", "Skip retrieval", "Long Context", "Findings"], "Reads the whole folder and flags races.", "Whole folder → Long Context"], ["Engineer", "Download yesterday’s report from the legacy admin UI", ["Question", "Agent: GUI Agent", "Context: site access allowed?", "GUI Agent", "Computer Use", "File"], "Clicks the legacy UI and downloads the file.", "No API / legacy UI → GUI Agent"], ["Engineer", "What does our on-call runbook say about 5xx spikes?", ["Question", "Agent: RAG", "Context: check document access", "RAG", "Relevant Docs/PDF passages", "Answer"], "Retrieves runbook passages.", "Company docs → RAG"], ["Engineer", "Chart p95 latency from this logs CSV", ["Question", "Agent: Code Execution", "Context: uploaded file only", "Code Execution", "File + chart", "Graph"], "Computes latency from the export.", "File compute → Code Execution"], ["Engineer", "Error rate by service for the last 24 hours?", ["Question", "Agent: Text-to-SQL", "Context: scope, DB access, privacy", "Text-to-SQL", "Database", "Exact number"], "Queries exact error rates.", "Exact metrics → Text-to-SQL"], ["Engineer", "Which services depend on Payments and who owns them?", ["Question", "Agent: GraphRAG", "Context: org graph access", "GraphRAG", "Knowledge Graph", "Answer"], "Walks service dependency relationships.", "Relationships → GraphRAG"], ["Manager", "Show sprint velocity vs commitment for the last 6 sprints", ["Question", "Agent: Code Execution", "Context: uploaded file only", "Code Execution", "File + chart", "Graph"], "Charts velocity from the export.", "File compute → Code Execution"], ["Manager", "Who owns Payments and who reports to them?", ["Question", "Agent: GraphRAG", "Context: org graph access", "GraphRAG", "Knowledge Graph", "Answer"], "Walks the org graph for ownership.", "Relationships → GraphRAG"], ["Manager", "What’s our OKR progress % by team this month?", ["Question", "Agent: Text-to-SQL", "Context: scope, DB access, privacy", "Text-to-SQL", "Database", "Exact number"], "Queries OKR progress from the DB.", "Exact metrics → Text-to-SQL"], ["Manager", "Summarize risks from this month’s board memo docs", ["Question", "Agent: RAG", "Context: check document access", "RAG", "Relevant Docs/PDF passages", "Answer"], "Retrieves risk passages from memos.", "Company docs → RAG"], ["Manager", "Draft a weekly status with metrics, risks and next steps", ["Question", "Agent: Multi-Agent", "Context: scope and tone", "Multi-Agent", "Metrics · risk · writing agents", "Combined answer"], "Splits metrics and writing work.", "Split work → Multi-Agent"], ["Manager", "Book a 30-minute review with the Payments owners next Tue", ["Question", "Agent: Action", "Context: confirm permission", "Action", "Booking API", "Booked"], "Schedules via calendar/booking API.", "External change → Action"]]},
   methods:{ragTitle:"9 RAG methodologies",otherTitle:"9 other methodologies",hint:"Select a card to see details",otherHint:"Approaches that complement RAG or do not retrieve document chunks",more:"View details →",whenLabel:"Best for: ",modal:{flow:"Flow",what:"What it is",steps:"How it works",when:"When to use it",care:"Watch out",close:"Close"},data:{
     naive:M("Naive RAG","The simplest retrieve-and-attach pattern","Question → embedding → top-k vector search → prompt → answer",["Splits documents into chunks and stores vectors.","Retrieves similar chunks and gives them to the model."],["Chunk and embed documents","Run similarity search","Generate with retrieved context"],["Prototypes","Clean, well-structured documents"],["Irrelevant chunks can increase hallucinations","Weak on broad overview questions"],"Retrieve similar passages, attach them, answer.","Fast prototypes"),
     advanced:M("Advanced RAG","Improve quality before and after retrieval","Rewrite → hybrid search → rerank and compress → answer",["Adds pre- and post-retrieval processing.","Reduces noisy or duplicated evidence."],["Rewrite or expand the query","Combine keyword and vector search","Rerank, deduplicate and compress"],["When basic RAG often misses","Production systems"],["More latency and tuning points"],"Rewrite, rerank and filter for better evidence.","When basic RAG misses"),
@@ -190,49 +344,83 @@ en:{
 },
 ja:{
   header:{title:"チャットボットは単一のモデルではない",badge:"特集",subtitle:"<strong>Agent</strong> は手段を選び · <strong>Context</strong> は場所と内容を制御し · ツールは並列に動きます",intro1:"いまのAIチャットは単一のLLMではありません。Agentがツールを選び、Context層が範囲とポリシーを制御し、検索や実行ツールが並列に動きます。",intro2:"このOKPy特集では Agent と Context の違い、Agentを動かすLLM（Flash / Pro / GPT / Claude）、Web検索とブラウザ操作の違い、RAGの9手法、Cursor / ChatGPT / Claude / Gemini の対応関係を一枚で整理します。"},
-  diagram:{question:"質問",unknown:"モデルが知らないこと",long:"Long Context",longCap:"検索を省略 · 高コスト",agent:"Agent",agentCap:"どう答えるかを判断",llm:"中のLLM",llmCap:"Flash · Pro · GPT · Claude",memory:"Memory",memoryCap:"対話 · 経験",context:"Context Layer",contextCap:"ゲート · どこへ · 何を",meaning:"意味",meaningAsk:"何を聞いている？",meaningDesc:"質問を明確化し<br>曖昧さを絞る",permission:"権限",permissionAsk:"どこへ行ける？",permissionDesc:"閲覧可能なデータと<br>システムだけ許可",policy:"ポリシー",policyAsk:"何を許可する？",policyDesc:"有害情報・秘密・<br>個人情報を制限",passed:"通過した範囲だけ ↓ ツールへ",parallel:"PARALLEL TOOLS · 同じ階層の選択肢",retrieval:"RETRIEVAL · 取得",actionGroup:"ACTION · SENSE · SOLVE"},
+  diagram:{question:"質問",unknown:"モデルが知らないこと",long:"Long Context",longCap:"検索を省略 · 高コスト",agent:"Agent",agentCap:"判断 · ツール選択",judgeTitle:"Agentがツールを選ぶ根拠",intent:"意図",intentAsk:"どんな質問？",intentDesc:"最新 · 文書 · 数値<br>画像 · システム変更",schema:"ツール説明",schemaAsk:"各ツールは何ができる？",schemaDesc:"名前 · 説明<br>パラメータ（工具ラベル）",rules:"システム規則",rulesAsk:"どの規則を使う？",rulesDesc:"最新 → Web<br>文書 → RAG · …",judgeMore:"こうやって選ぶ → 詳しく",llm:"中のLLM",llmCap:"Flash · Pro · GPT · Claude",memory:"Memory",memoryCap:"対話 · 経験",context:"Context Layer",contextCap:"ゲート · どこへ · 何を",meaning:"意味",meaningAsk:"何を聞いている？",meaningDesc:"質問を明確化し<br>曖昧さを絞る",permission:"権限",permissionAsk:"どこへ行ける？",permissionDesc:"閲覧可能なデータと<br>システムだけ許可",policy:"ポリシー",policyAsk:"何を許可する？",policyDesc:"有害情報・秘密・<br>個人情報を制限",passed:"通過した範囲だけ ↓ ツールへ",parallel:"PARALLEL TOOLS · 同じ階層の選択肢",retrieval:"RETRIEVAL · 取得",actionGroup:"ACTION · SENSE · SOLVE",sameTier:"↕ 同じ階層 · 並列の選択肢"},
+nav:{label:"目次",diagram:"システム図",models:"代表モデル · Agentの脳",detail:"Agent · Context",products:"製品比較",paths:"実際の経路 · 質問の流れ"},
+    ui:{toolHint:"ツールアイコンを押すと詳細を表示",detailHint:"カードを選ぶと詳細が開きます",tap:"詳細 →",open:"詳細を開く →",hide:"閉じる",pathHint:"質問をクリックすると図が動きます",pathPlay:"再生 →",layerRetrieval:"RETRIEVAL · 取得",layerAction:"ACTION · SENSE · SOLVE",source:"接続先",what:"役割",when:"向いている場面",care:"注意点",toolModalClose:"閉じる",ragSub:"検索して答える9手法",otherSub:"文書RAG以外のアプローチ"},
   models:{title:"代表モデル · Agentの脳",hint:"モデル系列は「どの脳でAgentを動かすか」の選択です。検索ツールの選択ではありません。",callout:"<strong>Model ≠ tool：</strong> Gemini Flash / GPT mini / Claude Haiku は Agent 側にあります。Web Search・RAG・Action は下のツール層です。",tiers:[["速い · 安い","Flash · mini · Haiku","低遅延・低コスト。ルーティング、短い回答、大量のツール呼び出し向き。"],["バランス","Pro · Sonnet · GPT-4.1","日常のAgent作業：コーディング、文書、多段ツール呼び出し。"],["最高性能","Opus · thinking / Ultra 級","難しい推論・長い計画・重要判断。遅くて高コスト。"]],families:[["gemini","Google · Gemini",[["Flash","高速・低コスト・強いマルチモーダル"],["Pro","深い推論とツール利用"],["Ultra / thinking","最高性能帯"]]],["openai","OpenAI · GPT",[["mini / 4o-mini","ルーティングと大量呼び出し"],["GPT-4.1 / 4o","汎用Agentの脳"],["oシリーズ / thinking","深い推論経路"]]],["anthropic","Anthropic · Claude",[["Haiku","速くて経済的"],["Sonnet","Agentの標準的な選択"],["Opus","難しい分析と長時間作業"]]],["meta","オープンウェイト · Llamaなど",[["8B–70B級","自前ホスト / Fine-tune"],["Instruct系","ローカルAgentとRAG"],["Tool特化","企業向けカスタム"]]]],headers:["系列","代表モデル","特徴","向いている用途"],rows:[["Google Gemini","Flash · Pro · Ultra / thinking","Flash=速度と費用 · Pro=品質 · thinking=難問","検索連携・マルチモーダルAgent"],["OpenAI GPT","mini · 4o / 4.1 · oシリーズ","mini=量 · 旗艦=品質 · o=深い推論","汎用アシスタント・コーディング"],["Anthropic Claude","Haiku · Sonnet · Opus","Haiku=速い · Sonnet=日常 · Opus=最難","文書・コーディング・Computer Use"],["オープンウェイト","Llama · Qwen · Mistral…","自前ホスト、Fine-tune、データ管理","プライベート / オンプレAgent"],["製品の中","Cursor · ChatGPT · Claude · Gemini","同じ Agent+Context+Tools、違う既定の脳","UXを選び、次にモデル階層を選ぶ"]]},
   tools:[
-    ["🌐","Web Search","最新情報","📡","リアルタイムWeb","ニュース · 天気"],["🔍","RAG","非構造テキスト","📄","文書 / PDF","マニュアル · 規程"],["🗄️","Text-to-SQL","構造化データ","🛢️","データベース","正確な数値"],["⚡","Code Exec","その場で計算","📊","アップロードファイル","表 · グラフ"],["🕸️","GraphRAG","関係 · 文脈","🔗","Knowledge Graph","つながり"],
-    ["🔌","Action","API · IoT","📅","外部システム","予約 · 決済"],["👁️","Multimodal","目と耳","🎨","Vision · Voice","画像 · 音声"],["∑","Symbolic","数学 · 最適化","🧮","Solver","Wolframなど"],["🖱️","GUI Agent","画面操作","💻","Computer Use","ブラウザ · RPA"],["👥","Multi-Agent","別のAI","🧩","Sub-Agents","調査 · 作成"]
+    ["🌐","Web Search","最新情報","📡","リアルタイムWeb","ニュース · 天気"],["🔍","RAG","非構造テキスト","📄","文書 / PDF","マニュアル · 規程"],["🗄️","Text-to-SQL","構造化データ","🛢️","データベース","正確な数値"],["⚡","Code Exec","その場で計算","📊","アップロードファイル","表 · グラフ"],["🕸️","GraphRAG","関係 · 文脈","🔗","Knowledge Graph","つながり"],["📄","llms.txt","AI向けサイトマップ","🔗","/llms.txt","Docs · API索引"],["🔎","SEO Research","検索需要 · SERP","📈","Keywords / GSC","ボリューム · 順位"],["📚","Terminology","言葉 · 表現の選択","🗂","Glossary / Style","ブランド用語"],
+    ["🔌","Action","API · IoT","📅","外部システム","予約 · 決済"],["👁️","Multimodal","目と耳","🎨","Vision · Voice","画像 · 音声"],["∑","Symbolic","数学 · 最適化","🧮","Solver","Wolframなど"],["🖱️","GUI Agent","画面操作","💻","Computer Use","ブラウザ · RPA"],["👥","Multi-Agent","別のAI","🧩","Sub-Agents","調査 · 作成"],["✍️","SEO Action","メタ · 公開 · 送信","📰","CMS / Search","タイトル · sitemap"]
+  ],
+  toolExtras:[
+    ["検索APIで公開の最新事実を取得します。","ニュース・価格・天気・直近の出来事","ブラウザ操作ではありません。"],
+    ["文書やPDFから関連箇所を取り出します。","マニュアル・規程・ナレッジベース","無関係なチャンクは誤答の原因になります。"],
+    ["自然文の質問をSQLに変換します。","合計・指標・正確な件数","スキーマ権限と安全性チェックが必要です。"],
+    ["アップロードファイルやsandboxでコードを実行します。","グラフ・変換・計算","許可されたファイル範囲に限定します。"],
+    ["グラフ上の個体と関係をたどります。","組織図・供給網・多段のつながり","構築と維持のコストがあります。"],
+    ["AI向けに整理されたサイトのMarkdownマップを読みます。","Docsハブ・API索引・製品マップ","robots.txtやsitemap.xmlとは別で、公式ランキング信号でもありません。"],
+    ["キーワード・SERP・Search Consoleを調べます。","LPのキーワード候補","調査のみ。公開はSEO Actionです。"],
+    ["承認済みのブランド用語と表記ルールを参照します。","製品名・禁止語・トーン","用語集にない表現を勝手に作らない。"],
+    ["APIや外部システムを呼び出して状態を変えます。","予約・決済・IoT","権限確認と実行承認が必要です。"],
+    ["画像・音声・動画を理解します。","スクショ・音声メモ・商品写真","アップロードとプライバシー規則が適用されます。"],
+    ["数式や最適化Solverを使います。","方程式・制約・厳密な計算","当て推量よりSolverを優先します。"],
+    ["人のように画面をクリック・入力します。","APIのないレガシーサイト","遅く、UI変更に弱く、権限リスクが高いです。"],
+    ["専門のSub-Agentへ作業を分担します。","調査・執筆・デザインの分割","範囲と引き継ぎルールが必要です。"],
+    ["本番のSEO資産を公開・更新します。","メタ・CMS編集・sitemap送信","書き込み権限が必要。調査とは別ステップです。"]
   ],
   detail:{title:"Agent と Context の詳細",cards:[
     {title:"🧭 Agent",lead:"<strong>どのツールで</strong>答えるかを決めます。",sections:[["役割",["意図を読み、Web・RAG・DB・Action・GUIから選ぶ","ツールを順番または並列で呼ぶ","結果をまとめて最終回答を作る"]],["開発方法",["JSONスキーマを使うLLM Tool Calling","判断 → 実行 → 観察 → 再判断のループ","LangGraphや各種Agents SDK","ルーティング用プロンプトと評価"]],["決めないこと",["この利用者が表を閲覧できるか","個人情報を回答に含めてよいか"]]]},
     {title:"⚙️ Context Layer",lead:"<strong>どこへ・何を</strong>のゲートです。",sections:[["役割",["意味：質問を明確化","権限：データとシステムを制限","ポリシー：危険・秘密・個人情報を制限","Memory：対話と経験を追加"]],["開発方法",["意図解析とクエリ書き換え","ログイン利用者に紐づくACL/RBAC","ガードレールと出力検査","会話ストアと要約Memory","ツール呼び出し前後のミドルウェア"]],["決めないこと",["最適なツールそのもの","ツールの全順序と組み合わせ"]]]}
   ]},
-  criteria:{title:"🧭 ツール選択基準はどこにあるか",lead:"基準はモデルの中だけではなく、開発者が用意する<strong>説明・規則・ルーティング</strong>にあります。",headers:["場所","書かれていること","簡単なたとえ"],rows:[["ツールスキーマ","名前・説明・パラメータ","工具箱のラベル"],["システムプロンプト","「最新→Web、社内文書→RAG」などの規則","作業マニュアル"],["Intent Router","質問を分類し候補だけを渡す","案内窓口"],["Context Layer","禁止ツールを除外し実行を止める","入場ゲート"],["実行結果のフィードバック","結果が弱ければ別ツールで再試行","別の工具を試す"]],minis:[["質問タイプ → ツール","最新情報 → Web Search<br>社内文書 → RAG<br>集計 → Text-to-SQL<br>ファイル・グラフ → Code Execution<br>関係 → GraphRAG<br>予約・決済 → Action<br>画像・音声 → Multimodal<br>APIなし → GUI Agent<br>分担 → Multi-Agent<br>全文を読む → Long Context"],["モデルが実際に見るもの","1) 利用者の質問<br>2) システム規則<br>3) ツール名・説明・パラメータ<br>4) 場合により許可済みツールだけ<br>→ その中からツール呼び出しを出力します。"]]},
-  callouts:{block:"<strong>要点：</strong>Agent がDBを選んでも、Context は実行を止めたり範囲を狭めたりできます。",web:"<strong>混同しやすい点：</strong>リアルタイムWebはChrome操作ではなく<strong>検索API</strong>です。画面をクリックするのは <strong>GUI Agent → Computer Use</strong> です。",choose:"<strong>目安：</strong>文書 → RAG · 関係 → GraphRAG · 数値 → Text-to-SQL · 最新情報 → Web Search · 小さな固定知識 → Long Context/CAG · 複雑な業務 → Agentic tools"},
-  products:{title:"製品比較（やさしい説明）",hint:"Cursor・ChatGPT・Claude・Geminiが同じ役割をどう担うか",headers:["役割","簡単な説明","Cursor","ChatGPT","Claude","Gemini"],cards:[["cursor","Cursor","コーディング支援","コードとターミナルを直接扱う"],["chatgpt","ChatGPT","汎用アシスタント","Web・ファイル・音声・ツールを幅広く扱う"],["claude","Claude","文書と作業","長文分析とComputer Useに強い"],["gemini","Gemini","Google連携","検索・Drive・マルチモーダルに強い"]],cats:["判断 · 記憶","RETRIEVAL · 取得","ACTION · SENSE · SOLVE"],rows:[
+  criteria:{focus:{intent:{title:"意図 · どんな質問？",tag:"ツールを選ぶ前に質問を分類します",lead:"Agentはまず<strong>質問の種類</strong>を読みます — 最新情報、社内文書、正確な数値、画像、システム変更など。",points:["最新/公開情報 → Web Search","社内文書・規程 → RAG","正確な集計 → Text-to-SQL","ファイル・グラフ → Code Execution","関係 → GraphRAG","画像・音声 → Multimodal","システム変更 → Action","APIなし/レガシー → GUI Agent"],map:"Questionノードを強調 — 意図が読む対象です。"},schema:{title:"ツール説明 · 工具箱のラベル",tag:"各ツールの名前・説明・パラメータ",lead:"開発者がツールごとにモデルが読める<strong>ラベル</strong>を付けます — 工具箱の札と同じです。",points:["ツール名（例: SEO Research）","役割の短い説明","呼び出しに必要なパラメータ","説明が明確だと選択が安定します"],map:"ツール段をパルス — ラベル付きの工具箱です。"},rules:{title:"システム規則 · 作業マニュアル",tag:"「最新→Web、文書→RAG」などのルーティング規則",lead:"<strong>システムプロンプト / ルーター</strong>が、質問タイプとツールの対応を決めます。",points:["開発者が用意（モデルの中だけではない）","候補ツールを絞れる","Contextはそれでも実行を止められる","結果が弱ければ別ツールで再試行できる"],map:"AgentのLLMバッジを強調 — 規則がその判断を導きます。"}},title:"🧭 ツール選択基準はどこにあるか",lead:"基準はモデルの中だけではなく、開発者が用意する<strong>説明・規則・ルーティング</strong>にあります。",headers:["場所","書かれていること","簡単なたとえ"],rows:[["ツールスキーマ","名前・説明・パラメータ","工具箱のラベル"],["システムプロンプト","「最新→Web、社内文書→RAG」などの規則","作業マニュアル"],["Intent Router","質問を分類し候補だけを渡す","案内窓口"],["Context Layer","禁止ツールを除外し実行を止める","入場ゲート"],["実行結果のフィードバック","結果が弱ければ別ツールで再試行","別の工具を試す"]],minis:[["質問タイプ → ツール","最新情報 → Web Search<br>社内文書 → RAG<br>集計 → Text-to-SQL<br>ファイル・グラフ → Code Execution<br>関係 → GraphRAG<br>AI向けサイトマップ → llms.txt<br>キーワード / SERP → SEO Research<br>ブランド表現 → Terminology<br>予約・決済 → Action<br>画像・音声 → Multimodal<br>APIなし → GUI Agent<br>分担 → Multi-Agent<br>メタ公開 / CMS → SEO Action<br>全文を読む → Long Context"],["モデルが実際に見るもの","1) 利用者の質問<br>2) システム規則<br>3) ツール名・説明・パラメータ<br>4) 場合により許可済みツールだけ<br>→ その中からツール呼び出しを出力します。"]]},
+  callouts:{block:"<strong>要点：</strong>Agent がDBを選んでも、Context は実行を止めたり範囲を狭めたりできます。",choose:"<strong>目安：</strong>文書 → RAG · 関係 → GraphRAG · 数値 → Text-to-SQL · 最新情報 → Web Search · AIサイトマップ → llms.txt · キーワード → SEO Research · 用語 → Terminology · 公開 → SEO Action · 小さな固定知識 → Long Context/CAG · 複雑な業務 → Agentic tools"},
+  products:{title:"製品比較",hint:"Cursor・ChatGPT・Claude・Geminiが同じ役割をどう担うか",headers:["役割","簡単な説明","Cursor","ChatGPT","Claude","Gemini"],cards:[["cursor","Cursor","コーディング支援","コードとターミナルを直接扱う"],["chatgpt","ChatGPT","汎用アシスタント","Web・ファイル・音声・ツールを幅広く扱う"],["claude","Claude","文書と作業","長文分析とComputer Useに強い"],["gemini","Gemini","Google連携","検索・Drive・マルチモーダルに強い"]],cats:["判断 · 記憶","RETRIEVAL · 取得","ACTION · SENSE · SOLVE"],breaks:[0,4,12],rows:[
     ["Agent","どのツールで答えるか選ぶ","Agent / Composer","GPTが選択","Claudeが選択","Geminiが選択"],["Long Context","検索せず全文を読む","ファイル/フォルダ添付","全文アップロード","Projects / upload","大容量コンテキスト"],["Memory","過去の会話や好みを継ぐ","Rules, Memories","Memory, 指示","Projects, 会話","Memory, Gems"],["Context Layer","意味・権限・ポリシーのゲート","承認, Privacy Mode","安全・管理設定","安全・権限","安全・Workspace管理"],
-    ["Web Search","検索APIで最新情報を取得","Web検索/取得","Search","Web検索","Google Search"],["RAG","文書/PDFの関連部分を探す","コードベース検索","Files / Knowledge","Projects検索","Upload / NotebookLM"],["Text-to-SQL","自然文をDBクエリへ","MCP等でDB接続","Connector/Tool","Connector/Tool","Connector/Tool"],["Code Execution","ファイルを計算・可視化","ターミナル","データ分析","分析ツール","コード実行"],["GraphRAG","関係をたどって答える","シンボル/参照","個別構築","個別構築","個別構築"],
-    ["Action","外部システムを変更","MCP, API, CLI","Actions/Connector","MCP/API","Extensions"],["Multimodal","画像・音声・動画を理解","画像の読取/生成","Vision, Voice","Vision/文書","画像・動画・音声"],["Symbolic","数式・最適化Solverを使う","コード/外部Solver","Code + Solver","Code/Tool","Code/Tool"],["GUI Agent","画面をクリック・入力","ブラウザ自動化","Computer Agent","Computer Use","製品による"],["Multi-Agent","Sub-Agentへ分担","Task/Subagent","Custom/API","並列タスク","Agent Workflow"]
+    ["Web Search","検索APIで最新情報を取得","Web検索/取得","Search","Web検索","Google Search"],["RAG","文書/PDFの関連部分を探す","コードベース検索","Files / Knowledge","Projects検索","Upload / NotebookLM"],["Text-to-SQL","自然文をDBクエリへ","MCP等でDB接続","Connector/Tool","Connector/Tool","Connector/Tool"],["Code Execution","ファイルを計算・可視化","ターミナル","データ分析","分析ツール","コード実行"],["GraphRAG","関係をたどって答える","シンボル/参照","個別構築","個別構築","個別構築"],["llms.txt","AI向けサイトマップを読む","Fetch / Docs map","Custom / fetch","Custom / fetch","Custom / fetch"],["SEO Research","キーワード・SERP・Search Console","Custom / MCP","Custom / Tool","Custom / Tool","Custom / Tool"],["Terminology","ブランド用語と表記ルール","Rules / Docs","Custom / Files","Projects / Files","Custom / Files"],
+    ["Action","外部システムを変更","MCP, API, CLI","Actions/Connector","MCP/API","Extensions"],["Multimodal","画像・音声・動画を理解","画像の読取/生成","Vision, Voice","Vision/文書","画像・動画・音声"],["Symbolic","数式・最適化Solverを使う","コード/外部Solver","Code + Solver","Code/Tool","Code/Tool"],["GUI Agent","画面をクリック・入力","ブラウザ自動化","Computer Agent","Computer Use","製品による"],["Multi-Agent","Sub-Agentへ分担","Task/Subagent","Custom/API","並列タスク","Agent Workflow"],["SEO Action","メタ公開・CMS更新・sitemap","Custom / CMS MCP","Custom / Actions","Custom / MCP","Custom / Extensions"]
   ]},
-  paths:{title:"実際の経路 · 質問はどう進むか",hint:"依頼から回答までのおおまかな流れ",question:"質問",items:[
-    ["昨日のAIニュースを3行でまとめて",["質問","Agent: Web Search","Context: 公開Webを許可","Web Search","リアルタイムWeb（API）","回答"],"Chromeは操作せず、検索APIから結果を受け取ります。"],["会社の休暇規程を教えて",["質問","Agent: RAG","Context: 文書権限を確認","RAG","関連する文書/PDF","回答"],"全文ではなく関連箇所だけを取得します。"],["先月の30代顧客の売上は？",["質問","Agent: Text-to-SQL","Context: 範囲・DB権限・個人情報","Text-to-SQL","データベース","正確な数値"],"AgentがDBを選び、Contextが行と列を制限します。"],["このCSVから月別売上グラフを作って",["質問","Agent: Code Execution","Context: アップロードファイルのみ","Code Execution","ファイル + グラフ","回答"],""],["明日10時に歯医者を予約して",["質問","Agent: Action","Context: 実行権限を確認","Action","予約API","予約完了"],""],["写真の赤い服の人を見つけて",["質問","Agent: Multimodal","Context: 画像を許可","Multimodal","Vision","説明"],""],["古い社内サイトからExcelを取得して",["質問","Agent: GUI Agent","Context: サイト権限を確認","GUI Agent","Computer Use","ファイル"],"この経路は実際にブラウザをクリック・入力します。"],["新製品のマーケティング戦略を作って",["質問","Agent: Multi-Agent","Context: 範囲とトーン","Multi-Agent","調査 · コピー · デザイン","統合回答"],""],["このコードフォルダ全体を読んで構造を説明して",["質問","Agent: Long Context","Context: フォルダ添付を許可","検索省略","Long Context","回答"],"全文をContextに入れるため、トークン費用が高くなります。"]]},
+  paths:{title:"実際の経路 · 質問はどう進むか",hint:"役割を選んでから質問を再生",rolePick:"役割を選ぶ",back:"← 役割一覧",count:"{n}件",criteriaBtn:"判断基準",criteriaTag:"Agentがツールを選ぶ根拠",question:"質問",now:"NOW · いま起きていること",live:{question:"質問を受け取る",agent:"判断開始 → {tool}",agentWhy:"{why}",intent:"質問の種類を分類する",schema:"ツール説明（名前 · パラメータ）を読む",rules:"ルーティング規則を適用 → {tool}",context:"ゲートを開く（意味 · 権限 · ポリシー）",meaning:"何を聞いているかを明確化",permission:"行けるデータとシステムを制限",policy:"有害・秘密・個人情報をフィルタ",long:"フォルダ全体をContextに載せる（検索スキップ）",memory:"対話・経験を付ける",tool:"実行 {name} → {src}",result:"出力: {out}",done:"経路完了"},items:[["マーケ", "春キャンペーンLPの狙うキーワード候補を出して", ["質問", "Agent: SEO Research", "Context: 公開SERP / GSCを許可", "SEO Research", "キーワード · SERP", "候補リスト"], "SERP / GSCでキーワード調査（公開はしない）。", "キーワード/SERP → SEO Research"], ["マーケ", "この広告文を承認済みブランド用語だけで書き直して", ["質問", "Agent: Terminology", "Context: 用語集アクセス", "Terminology", "Glossary / Style", "承認済み表記"], "用語集だけを使って広告文を書き直す。", "ブランド表現 → Terminology"], ["マーケ", "/pricing のメタdescriptionを更新して公開して", ["質問", "Agent: SEO Action", "Context: CMS書き込み権限", "SEO Action", "CMS / Search Console", "公開完了"], "CMSのメタを更新して本番公開する。", "公開/CMS → SEO Action"], ["マーケ", "今週の競合キャンペーンニュースを要約して", ["質問", "Agent: Web Search", "Context: 公開Webを許可", "Web Search", "リアルタイムWeb（API）", "回答"], "検索APIで最新ニュースを取得。", "最新の公開情報 → Web Search"], ["マーケ", "この広告クリエイティブのモバイル可読性をレビューして", ["質問", "Agent: Multimodal", "Context: 画像を許可", "Multimodal", "Vision", "フィードバック"], "Visionでクリエイティブをレビュー。", "画像/クリエイティブ → Multimodal"], ["マーケ", "調査・コピー・デザイン視点でローンチ概要を作って", ["質問", "Agent: Multi-Agent", "Context: 範囲とトーン", "Multi-Agent", "調査 · コピー · デザイン", "統合回答"], "Sub-Agentに分担して統合。", "分担 → Multi-Agent"], ["企画", "戦略資料からQ3のOKR候補を下書きして", ["質問", "Agent: RAG", "Context: 文書権限を確認", "RAG", "関連する文書/PDF", "下書き"], "戦略文書の関連箇所を取りOKR下書き。", "社内文書 → RAG"], ["企画", "先月のチャネル別コンバージョンは？", ["質問", "Agent: Text-to-SQL", "Context: 範囲・DB権限・個人情報", "Text-to-SQL", "データベース", "正確な数値"], "DBを問い合わせて正確な数値を返す。", "正確な集計 → Text-to-SQL"], ["企画", "Paymentsローンチを止めているロードマップ依存は？", ["質問", "Agent: GraphRAG", "Context: ロードマップGraph権限", "GraphRAG", "Knowledge Graph", "回答"], "依存関係をGraphでたどる。", "関係 → GraphRAG"], ["企画", "この週次サインアップCSVから来四半期を予測して", ["質問", "Agent: Code Execution", "Context: アップロードファイルのみ", "Code Execution", "ファイル + グラフ", "グラフ"], "エクスポートを計算し予測グラフを作る。", "ファイル計算 → Code Execution"], ["企画", "このPRDフォルダ全体を読んで未決事項を列挙して", ["質問", "Agent: Long Context", "Context: フォルダ添付を許可", "検索省略", "Long Context", "指摘"], "PRDフォルダ全文をContextに載せる。", "フォルダ全文 → Long Context"], ["企画", "調査とメッセージ案でGTMアウトラインを作って", ["質問", "Agent: Multi-Agent", "Context: 範囲とトーン", "Multi-Agent", "調査 · メッセージ", "統合回答"], "調査とメッセージを分担。", "分担 → Multi-Agent"], ["CS", "デジタル商品の返金期限を教えて", ["質問", "Agent: RAG", "Context: 文書権限を確認", "RAG", "関連する文書/PDF", "回答"], "規程ナレッジから根拠付きで回答。", "社内文書 → RAG"], ["CS", "チケットを切って注文#48291を返金して", ["質問", "Agent: Action", "Context: 実行権限を確認", "Action", "予約API", "完了"], "チケット作成と返金APIを実行。", "外部変更 → Action"], ["CS", "この返信をCSトーンガイドに合わせて書き直して", ["質問", "Agent: Terminology", "Context: 用語集アクセス", "Terminology", "Glossary / Style", "承認済み表記"], "承認済みCS表現に揃える。", "ブランド表現 → Terminology"], ["CS", "先週の理由コード別チケット件数は？", ["質問", "Agent: Text-to-SQL", "Context: 範囲・DB権限・個人情報", "Text-to-SQL", "データベース", "正確な数値"], "チケット指標をDBから取得。", "正確な集計 → Text-to-SQL"], ["CS", "この顧客スクショのエラー内容は何？", ["質問", "Agent: Multimodal", "Context: 画像を許可", "Multimodal", "Vision", "説明"], "Visionでスクショを読む。", "画像/スクショ → Multimodal"], ["CS", "決済ページの公開障害情報はある？", ["質問", "Agent: Web Search", "Context: 公開Webを許可", "Web Search", "リアルタイムWeb（API）", "回答"], "検索APIで公開ステータスを確認。", "最新情報 → Web Search"], ["デザイン", "このヒーロー案のモバイル余白をレビューして", ["質問", "Agent: Multimodal", "Context: 画像を許可", "Multimodal", "Vision", "フィードバック"], "Visionで余白をレビュー。", "画像/モック → Multimodal"], ["デザイン", "このUI文言をブランド用語集に合わせて", ["質問", "Agent: Terminology", "Context: 用語集アクセス", "Terminology", "Glossary / Style", "承認済み表記"], "UI文言を承認用語に揃える。", "ブランド表現 → Terminology"], ["デザイン", "この参考画像からメインカラーを抽出して", ["質問", "Agent: Multimodal", "Context: 画像を許可", "Multimodal", "Vision", "説明"], "Visionで色を抽出。", "画像分析 → Multimodal"], ["デザイン", "デザインシステム文書の余白・書体ルールを探して", ["質問", "Agent: RAG", "Context: 文書権限を確認", "RAG", "関連する文書/PDF", "回答"], "デザインシステム文書を検索。", "社内文書 → RAG"], ["デザイン", "ブランドガイドラインPDF全体を読んでDo/Don’tを要約して", ["質問", "Agent: Long Context", "Context: フォルダ添付を許可", "検索省略", "Long Context", "指摘"], "ガイドライン全文をContextに載せる。", "全文 → Long Context"], ["デザイン", "レイアウトとコピー方針でLPコンセプトを提案して", ["質問", "Agent: Multi-Agent", "Context: 範囲とトーン", "Multi-Agent", "レイアウト · コピー", "統合回答"], "レイアウトとコピーを分担。", "分担 → Multi-Agent"], ["エンジニア", "この認証フォルダを読んで競合状態を探して", ["質問", "Agent: Long Context", "Context: フォルダ添付を許可", "検索省略", "Long Context", "指摘"], "フォルダ全文を読み競合を指摘。", "フォルダ全文 → Long Context"], ["エンジニア", "レガシー管理画面から昨日のレポートを取得して", ["質問", "Agent: GUI Agent", "Context: サイト権限を確認", "GUI Agent", "Computer Use", "ファイル"], "管理画面をクリックしてファイル取得。", "APIなし/レガシー → GUI Agent"], ["エンジニア", "オンコールRunbookの5xx対応を教えて", ["質問", "Agent: RAG", "Context: 文書権限を確認", "RAG", "関連する文書/PDF", "回答"], "Runbookの関連箇所を取得。", "社内文書 → RAG"], ["エンジニア", "このログCSVからp95レイテンシをグラフにして", ["質問", "Agent: Code Execution", "Context: アップロードファイルのみ", "Code Execution", "ファイル + グラフ", "グラフ"], "エクスポートからレイテンシを計算。", "ファイル計算 → Code Execution"], ["エンジニア", "直近24時間のサービス別エラー率は？", ["質問", "Agent: Text-to-SQL", "Context: 範囲・DB権限・個人情報", "Text-to-SQL", "データベース", "正確な数値"], "エラー率をDBから取得。", "正確な集計 → Text-to-SQL"], ["エンジニア", "Paymentsに依存するサービスとオーナーは？", ["質問", "Agent: GraphRAG", "Context: 組織グラフ権限", "GraphRAG", "Knowledge Graph", "回答"], "依存関係をGraphでたどる。", "関係 → GraphRAG"], ["マネージャー", "直近6スプリントのベロシティとコミットを比較して", ["質問", "Agent: Code Execution", "Context: アップロードファイルのみ", "Code Execution", "ファイル + グラフ", "グラフ"], "エクスポートから比較グラフを作る。", "ファイル計算 → Code Execution"], ["マネージャー", "Paymentsのオーナーと報告ラインは誰？", ["質問", "Agent: GraphRAG", "Context: 組織グラフ権限", "GraphRAG", "Knowledge Graph", "回答"], "組織グラフをたどりオーナーを答える。", "関係 → GraphRAG"], ["マネージャー", "今月のチーム別OKR進捗%は？", ["質問", "Agent: Text-to-SQL", "Context: 範囲・DB権限・個人情報", "Text-to-SQL", "データベース", "正確な数値"], "OKR進捗をDBから取得。", "正確な集計 → Text-to-SQL"], ["マネージャー", "今月の取締役メモからリスクを要約して", ["質問", "Agent: RAG", "Context: 文書権限を確認", "RAG", "関連する文書/PDF", "回答"], "メモからリスク箇所を検索。", "社内文書 → RAG"], ["マネージャー", "指標・リスク・次アクションで週次ステータスを下書きして", ["質問", "Agent: Multi-Agent", "Context: 範囲とトーン", "Multi-Agent", "指標 · リスク · 執筆", "統合回答"], "指標と執筆を分担。", "分担 → Multi-Agent"], ["マネージャー", "来火にPaymentsオーナーと30分レビューを予約して", ["質問", "Agent: Action", "Context: 実行権限を確認", "Action", "予約API", "予約完了"], "カレンダー/予約APIで予定を入れる。", "外部変更 → Action"]]},
   methods:{ragTitle:"RAGの9手法",otherTitle:"RAG以外の9手法",hint:"カードを選ぶと詳細を表示します",otherHint:"RAGを補完する、または文書チャンク検索ではない方法",more:"詳細を見る →",whenLabel:"向いている場面：",modal:{flow:"流れ",what:"概要",steps:"動作",when:"使う場面",care:"注意点",close:"閉じる"},data:{}},
   footer:"Agentic AIシステムをやさしく整理したマップ"
 },
 ko:{
   header:{title:"챗봇은 모델 하나가 아니다",badge:"특집",subtitle:"<strong>Agent</strong>는 도구를 고르고 · <strong>Context</strong>는 어디에·무엇을 통제하고 · 도구는 병렬로 움직입니다",intro1:"요즘 AI 챗봇은 단일 LLM이 아닙니다. Agent가 도구를 고르고, Context 층이 범위와 정책을 통제하며, 검색·실행 도구가 병렬로 동작합니다.",intro2:"이 OKPy 특집에서는 Agent와 Context의 차이, Agent를 돌리는 LLM(Flash / Pro / GPT / Claude), 웹 검색과 브라우저 조작의 차이, RAG 9가지, Cursor·ChatGPT·Claude·Gemini 대응을 한눈에 정리합니다."},
-  diagram:{question:"질문",unknown:"모델이 모르는 것",long:"Long Context",longCap:"검색 생략 · 비쌈",agent:"Agent",agentCap:"뭘로 답할지 결정",llm:"안의 LLM",llmCap:"Flash · Pro · GPT · Claude",memory:"Memory",memoryCap:"대화 · 경험",context:"Context Layer",contextCap:"게이트 · 어디에 · 무엇을",meaning:"의미",meaningAsk:"무엇을 묻나?",meaningDesc:"질문 뜻을 명확히<br>애매한 범위를 정리",permission:"권한",permissionAsk:"어디에 가나?",permissionDesc:"볼 수 있는 데이터와<br>시스템만 허용",policy:"정책",policyAsk:"무엇을 허용?",policyDesc:"유해·비밀·개인정보<br>필터와 응답 제한",passed:"통과한 범위만 ↓ 도구로",parallel:"PARALLEL TOOLS · 같은 단의 선택지",retrieval:"RETRIEVAL · 조회",actionGroup:"ACTION · SENSE · SOLVE"},
+  diagram:{question:"질문",unknown:"모델이 모르는 것",long:"Long Context",longCap:"검색 생략 · 비쌈",agent:"Agent",agentCap:"판단 · 도구 선택",judgeTitle:"Agent가 도구를 고르는 근거",intent:"의도",intentAsk:"어떤 질문?",intentDesc:"최신 · 문서 · 숫자<br>이미지 · 시스템 변경",schema:"도구 설명",schemaAsk:"각 도구는 뭘 하나?",schemaDesc:"이름 · 설명<br>파라미터 (공구 라벨)",rules:"시스템 규칙",rulesAsk:"어떤 규칙을 쓰나?",rulesDesc:"최신 → 웹<br>문서 → RAG · …",judgeMore:"이렇게 고름 → 자세히",llm:"안의 LLM",llmCap:"Flash · Pro · GPT · Claude",memory:"Memory",memoryCap:"대화 · 경험",context:"Context Layer",contextCap:"게이트 · 어디에 · 무엇을",meaning:"의미",meaningAsk:"무엇을 묻나?",meaningDesc:"질문 뜻을 명확히<br>애매한 범위를 정리",permission:"권한",permissionAsk:"어디에 가나?",permissionDesc:"볼 수 있는 데이터와<br>시스템만 허용",policy:"정책",policyAsk:"무엇을 허용?",policyDesc:"유해·비밀·개인정보<br>필터와 응답 제한",passed:"통과한 범위만 ↓ 도구로",parallel:"PARALLEL TOOLS · 같은 단의 선택지",retrieval:"RETRIEVAL · 조회",actionGroup:"ACTION · SENSE · SOLVE",sameTier:"↕ 같은 단 · 병렬 선택지"},
+nav:{label:"목차",diagram:"시스템 맵",models:"대표 모델 · Agent의 두뇌",detail:"Agent · Context",products:"제품별 비교",paths:"실제 경로 · 질문이 지나가는 길"},
+    ui:{toolHint:"도구 아이콘을 누르면 상세가 열립니다",detailHint:"카드를 누르면 상세가 펼쳐집니다",tap:"상세 →",open:"상세 보기 →",hide:"닫기",pathHint:"질문을 누르면 맵이 움직입니다",pathPlay:"재생 →",layerRetrieval:"RETRIEVAL · 조회",layerAction:"ACTION · SENSE · SOLVE",source:"연결처",what:"하는 일",when:"잘 맞는 경우",care:"주의",toolModalClose:"닫기",ragSub:"검색해 답하는 9가지",otherSub:"문서 RAG 외 접근"},
   models:{title:"대표 모델 · Agent의 두뇌",hint:"모델 계열은 ‘어떤 두뇌로 Agent를 돌릴지’의 선택입니다. 검색 도구 선택이 아닙니다.",callout:"<strong>Model ≠ tool:</strong> Gemini Flash / GPT mini / Claude Haiku는 Agent 쪽에 있습니다. Web Search·RAG·Action은 아래 도구 단입니다.",tiers:[["빠르고 저렴","Flash · mini · Haiku","지연·비용이 낮음. 라우팅, 짧은 답, 도구 호출이 많은 루프에 적합."],["균형","Pro · Sonnet · GPT-4.1","일상 Agent 작업: 코딩, 문서, 다단계 도구 호출."],["최고 성능","Opus · thinking / Ultra급","어려운 추론·긴 계획·중요 판단. 더 느리고 비쌈."]],families:[["gemini","Google · Gemini",[["Flash","빠르고 저렴, 멀티모달 강함"],["Pro","더 깊은 추론과 도구 사용"],["Ultra / thinking","최고 성능 티어"]]],["openai","OpenAI · GPT",[["mini / 4o-mini","라우팅과 대량 호출"],["GPT-4.1 / 4o","범용 Agent 두뇌"],["o시리즈 / thinking","깊은 추론 경로"]]],["anthropic","Anthropic · Claude",[["Haiku","빠르고 경제적"],["Sonnet","Agent의 기본 선택"],["Opus","고난도 분석과 긴 작업"]]],["meta","오픈 웨이트 · Llama 등",[["8B–70B급","셀프호스트 / 파인튜닝"],["Instruct 계열","로컬 Agent와 RAG"],["Tool 특화","기업용 커스텀"]]]],headers:["계열","대표 모델","특징","잘 맞는 용도"],rows:[["Google Gemini","Flash · Pro · Ultra / thinking","Flash=속도·비용 · Pro=품질 · thinking=난제","검색 연동·멀티모달 Agent"],["OpenAI GPT","mini · 4o / 4.1 · o시리즈","mini=양 · 플래그십=품질 · o=깊은 추론","범용 비서·코딩 Agent"],["Anthropic Claude","Haiku · Sonnet · Opus","Haiku=빠름 · Sonnet=일상 · Opus=최난","문서·코딩·Computer Use"],["오픈 웨이트","Llama · Qwen · Mistral…","셀프호스트, 파인튜닝, 데이터 통제","프라이빗 / 온프레미스 Agent"],["제품 안","Cursor · ChatGPT · Claude · Gemini","같은 Agent+Context+Tools, 다른 기본 두뇌","UX를 고른 뒤 모델 티어를 고름"]]},
   tools:[
-    ["🌐","Web Search","최신 정보","📡","실시간 웹","뉴스 · 날씨"],["🔍","RAG","비정형 문서","📄","문서 / PDF","매뉴얼 · 사규"],["🗄️","Text-to-SQL","정형 데이터","🛢️","데이터베이스","정확한 숫자"],["⚡","Code Exec","그 자리 계산","📊","올린 파일","엑셀 · 차트"],["🕸️","GraphRAG","관계 · 맥락","🔗","Knowledge Graph","연결 고리"],
-    ["🔌","Action","API · IoT","📅","외부 시스템","예약 · 결제"],["👁️","Multimodal","눈과 귀","🎨","Vision · Voice","이미지 · 음성"],["∑","Symbolic","수학 · 최적화","🧮","Solver","Wolfram 등"],["🖱️","GUI Agent","화면 조작","💻","Computer Use","브라우저 · RPA"],["👥","Multi-Agent","다른 AI","🧩","Sub-Agents","조사 · 작성"]
+    ["🌐","Web Search","최신 정보","📡","실시간 웹","뉴스 · 날씨"],["🔍","RAG","비정형 문서","📄","문서 / PDF","매뉴얼 · 사규"],["🗄️","Text-to-SQL","정형 데이터","🛢️","데이터베이스","정확한 숫자"],["⚡","Code Exec","그 자리 계산","📊","올린 파일","엑셀 · 차트"],["🕸️","GraphRAG","관계 · 맥락","🔗","Knowledge Graph","연결 고리"],["📄","llms.txt","AI용 사이트 맵","🔗","/llms.txt","Docs · API 색인"],["🔎","SEO Research","검색 수요 · SERP","📈","Keywords / GSC","볼륨 · 순위"],["📚","Terminology","단어 · 표현 선택","🗂","Glossary / Style","브랜드 용어"],
+    ["🔌","Action","API · IoT","📅","외부 시스템","예약 · 결제"],["👁️","Multimodal","눈과 귀","🎨","Vision · Voice","이미지 · 음성"],["∑","Symbolic","수학 · 최적화","🧮","Solver","Wolfram 등"],["🖱️","GUI Agent","화면 조작","💻","Computer Use","브라우저 · RPA"],["👥","Multi-Agent","다른 AI","🧩","Sub-Agents","조사 · 작성"],["✍️","SEO Action","메타 · 발행 · 제출","📰","CMS / Search","타이틀 · sitemap"]
+  ],
+  toolExtras:[
+    ["검색 API로 공개된 최신 사실을 가져옵니다.","뉴스·가격·날씨·최근 사건","브라우저 조작이 아닙니다."],
+    ["문서·PDF에서 관련 문단을 가져옵니다.","매뉴얼·사규·지식베이스","무관한 청크는 오답을 만듭니다."],
+    ["자연어 질문을 SQL로 바꿉니다.","합계·지표·정확한 건수","스키마 권한과 안전 검사가 필요합니다."],
+    ["올린 파일이나 샌드박스에서 코드를 실행합니다.","차트·변환·계산","허용된 파일 범위로 제한합니다."],
+    ["그래프의 개체와 관계를 따라갑니다.","조직도·공급망·멀티홉 연결","구축·유지 비용이 있습니다."],
+    ["AI용으로 정리된 사이트 Markdown 맵을 읽습니다.","Docs 허브·API 색인·제품 맵","robots.txt·sitemap.xml과 다르며 공식 랭킹 시그널도 아닙니다."],
+    ["키워드·SERP·Search Console을 조회합니다.","랜딩 키워드 후보","조사만 합니다. 발행은 SEO Action입니다."],
+    ["승인된 브랜드 용어와 표기 규칙을 참조합니다.","제품명·금칙어·톤","용어집에 없는 표현을 만들지 않습니다."],
+    ["API·외부 시스템을 호출해 상태를 바꿉니다.","예약·결제·IoT","권한 확인과 실행 승인이 필요합니다."],
+    ["이미지·음성·영상을 이해합니다.","스크린샷·음성 메모·상품 사진","업로드·개인정보 규칙이 적용됩니다."],
+    ["수학·최적화 Solver를 사용합니다.","방정식·제약·정확한 계산","추측보다 Solver를 우선합니다."],
+    ["사람처럼 화면을 클릭·입력합니다.","API 없는 레거시 사이트","느리고 UI 변경에 약하며 권한 위험이 큽니다."],
+    ["전문 Sub-Agent에 일을 나눕니다.","조사·작성·디자인 분담","범위와 인수인계 규칙이 필요합니다."],
+    ["라이브 SEO 자산을 발행·갱신합니다.","메타·CMS 수정·sitemap 제출","쓰기 권한이 필요하며 조사와는 별도 단계입니다."]
   ],
   detail:{title:"Agent · Context 상세",cards:[
     {title:"🧭 Agent",lead:"<strong>어떤 도구로</strong> 답할지 정합니다.",sections:[["하는 일",["의도를 보고 Web·RAG·DB·Action·GUI 중 선택","도구를 순서대로 또는 병렬로 호출","결과를 모아 최종 답변 작성"]],["어떻게 개발하나",["JSON 스키마를 쓰는 LLM Tool Calling","판단 → 실행 → 관찰 → 재판단 오케스트레이터 루프","LangGraph나 각종 Agents SDK","라우팅 프롬프트와 평가"]],["정하지 않는 것",["이 사용자가 테이블을 볼 수 있는지","개인정보를 답에 넣어도 되는지"]]]},
     {title:"⚙️ Context Layer",lead:"<strong>어디에·무엇을</strong> 정하는 게이트입니다.",sections:[["하는 일",["의미: 질문을 명확히 함","권한: 데이터와 시스템 범위를 제한","정책: 유해·비밀·개인정보를 필터","Memory: 대화와 경험을 붙임"]],["어떻게 개발하나",["의도 분석과 질의 재작성","로그인 사용자 기반 ACL/RBAC","가드레일과 출력 검사","대화 저장소와 요약 Memory","도구 호출 전후 미들웨어"]],["정하지 않는 것",["어떤 도구가 최적인지 자체","전체 도구 순서와 조합"]]]}
   ]},
-  criteria:{title:"🧭 도구 선택 기준은 어디에 있나",lead:"기준은 모델 머릿속에만 있지 않고, 개발자가 넣은 <strong>설명·규칙·라우팅</strong>에 있습니다.",headers:["기준이 있는 곳","무엇이 적혀 있나","쉬운 비유"],rows:[["도구 스키마","도구 이름·설명·파라미터","공구함 라벨"],["시스템 프롬프트","“최신→웹, 사내 문서→RAG” 같은 규칙","작업 매뉴얼"],["의도 라우터","질문을 분류해 후보 도구만 전달","안내 창구"],["Context Layer","금지된 도구를 제거하거나 실행 차단","출입 게이트"],["실행 결과 피드백","결과가 약하면 다른 도구로 재시도","다른 공구 시도"]],minis:[["질문 성격 → 도구","최신 → Web Search<br>사내 문서 → RAG<br>집계 → Text-to-SQL<br>파일·차트 → Code Execution<br>관계 → GraphRAG<br>예약·결제 → Action<br>이미지·음성 → Multimodal<br>API 없음 → GUI Agent<br>일 분담 → Multi-Agent<br>전부 읽기 → Long Context"],["모델이 실제로 보는 것","1) 사용자 질문<br>2) 시스템 규칙<br>3) 도구 이름·설명·파라미터<br>4) 경우에 따라 허용된 도구만<br>→ 그중 하나의 도구 호출을 출력합니다."]]},
-  callouts:{block:"<strong>한 줄:</strong> Agent가 DB를 골라도 Context는 실행을 막거나 범위를 줄일 수 있습니다.",web:"<strong>헷갈리기 쉬운 것:</strong> 실시간 웹은 Chrome 조작이 아니라 <strong>검색 API</strong>입니다. 화면을 직접 클릭하는 것은 <strong>GUI Agent → Computer Use</strong>입니다.",choose:"<strong>고르는 감:</strong> 문서 → RAG · 관계 → GraphRAG · 숫자 → Text-to-SQL · 최신 정보 → Web Search · 짧은 고정 지식 → Long Context/CAG · 복잡한 업무 → Agentic tools"},
-  products:{title:"제품별 비교 (쉬운 말)",hint:"Cursor · ChatGPT · Claude · Gemini가 같은 역할을 어떻게 하는지",headers:["역할","쉬운 설명","Cursor","ChatGPT","Claude","Gemini"],cards:[["cursor","Cursor","코딩 도우미","코드와 터미널을 직접 다룸"],["chatgpt","ChatGPT","만능 비서","웹·파일·음성·도구를 폭넓게 지원"],["claude","Claude","문서와 작업","긴 글 분석과 Computer Use에 강함"],["gemini","Gemini","구글 연동","검색·Drive·멀티모달에 강함"]],cats:["판단 · 기억","RETRIEVAL · 조회","ACTION · SENSE · SOLVE"],rows:[
+  criteria:{focus:{intent:{title:"의도 · 어떤 질문?",tag:"도구를 고르기 전에 질문 성격을 분류합니다",lead:"Agent는 먼저 <strong>질문이 어떤 종류인지</strong> 읽습니다 — 최신 정보, 사내 문서, 정확한 숫자, 이미지, 시스템 변경 등.",points:["최신/공개 정보 → Web Search","사내 문서·정책 → RAG","정확한 집계 → Text-to-SQL","파일·차트 → Code Execution","관계 → GraphRAG","이미지·음성 → Multimodal","시스템 변경 → Action","API 없음/레거시 → GUI Agent"],map:"질문 노드를 강조합니다 — 의도가 읽는 대상입니다."},schema:{title:"도구 설명 · 공구함 라벨",tag:"각 도구의 이름·설명·파라미터",lead:"개발자가 도구마다 모델이 읽을 <strong>라벨</strong>을 붙입니다 — 공구함 이름표와 같습니다.",points:["도구 이름 (예: SEO Research)","하는 일의 짧은 설명","호출에 필요한 파라미터","설명이 명확할수록 선택이 안정적"],map:"도구 단을 펄스합니다 — 라벨이 붙은 공구함입니다."},rules:{title:"시스템 규칙 · 작업 매뉴얼",tag:"“최신→웹, 문서→RAG” 같은 라우팅 규칙",lead:"<strong>시스템 프롬프트 / 라우터</strong>가 질문 유형과 도구의 대응을 정합니다.",points:["개발자가 준비 (모델 머릿속만이 아님)","후보 도구를 좁힐 수 있음","Context는 그래도 실행을 막을 수 있음","결과가 약하면 다른 도구로 재시도 가능"],map:"Agent의 LLM 배지를 강조합니다 — 규칙이 그 판단을 이끕니다."}},title:"🧭 도구 선택 기준은 어디에 있나",lead:"기준은 모델 머릿속에만 있지 않고, 개발자가 넣은 <strong>설명·규칙·라우팅</strong>에 있습니다.",headers:["기준이 있는 곳","무엇이 적혀 있나","쉬운 비유"],rows:[["도구 스키마","도구 이름·설명·파라미터","공구함 라벨"],["시스템 프롬프트","“최신→웹, 사내 문서→RAG” 같은 규칙","작업 매뉴얼"],["의도 라우터","질문을 분류해 후보 도구만 전달","안내 창구"],["Context Layer","금지된 도구를 제거하거나 실행 차단","출입 게이트"],["실행 결과 피드백","결과가 약하면 다른 도구로 재시도","다른 공구 시도"]],minis:[["질문 성격 → 도구","최신 → Web Search<br>사내 문서 → RAG<br>집계 → Text-to-SQL<br>파일·차트 → Code Execution<br>관계 → GraphRAG<br>AI용 사이트 맵 → llms.txt<br>키워드 / SERP → SEO Research<br>브랜드 표현 → Terminology<br>예약·결제 → Action<br>이미지·음성 → Multimodal<br>API 없음 → GUI Agent<br>일 분담 → Multi-Agent<br>메타 발행 / CMS → SEO Action<br>전부 읽기 → Long Context"],["모델이 실제로 보는 것","1) 사용자 질문<br>2) 시스템 규칙<br>3) 도구 이름·설명·파라미터<br>4) 경우에 따라 허용된 도구만<br>→ 그중 하나의 도구 호출을 출력합니다."]]},
+  callouts:{block:"<strong>한 줄:</strong> Agent가 DB를 골라도 Context는 실행을 막거나 범위를 줄일 수 있습니다.",choose:"<strong>고르는 감:</strong> 문서 → RAG · 관계 → GraphRAG · 숫자 → Text-to-SQL · 최신 정보 → Web Search · AI 사이트 맵 → llms.txt · 키워드 → SEO Research · 용어 → Terminology · 발행 → SEO Action · 짧은 고정 지식 → Long Context/CAG · 복잡한 업무 → Agentic tools"},
+  products:{title:"제품별 비교",hint:"Cursor · ChatGPT · Claude · Gemini가 같은 역할을 어떻게 하는지",headers:["역할","쉬운 설명","Cursor","ChatGPT","Claude","Gemini"],cards:[["cursor","Cursor","코딩 도우미","코드와 터미널을 직접 다룸"],["chatgpt","ChatGPT","만능 비서","웹·파일·음성·도구를 폭넓게 지원"],["claude","Claude","문서와 작업","긴 글 분석과 Computer Use에 강함"],["gemini","Gemini","구글 연동","검색·Drive·멀티모달에 강함"]],cats:["판단 · 기억","RETRIEVAL · 조회","ACTION · SENSE · SOLVE"],breaks:[0,4,12],rows:[
     ["Agent","어떤 도구로 답할지 선택","Agent / Composer","GPT가 도구 선택","Claude가 도구 선택","Gemini가 도구 선택"],["Long Context","검색 없이 파일 전체를 읽음","파일/폴더 첨부","전체 파일 업로드","Projects / upload","대용량 컨텍스트"],["Memory","이전 대화와 취향을 이어감","Rules, Memories","Memory, 지시","Projects, 대화","Memory, Gems"],["Context Layer","의미·권한·정책 게이트","승인, Privacy Mode","안전·관리 설정","안전·권한","안전·Workspace 관리"],
-    ["Web Search","검색 API로 최신 정보 조회","웹 검색/가져오기","Search","웹 검색","Google Search"],["RAG","문서/PDF 관련 부분 검색","코드베이스 검색","Files / Knowledge","Projects 검색","Upload / NotebookLM"],["Text-to-SQL","자연어를 DB 질의로 변환","MCP 등 DB 연결","Connector/Tool","Connector/Tool","Connector/Tool"],["Code Execution","파일 계산과 시각화","터미널","데이터 분석","분석 도구","코드 실행"],["GraphRAG","관계를 따라 답변","심볼/참조","직접 구축","직접 구축","직접 구축"],
-    ["Action","외부 시스템 변경","MCP, API, CLI","Actions/Connector","MCP/API","Extensions"],["Multimodal","이미지·음성·영상 이해","이미지 읽기/생성","Vision, Voice","Vision/문서","이미지·영상·음성"],["Symbolic","수학·최적화 Solver 사용","코드/외부 Solver","Code + Solver","Code/Tool","Code/Tool"],["GUI Agent","화면 클릭과 입력","브라우저 자동화","Computer Agent","Computer Use","제품별 상이"],["Multi-Agent","Sub-Agent에 일 분담","Task/Subagent","Custom/API","병렬 작업","Agent Workflow"]
+    ["Web Search","검색 API로 최신 정보 조회","웹 검색/가져오기","Search","웹 검색","Google Search"],["RAG","문서/PDF 관련 부분 검색","코드베이스 검색","Files / Knowledge","Projects 검색","Upload / NotebookLM"],["Text-to-SQL","자연어를 DB 질의로 변환","MCP 등 DB 연결","Connector/Tool","Connector/Tool","Connector/Tool"],["Code Execution","파일 계산과 시각화","터미널","데이터 분석","분석 도구","코드 실행"],["GraphRAG","관계를 따라 답변","심볼/참조","직접 구축","직접 구축","직접 구축"],["llms.txt","AI용 사이트 맵 읽기","Fetch / Docs map","Custom / fetch","Custom / fetch","Custom / fetch"],["SEO Research","키워드·SERP·Search Console","Custom / MCP","Custom / Tool","Custom / Tool","Custom / Tool"],["Terminology","브랜드 용어와 표기 규칙","Rules / Docs","Custom / Files","Projects / Files","Custom / Files"],
+    ["Action","외부 시스템 변경","MCP, API, CLI","Actions/Connector","MCP/API","Extensions"],["Multimodal","이미지·음성·영상 이해","이미지 읽기/생성","Vision, Voice","Vision/문서","이미지·영상·음성"],["Symbolic","수학·최적화 Solver 사용","코드/외부 Solver","Code + Solver","Code/Tool","Code/Tool"],["GUI Agent","화면 클릭과 입력","브라우저 자동화","Computer Agent","Computer Use","제품별 상이"],["Multi-Agent","Sub-Agent에 일 분담","Task/Subagent","Custom/API","병렬 작업","Agent Workflow"],["SEO Action","메타 발행·CMS 갱신·sitemap","Custom / CMS MCP","Custom / Actions","Custom / MCP","Custom / Extensions"]
   ]},
-  paths:{title:"실제 경로 · 질문이 지나가는 길",hint:"요청에서 답변까지의 대략적인 흐름",question:"질문",items:[
-    ["어제 AI 뉴스 3줄로 요약해줘",["질문","Agent: Web Search","Context: 공개 웹 허용","Web Search","실시간 웹(API)","답변"],"Chrome을 조작하지 않고 검색 API로 결과만 가져옵니다."],["우리 회사 휴가 규정 알려줘",["질문","Agent: RAG","Context: 문서 권한 확인","RAG","관련 문서/PDF","답변"],"전체가 아니라 관련 문단만 가져옵니다."],["지난달 30대 고객 매출은?",["질문","Agent: Text-to-SQL","Context: 범위·DB 권한·개인정보","Text-to-SQL","데이터베이스","정확한 숫자"],"Agent는 DB를 고르고 Context는 행과 열 범위를 제한합니다."],["이 CSV로 월별 매출 차트 그려줘",["질문","Agent: Code Execution","Context: 올린 파일만","Code Execution","파일 + 차트","답변"],""],["내일 오전 10시 치과 예약해줘",["질문","Agent: Action","Context: 실행 권한 확인","Action","예약 API","예약 완료"],""],["사진에서 빨간 옷 입은 사람 찾아줘",["질문","Agent: Multimodal","Context: 이미지 허용","Multimodal","Vision","설명"],""],["사내 레거시 사이트에서 엑셀 받아와",["질문","Agent: GUI Agent","Context: 사이트 권한 확인","GUI Agent","Computer Use","파일"],"이 경로는 실제로 브라우저를 클릭하고 입력합니다."],["신제품 마케팅 전략 짜줘",["질문","Agent: Multi-Agent","Context: 범위와 톤","Multi-Agent","조사 · 카피 · 디자인","취합 답변"],""],["이 코드 폴더 전부 읽고 구조 설명해줘",["질문","Agent: Long Context","Context: 폴더 첨부 허용","검색 생략","Long Context","답변"],"전체를 Context에 넣으므로 토큰 비용이 커질 수 있습니다."]]},
+  paths:{title:"실제 경로 · 질문이 지나가는 길",hint:"역할을 고른 뒤 실제 질문을 재생하세요",rolePick:"역할 선택",back:"← 역할 목록",count:"{n}개",criteriaBtn:"판단 기준",criteriaTag:"Agent가 도구를 고르는 근거",question:"질문",now:"NOW · 지금 하는 일",live:{question:"질문을 받음",agent:"판단 시작 → {tool}",agentWhy:"{why}",intent:"질문 성격을 분류함",schema:"도구 라벨(이름 · 파라미터)을 읽음",rules:"라우팅 규칙 적용 → {tool}",context:"게이트 통과 (의미 · 권한 · 정책)",meaning:"무엇을 묻는지 명확히 함",permission:"갈 수 있는 데이터·시스템만 허용",policy:"유해·비밀·개인정보 필터",long:"폴더 전체를 Context에 올림 (검색 생략)",memory:"대화·경험을 붙임",tool:"실행 {name} → {src}",result:"결과: {out}",done:"경로 완료"},items:[["마케팅", "봄 캠페인 LP에 넣을 키워드 후보 뽑아줘", ["질문", "Agent: SEO Research", "Context: 공개 SERP / GSC 허용", "SEO Research", "키워드 · SERP", "후보 목록"], "SERP / GSC로 키워드 조사 · 발행은 안 함.", "키워드/SERP → SEO Research"], ["마케팅", "이 광고 카피를 승인된 브랜드 용어만으로 고쳐줘", ["질문", "Agent: Terminology", "Context: 용어집 접근", "Terminology", "Glossary / Style", "승인 표기"], "용어집만 보고 카피를 다시 씀.", "브랜드 표현 → Terminology"], ["마케팅", "/pricing 메타 description 갱신하고 발행해줘", ["질문", "Agent: SEO Action", "Context: CMS 쓰기 권한", "SEO Action", "CMS / Search Console", "발행 완료"], "CMS 메타를 고치고 라이브에 발행.", "발행/CMS → SEO Action"], ["마케팅", "이번 주 경쟁사 캠페인 뉴스 요약해줘", ["질문", "Agent: Web Search", "Context: 공개 웹 허용", "Web Search", "실시간 웹(API)", "답변"], "검색 API로 최신 뉴스를 가져옴.", "최신 공개 정보 → Web Search"], ["마케팅", "이 광고 시안의 모바일 가독성 리뷰해줘", ["질문", "Agent: Multimodal", "Context: 이미지 허용", "Multimodal", "Vision", "피드백"], "Vision으로 광고 시안을 리뷰.", "이미지/시안 → Multimodal"], ["마케팅", "조사·카피·디자인 관점으로 런칭 브리프 초안 써줘", ["질문", "Agent: Multi-Agent", "Context: 범위와 톤", "Multi-Agent", "조사 · 카피 · 디자인", "취합 답변"], "Sub-Agent에 일을 나눠 취합.", "일 분담 → Multi-Agent"], ["기획", "전략 문서에서 Q3 OKR 후보 초안 잡아줘", ["질문", "Agent: RAG", "Context: 문서 권한 확인", "RAG", "관련 문서/PDF", "초안"], "전략 문서 관련 문단을 가져와 OKR 초안.", "사내 문서 → RAG"], ["기획", "지난 분기 채널별 전환율은?", ["질문", "Agent: Text-to-SQL", "Context: 범위·DB 권한·개인정보", "Text-to-SQL", "데이터베이스", "정확한 숫자"], "DB를 조회해 정확한 전환율을 냄.", "정확한 집계 → Text-to-SQL"], ["기획", "Payments 런칭을 막는 로드맵 의존은?", ["질문", "Agent: GraphRAG", "Context: 로드맵 그래프 권한", "GraphRAG", "Knowledge Graph", "답변"], "의존 관계를 그래프로 따라감.", "관계 → GraphRAG"], ["기획", "이 주간 가입 CSV로 다음 분기 예측 차트 그려줘", ["질문", "Agent: Code Execution", "Context: 올린 파일만", "Code Execution", "파일 + 차트", "그래프"], "내보내기를 계산해 예측 차트를 그림.", "파일 계산 → Code Execution"], ["기획", "이 PRD 폴더 전부 읽고 미결 결정 목록 뽑아줘", ["질문", "Agent: Long Context", "Context: 폴더 첨부 허용", "검색 생략", "Long Context", "지적"], "PRD 폴더 전체를 Context에 올림.", "폴더 전체 → Long Context"], ["기획", "조사와 메시지 초안으로 GTM 아웃라인 만들어줘", ["질문", "Agent: Multi-Agent", "Context: 범위와 톤", "Multi-Agent", "조사 · 메시지", "취합 답변"], "조사와 메시지를 나눔.", "일 분담 → Multi-Agent"], ["CS", "디지털 상품 환불 기한 알려줘", ["질문", "Agent: RAG", "Context: 문서 권한 확인", "RAG", "관련 문서/PDF", "답변"], "정책 지식베이스에서 근거로 답함.", "사내 문서 → RAG"], ["CS", "티켓 열고 주문 #48291 환불 처리해줘", ["질문", "Agent: Action", "Context: 실행 권한 확인", "Action", "예약 API", "완료"], "티켓을 만들고 환불 API를 실행.", "외부 변경 → Action"], ["CS", "이 답변을 CS 톤 가이드에 맞게 고쳐줘", ["질문", "Agent: Terminology", "Context: 용어집 접근", "Terminology", "Glossary / Style", "승인 표기"], "승인된 CS 표현으로 맞춤.", "브랜드 표현 → Terminology"], ["CS", "지난주 사유코드별 티켓 건수는?", ["질문", "Agent: Text-to-SQL", "Context: 범위·DB 권한·개인정보", "Text-to-SQL", "데이터베이스", "정확한 숫자"], "티켓 지표를 DB에서 조회.", "정확한 집계 → Text-to-SQL"], ["CS", "이 고객 스크린샷 에러가 뭐야?", ["질문", "Agent: Multimodal", "Context: 이미지 허용", "Multimodal", "Vision", "설명"], "Vision으로 스크린샷을 읽음.", "이미지/스크린샷 → Multimodal"], ["CS", "결제 페이지 공개 장애 공지 있어?", ["질문", "Agent: Web Search", "Context: 공개 웹 허용", "Web Search", "실시간 웹(API)", "답변"], "검색 API로 공개 상태를 확인.", "최신 정보 → Web Search"], ["디자이너", "이 히어로 시안의 모바일 여백 리뷰해줘", ["질문", "Agent: Multimodal", "Context: 이미지 허용", "Multimodal", "Vision", "피드백"], "Vision으로 여백을 리뷰.", "이미지/시안 → Multimodal"], ["디자이너", "이 UI 문구를 브랜드 용어집에 맞춰줘", ["질문", "Agent: Terminology", "Context: 용어집 접근", "Terminology", "Glossary / Style", "승인 표기"], "UI 문구를 승인 용어에 맞춤.", "브랜드 표현 → Terminology"], ["디자이너", "이 레퍼런스 이미지에서 메인 컬러 추출해줘", ["질문", "Agent: Multimodal", "Context: 이미지 허용", "Multimodal", "Vision", "설명"], "Vision으로 색을 추출.", "이미지 분석 → Multimodal"], ["디자이너", "디자인 시스템 문서에서 여백·타이포 규칙 찾아줘", ["질문", "Agent: RAG", "Context: 문서 권한 확인", "RAG", "관련 문서/PDF", "답변"], "디자인 시스템 문서를 검색.", "사내 문서 → RAG"], ["디자이너", "브랜드 가이드 PDF 전부 읽고 Do/Don’t 요약해줘", ["질문", "Agent: Long Context", "Context: 폴더 첨부 허용", "검색 생략", "Long Context", "지적"], "가이드 전체를 Context에 올림.", "전체 읽기 → Long Context"], ["디자이너", "레이아웃·카피 방향으로 LP 컨셉 제안해줘", ["질문", "Agent: Multi-Agent", "Context: 범위와 톤", "Multi-Agent", "레이아웃 · 카피", "취합 답변"], "레이아웃과 카피를 나눔.", "일 분담 → Multi-Agent"], ["엔지니어", "이 인증 폴더 읽고 레이스 컨디션 찾아줘", ["질문", "Agent: Long Context", "Context: 폴더 첨부 허용", "검색 생략", "Long Context", "지적"], "폴더 전체를 읽고 레이스를 지적.", "폴더 전체 → Long Context"], ["엔지니어", "레거시 관리자 화면에서 어제 리포트 받아와", ["질문", "Agent: GUI Agent", "Context: 사이트 권한 확인", "GUI Agent", "Computer Use", "파일"], "관리자 UI를 클릭해 파일을 받음.", "API 없음/레거시 → GUI Agent"], ["엔지니어", "온콜 런북의 5xx 대응 뭐라고 돼 있어?", ["질문", "Agent: RAG", "Context: 문서 권한 확인", "RAG", "관련 문서/PDF", "답변"], "런북 관련 문단을 가져옴.", "사내 문서 → RAG"], ["엔지니어", "이 로그 CSV로 p95 레이턴시 차트 그려줘", ["질문", "Agent: Code Execution", "Context: 올린 파일만", "Code Execution", "파일 + 차트", "그래프"], "내보내기에서 레이턴시를 계산.", "파일 계산 → Code Execution"], ["엔지니어", "최근 24시간 서비스별 에러율은?", ["질문", "Agent: Text-to-SQL", "Context: 범위·DB 권한·개인정보", "Text-to-SQL", "데이터베이스", "정확한 숫자"], "에러율을 DB에서 조회.", "정확한 집계 → Text-to-SQL"], ["엔지니어", "Payments에 의존하는 서비스와 오너는?", ["질문", "Agent: GraphRAG", "Context: 조직 그래프 권한", "GraphRAG", "Knowledge Graph", "답변"], "의존 관계를 그래프로 따라감.", "관계 → GraphRAG"], ["매니저", "최근 6스프린트 벨로시티 vs 커밋 비교해줘", ["질문", "Agent: Code Execution", "Context: 올린 파일만", "Code Execution", "파일 + 차트", "그래프"], "내보내기로 비교 차트를 그림.", "파일 계산 → Code Execution"], ["매니저", "Payments 오너와 보고 라인은 누구야?", ["질문", "Agent: GraphRAG", "Context: 조직 그래프 권한", "GraphRAG", "Knowledge Graph", "답변"], "조직 그래프를 따라 오너를 답함.", "관계 → GraphRAG"], ["매니저", "이번 달 팀별 OKR 진행률%는?", ["질문", "Agent: Text-to-SQL", "Context: 범위·DB 권한·개인정보", "Text-to-SQL", "데이터베이스", "정확한 숫자"], "OKR 진행률을 DB에서 조회.", "정확한 집계 → Text-to-SQL"], ["매니저", "이번 달 보드 메모에서 리스크 요약해줘", ["질문", "Agent: RAG", "Context: 문서 권한 확인", "RAG", "관련 문서/PDF", "답변"], "메모에서 리스크 문단을 검색.", "사내 문서 → RAG"], ["매니저", "지표·리스크·다음 액션으로 주간 현황 초안 써줘", ["질문", "Agent: Multi-Agent", "Context: 범위와 톤", "Multi-Agent", "지표 · 리스크 · 작성", "취합 답변"], "지표와 작성을 나눔.", "일 분담 → Multi-Agent"], ["매니저", "다음 화요일 Payments 오너와 30분 리뷰 잡아줘", ["질문", "Agent: Action", "Context: 실행 권한 확인", "Action", "예약 API", "예약 완료"], "캘린더/예약 API로 일정을 잡음.", "외부 변경 → Action"]]},
   methods:{ragTitle:"RAG 방법론 9가지",otherTitle:"RAG 외 방법론 9가지",hint:"카드를 누르면 상세 설명이 열립니다",otherHint:"RAG를 보완하거나 문서 조각 검색이 아닌 접근",more:"상세 보기 →",whenLabel:"언제: ",modal:{flow:"흐름",what:"무엇인가",steps:"어떻게 동작하나",when:"언제 쓰나",care:"주의",close:"닫기"},data:{}},
   footer:"에이전틱 AI 시스템을 쉽게 정리한 지도"
 }};
@@ -286,56 +474,505 @@ for(const lang of ["ja","ko"]){
   }
 }
 
-let currentLang="en",openMethod=null,lastTrigger=null;
+const RETRIEVAL_COUNT=8;
+let currentLang="en",openKind=null,openKey=null,lastTrigger=null,openDisclose=null,openProduct=null,openModel=null;
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
 const get=(obj,path)=>path.split(".").reduce((v,k)=>v&&v[k],obj);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function toolHtml(t,i){const colors=["teal","blue","yellow","orange","purple","red","cyan","lime","green","pink"];return `<div class="tool-col"><div class="node ${colors[i]}"><div class="icon sm">${t[0]}</div><div class="label">${esc(t[1])}</div><div class="caption">${esc(t[2])}</div></div><div class="v-mini"></div><div class="node ${colors[i]}"><div class="icon sm">${t[3]}</div><div class="label">${esc(t[4])}</div><div class="caption">${esc(t[5])}</div></div></div>`}
+const colors=["teal","blue","yellow","orange","purple","cyan","lime","green","red","pink","blue","yellow","orange","teal"];
+function toolHtml(t,i){
+  const c=colors[i%colors.length],tap=esc(I18N[currentLang].ui.tap);
+  const fx=`<span class="fx fx-ring" aria-hidden="true"></span><span class="fx fx-orbit" aria-hidden="true"><i></i><i></i><i></i></span><span class="fx fx-scan" aria-hidden="true"></span>`;
+  return `<div class="tool-col" data-node="tool-${i}"><button type="button" class="tool-hit" data-tool="${i}" aria-label="${esc(t[1])}"><div class="node ${c}"><div class="icon sm">${fx}${t[0]}</div><div class="label">${esc(t[1])}</div><div class="caption">${esc(t[2])}</div></div><div class="v-mini"></div><div class="node ${c}"><div class="icon sm">${fx}${t[3]}</div><div class="label">${esc(t[4])}</div><div class="caption">${esc(t[5])}</div></div><span class="tool-hit-hint">${tap}</span></button></div>`;
+}
+function bindTools(){$$("[data-tool]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();openToolModal(+b.dataset.tool,b)}))}
 function renderModels(d){
+  const u=d.ui,families=d.models.families;
+  const icons={gemini:"✨",openai:"💬",anthropic:"📄",meta:"🦙"};
+  $("#model-disclose-row").innerHTML=families.map(f=>{
+    const sub=f[2].map(x=>x[0]).join(" · ");
+    return `<button type="button" class="disclose-btn" data-model="${f[0]}" aria-expanded="false"><span class="disclose-ico">${icons[f[0]]||"🧠"}</span><span class="disclose-title"><span class="tag ${f[0]}">${esc(f[1].split("·")[0].trim())}</span> ${esc(f[1])}</span><span class="disclose-sub">${esc(sub)}</span><span class="disclose-more">${esc(u.open)}</span></button>`;
+  }).join("");
   $("#model-tiers").innerHTML=d.models.tiers.map(t=>`<article class="tier"><div class="tier-label">${esc(t[0])}</div><h3>${esc(t[1])}</h3><p>${esc(t[2])}</p></article>`).join("");
-  $("#model-cards").innerHTML=d.models.families.map(f=>`<article class="model-card"><h3><span class="tag ${f[0]}">${esc(f[1].split("·")[0].trim())}</span>${esc(f[1])}</h3><ul>${f[2].map(x=>`<li><strong>${esc(x[0])}</strong> — ${esc(x[1])}</li>`).join("")}</ul></article>`).join("");
   $("#models-head").innerHTML=`<tr>${d.models.headers.map(x=>`<th>${esc(x)}</th>`).join("")}</tr>`;
   $("#models-body").innerHTML=d.models.rows.map(r=>`<tr>${r.map(x=>`<td>${esc(x)}</td>`).join("")}</tr>`).join("");
+  $$("[data-model]").forEach(b=>b.addEventListener("click",()=>toggleModel(b.dataset.model,b)));
+  if(openModel)toggleModel(openModel,$(`[data-model="${openModel}"]`),true);
 }
+function toggleModel(id,btn,keepOpen){
+  const panel=$("#panel-models");if(!panel)return;
+  const isOpen=panel.classList.contains("open")&&openModel===id;
+  $$("[data-model]").forEach(b=>{b.setAttribute("aria-expanded","false");const more=b.querySelector(".disclose-more");if(more)more.textContent=I18N[currentLang].ui.open});
+  if(!keepOpen&&isOpen){panel.classList.remove("open");panel.hidden=true;openModel=null;return}
+  panel.hidden=false;panel.classList.add("open");openModel=id;
+  if(btn){btn.setAttribute("aria-expanded","true");const more=btn.querySelector(".disclose-more");if(more)more.textContent=I18N[currentLang].ui.hide}
+  panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function cardHtml(c){return `<article class="panel detail-card"><h3>${c.title}</h3><p class="lead">${c.lead}</p>${c.sections.map(s=>`<h4>${esc(s[0])}</h4><ul>${s[1].map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`).join("")}</article>`}
+function stripTitle(s){return s.replace(/^[^A-Za-z가-힣一-龥ァ-ヶー0-9]+/,"").trim()||s}
 function renderDetail(d){
-  $("#detail-grid").innerHTML=d.detail.cards.map(c=>`<article class="panel detail-card"><h3>${c.title}</h3><p class="lead">${c.lead}</p>${c.sections.map(s=>`<h4>${esc(s[0])}</h4><ul>${s[1].map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`).join("")}</article>`).join("");
+  const u=d.ui,cards=d.detail.cards;
+  const items=[
+    ["agent","🧭",stripTitle(cards[0].title),cards[0].lead.replace(/<[^>]+>/g,"")],
+    ["context","⚙️",stripTitle(cards[1].title),cards[1].lead.replace(/<[^>]+>/g,"")],
+    ["criteria","📋",stripTitle(d.criteria.title),d.criteria.lead.replace(/<[^>]+>/g,"")],
+    ["rag","🔍",d.methods.ragTitle,u.ragSub||d.methods.hint],
+    ["other","🧩",d.methods.otherTitle,u.otherSub||d.methods.otherHint]
+  ];
+  $("#disclose-row").innerHTML=items.map(it=>`<button type="button" class="disclose-btn" data-disclose="${it[0]}" aria-expanded="false"><span class="disclose-ico">${it[1]}</span><span class="disclose-title">${esc(it[2])}</span><span class="disclose-sub">${esc(it[3])}</span><span class="disclose-more">${esc(u.open)}</span></button>`).join("");
+  $("#panel-agent").innerHTML=cardHtml(cards[0]);
+  $("#panel-context").innerHTML=cardHtml(cards[1]);
   $("#criteria-head").innerHTML=`<tr>${d.criteria.headers.map(x=>`<th>${esc(x)}</th>`).join("")}</tr>`;
   $("#criteria-body").innerHTML=d.criteria.rows.map(r=>`<tr>${r.map(x=>`<td>${esc(x)}</td>`).join("")}</tr>`).join("");
   $("#criteria-minis").innerHTML=d.criteria.minis.map(x=>`<div class="criteria-mini"><strong>${esc(x[0])}</strong>${x[1]}</div>`).join("");
+  $$("[data-disclose]").forEach(b=>b.addEventListener("click",()=>toggleDisclose(b.dataset.disclose,b)));
+  if(openDisclose)toggleDisclose(openDisclose, $(`[data-disclose="${openDisclose}"]`), true);
+}
+function toggleDisclose(id,btn,keepOpen){
+  const panels={agent:$("#panel-agent"),context:$("#panel-context"),criteria:$("#panel-criteria"),rag:$("#panel-rag"),other:$("#panel-other")};
+  const panel=panels[id];if(!panel)return;
+  const isOpen=panel.classList.contains("open");
+  Object.values(panels).forEach(el=>{if(el){el.classList.remove("open");el.hidden=true}});
+  $$("[data-disclose]").forEach(b=>{b.setAttribute("aria-expanded","false");const more=b.querySelector(".disclose-more");if(more)more.textContent=I18N[currentLang].ui.open});
+  if(!keepOpen&&isOpen){openDisclose=null;return}
+  panel.hidden=false;panel.classList.add("open");openDisclose=id;
+  if(btn){btn.setAttribute("aria-expanded","true");const more=btn.querySelector(".disclose-more");if(more)more.textContent=I18N[currentLang].ui.hide}
+  if(id==="rag"||id==="other")renderMethods(I18N[currentLang]);
+  panel.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 function renderProducts(d){
-  $("#product-cards").innerHTML=d.products.cards.map(c=>`<div class="card"><h3><span class="tag ${c[0]}">${c[1]}</span>${esc(c[2])}</h3><p>${esc(c[3])}</p></div>`).join("");
+  const u=d.ui,cards=d.products.cards;
+  const icons={cursor:"💻",chatgpt:"💬",claude:"📄",gemini:"✨"};
+  $("#product-disclose-row").innerHTML=cards.map(c=>`<button type="button" class="disclose-btn" data-product="${c[0]}" aria-expanded="false"><span class="disclose-ico">${icons[c[0]]||"📦"}</span><span class="disclose-title"><span class="tag ${c[0]}">${esc(c[1])}</span> ${esc(c[2])}</span><span class="disclose-sub">${esc(c[3])}</span><span class="disclose-more">${esc(u.open)}</span></button>`).join("");
   $("#comparison-head").innerHTML=`<tr>${d.products.headers.map(x=>`<th>${esc(x)}</th>`).join("")}</tr>`;
-  const breaks={0:d.products.cats[0],4:d.products.cats[1],9:d.products.cats[2]};
-  $("#comparison-body").innerHTML=d.products.rows.map((r,i)=>(breaks[i]?`<tr><td colspan="6" class="cat">${esc(breaks[i])}</td></tr>`:"")+`<tr>${r.map((x,j)=>`<td class="${j===1?"meaning":""}">${esc(x)}</td>`).join("")}</tr>`).join("");
+  const breaks=d.products.breaks||[0,4,9];
+  const breakMap=Object.fromEntries(breaks.map((idx,i)=>[idx,d.products.cats[i]]));
+  $("#comparison-body").innerHTML=d.products.rows.map((r,i)=>(breakMap[i]!=null?`<tr><td colspan="6" class="cat">${esc(breakMap[i])}</td></tr>`:"")+`<tr>${r.map((x,j)=>`<td class="${j===1?"meaning":""}">${esc(x)}</td>`).join("")}</tr>`).join("");
+  $$("[data-product]").forEach(b=>b.addEventListener("click",()=>toggleProduct(b.dataset.product,b)));
+  if(openProduct)toggleProduct(openProduct,$(`[data-product="${openProduct}"]`),true);
 }
-function renderPaths(d){
-  const classes=["q","agent","ctx","tool","src","out"];
-  $("#paths").innerHTML=d.paths.items.map(p=>`<article class="path-card"><div class="ask"><small>${esc(d.paths.question)}</small>“${esc(p[0])}”</div><div class="flow-chips">${p[1].map((x,i)=>`${i?'<span class="arrow">→</span>':""}<span class="chip ${classes[Math.min(i,5)]}">${esc(x)}</span>`).join("")}</div>${p[2]?`<div class="path-note">${esc(p[2])}</div>`:""}</article>`).join("");
+function toggleProduct(id,btn,keepOpen){
+  const panel=$("#panel-products");if(!panel)return;
+  const isOpen=panel.classList.contains("open")&&openProduct===id;
+  $$("[data-product]").forEach(b=>{b.setAttribute("aria-expanded","false");const more=b.querySelector(".disclose-more");if(more)more.textContent=I18N[currentLang].ui.open});
+  if(!keepOpen&&isOpen){panel.classList.remove("open");panel.hidden=true;openProduct=null;return}
+  panel.hidden=false;panel.classList.add("open");openProduct=id;
+  if(btn){btn.setAttribute("aria-expanded","true");const more=btn.querySelector(".disclose-more");if(more)more.textContent=I18N[currentLang].ui.hide}
+  panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function chipToNode(chip){
+  const s=String(chip).toLowerCase();
+  if(/^(question|질문|質問)/.test(s))return"question";
+  if(/long\s*context|검색 생략|検索を省略|skip retrieval|검색생략/.test(s))return"long";
+  if(/\bagent\b|판단|判断/.test(s))return"agent";
+  if(/\bcontext\b/.test(s))return"context";
+  if(/\bmemory\b/.test(s))return"memory";
+  if(/llms\.txt/.test(s))return"tool-5";
+  if(/seo research|seo\s*research/.test(s))return"tool-6";
+  if(/terminology|glossary|용어|用語|브랜드 용어|ブランド用語/.test(s))return"tool-7";
+  if(/seo action/.test(s)||(/meta|메타|メタ|cms|sitemap|발행|公開|publish/.test(s)&&/seo|cms|meta|메타|メタ/.test(s)))return"tool-13";
+  if(/web search|realtime web|リアルタイム|실시간 웹/.test(s))return"tool-0";
+  if(/graphrag|knowledge graph/.test(s))return"tool-4";
+  if(/\brag\b/.test(s)||/docs\/pdf|文書\/pdf|문서\/pdf|관련 문서|関連する文書/.test(s))return"tool-1";
+  if(/text-to-sql|database|데이터베이스|データベース|exact number|正確な数値|정확한 숫자/.test(s))return"tool-2";
+  if(/code exec|code execution|ファイル \+|파일 \+|file \+/.test(s))return"tool-3";
+  if(/gui agent|computer use/.test(s))return"tool-11";
+  if(/multi-agent|sub-agent/.test(s))return"tool-12";
+  if(/multimodal|vision/.test(s))return"tool-9";
+  if(/symbolic|solver|wolfram/.test(s))return"tool-10";
+  if(/\baction\b|booking|예약|予約|결제|決済/.test(s))return"tool-8";
+  return null;
+}
+function pathLive(d){return (d.paths&&d.paths.live)||{}}
+function fillLive(tpl,vars){
+  if(!tpl)return "";
+  return String(tpl).replace(/\{(\w+)\}/g,(_,k)=>vars[k]!=null?vars[k]:"");
+}
+function agentToolFromChips(chips){
+  const ag=chips.find(c=>/\bagent\b|판단|判断/i.test(c));
+  if(!ag)return "";
+  return String(ag).replace(/^[^:]*:\s*/,"").trim();
+}
+function toolBitsFromChips(chips,node){
+  let name="",src="",out="";
+  chips.forEach(c=>{
+    const k=chipToNode(c);
+    if(k===node&&!name)name=c;
+    else if(k===null&&name&&!src&&!/^(answer|답변|回答|draft|하書き|초안|done|완료|完了|findings|지적|指摘|feedback|피드백|shortlist|후보|候補|published|발행|公開|graph|그래프)/i.test(c))src=c;
+    else if(/^(answer|답변|回答|draft|하書き|下書き|초안|done|완료|完了|findings|지적|指摘|feedback|피드백|shortlist|후보|候補|候補リスト|published|발행|公開|公開完了|발행 완료|graph|그래프|exact number|정확한 숫자|正確な数値|approved wording|승인|承認|file|파일|ファイル|booked|예약)/i.test(c)||(name&&!out&&chipToNode(c)===null&&src)){
+      if(!out&&chipToNode(c)===null)out=c;
+    }
+  });
+  // fallback: last non-mapped chip after tool
+  if(!out){
+    const idx=chips.findIndex(c=>chipToNode(c)===node);
+    for(let i=chips.length-1;i>idx;i--){if(chipToNode(chips[i])===null){out=chips[i];break}}
+  }
+  if(!src){
+    const idx=chips.findIndex(c=>chipToNode(c)===node);
+    for(let i=idx+1;i<chips.length;i++){if(chipToNode(chips[i])===null&&chips[i]!==out){src=chips[i];break}}
+  }
+  return {name:name||node,src:src||"—",out:out||""};
+}
+function captionForStep(step,chips,d){
+  const live=pathLive(d);
+  const n=step.node;
+  if(n==="question")return live.question||"";
+  if(n==="agent"){
+    const tool=agentToolFromChips(chips);
+    return fillLive(live.agent,{tool});
+  }
+  if(n==="intent")return live.intent||"";
+  if(n==="schema")return live.schema||"";
+  if(n==="rules"){
+    const tool=agentToolFromChips(chips);
+    const why=step.why||"";
+    const main=fillLive(live.rules,{tool});
+    if(why&&live.agentWhy)return {main,sub:fillLive(live.agentWhy,{why})};
+    return {main};
+  }
+  if(n==="context")return live.context||"";
+  if(n==="meaning")return live.meaning||"";
+  if(n==="permission")return live.permission||"";
+  if(n==="policy")return live.policy||"";
+  if(n==="long")return live.long||"";
+  if(n==="memory")return live.memory||"";
+  if(n.startsWith("tool-")){
+    const bits=toolBitsFromChips(chips,n);
+    return fillLive(live.tool,{name:bits.name,src:bits.src});
+  }
+  return step.cap||"";
+}
+function chipsToTimeline(chips){
+  const timeline=[];
+  let prev=null;
+  chips.forEach(chip=>{
+    const key=chipToNode(chip);
+    if(!key||key===prev)return;
+    prev=key;
+    if(key==="question")timeline.push({node:"question",edge:null,hold:1.6});
+    else if(key==="long")timeline.push({node:"long",edge:"qa",hold:2.0});
+    else if(key==="agent"){
+      timeline.push({node:"agent",edge:"qa",hold:1.8});
+      timeline.push({node:"intent",edge:"qa",hold:1.8});
+      timeline.push({node:"schema",edge:"qa",hold:1.8});
+      timeline.push({node:"rules",edge:"qa",hold:2.2});
+    }else if(key==="context"){
+      timeline.push({node:"context",edge:"ac",hold:1.8});
+      timeline.push({node:"meaning",edge:"ac",hold:1.8});
+      timeline.push({node:"permission",edge:"ac",hold:1.8});
+      timeline.push({node:"policy",edge:"ac",hold:2.0});
+    }else if(key==="memory")timeline.push({node:"memory",edge:"ac",hold:1.8});
+    else if(key.startsWith("tool-"))timeline.push({node:key,edge:"fan",hold:3.0});
+    else timeline.push({node:key,edge:null,hold:1.6});
+  });
+  return timeline;
+}
+let pathTimers=[];
+function setPathLiveText(text,on,anchor){
+  const bar=$("#path-live");
+  const el=$("#path-live-text");
+  const lab=$(".path-live .live-label");
+  if(lab){const d=I18N[currentLang];lab.textContent=(d.paths&&d.paths.now)||"NOW"}
+  let has=false;
+  if(el){
+    if(text&&typeof text==="object"){
+      const main=text.main||"";
+      const sub=text.sub||"";
+      el.innerHTML=`<span class="live-main">${esc(main)}</span>`+(sub?`<span class="live-sub">${esc(sub)}</span>`:"");
+      has=!!(main||sub);
+    }else{
+      el.textContent=text||"";
+      has=!!text;
+    }
+  }
+  if(!bar)return;
+  if(on===false||(on==null&&!has)){
+    bar.classList.remove("is-on","is-above");
+    bar.style.left="";bar.style.top="";
+    return;
+  }
+  bar.classList.add("is-on");
+  if(anchor)placePathLive(anchor);
+}
+function placePathLive(anchor){
+  const bar=$("#path-live");
+  if(!bar||!anchor||!bar.classList.contains("is-on"))return;
+  const gap=10;
+  const place=()=>{
+    const r=anchor.getBoundingClientRect();
+    const bw=bar.offsetWidth||280;
+    const bh=bar.offsetHeight||48;
+    let left=r.left+r.width/2;
+    let top=r.bottom+gap;
+    let above=false;
+    const pad=8;
+    if(top+bh>window.innerHeight-pad){
+      top=r.top-gap;
+      above=true;
+    }
+    left=Math.max(pad+bw/2,Math.min(window.innerWidth-pad-bw/2,left));
+    if(above&&top-bh<pad){top=r.bottom+gap;above=false}
+    bar.classList.toggle("is-above",above);
+    bar.style.left=left+"px";
+    bar.style.top=top+"px";
+  };
+  requestAnimationFrame(()=>requestAnimationFrame(place));
+}
+function clearPathAnim(){
+  pathTimers.forEach(clearTimeout);pathTimers=[];
+  $$(".path-active").forEach(el=>el.classList.remove("path-active"));
+  $$(".path-flow").forEach(el=>el.classList.remove("path-flow"));
+  $$(".path-card.path-selected").forEach(el=>el.classList.remove("path-selected"));
+  const judge=$("#agent-judge");if(judge)judge.classList.remove("path-active");
+  const shell=$(".diagram-shell");if(shell)shell.classList.remove("path-playing");
+  setPathLiveText("",false);
+}
+function setEdgeFlow(edge){
+  $$("[data-edge]").forEach(el=>el.classList.remove("path-flow"));
+  if(!edge)return;
+  if(edge==="fan"){
+    const fan=$('[data-edge="fan"]');if(fan)fan.classList.add("path-flow");
+    const ct=$('[data-edge="ct"]');if(ct)ct.classList.add("path-flow");
+  }else{
+    const el=$(`[data-edge="${edge}"]`);if(el)el.classList.add("path-flow");
+  }
+}
+function scrollWithin(container,el,smooth){
+  if(!container||!el)return;
+  const cr=container.getBoundingClientRect(),er=el.getBoundingClientRect();
+  const pad=8;
+  let dy=0,dx=0;
+  if(er.top<cr.top+pad)dy=er.top-cr.top-pad;
+  else if(er.bottom>cr.bottom-pad)dy=er.bottom-cr.bottom+pad;
+  if(er.left<cr.left+pad)dx=er.left-cr.left-pad;
+  else if(er.right>cr.right-pad)dx=er.right-cr.right+pad;
+  if(dx||dy)container.scrollBy({left:dx,top:dy,behavior:smooth?"smooth":"auto"});
+}
+function scrollNodeInDiagram(el,smooth){
+  const shell=el&&el.closest(".diagram-shell");
+  if(!shell||!el)return;
+  scrollWithin(shell,el,smooth);
+}
+function playPath(chips,card,note,why){
+  clearPathAnim();
+  const d=I18N[currentLang];
+  const timeline=chipsToTimeline(chips);
+  if(!timeline.length)return;
+  if(card){
+    card.classList.add("path-selected");
+    const side=$(".side-nav");
+    if(side&&side.contains(card))scrollWithin(side,card,true);
+  }
+  const shell=$(".diagram-shell");
+  if(shell)shell.classList.add("path-playing");
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const unit=reduce?0:3600;
+  let t=0;
+  timeline.forEach((step)=>{
+    if((step.node==="agent"||step.node==="rules")&&why)step.why=why;
+    pathTimers.push(setTimeout(()=>{
+      $$(".path-active").forEach(el=>el.classList.remove("path-active"));
+      setEdgeFlow(step.edge);
+      const el=$(`[data-node="${step.node}"]`);
+      const judge=$("#agent-judge");
+      const agentInner=["agent","intent","schema","rules"];
+      if(judge)judge.classList.toggle("path-active",agentInner.includes(step.node));
+      if(el){
+        el.classList.add("path-active");
+        if(step.node.startsWith("tool-"))scrollNodeInDiagram(el,!reduce);
+        const anchor=(agentInner.includes(step.node)&&judge)?(step.node==="agent"?judge:el):el;
+        setPathLiveText(captionForStep(step,chips,d),true,anchor);
+        pathTimers.push(setTimeout(()=>placePathLive(anchor),reduce?0:320));
+      }else{
+        setPathLiveText(captionForStep(step,chips,d),true);
+      }
+    },t));
+    t+=Math.round((step.hold||1)*unit);
+  });
+  // result beat after last tool
+  const lastTool=[...timeline].reverse().find(s=>String(s.node).startsWith("tool-")||s.node==="long");
+  if(lastTool){
+    const bits=toolBitsFromChips(chips,lastTool.node==="long"?"long":lastTool.node);
+    const live=pathLive(d);
+    const resultText=note||fillLive(live.result,{out:bits.out||bits.name});
+    pathTimers.push(setTimeout(()=>{
+      const el=$(`[data-node="${lastTool.node}"]`)||$(".path-active");
+      setPathLiveText(resultText,true,el);
+      if(el)pathTimers.push(setTimeout(()=>placePathLive(el),reduce?0:200));
+    },t));
+    t+=Math.round(2.2*unit);
+  }
+  pathTimers.push(setTimeout(()=>{
+    const el=$(".path-active");
+    setPathLiveText((pathLive(d).done)||"",true,el);
+    $$(".path-flow").forEach(el=>el.classList.remove("path-flow"));
+    if(el)placePathLive(el);
+  },t));
+  pathTimers.push(setTimeout(()=>{
+    if(shell)shell.classList.remove("path-playing");
+    setPathLiveText("",false);
+  },t+6000));
+}
+function pathParts(p){
+  if(p.length>=5)return {role:p[0],q:p[1],chips:p[2],note:p[3],why:p[4]};
+  if(p.length>=4)return {role:p[0],q:p[1],chips:p[2],note:p[3],why:""};
+  return {role:"",q:p[0],chips:p[1],note:p[2]||"",why:""};
+}
+let selectedPathRole=null;
+function groupPathsByRole(items){
+  const order=[], map={};
+  items.forEach((p,idx)=>{
+    const {role}=pathParts(p);
+    const key=role||"_";
+    if(!map[key]){map[key]=[];order.push(key)}
+    map[key].push({p,idx});
+  });
+  return {order,map};
+}
+function renderPaths(d,role){
+  const root=$("#paths");if(!root)return;
+  const play=esc(d.ui.pathPlay||"Play →");
+  const {order,map}=groupPathsByRole(d.paths.items);
+  if(role!=null)selectedPathRole=role;
+  const active=selectedPathRole;
+  if(!active){
+    root.innerHTML=`<div class="path-roles">${order.map(r=>{
+      const n=map[r].length;
+      const count=(d.paths.count||"{n}").replace("{n}",String(n));
+      return `<button type="button" class="role-btn" data-role="${esc(r)}"><span class="role-name">${esc(r)}</span><span class="role-count">${esc(count)}</span></button>`;
+    }).join("")}</div>`;
+    $$("[data-role]").forEach(b=>b.addEventListener("click",()=>renderPaths(I18N[currentLang],b.dataset.role)));
+    return;
+  }
+  const list=map[active]||[];
+  const back=esc(d.paths.back||"← Roles");
+  root.innerHTML=`<button type="button" class="path-back" id="path-back">${back}</button><div class="path-role-title">${esc(active)}</div>`+list.map(({p,idx})=>{
+    const {q,note,why}=pathParts(p);
+    const noteHtml=note?`<div class="path-note">${esc(note)}</div>`:"";
+    const whyHtml=why?`<div class="path-why">${esc(why)}</div>`:"";
+    return `<article class="path-card" data-path="${idx}" tabindex="0" role="button"><div class="ask">“${esc(q)}”</div>${whyHtml}${noteHtml}<span class="path-play">${play}</span></article>`;
+  }).join("");
+  const backBtn=$("#path-back");
+  if(backBtn)backBtn.addEventListener("click",()=>{selectedPathRole=null;renderPaths(I18N[currentLang],null)});
+  $$("[data-path]").forEach(card=>{
+    const run=()=>{
+      const {chips,note,why}=pathParts(d.paths.items[+card.dataset.path]);
+      playPath(chips,card,note,why);
+    };
+    card.addEventListener("click",run);
+    card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();run()}});
+  });
+}
+function clearMapHints(){
+  $$(".map-hint-pulse").forEach(el=>el.classList.remove("map-hint-pulse"));
+  $$(".judge-chip.is-focus").forEach(el=>el.classList.remove("is-focus"));
+}
+function pulseMapHint(focus){
+  clearMapHints();
+  const chip=$(`.judge-chip[data-criteria="${focus}"]`);
+  if(chip)chip.classList.add("is-focus");
+  let target=null;
+  if(focus==="intent")target=$('[data-node="question"]');
+  else if(focus==="schema")target=$(".tools-tier");
+  else if(focus==="rules")target=$(".agent-brain")||$('[data-node="agent"]');
+  if(target){
+    target.classList.add("map-hint-pulse");
+    target.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+    setTimeout(()=>target.classList.remove("map-hint-pulse"),1600);
+  }
+}
+function openCriteriaModal(trigger,focus){
+  const d=I18N[currentLang],c=d.criteria;if(!c)return;
+  const f=focus||(trigger&&trigger.dataset&&trigger.dataset.criteria)||"all";
+  openKind="criteria";openKey=f;
+  if(f!=="all")pulseMapHint(f); else clearMapHints();
+  if(f!=="all"&&c.focus&&c.focus[f]){
+    const info=c.focus[f];
+    const points=`<ul>${info.points.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+    const mapNote=info.map?`<div class="callout" style="margin-top:.75rem">${esc(info.map)}</div>`:"";
+    const html=`<p class="lead" style="margin:0 0 .65rem">${info.lead}</p>${points}${mapNote}<p style="margin:.85rem 0 0"><button type="button" class="agent-criteria-btn" id="criteria-see-all" data-i18n="diagram.judgeMore">${esc(d.diagram.judgeMore||"Details")}</button></p>`;
+    showModal(info.title,info.tag||"",html,trigger);
+    const all=$("#criteria-see-all");
+    if(all)all.onclick=e=>{e.stopPropagation();openCriteriaModal(all,"all")};
+    return;
+  }
+  const head=`<tr>${c.headers.map(x=>`<th>${esc(x)}</th>`).join("")}</tr>`;
+  const body=c.rows.map(r=>`<tr>${r.map(x=>`<td>${esc(x)}</td>`).join("")}</tr>`).join("");
+  const minis=`<div class="criteria-grid">${c.minis.map(x=>`<div class="criteria-mini"><strong>${esc(x[0])}</strong>${x[1]}</div>`).join("")}</div>`;
+  const html=`<p class="lead" style="margin:0 0 .65rem">${c.lead}</p><div class="scroll"><table class="criteria-table"><thead>${head}</thead><tbody>${body}</tbody></table></div>${minis}`;
+  showModal(c.title,d.paths.criteriaTag||"",html,trigger);
 }
 function renderMethods(d){
-  const render=(list,other)=>list.map(([id],i)=>{const m=d.methods.data[id];return `<button type="button" class="method-card ${other?"other":""}" data-method="${id}"><div class="num">${other?String.fromCharCode(65+i):String(i+1).padStart(2,"0")}</div><h3>${esc(m.title)}</h3><p>${esc(m.summary)}</p><div class="when">${esc(d.methods.whenLabel+m.cardWhen)}</div><div class="more">${esc(d.methods.more)}</div></button>`}).join("");
-  $("#rag-methods").innerHTML=render(baseMethods.slice(0,9),false);
-  $("#other-methods").innerHTML=render(baseMethods.slice(9),true);
-  $$("[data-method]").forEach(b=>b.addEventListener("click",()=>openModal(b.dataset.method,b)));
+  const rag=$("#rag-methods"),other=$("#other-methods");
+  if(!rag||!other)return;
+  const render=(list,oth)=>list.map(([id],i)=>{const m=d.methods.data[id];return `<button type="button" class="method-card ${oth?"other":""}" data-method="${id}"><div class="num">${oth?String.fromCharCode(65+i):String(i+1).padStart(2,"0")}</div><h3>${esc(m.title)}</h3><p>${esc(m.summary)}</p><div class="when">${esc(d.methods.whenLabel+m.cardWhen)}</div><div class="more">${esc(d.methods.more)}</div></button>`}).join("");
+  rag.innerHTML=render(baseMethods.slice(0,9),false);
+  other.innerHTML=render(baseMethods.slice(9),true);
+  $$("[data-method]").forEach(b=>b.addEventListener("click",()=>openMethodModal(b.dataset.method,b)));
 }
 function listHtml(items){return `<ul>${items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`}
-function openModal(id,trigger){
-  const d=I18N[currentLang],m=d.methods.data[id];if(!m)return;
-  openMethod=id;lastTrigger=trigger||lastTrigger;$("#modal-title").textContent=m.title;$("#modal-tagline").textContent=m.tagline;
-  const h=d.methods.modal;$("#modal-body").innerHTML=`<h4>${esc(h.flow)}</h4><div class="modal-flow">${esc(m.flow)}</div><h4>${esc(h.what)}</h4>${listHtml(m.what)}<h4>${esc(h.steps)}</h4>${listHtml(m.steps)}<h4>${esc(h.when)}</h4>${listHtml(m.when)}<h4>${esc(h.care)}</h4>${listHtml(m.care)}`;
+function showModal(title,tagline,bodyHtml,trigger){
+  lastTrigger=trigger||lastTrigger;$("#modal-title").textContent=title;$("#modal-tagline").textContent=tagline;$("#modal-body").innerHTML=bodyHtml;
   const modal=$("#method-modal");modal.hidden=false;modal.classList.add("open");document.body.style.overflow="hidden";$("#modal-close").focus();
 }
-function closeModal(){const modal=$("#method-modal");modal.classList.remove("open");modal.hidden=true;document.body.style.overflow="";openMethod=null;if(lastTrigger)lastTrigger.focus()}
+function openMethodModal(id,trigger){
+  const d=I18N[currentLang],m=d.methods.data[id];if(!m)return;
+  openKind="method";openKey=id;
+  const h=d.methods.modal;
+  showModal(m.title,m.tagline,`<h4>${esc(h.flow)}</h4><div class="modal-flow">${esc(m.flow)}</div><h4>${esc(h.what)}</h4>${listHtml(m.what)}<h4>${esc(h.steps)}</h4>${listHtml(m.steps)}<h4>${esc(h.when)}</h4>${listHtml(m.when)}<h4>${esc(h.care)}</h4>${listHtml(m.care)}`,trigger);
+}
+function openToolModal(i,trigger){
+  const d=I18N[currentLang],t=d.tools[i],x=d.toolExtras[i];if(!t||!x)return;
+  openKind="tool";openKey=String(i);
+  const u=d.ui,layer=i<RETRIEVAL_COUNT?u.layerRetrieval:u.layerAction;
+  const body=`<div class="modal-flow">${esc(layer)}</div><h4>${esc(u.what)}</h4><p style="color:var(--muted);font-size:.82rem;margin:0">${esc(x[0])}</p><h4>${esc(u.source)}</h4><div class="modal-flow">${t[3]} ${esc(t[4])} · ${esc(t[5])}</div><h4>${esc(u.when)}</h4><p style="color:var(--muted);font-size:.82rem;margin:0">${esc(x[1])}</p><h4>${esc(u.care)}</h4><p style="color:var(--muted);font-size:.82rem;margin:0">${esc(x[2])}</p>`;
+  showModal(`${t[0]} ${t[1]}`,t[2],body,trigger);
+}
+function closeModal(){const modal=$("#method-modal");modal.classList.remove("open");modal.hidden=true;document.body.style.overflow="";openKind=null;openKey=null;clearMapHints();if(lastTrigger)lastTrigger.focus()}
 function setLang(lang){
   if(!I18N[lang])lang="en";currentLang=lang;localStorage.setItem("ai-map-lang",lang);document.documentElement.lang=lang;document.title=I18N[lang].header.title+" — OKPy";
   $$("[data-lang]").forEach(b=>{const active=b.dataset.lang===lang;b.classList.toggle("active",active);b.setAttribute("aria-pressed",active)});
   $$("[data-i18n]").forEach(el=>{const v=get(I18N[lang],el.dataset.i18n);if(v!=null)el.textContent=v});
   $$("[data-i18n-html]").forEach(el=>{const v=get(I18N[lang],el.dataset.i18nHtml);if(v!=null)el.innerHTML=v});
-  const d=I18N[lang];$("#retrieval-tools").innerHTML=d.tools.slice(0,5).map(toolHtml).join("");$("#action-tools").innerHTML=d.tools.slice(5).map((t,i)=>toolHtml(t,i+5)).join("");
-  renderDetail(d);renderModels(d);renderProducts(d);renderPaths(d);renderMethods(d);$("#modal-close").setAttribute("aria-label",d.methods.modal.close);
-  if(openMethod)openModal(openMethod,lastTrigger);
+  const d=I18N[lang];clearPathAnim();selectedPathRole=null;
+  $("#retrieval-tools").innerHTML=d.tools.slice(0,RETRIEVAL_COUNT).map(toolHtml).join("");$("#action-tools").innerHTML=d.tools.slice(RETRIEVAL_COUNT).map((t,i)=>toolHtml(t,i+RETRIEVAL_COUNT)).join("");
+  bindTools();renderDetail(d);renderModels(d);renderProducts(d);renderPaths(d);renderMethods(d);$("#modal-close").setAttribute("aria-label",d.ui.toolModalClose||d.methods.modal.close);
+  if(openKind==="method"&&openKey)openMethodModal(openKey,lastTrigger);
+  if(openKind==="tool"&&openKey!=null)openToolModal(+openKey,lastTrigger);
+  if(openKind==="criteria")openCriteriaModal(lastTrigger,openKey==="all"? "all": openKey);
+  function bindCriteriaOpeners(){
+    const critBtn=$("#agent-criteria-btn");
+    if(critBtn)critBtn.onclick=e=>{e.stopPropagation();openCriteriaModal(critBtn,"all")};
+    $$("[data-criteria]").forEach(b=>{
+      b.onclick=e=>{e.stopPropagation();openCriteriaModal(b,b.dataset.criteria||"all")};
+    });
+  }
+  bindCriteriaOpeners();
 }
+
+const navLinks=[...$$(".side-nav a[href^='#']")];
+const sectionIds=navLinks.map(a=>a.getAttribute("href").slice(1));
+function setActiveNav(id){
+  navLinks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+id));
+}
+if("IntersectionObserver" in window){
+  const io=new IntersectionObserver(entries=>{
+    const vis=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio);
+    if(vis[0])setActiveNav(vis[0].target.id);
+  },{rootMargin:"-20% 0px -55% 0px",threshold:[0,.15,.4,.7]});
+  sectionIds.forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el)});
+}
+navLinks.forEach(a=>a.addEventListener("click",e=>{
+  const id=a.getAttribute("href").slice(1),el=document.getElementById(id);
+  if(!el)return;
+  e.preventDefault();
+  el.scrollIntoView({behavior:"smooth",block:"start"});
+  setActiveNav(id);
+  history.replaceState(null,"","#"+id);
+}));
+window.addEventListener("scroll",()=>{const a=$(".path-active");if(a&&$("#path-live")?.classList.contains("is-on"))placePathLive(a)},{passive:true});
+window.addEventListener("resize",()=>{const a=$(".path-active");if(a&&$("#path-live")?.classList.contains("is-on"))placePathLive(a)});
 $$("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 $("#modal-close").addEventListener("click",closeModal);
 $("#method-modal").addEventListener("click",e=>{if(e.target===e.currentTarget)closeModal()});
