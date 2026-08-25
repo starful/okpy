@@ -1,5 +1,5 @@
 {
-  "last_category": "data-analysis",
+  "last_category": "eng-comms",
   "slugs": [
     "aws-route-53-vs-gcp-cloud-dns-企業向けサービス比較",
     "python-openai-api入門-あなたのコードに-賢い脳-を埋め込む方法-知りたくないですか",
@@ -13,6 +13,7 @@
     "reframing-just-add-ai",
     "cold-water-immersion-recovery",
     "multi-cloud-vs-single-bank",
-    "sleep-productivity"
+    "sleep-productivity",
+    "native-app-vs-web-tokyo-osaka"
   ]
 }
