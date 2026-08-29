@@ -37,7 +37,7 @@ steps:
       - '--allow-unauthenticated'
       - '--port=8080'
       - '--memory=512Mi'
-      - '--set-env-vars=SITE_URL=${_SITE_URL},ASSET_VERSION=${_ASSET_VERSION},GCS_IMAGE_BASE=${_GCS_IMAGE_BASE},AMAZON_ASSOCIATE_TAG=${_AMAZON_ASSOCIATE_TAG},ADSENSE_CLIENT_ID=${_ADSENSE_CLIENT_ID},GA_ID=${_GA_ID}'
+      - '--set-env-vars=SITE_URL=${_SITE_URL},ASSET_VERSION=${_ASSET_VERSION},GCS_IMAGE_BASE=${_GCS_IMAGE_BASE},ADSENSE_CLIENT_ID=${_ADSENSE_CLIENT_ID},GA_ID=${_GA_ID}'
     waitFor: ['docker-push']
 
 images:
@@ -51,6 +51,5 @@ substitutions:
   _SITE_URL: 'https://okpy.net'
   _ASSET_VERSION: '2026-07-12-og'
   _GCS_IMAGE_BASE: 'https://storage.googleapis.com/ok-project-assets/okpy'
-  _AMAZON_ASSOCIATE_TAG: 'starful06-22'
   _ADSENSE_CLIENT_ID: 'ca-pub-8780435268193938'
   _GA_ID: 'G-L7ZTNPYEF6'

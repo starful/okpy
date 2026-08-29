@@ -22,15 +22,15 @@ NEURO_DIVE_A8 = {
     "program_id": NEURO_DIVE_PROGRAM_ID,
     "click_url": os.getenv(
         "A8_NEURO_DIVE_CLICK_URL",
-        "https://px.a8.net/svt/ejp?a8mat=4BACLI+2KVNX6+47GS+HVNAP",
+        "https://px.a8.net/svt/ejp?a8mat=4BACLI+2KVOOY+47GS+HVNAP",
     ),
     "image_url": os.getenv(
         "A8_NEURO_DIVE_BANNER_URL",
-        "https://www29.a8.net/svt/bgt?aid=260823366156&wid=002&eno=01&mid=s00000019630003003000&mc=1",
+        "https://www27.a8.net/svt/bgt?aid=260823366156&wid=003&eno=01&mid=s00000019630003003000&mc=1",
     ),
     "pixel_url": os.getenv(
         "A8_NEURO_DIVE_PIXEL_URL",
-        "https://www10.a8.net/0.gif?a8mat=4BACLI+2KVNX6+47GS+HVNAP",
+        "https://www12.a8.net/0.gif?a8mat=4BACLI+2KVOOY+47GS+HVNAP",
     ),
     "label": "Neuro Dive — IT特化型 就労移行支援",
     "desc": "AI・データサイエンスを学べる就労移行支援（パーソルダイバース）",
@@ -43,15 +43,15 @@ PRO_JIN_A8 = {
     "program_id": PRO_JIN_PROGRAM_ID,
     "click_url": os.getenv(
         "A8_PRO_JIN_CLICK_URL",
-        "https://px.a8.net/svt/ejp?a8mat=4BACLI+2IHXI2+4GWI+BZVU9",
+        "https://px.a8.net/svt/ejp?a8mat=4BACLI+2IHY9U+4GWI+BZVU9",
     ),
     "image_url": os.getenv(
         "A8_PRO_JIN_BANNER_URL",
-        "https://www26.a8.net/svt/bgt?aid=260823366152&wid=002&eno=01&mid=s00000020853002015000&mc=1",
+        "https://www24.a8.net/svt/bgt?aid=260823366152&wid=003&eno=01&mid=s00000020853002015000&mc=1",
     ),
     "pixel_url": os.getenv(
         "A8_PRO_JIN_PIXEL_URL",
-        "https://www17.a8.net/0.gif?a8mat=4BACLI+2IHXI2+4GWI+BZVU9",
+        "https://www13.a8.net/0.gif?a8mat=4BACLI+2IHY9U+4GWI+BZVU9",
     ),
     "label": "IT転職エージェント @PRO人",
     "desc": "IT職種・業界特化。キャリア相談の質にこだわった転職エージェント",
