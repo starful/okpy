@@ -1,17 +1,36 @@
-"""A8.net affiliate banners for OKPy (approved programs only)."""
+"""A8.net affiliate banners for OKPy (Neuro Dive + @PRO人)."""
 
 from __future__ import annotations
 
 import os
 from typing import Any
 
-# Category → program key (提携済 only)
+# Categories that show both career banners in one row
+A8_CATEGORIES: frozenset[str] = frozenset(
+    {
+        "data-analysis",
+        "ai-models",
+        "data-model",
+        "eng-comms",
+        "fit-journey",
+        "python",
+        "cloud",
+        "terraform",
+        "dev-method",
+    }
+)
+
+# Back-compat alias used by tests / older call sites
 CATEGORY_A8_PROGRAM: dict[str, str] = {
     "data-analysis": "neuro_dive",
     "ai-models": "neuro_dive",
     "data-model": "neuro_dive",
     "eng-comms": "pro_jin",
     "fit-journey": "pro_jin",
+    "python": "pro_jin",
+    "cloud": "pro_jin",
+    "terraform": "pro_jin",
+    "dev-method": "pro_jin",
 }
 
 NEURO_DIVE_PROGRAM_ID = "s00000019630003"
@@ -59,33 +78,9 @@ PRO_JIN_A8 = {
     "title": "IT転職エージェント",
 }
 
-_PROGRAMS = {
-    "neuro_dive": NEURO_DIVE_A8,
-    "pro_jin": PRO_JIN_A8,
-}
 
-
-def a8_banner_context(category: str = "") -> dict[str, Any]:
-    """Template vars for one A8 banner based on blog category."""
-    enabled = os.getenv("A8_OKPY_ENABLED", "1").strip().lower() in (
-        "1",
-        "true",
-        "yes",
-        "on",
-    )
-    if not enabled:
-        return {"show_a8_banner": False}
-
-    cat = (category or "").strip().lower()
-    program_key = CATEGORY_A8_PROGRAM.get(cat)
-    if not program_key:
-        return {"show_a8_banner": False}
-
-    src = _PROGRAMS[program_key]
-    if not (src.get("click_url") or "").strip():
-        return {"show_a8_banner": False}
-
-    banner = {
+def _banner_dict(src: dict[str, str]) -> dict[str, str]:
+    return {
         "id": src["id"],
         "click_url": src["click_url"],
         "image_url": src["image_url"],
@@ -94,9 +89,40 @@ def a8_banner_context(category: str = "") -> dict[str, Any]:
         "label": src["label"],
         "desc": src["desc"],
     }
+
+
+def a8_banner_context(category: str = "") -> dict[str, Any]:
+    """Neuro Dive + @PRO人 on career-related blog categories (one-row)."""
+    enabled = os.getenv("A8_OKPY_ENABLED", "1").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
+    if not enabled:
+        return {
+            "show_a8_banner": False,
+            "show_a8_banners": False,
+            "a8_banners": [],
+        }
+
+    cat = (category or "").strip().lower()
+    if cat not in A8_CATEGORIES:
+        return {
+            "show_a8_banner": False,
+            "show_a8_banners": False,
+            "a8_banners": [],
+        }
+
+    banners = [_banner_dict(NEURO_DIVE_A8), _banner_dict(PRO_JIN_A8)]
+    first = banners[0]
     return {
         "show_a8_banner": True,
-        "a8_banner": banner,
-        "a8_banner_title": src["title"],
+        "a8_banner": first,
+        "a8_banner_title": "キャリア支援（アフィリエイト）",
         "a8_banner_note": "アフィリエイト広告 · 新しいタブで開きます",
+        "show_a8_banners": True,
+        "a8_banners": banners,
+        "a8_banners_title": "キャリア支援（アフィリエイト）",
+        "a8_banners_note": "アフィリエイト広告 · 新しいタブで開きます",
     }
