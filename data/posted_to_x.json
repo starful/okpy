@@ -1,5 +1,5 @@
 {
-  "last_category": "eng-comms",
+  "last_category": "data-analysis",
   "slugs": [
     "aws-route-53-vs-gcp-cloud-dns-企業向けサービス比較",
     "python-openai-api入門-あなたのコードに-賢い脳-を埋め込む方法-知りたくないですか",
@@ -18,6 +18,7 @@
     "travel-insurance-claim-value",
     "マルチクラウドにしたいと言われたときの話し方",
     "annual-billing-default",
-    "microservices-vs-monolith-shops"
+    "microservices-vs-monolith-shops",
+    "structured-interview-quality"
   ]
 }
