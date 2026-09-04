@@ -1,5 +1,5 @@
 {
-  "last_category": "eng-comms",
+  "last_category": "data-analysis",
   "slugs": [
     "aws-route-53-vs-gcp-cloud-dns-企業向けサービス比較",
     "python-openai-api入門-あなたのコードに-賢い脳-を埋め込む方法-知りたくないですか",
@@ -22,6 +22,7 @@
     "structured-interview-quality",
     "障害対応は後付けで良いと言われたときの事前監視体制の必要性の説明",
     "guild-auto-join-retention",
-    "障害対応は後付けで良いと言われたときの事前監視体制の必要性の説明-2"
+    "障害対応は後付けで良いと言われたときの事前監視体制の必要性の説明-2",
+    "sticky-mobile-cta"
   ]
 }
