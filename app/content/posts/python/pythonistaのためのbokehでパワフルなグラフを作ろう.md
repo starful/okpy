@@ -4,9 +4,17 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20251023173626.png
 date: 2025-10-31
 hatena_path: /entry/2025/10/31/131852
 slug: pythonistaのためのbokehでパワフルなグラフを作ろう
-summary: "皆さん、こんにちは！Pythonライフを楽しんでいますか？プログラミングの世界へようこそ！あなたの頼れるPythonista、そして技術ブロガーの[あなたの名前]です！\U0001F389"
-title: PythonistaのためのBokehでパワフルなグラフを作ろう
+summary: 皆さん、こんにちは！Pythonライフを楽しんでいますか？プログラミングの世界へようこそ！あなたの頼れるPythonista、そして技術ブロガーの[あなたの名前]です！🎉
+title: Bokehで2軸グラフを描く方法｜Pythonista向け解説
+description: Bokehで左右2つのY軸を持つグラフ（2軸グラフ）を作る方法をPythonコード例とともに解説。Pythonistaがパワフルなグラフを作成するための実践的なテクニックを紹介します。
+seo_title: Bokehで2軸グラフを描く方法｜Pythonista向け解説
+seo_description: Bokehで左右2つのY軸を持つグラフ（2軸グラフ）を作る方法をPythonコード例とともに解説。Pythonistaがパワフルなグラフを作成するための実践的なテクニックを紹介します。
 ---
+## Bokehで2軸グラフ（デュアルY軸）を作る
+
+Bokehで左右に異なるスケールのY軸を持つグラフを作るには、`figure`に`extra_y_ranges`を設定し、`add_layout`で2つ目の軸を追加します。データのスケールが大きく異なる2つの指標を1つのグラフに重ねて表示したいときに便利な方法です。
+
+例えば、`Range1d`で右軸の範囲を定義し、`LinearAxis`を使って右側に配置することで、左右で単位の異なる折れ線やバーを同じグラフ内で比較できます。
 
 # PythonistaのためのBokehでパワフルなグラフを作ろう
 
