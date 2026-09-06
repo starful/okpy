@@ -1,0 +1,45 @@
+{
+  "updated": "2026-09-06",
+  "items": [
+    {
+      "id": "sample-memo",
+      "type": "memo",
+      "text": "週末に FastAPI で社内向けの小さなツールを書き切った。ドキュメントより動くものが早い。",
+      "url": "",
+      "name": "nori",
+      "at": "2026-09-06"
+    },
+    {
+      "id": "sample-ship",
+      "type": "ship",
+      "text": "Agent / Context / RAG を一枚で整理したインタラクティブ図解。",
+      "url": "https://okpy.net/guide/agentic-system",
+      "name": "okpy",
+      "at": "2026-09-05"
+    },
+    {
+      "id": "sample-github",
+      "type": "github",
+      "text": "このブログ本体。Python / Cloud / Career の実務メモ。",
+      "url": "https://github.com/starful/okpy",
+      "name": "starful",
+      "at": "2026-09-04"
+    },
+    {
+      "id": "sample-github-2",
+      "type": "github",
+      "text": "サイト運用ハブ。コンテンツ生成とデプロイをまとめて回している。",
+      "url": "https://github.com/starful/okadmin",
+      "name": "starful",
+      "at": "2026-09-03"
+    },
+    {
+      "id": "sample-memo-2",
+      "type": "memo",
+      "text": "Terraform の state を触る日は、必ず plan を二人で見るルールにした。",
+      "url": "",
+      "name": "kai",
+      "at": "2026-09-02"
+    }
+  ]
+}

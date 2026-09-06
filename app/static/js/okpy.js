@@ -53,4 +53,28 @@
       if (el) observer.observe(el);
     });
   }
+
+  var form = document.getElementById("wall-form");
+  if (form) {
+    var urlField = document.getElementById("wall-url-field");
+    var urlInput = document.getElementById("wall-url");
+    var urlLabel = document.getElementById("wall-url-label");
+    function syncWallType() {
+      var picked = form.querySelector('input[name="type"]:checked');
+      var kind = picked ? picked.value : "memo";
+      if (!urlField || !urlInput) return;
+      if (kind === "memo") {
+        urlField.hidden = true;
+        urlInput.required = false;
+        urlInput.placeholder = "https://";
+      } else {
+        urlField.hidden = false;
+        urlInput.required = true;
+        urlInput.placeholder = kind === "github" ? "https://github.com/user/repo" : "https://";
+        if (urlLabel) urlLabel.textContent = kind === "github" ? "GitHub" : "URL";
+      }
+    }
+    form.addEventListener("change", syncWallType);
+    syncWallType();
+  }
 })();

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウォール — {{ site.site_name }}</title>
+    <meta name="description" content="ひとこと、つくったもの、GitHub。OKPy の薄い参加の壁。">
+    <link rel="canonical" href="{{ canonical }}" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ウォール — {{ site.site_name }}">
+    <meta property="og:description" content="ひとこと、つくったもの、GitHub。Indie の作業を一枚に。">
+    <meta property="og:url" content="{{ canonical }}">
+    <meta property="og:image" content="{{ og_image }}">
+    {% include '_head_icons.html' %}
+    <link rel="stylesheet" href="/static/css/okpy.css?v=40">
+</head>
+<body>
+    {% include 'header.html' %}
+    <main class="page wall-page">
+        <header class="wall-hero">
+            <p class="wall-hero__kicker">INDIE WALL</p>
+            <h1 class="wall-hero__title">ウォール</h1>
+            <p class="wall-hero__lead">アカウントなし。ひとこと、つくったサイト、GitHub を一行で。公開は確認のあとです。</p>
+        </header>
+
+        {% if submitted %}
+        <p class="wall-flash" role="status">受け付けました。確認待ちです。ウォールに出るのはそのあとです。</p>
+        {% endif %}
+        {% if error %}
+        <p class="wall-flash wall-flash--err" role="alert">{{ error }}</p>
+        {% endif %}
+
+        <section class="wall-form-card" id="post">
+            <h2 class="wall-form-card__title">置く</h2>
+            <form class="wall-form" method="post" action="/wall" id="wall-form">
+                <p class="wall-hp" aria-hidden="true">
+                    <label>website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+                </p>
+                <fieldset class="wall-types">
+                    <legend class="visually-hidden">種別</legend>
+                    <label class="wall-type"><input type="radio" name="type" value="memo" {% if form_type != 'ship' and form_type != 'github' %}checked{% endif %}> ひとこと</label>
+                    <label class="wall-type"><input type="radio" name="type" value="ship" {% if form_type == 'ship' %}checked{% endif %}> つくったもの</label>
+                    <label class="wall-type"><input type="radio" name="type" value="github" {% if form_type == 'github' %}checked{% endif %}> GitHub</label>
+                </fieldset>
+                <label class="wall-field">
+                    <span>一行</span>
+                    <textarea name="text" rows="3" maxlength="140" required placeholder="何を作ったか、何が動いたか">{{ form_text }}</textarea>
+                </label>
+                <label class="wall-field" id="wall-url-field">
+                    <span id="wall-url-label">URL</span>
+                    <input type="url" name="url" id="wall-url" value="{{ form_url }}" placeholder="https://">
+                </label>
+                <label class="wall-field">
+                    <span>なまえ（任意）</span>
+                    <input type="text" name="name" maxlength="24" value="{{ form_name }}" placeholder="indie">
+                </label>
+                <button type="submit" class="wall-submit">確認待ちで送る</button>
+            </form>
+        </section>
+
+        <section class="wall-list" aria-label="公開中">
+            <h2 class="wall-list__title">並んでいるもの</h2>
+            {% if wall_items %}
+            <ul class="wall-grid">
+                {% for item in wall_items %}
+                <li>{% include '_wall_card.html' %}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="empty-state">まだありません。最初の一行をどうぞ。</p>
+            {% endif %}
+        </section>
+    </main>
+    {% include 'footer.html' %}
+    <script src="/static/js/okpy.js?v=9"></script>
+</body>
+</html>

@@ -263,7 +263,7 @@ def load_it_trends() -> dict:
         "headline": str(data.get("headline") or "今月のITトレンド").strip()[:40],
         "note": str(
             data.get("note")
-            or "公式ランキングではありません。OKPyの記事と検索傾向から編集部が整理しています。"
+            or "公式ランキングではありません。言語やモデル名ではなく、スキル・クラウドサービス・事業の型を編集部が整理しています。"
         ).strip()[:160],
         "boards": boards_out,
     }

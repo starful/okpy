@@ -1,0 +1,8 @@
+<article class="wall-card wall-card--{{ item.type }}">
+    <p class="wall-card__kicker">{{ item.label }}</p>
+    <p class="wall-card__text">{{ item.text }}</p>
+    {% if item.url %}
+    <a class="wall-card__url" href="{{ item.url }}" rel="noopener noreferrer">{{ item.url | replace("https://", "") }}</a>
+    {% endif %}
+    <p class="wall-card__meta"><span>{{ item.name }}</span>{% if item.at %} · {{ item.at }}{% endif %}</p>
+</article>

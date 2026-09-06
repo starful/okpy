@@ -34,6 +34,12 @@ try:
         ordered_home_categories,
         posts_by_category,
     )
+    from .wall import (
+        enqueue_submission,
+        load_approved,
+        load_home_wall,
+        validate_submission,
+    )
 except ImportError:
     from a8_affiliate import a8_banner_context
     from career_mbti import (
@@ -54,6 +60,12 @@ except ImportError:
         load_it_trends,
         ordered_home_categories,
         posts_by_category,
+    )
+    from wall import (
+        enqueue_submission,
+        load_approved,
+        load_home_wall,
+        validate_submission,
     )
 
 BASE_DIR = app.root_path
@@ -486,6 +498,7 @@ def index():
         posts=latest,
         home_categories=home_cats,
         it_trends=load_it_trends(),
+        wall_items=load_home_wall(),
         active_category=None,
         canonical=SITE_CONFIG["site_url"].rstrip("/") + "/",
         og_image=_default_og_image(),
@@ -645,7 +658,7 @@ def ads_txt():
 def sitemap_xml():
     base = SITE_CONFIG["site_url"].rstrip("/")
     today = datetime.now().strftime("%Y-%m-%d")
-    urls = [f"{base}/", f"{base}/guide/agentic-system"]
+    urls = [f"{base}/", f"{base}/guide/agentic-system", f"{base}/wall"]
     for cat in SITE_CONFIG.get("blog_categories", {}):
         urls.append(f"{base}/category/{cat}")
     urls.append(f"{base}/category/career/mbti")
@@ -679,6 +692,49 @@ def guide_agentic_system():
         os.path.join(STATIC_DIR, "guides"),
         "agentic-system.html",
         mimetype="text/html",
+    )
+
+
+@app.route("/wall", methods=["GET", "POST"])
+def wall_page():
+    submitted = False
+    error = ""
+    form_type = "memo"
+    form_text = ""
+    form_url = ""
+    form_name = ""
+    if request.method == "POST":
+        form_type = (request.form.get("type") or "memo").strip()
+        form_text = request.form.get("text") or ""
+        form_url = request.form.get("url") or ""
+        form_name = request.form.get("name") or ""
+        fields, error = validate_submission(
+            kind=form_type,
+            text=form_text,
+            url=form_url,
+            name=form_name,
+            honeypot=request.form.get("website") or "",
+        )
+        if fields:
+            ok, error = enqueue_submission(fields, ip=request.remote_addr or "")
+            if ok:
+                submitted = True
+                form_type = "memo"
+                form_text = ""
+                form_url = ""
+                form_name = ""
+    return render_template(
+        "wall.html",
+        wall_items=load_approved(),
+        submitted=submitted,
+        error=error,
+        form_type=form_type,
+        form_text=form_text,
+        form_url=form_url,
+        form_name=form_name,
+        canonical=SITE_CONFIG["site_url"].rstrip("/") + "/wall",
+        og_image=_default_og_image(),
+        **_footer_ctx(),
     )
 
 

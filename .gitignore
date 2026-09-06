@@ -11,6 +11,9 @@ app/static/images/*.png
 !app/static/images/default.jpg
 !app/static/images/guide-mbti-careers.jpg
 
+data/wall_queue.json
+data/wall_queue.json.tmp
+
 
 
 # macOS Finder custom folder icon (Icon + CR; Icon? matches one trailing char)

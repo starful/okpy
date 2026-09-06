@@ -22,7 +22,7 @@
     <meta name="twitter:description" content="{% if active_category %}{{ categories[active_category].description }}{% else %}Python・クラウド・開発方法論の技術ブログ — okpy.net{% endif %}">
     <meta name="twitter:image" content="{{ og_image }}">
     {% include '_head_icons.html' %}
-    <link rel="stylesheet" href="/static/css/okpy.css?v=39">
+    <link rel="stylesheet" href="/static/css/okpy.css?v=41">
 </head>
 <body{% if not active_category %} class="page-home"{% endif %}>
     {% include 'header.html' %}
@@ -88,7 +88,7 @@
             <div class="trend-boards">
                 {% for board in it_trends.boards %}
                 <div class="trend-board trend-board--{{ board.id }}">
-                    <p class="trend-board__kicker">{% if board.id == 'languages' %}LANGUAGE{% elif board.id == 'ai' %}MODEL{% else %}TECH{% endif %}</p>
+                    <p class="trend-board__kicker">{% if board.id == 'skills' %}SKILL{% elif board.id == 'cloud' %}CLOUD{% else %}BIZ{% endif %}</p>
                     <h3 class="trend-board__title">{{ board.title }}</h3>
                     <ol class="trend-list">
                         {% for item in board['items'] %}
@@ -118,6 +118,20 @@
             {% if it_trends.note %}
             <p class="trend-note">{{ it_trends.note }}</p>
             {% endif %}
+        </section>
+        {% endif %}
+
+        {% if wall_items %}
+        <section class="section section--wall" id="wall">
+            <div class="section__head">
+                <h2 class="section__title">ウォール</h2>
+                <a class="section__more" href="/wall">置く / すべて見る →</a>
+            </div>
+            <div class="wall-preview">
+                {% for item in wall_items %}
+                {% include '_wall_card.html' %}
+                {% endfor %}
+            </div>
         </section>
         {% endif %}
 
@@ -230,6 +244,9 @@
             {% if it_trends and it_trends.boards %}
             <a href="#trends" class="home-toc__link" data-toc-target="trends">トレンド</a>
             {% endif %}
+            {% if wall_items %}
+            <a href="#wall" class="home-toc__link" data-toc-target="wall">ウォール</a>
+            {% endif %}
             {% for key, meta in home_cats.items() %}
             <a href="#cat-{{ key }}" class="home-toc__link" data-toc-target="cat-{{ key }}">{{ meta.emoji }} {{ meta.label }}</a>
             {% endfor %}
@@ -238,6 +255,6 @@
     {% endif %}
 
     {% include 'footer.html' %}
-    <script src="/static/js/okpy.js?v=8"></script>
+    <script src="/static/js/okpy.js?v=9"></script>
 </body>
 </html>
