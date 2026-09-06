@@ -17,6 +17,7 @@ A8_CATEGORIES: frozenset[str] = frozenset(
         "cloud",
         "terraform",
         "dev-method",
+        "career",
     }
 )
 
@@ -31,6 +32,7 @@ CATEGORY_A8_PROGRAM: dict[str, str] = {
     "cloud": "pro_jin",
     "terraform": "pro_jin",
     "dev-method": "pro_jin",
+    "career": "pro_jin",
 }
 
 NEURO_DIVE_PROGRAM_ID = "s00000019630003"

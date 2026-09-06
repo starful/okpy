@@ -71,6 +71,97 @@ class BlogSmokeTest(unittest.TestCase):
             self.assertEqual(mapped.status_code, 301)
             self.assertIn("/blog/", mapped.headers.get("Location", ""))
 
+    def test_career_category_and_post(self):
+        listing = self.client.get("/category/career")
+        self.assertEqual(listing.status_code, 200)
+        html = listing.get_data(as_text=True)
+        self.assertIn("/category/career/mbti", html)
+        self.assertIn("/blog/ai_engineer", html)
+
+        post = self.client.get("/blog/ai_engineer")
+        self.assertEqual(post.status_code, 200)
+        post_html = post.get_data(as_text=True)
+        self.assertNotIn("Starful", post_html)
+        self.assertIn("ok-project-assets/okpy/career/ai_engineer.jpg", post_html)
+
+    def test_career_excluded_from_home_mixed_feed(self):
+        home = self.client.get("/")
+        self.assertEqual(home.status_code, 200)
+        html = home.get_data(as_text=True)
+        latest = html.split('id="latest"', 1)[-1].split('id="topics"', 1)[0]
+        self.assertNotIn("/blog/ai_engineer", latest)
+        self.assertNotIn("/blog/ios_engineer", latest)
+        self.assertEqual(latest.count('class="story-card"'), 4)
+        import re
+
+        latest_cats = re.findall(r'data-cat="([^"]+)"', latest)
+        self.assertEqual(len(latest_cats), 4)
+        self.assertEqual(len(set(latest_cats)), 4)
+        self.assertNotIn('id="popular"', html)
+        self.assertNotIn("人気の記事", html)
+        self.assertIn('id="cat-career"', html)
+        self.assertIn("/category/career/mbti", html)
+        self.assertIn("MBTIから探すIT職種", html)
+        self.assertIn("home-toc", html)
+        self.assertIn('id="trends"', html)
+        self.assertIn("開発言語", html)
+        self.assertIn("AIモデル", html)
+        self.assertIn("注目テクノロジー", html)
+        self.assertIn("trend-board--languages", html)
+        self.assertIn("trend-board--ai", html)
+        self.assertIn("trend-board--hot", html)
+        self.assertEqual(html.count('class="trend-item'), 36)
+        self.assertIn("is-top1", html)
+        special_to_latest = html.split('id="special"', 1)[-1].split('id="latest"', 1)[0]
+        self.assertIn('id="trends"', special_to_latest)
+        cat_order = html.split('id="cat-')
+        self.assertGreater(len(cat_order), 3)
+        self.assertTrue(cat_order[1].startswith("eng-comms"))
+        self.assertTrue(cat_order[2].startswith("data-analysis"))
+        self.assertIn("Business Analysis", html)
+        import re
+
+        career_section = re.search(
+            r'<section class="section" id="cat-career">.*?</section>',
+            html,
+            re.S,
+        )
+        self.assertIsNotNone(career_section)
+        self.assertEqual(career_section.group(0).count('class="story-card"'), 3)
+
+    def test_home_shows_all_categories_three_each(self):
+        from app.config import SITE_CONFIG
+
+        home = self.client.get("/")
+        html = home.get_data(as_text=True)
+        for cat in SITE_CONFIG["blog_categories"]:
+            self.assertIn(f'id="cat-{cat}"', html)
+
+    def test_career_mbti_nested_routes(self):
+        index = self.client.get("/category/career/mbti")
+        self.assertEqual(index.status_code, 200)
+        index_html = index.get_data(as_text=True)
+        self.assertIn("INTJ", index_html)
+        self.assertIn("/category/career/mbti/INTJ", index_html)
+        self.assertNotIn("Starful", index_html)
+
+        type_page = self.client.get("/category/career/mbti/INTJ")
+        self.assertEqual(type_page.status_code, 200)
+        type_html = type_page.get_data(as_text=True)
+        self.assertIn("/blog/", type_html)
+        self.assertNotIn("Starful", type_html)
+
+        missing = self.client.get("/category/career/mbti/XXXX")
+        self.assertEqual(missing.status_code, 404)
+
+    def test_sitemap_includes_career_and_mbti(self):
+        sitemap = self.client.get("/sitemap.xml")
+        body = sitemap.get_data(as_text=True)
+        self.assertIn("/category/career", body)
+        self.assertIn("/category/career/mbti", body)
+        self.assertIn("/category/career/mbti/INTJ", body)
+        self.assertIn("/blog/ai_engineer", body)
+
 
 if __name__ == "__main__":
     unittest.main()

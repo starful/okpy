@@ -31,6 +31,7 @@ PRESERVE_CATEGORIES = frozenset(
         "fit-journey",
         "eng-comms",
         "ai-models",
+        "career",
     }
 )
 

@@ -19,8 +19,8 @@
                     {% endfor %}
                 </div>
             </div>
+            <a href="/#trends" class="nav-link">トレンド</a>
             <a href="/#latest" class="nav-link">最新</a>
-            <a href="/#popular" class="nav-link">人気</a>
         </nav>
 
         <button type="button" class="nav-burger" id="nav-burger" aria-label="メニュー" aria-expanded="false">
@@ -30,6 +30,8 @@
 
     <div class="mobile-nav" id="mobile-nav" hidden>
         <a href="/">すべての記事</a>
+        <a href="/#trends">トレンド</a>
+        <a href="/#latest">最新</a>
         {% for key, meta in categories.items() %}
         <a href="/category/{{ key }}">{{ meta.emoji }} {{ meta.label }}</a>
         {% endfor %}

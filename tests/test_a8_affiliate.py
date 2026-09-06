@@ -51,5 +51,13 @@ def test_disabled_via_env(monkeypatch):
 def test_category_map_keys():
     assert "python" in A8_CATEGORIES
     assert "cloud" in A8_CATEGORIES
+    assert "career" in A8_CATEGORIES
     assert CATEGORY_A8_PROGRAM["data-model"] == "neuro_dive"
     assert CATEGORY_A8_PROGRAM["eng-comms"] == "pro_jin"
+    assert CATEGORY_A8_PROGRAM["career"] == "pro_jin"
+
+
+def test_career_shows_both():
+    ctx = a8_banner_context("career")
+    assert ctx["show_a8_banners"] is True
+    assert [b["id"] for b in ctx["a8_banners"]] == ["neuro_dive", "pro_jin"]

@@ -16,7 +16,7 @@
     <meta name="twitter:image" content="{{ cover_abs }}">
     {% endif %}
     {% include '_head_icons.html' %}
-    <link rel="stylesheet" href="/static/css/okpy.css?v=31">
+    <link rel="stylesheet" href="/static/css/okpy.css?v=32">
 </head>
 <body class="page-article">
     {% include 'header.html' %}
@@ -65,6 +65,21 @@
                 {{ content | safe }}
             </div>
         </div>
+
+        {% if career_mbti_types %}
+        <section class="career-mbti" aria-label="相性の良いMBTIタイプ">
+            <h2 class="career-mbti__title">相性の良いMBTIタイプ</h2>
+            <div class="career-mbti__list">
+                {% for t in career_mbti_types %}
+                <a href="/category/career/mbti/{{ t.code }}" class="career-mbti__item">
+                    <span class="career-mbti__code">{{ t.code }}</span>
+                    <span class="career-mbti__label">{{ t.label }}</span>
+                    {% if t.reason %}<span class="career-mbti__reason">{{ t.reason }}</span>{% endif %}
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
 
         {% include '_a8_banner.html' %}
 

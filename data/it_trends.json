@@ -1,0 +1,61 @@
+{
+  "updated": "2026-09-06",
+  "headline": "今月のITトレンド",
+  "note": "公式ランキングではありません。OKPyの記事と検索傾向から編集部が整理しています。",
+  "boards": [
+    {
+      "id": "languages",
+      "title": "開発言語",
+      "items": [
+        {"rank": 1, "name": "Python", "score": 96, "delta": 0, "href": "/category/python"},
+        {"rank": 2, "name": "TypeScript", "score": 90, "delta": "new", "href": "/category/python"},
+        {"rank": 3, "name": "Go", "score": 84, "delta": "new", "href": "/category/cloud"},
+        {"rank": 4, "name": "SQL", "score": 80, "delta": "new", "href": "/category/data-model"},
+        {"rank": 5, "name": "Rust", "score": 76, "delta": "new", "href": "/category/dev-method"},
+        {"rank": 6, "name": "Java", "score": 72, "delta": "new", "href": "/category/dev-method"},
+        {"rank": 7, "name": "Kotlin", "score": 68, "delta": "new", "href": "/category/dev-method"},
+        {"rank": 8, "name": "C#", "score": 64, "delta": "new", "href": "/category/dev-method"},
+        {"rank": 9, "name": "Swift", "score": 60, "delta": "new", "href": "/category/career"},
+        {"rank": 10, "name": "C++", "score": 56, "delta": "new", "href": "/category/dev-method"},
+        {"rank": 11, "name": "Ruby", "score": 50, "delta": "new", "href": "/category/dev-method"},
+        {"rank": 12, "name": "PHP", "score": 44, "delta": "new", "href": "/category/dev-method"}
+      ]
+    },
+    {
+      "id": "ai",
+      "title": "AIモデル",
+      "items": [
+        {"rank": 1, "name": "Claude", "score": 96, "delta": 0, "href": "/category/ai-models"},
+        {"rank": 2, "name": "GPT", "score": 92, "delta": 0, "href": "/category/ai-models"},
+        {"rank": 3, "name": "Gemini", "score": 86, "delta": 0, "href": "/category/ai-models"},
+        {"rank": 4, "name": "Llama", "score": 80, "delta": "new", "href": "/category/ai-models"},
+        {"rank": 5, "name": "Agentic RAG", "score": 76, "delta": "new", "href": "/guide/agentic-system"},
+        {"rank": 6, "name": "Mistral", "score": 72, "delta": "new", "href": "/category/ai-models"},
+        {"rank": 7, "name": "DeepSeek", "score": 68, "delta": "new", "href": "/category/ai-models"},
+        {"rank": 8, "name": "Grok", "score": 64, "delta": "new", "href": "/category/ai-models"},
+        {"rank": 9, "name": "Qwen", "score": 60, "delta": "new", "href": "/category/ai-models"},
+        {"rank": 10, "name": "Gemma", "score": 54, "delta": "new", "href": "/category/ai-models"},
+        {"rank": 11, "name": "Command", "score": 48, "delta": "new", "href": "/category/ai-models"},
+        {"rank": 12, "name": "LangChain", "score": 42, "delta": "new", "href": "/category/python"}
+      ]
+    },
+    {
+      "id": "hot",
+      "title": "注目テクノロジー",
+      "items": [
+        {"rank": 1, "name": "Terraform", "score": 94, "delta": 0, "href": "/category/terraform"},
+        {"rank": 2, "name": "Kubernetes", "score": 88, "delta": "new", "href": "/category/cloud"},
+        {"rank": 3, "name": "FastAPI", "score": 84, "delta": "new", "href": "/category/python"},
+        {"rank": 4, "name": "AWS", "score": 80, "delta": 0, "href": "/category/cloud"},
+        {"rank": 5, "name": "Docker", "score": 76, "delta": "new", "href": "/category/cloud"},
+        {"rank": 6, "name": "GCP", "score": 72, "delta": "new", "href": "/category/cloud"},
+        {"rank": 7, "name": "Azure", "score": 68, "delta": "new", "href": "/category/cloud"},
+        {"rank": 8, "name": "OpenTofu", "score": 64, "delta": "new", "href": "/category/terraform"},
+        {"rank": 9, "name": "A/Bテスト", "score": 60, "delta": "new", "href": "/category/data-analysis"},
+        {"rank": 10, "name": "GitHub Actions", "score": 54, "delta": "new", "href": "/category/dev-method"},
+        {"rank": 11, "name": "RAG", "score": 50, "delta": "new", "href": "/guide/agentic-system"},
+        {"rank": 12, "name": "Scrum", "score": 44, "delta": "new", "href": "/category/agile-scrum"}
+      ]
+    }
+  ]
+}

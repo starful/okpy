@@ -57,7 +57,7 @@ SITE_CONFIG = {
             "description": "概念・論理・物理データモデル、ERD、NoSQL、データガバナンス。",
         },
         "data-analysis": {
-            "label": "Data Analysis",
+            "label": "Business Analysis",
             "emoji": "📊",
             "hub_suffix": "",
             "description": "効果サイズ、A/Bテスト、計測・実験設計。ベンチマークと方法論。",
@@ -92,8 +92,17 @@ SITE_CONFIG = {
             "hub_suffix": "比較",
             "description": "GPT / Claude / Gemini などLLMの品質・コスト・日本語・用途別の選び方。ツールやエージェントではなくモデル選定。",
         },
+        "career": {
+            "label": "Career",
+            "emoji": "💼",
+            "hub_suffix": "職種",
+            "description": "IT職種の年収・ロードマップ・面接対策。MBTIタイプから探す入口もあり。",
+        },
     },
 
     "footer_tagline": "Python, cloud, Terraform, data analysis, and software engineering practices.",
     "footer_year": "2026",
 }
+
+# Mixed home feed (最新・人気) から外す。カテゴリ別セクションとトピックカードには出す。
+HOME_FEED_EXCLUDE = frozenset({"career"})

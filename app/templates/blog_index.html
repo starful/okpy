@@ -22,10 +22,15 @@
     <meta name="twitter:description" content="{% if active_category %}{{ categories[active_category].description }}{% else %}Python・クラウド・開発方法論の技術ブログ — okpy.net{% endif %}">
     <meta name="twitter:image" content="{{ og_image }}">
     {% include '_head_icons.html' %}
-    <link rel="stylesheet" href="/static/css/okpy.css?v=31">
+    <link rel="stylesheet" href="/static/css/okpy.css?v=39">
 </head>
-<body>
+<body{% if not active_category %} class="page-home"{% endif %}>
     {% include 'header.html' %}
+
+    {% if not active_category %}
+    {% set home_cats = home_categories or categories %}
+    <div class="home-shell">
+    {% endif %}
 
     <main class="page">
         {% if not active_category %}
@@ -42,20 +47,79 @@
             <div class="section__head">
                 <h2 class="section__title">特集</h2>
             </div>
-            <a href="/guide/agentic-system" class="feature-card feature-card--with-thumb">
-                <div class="feature-card__thumb">
-                    <img src="/static/images/guide-agentic-system.jpg" alt="Agent · Context · Tools 図解" loading="lazy" width="640" height="360">
-                </div>
-                <div class="feature-card__content">
-                    <div class="feature-card__badge">SPECIAL</div>
-                    <div class="feature-card__body">
-                        <h3 class="feature-card__title">チャットボットは単一のモデルではない</h3>
-                        <p class="feature-card__desc">Agent / Context / RAG / ツール連携を一枚で整理。Cursor・ChatGPT・Claude・Gemini の対応表と、インタラクティブな図解（EN / 日本語 / 한국어）。</p>
-                        <span class="feature-card__cta">特集を見る →</span>
+            <div class="feature-grid">
+                <a href="/guide/agentic-system" class="feature-card feature-card--with-thumb">
+                    <div class="feature-card__thumb">
+                        <img src="/static/images/guide-agentic-system.jpg" alt="Agent · Context · Tools 図解" loading="lazy" width="640" height="360">
                     </div>
-                </div>
-            </a>
+                    <div class="feature-card__content">
+                        <div class="feature-card__badge">SPECIAL</div>
+                        <div class="feature-card__body">
+                            <h3 class="feature-card__title">チャットボットは単一のモデルではない</h3>
+                            <p class="feature-card__desc">Agent / Context / RAG / ツール連携を一枚で整理。Cursor・ChatGPT・Claude・Gemini の対応表と、インタラクティブな図解（EN / 日本語 / 한국어）。</p>
+                            <span class="feature-card__cta">特集を見る →</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/category/career/mbti" class="feature-card feature-card--with-thumb">
+                    <div class="feature-card__thumb">
+                        <img src="/static/images/guide-mbti-careers.jpg" alt="MBTIから探すIT職種" loading="lazy" width="640" height="360">
+                    </div>
+                    <div class="feature-card__content">
+                        <div class="feature-card__badge">SPECIAL</div>
+                        <div class="feature-card__body">
+                            <h3 class="feature-card__title">MBTIから探すIT職種</h3>
+                            <p class="feature-card__desc">16タイプ別に、相性の良いIT職種と面接ガイドへ進めます。性格の傾向からキャリアの次の一歩を具体化。</p>
+                            <span class="feature-card__cta">タイプ一覧を見る →</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </section>
+
+        {% if it_trends and it_trends.boards %}
+        <section class="section section--trends" id="trends">
+            <div class="section__head">
+                <h2 class="section__title">{{ it_trends.headline or "今月のITトレンド" }}</h2>
+                {% if it_trends.updated %}
+                <p class="section__note">{{ it_trends.updated }} 更新 · TOP 12</p>
+                {% endif %}
+            </div>
+            <div class="trend-boards">
+                {% for board in it_trends.boards %}
+                <div class="trend-board trend-board--{{ board.id }}">
+                    <p class="trend-board__kicker">{% if board.id == 'languages' %}LANGUAGE{% elif board.id == 'ai' %}MODEL{% else %}TECH{% endif %}</p>
+                    <h3 class="trend-board__title">{{ board.title }}</h3>
+                    <ol class="trend-list">
+                        {% for item in board['items'] %}
+                        <li class="trend-item{% if item.rank <= 3 %} is-top is-top{{ item.rank }}{% endif %}">
+                            <span class="trend-rank">{{ item.rank }}</span>
+                            {% if item.href %}
+                            <a class="trend-name" href="{{ item.href }}">{{ item.name }}</a>
+                            {% else %}
+                            <span class="trend-name">{{ item.name }}</span>
+                            {% endif %}
+                            {% if item.delta == "new" %}
+                            <span class="trend-delta is-new">NEW</span>
+                            {% elif item.delta > 0 %}
+                            <span class="trend-delta is-up">↑{{ item.delta }}</span>
+                            {% elif item.delta < 0 %}
+                            <span class="trend-delta is-down">↓{{ -item.delta }}</span>
+                            {% else %}
+                            <span class="trend-delta is-same">→</span>
+                            {% endif %}
+                            <div class="trend-bar" aria-hidden="true"><span style="width: {{ item.score }}%"></span></div>
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+                {% endfor %}
+            </div>
+            {% if it_trends.note %}
+            <p class="trend-note">{{ it_trends.note }}</p>
+            {% endif %}
+        </section>
+        {% endif %}
 
         {% if latest_posts %}
         <section class="section" id="latest">
@@ -70,26 +134,12 @@
         </section>
         {% endif %}
 
-        {% if popular_posts %}
-        <section class="section" id="popular">
-            <div class="section__head">
-                <h2 class="section__title">人気の記事</h2>
-                <p class="section__note">Search Console 上位（直近28日）</p>
-            </div>
-            <div class="story-grid">
-                {% for post in popular_posts %}
-                {% include '_story_card.html' %}
-                {% endfor %}
-            </div>
-        </section>
-        {% endif %}
-
         <section class="section" id="topics">
             <div class="section__head">
                 <h2 class="section__title">トピック</h2>
             </div>
             <div class="topic-grid">
-                {% for key, meta in categories.items() %}
+                {% for key, meta in home_cats.items() %}
                 <a href="/category/{{ key }}" class="topic-card topic-card--{{ key }}">
                     {% if category_thumbnails.get(key) %}
                     <div class="topic-card__thumb">
@@ -104,7 +154,7 @@
             </div>
         </section>
 
-        {% for key, meta in categories.items() %}
+        {% for key, meta in home_cats.items() %}
         {% set cat_posts = posts_by_category.get(key, []) %}
         {% if cat_posts %}
         <section class="section" id="cat-{{ key }}">
@@ -128,6 +178,18 @@
             <h1 class="cat-hero__title">{{ categories[active_category].emoji }} {{ categories[active_category].label }}</h1>
             <p class="cat-hero__desc">{{ categories[active_category].description }}</p>
             <p class="cat-hero__count">{{ category_counts[active_category] }} 記事</p>
+            {% if active_category == 'career' %}
+            <a href="/category/career/mbti" class="feature-card feature-card--compact">
+                <div class="feature-card__content">
+                    <div class="feature-card__badge">MBTI</div>
+                    <div class="feature-card__body">
+                        <h3 class="feature-card__title">タイプから職種を探す</h3>
+                        <p class="feature-card__desc">16タイプ別に、相性の良いIT職種と面接ガイドへ進めます。</p>
+                        <span class="feature-card__cta">MBTI一覧を見る →</span>
+                    </div>
+                </div>
+            </a>
+            {% endif %}
             {% if active_category in ['dev-method', 'ai-models'] %}
             <a href="/guide/agentic-system" class="feature-card feature-card--compact feature-card--with-thumb">
                 <div class="feature-card__thumb">
@@ -161,7 +223,21 @@
         {% endif %}
     </main>
 
+    {% if not active_category %}
+        <nav class="home-toc" aria-label="カテゴリへジャンプ">
+            <p class="home-toc__label">カテゴリ</p>
+            <a href="#special" class="home-toc__link" data-toc-target="special">特集</a>
+            {% if it_trends and it_trends.boards %}
+            <a href="#trends" class="home-toc__link" data-toc-target="trends">トレンド</a>
+            {% endif %}
+            {% for key, meta in home_cats.items() %}
+            <a href="#cat-{{ key }}" class="home-toc__link" data-toc-target="cat-{{ key }}">{{ meta.emoji }} {{ meta.label }}</a>
+            {% endfor %}
+        </nav>
+    </div>
+    {% endif %}
+
     {% include 'footer.html' %}
-    <script src="/static/js/okpy.js?v=6"></script>
+    <script src="/static/js/okpy.js?v=8"></script>
 </body>
 </html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ mbti.code }}に向いているIT職種｜{{ mbti.label }} — {{ site.site_name }}</title>
+    <meta name="description" content="{{ mbti.code }}（{{ mbti.label }}）に相性の良いIT職種を解説。{% for c in mbti.careers[:3] %}{{ c.name }}{% if not loop.last %}、{% endif %}{% endfor %}など。">
+    <link rel="canonical" href="{{ canonical }}" />
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ mbti.code }}に向いているIT職種｜{{ mbti.label }} — {{ site.site_name }}">
+    <meta property="og:description" content="{{ mbti.summary }}">
+    <meta property="og:url" content="{{ canonical }}">
+    <meta property="og:image" content="{{ og_image }}">
+    {% include '_head_icons.html' %}
+    <link rel="stylesheet" href="/static/css/okpy.css?v=32">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <main class="page mbti-page mbti-article">
+        <nav class="mbti-breadcrumb" aria-label="パンくず">
+            <a href="/">ホーム</a>
+            <span aria-hidden="true">/</span>
+            <a href="/category/career">Career</a>
+            <span aria-hidden="true">/</span>
+            <a href="/category/career/mbti">MBTI</a>
+            <span aria-hidden="true">/</span>
+            <span>{{ mbti.code }}</span>
+        </nav>
+
+        <header class="mbti-hero">
+            <p class="mbti-kicker">{{ mbti.code }}</p>
+            <h1>{{ mbti.code }}に向いているIT職種</h1>
+            <p class="mbti-type-subtitle">{{ mbti.label }}</p>
+            <p class="mbti-lead">{{ mbti.summary }}</p>
+        </header>
+
+        {% include '_a8_banner.html' %}
+
+        {% if mbti.intro %}
+        <section class="mbti-prose">
+            <h2>{{ mbti.code }}とITキャリア</h2>
+            <p>{{ mbti.intro }}</p>
+        </section>
+        {% endif %}
+
+        {% if mbti.work_style %}
+        <section class="mbti-prose">
+            <h2>チームでの働き方の傾向</h2>
+            <p>{{ mbti.work_style }}</p>
+        </section>
+        {% endif %}
+
+        {% if mbti.strengths or mbti.watchouts %}
+        <section class="mbti-traits" aria-label="傾向">
+            {% if mbti.strengths %}
+            <div class="mbti-trait-block">
+                <h2>活かしやすい傾向</h2>
+                <ul>
+                    {% for s in mbti.strengths %}
+                    <li>{{ s }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if mbti.watchouts %}
+            <div class="mbti-trait-block">
+                <h2>注意しやすい点</h2>
+                <ul>
+                    {% for w in mbti.watchouts %}
+                    <li>{{ w }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <section class="mbti-careers">
+            <h2>{{ mbti.code }}におすすめのIT職種</h2>
+            <div class="mbti-career-list">
+                {% for c in mbti.careers %}
+                <article class="mbti-career-item">
+                    <div class="mbti-career-main">
+                        <h3><a href="{{ c.link }}">{{ c.name }}</a></h3>
+                        <p class="mbti-career-reason">{{ c.reason }}</p>
+                        {% if c.detail %}
+                        <p class="mbti-career-detail">{{ c.detail }}</p>
+                        {% elif c.summary %}
+                        <p class="mbti-career-detail">{{ c.summary | truncate(110, True, '…') }}</p>
+                        {% endif %}
+                    </div>
+                    <a href="{{ c.link }}" class="mbti-btn">職種ガイドを見る</a>
+                </article>
+                {% else %}
+                <p>現在おすすめ職種を準備中です。<a href="/category/career">職種一覧</a>から探せます。</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        {% if mbti.avoid_env %}
+        <section class="mbti-prose">
+            <h2>合わない環境のサイン</h2>
+            <p>{{ mbti.avoid_env }}</p>
+        </section>
+        {% endif %}
+
+        {% if mbti.faqs %}
+        <section class="mbti-faq">
+            <h2>よくある質問（{{ mbti.code }}×IT職種）</h2>
+            {% for f in mbti.faqs %}
+            <details class="mbti-faq-item">
+                <summary>{{ f.question }}</summary>
+                <p>{{ f.answer }}</p>
+            </details>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        {% if mbti.related %}
+        <section class="mbti-related">
+            <h2>近いタイプ</h2>
+            <div class="mbti-related-list">
+                {% for r in mbti.related %}
+                <a href="/category/career/mbti/{{ r.code }}" class="mbti-type-card mbti-type-card--compact">
+                    <span class="mbti-code">{{ r.code }}</span>
+                    <span class="mbti-label">{{ r.label }}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if mbti.closing %}
+        <section class="mbti-prose">
+            <p>{{ mbti.closing }}</p>
+        </section>
+        {% endif %}
+
+        <p class="mbti-disclaimer">※MBTIは適職の参考情報です。採用・適性を保証するものではありません。</p>
+        <p class="mbti-back"><a href="/category/career/mbti">← 16タイプ一覧</a> · <a href="/category/career">Career 一覧</a></p>
+    </main>
+
+    {% include 'footer.html' %}
+</body>
+</html>

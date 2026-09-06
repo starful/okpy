@@ -9,7 +9,13 @@ import urllib.parse
 GSC_POPULAR_JSON = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "gsc_popular.json"
 )
+IT_TRENDS_JSON = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "it_trends.json"
+)
 HOME_LIMIT = 6
+HOME_LATEST_LIMIT = 4
+HOME_CAT_LIMIT = 3
+HOME_SECTION_LEAD = ("eng-comms", "data-analysis")
 GSC_SITE_URL = os.getenv("GSC_SITE_URL", "sc-domain:okpy.net")
 
 
@@ -78,6 +84,13 @@ def popular_posts_from_gsc(cached_posts: list, redirect_map: dict, limit: int = 
                 break
 
     return popular[:limit]
+
+
+def ordered_home_categories(categories: dict) -> dict:
+    """Homepage topic/section order: communication first, then config order."""
+    lead = [k for k in HOME_SECTION_LEAD if k in categories]
+    rest = [k for k in categories if k not in HOME_SECTION_LEAD]
+    return {k: categories[k] for k in (*lead, *rest)}
 
 
 def posts_by_category(cached_posts: list, categories: dict, limit: int = HOME_LIMIT) -> dict:
@@ -151,3 +164,106 @@ def apply_card_covers(posts: list, cover_pools: dict) -> list:
             cover = fallback_cover_for_post(post, cover_pools)
         enriched.append({**post, "card_cover": cover})
     return enriched
+
+
+def diverse_latest_posts(posts: list, limit: int = HOME_LATEST_LIMIT) -> list:
+    """Newest posts, at most one per category (avoids lookalike pairs)."""
+    picked: list = []
+    seen_cat: set[str] = set()
+    seen_slug: set[str] = set()
+    for post in posts:
+        slug = str(post.get("slug") or "")
+        cat = str(post.get("category") or "")
+        if not slug or slug in seen_slug or cat in seen_cat:
+            continue
+        picked.append(post)
+        seen_slug.add(slug)
+        if cat:
+            seen_cat.add(cat)
+        if len(picked) >= limit:
+            return picked
+    for post in posts:
+        slug = str(post.get("slug") or "")
+        if not slug or slug in seen_slug:
+            continue
+        picked.append(post)
+        seen_slug.add(slug)
+        if len(picked) >= limit:
+            break
+    return picked
+
+
+def load_it_trends() -> dict:
+    """Homepage editorial boards from data/it_trends.json (okadmin 트렌드 갱신)."""
+    if not os.path.isfile(IT_TRENDS_JSON):
+        return {}
+    try:
+        with open(IT_TRENDS_JSON, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    boards_out = []
+    for board in data.get("boards") or []:
+        if not isinstance(board, dict):
+            continue
+        items_out = []
+        for item in board.get("items") or []:
+            if not isinstance(item, dict):
+                continue
+            name = str(item.get("name") or "").strip()
+            href = str(item.get("href") or "").strip()
+            if not name:
+                continue
+            if href.startswith("https://okpy.net"):
+                href = href[len("https://okpy.net") :] or "/"
+            if not href.startswith("/"):
+                href = ""
+            try:
+                score = max(0, min(100, int(item.get("score") or 0)))
+            except (TypeError, ValueError):
+                score = 0
+            try:
+                rank = int(item.get("rank") or len(items_out) + 1)
+            except (TypeError, ValueError):
+                rank = len(items_out) + 1
+            delta = item.get("delta", 0)
+            if delta != "new":
+                try:
+                    delta = int(delta)
+                except (TypeError, ValueError):
+                    delta = 0
+            items_out.append(
+                {
+                    "rank": rank,
+                    "name": name,
+                    "score": score or max(28, 100 - (rank - 1) * 6),
+                    "delta": delta,
+                    "href": href,
+                }
+            )
+            if len(items_out) >= 12:
+                break
+        if not items_out:
+            continue
+        boards_out.append(
+            {
+                "id": str(board.get("id") or ""),
+                "title": str(board.get("title") or board.get("id") or "Trend"),
+                "items": items_out,
+            }
+        )
+        if len(boards_out) >= 3:
+            break
+    if not boards_out:
+        return {}
+    return {
+        "updated": str(data.get("updated") or "").strip()[:10],
+        "headline": str(data.get("headline") or "今月のITトレンド").strip()[:40],
+        "note": str(
+            data.get("note")
+            or "公式ランキングではありません。OKPyの記事と検索傾向から編集部が整理しています。"
+        ).strip()[:160],
+        "boards": boards_out,
+    }

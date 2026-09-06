@@ -15,26 +15,44 @@ Compress(app)
 
 try:
     from .a8_affiliate import a8_banner_context
-    from .config import SITE_CONFIG
+    from .career_mbti import (
+        all_mbti_type_codes,
+        get_mbti_type,
+        list_mbti_types,
+        types_for_career,
+    )
+    from .config import HOME_FEED_EXCLUDE, SITE_CONFIG
     from .home_data import (
-        HOME_LIMIT,
+        HOME_CAT_LIMIT,
+        HOME_LATEST_LIMIT,
         apply_card_covers,
         category_cover_pool,
         category_thumbnails,
+        diverse_latest_posts,
         fallback_cover_for_post,
-        popular_posts_from_gsc,
+        load_it_trends,
+        ordered_home_categories,
         posts_by_category,
     )
 except ImportError:
     from a8_affiliate import a8_banner_context
-    from config import SITE_CONFIG
+    from career_mbti import (
+        all_mbti_type_codes,
+        get_mbti_type,
+        list_mbti_types,
+        types_for_career,
+    )
+    from config import HOME_FEED_EXCLUDE, SITE_CONFIG
     from home_data import (
-        HOME_LIMIT,
+        HOME_CAT_LIMIT,
+        HOME_LATEST_LIMIT,
         apply_card_covers,
         category_cover_pool,
         category_thumbnails,
+        diverse_latest_posts,
         fallback_cover_for_post,
-        popular_posts_from_gsc,
+        load_it_trends,
+        ordered_home_categories,
         posts_by_category,
     )
 
@@ -388,6 +406,10 @@ def _posts_for_category(category=None):
     return [p for p in CACHED_POSTS if p["category"] == category]
 
 
+def _mixed_feed_posts():
+    return [p for p in CACHED_POSTS if p["category"] not in HOME_FEED_EXCLUDE]
+
+
 def _category_counts():
     cats = SITE_CONFIG.get("blog_categories", {})
     counts = {k: len(_posts_for_category(k)) for k in cats}
@@ -448,23 +470,61 @@ def _default_og_image():
 @app.route("/")
 def index():
     cats = SITE_CONFIG.get("blog_categories", {})
+    home_cats = ordered_home_categories(cats)
     ctx = _footer_ctx()
     pools = ctx["category_cover_pools"]
+    feed = _mixed_feed_posts()
+    latest = apply_card_covers(diverse_latest_posts(feed, HOME_LATEST_LIMIT), pools)
     by_cat = {
         key: apply_card_covers(posts, pools)
-        for key, posts in posts_by_category(CACHED_POSTS, cats, HOME_LIMIT).items()
+        for key, posts in posts_by_category(CACHED_POSTS, home_cats, HOME_CAT_LIMIT).items()
     }
     return render_template(
         "blog_index.html",
-        latest_posts=apply_card_covers(CACHED_POSTS[:HOME_LIMIT], pools),
-        popular_posts=apply_card_covers(
-            popular_posts_from_gsc(CACHED_POSTS, REDIRECT_MAP, HOME_LIMIT), pools
-        ),
+        latest_posts=latest,
         posts_by_category=by_cat,
-        posts=apply_card_covers(CACHED_POSTS[:HOME_LIMIT], pools),
+        posts=latest,
+        home_categories=home_cats,
+        it_trends=load_it_trends(),
         active_category=None,
         canonical=SITE_CONFIG["site_url"].rstrip("/") + "/",
         og_image=_default_og_image(),
+        **ctx,
+    )
+
+
+@app.route("/category/career/mbti")
+def career_mbti_index():
+    ctx = _footer_ctx()
+    canonical = f"{SITE_CONFIG['site_url'].rstrip('/')}/category/career/mbti"
+    a8 = a8_banner_context("career")
+    return render_template(
+        "mbti_index.html",
+        mbti_types=list_mbti_types(),
+        active_category="career",
+        canonical=canonical,
+        og_image=_default_og_image(),
+        **a8,
+        **ctx,
+    )
+
+
+@app.route("/category/career/mbti/<code>")
+def career_mbti_type(code):
+    career_posts = _posts_for_category("career")
+    mbti = get_mbti_type(code, career_posts)
+    if not mbti:
+        abort(404)
+    ctx = _footer_ctx()
+    canonical = f"{SITE_CONFIG['site_url'].rstrip('/')}/category/career/mbti/{mbti['code']}"
+    a8 = a8_banner_context("career")
+    return render_template(
+        "mbti_type.html",
+        mbti=mbti,
+        active_category="career",
+        canonical=canonical,
+        og_image=_default_og_image(),
+        **a8,
         **ctx,
     )
 
@@ -531,6 +591,7 @@ def blog_post(slug):
     canonical = f"{SITE_CONFIG['site_url'].rstrip('/')}/blog/{slug}"
     cover_abs = _absolute_url(cover) if cover else ""
     a8 = a8_banner_context(category)
+    career_mbti_types = types_for_career(slug) if category == "career" else []
 
     return render_template(
         "blog_post.html",
@@ -546,6 +607,7 @@ def blog_post(slug):
         category_label=cat_meta.get("label", category),
         category_emoji=cat_meta.get("emoji", ""),
         canonical=canonical,
+        career_mbti_types=career_mbti_types,
         **a8,
         **_footer_ctx(),
     )
@@ -586,6 +648,9 @@ def sitemap_xml():
     urls = [f"{base}/", f"{base}/guide/agentic-system"]
     for cat in SITE_CONFIG.get("blog_categories", {}):
         urls.append(f"{base}/category/{cat}")
+    urls.append(f"{base}/category/career/mbti")
+    for code in all_mbti_type_codes():
+        urls.append(f"{base}/category/career/mbti/{code}")
     for p in CACHED_POSTS:
         urls.append(f"{base}/blog/{p['slug']}")
 
