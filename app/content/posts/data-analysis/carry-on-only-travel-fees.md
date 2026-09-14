@@ -1,45 +1,44 @@
 ---
-title: How Much Do Checked Bag Fees Add to Your Flight Cost?
+title: 預け入れ荷物の手荷物料金、航空券代にどれくらい上乗せされるのか
 date: '2026-06-03'
 category: data-analysis
 slug: carry-on-only-travel-fees
-summary: Avoiding checked bags on fee-heavy carriers often saves 8–18% on total per-person
-  flight cost for domestic round trips.
-lang: en
+summary: 米国内の往復フライトでは、機内持ち込みのみで済ませることで、預け入れ荷物を利用する場合に比べて航空券＋手荷物料金の合計を1人あたり8〜18%程度抑えられるケースが報告されている。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/carry-on-only-travel-fees.jpg
 ---
 
-## Effect snapshot
+## 効果のスナップショット
 
 | | |
 |--|--|
-| Intervention | Travel carry-on only vs checking one bag each way |
-| Outcome | Airfare plus baggage fees per passenger |
-| Effect | 8–18 percent relative decrease |
-| Confidence | `estimate` |
-| Context | US legacy and low-cost carriers, round-trip domestic, 2023–2025 |
+| 介入 | 往復とも機内持ち込みのみで搭乗 vs 往復とも預け入れ荷物1個を利用 |
+| 結果指標 | 乗客1人あたりの航空券代＋手荷物料金の合計 |
+| 効果量 | 8〜18％の相対的な減少 |
+| 確信度 | `推定値` |
+| 対象・時期 | 米国のレガシーキャリア／LCC、国内往復、2023〜2025年 |
 
-### Sources
+### 出典
 
 - [BTS — Airline baggage fees](https://www.bts.gov/)
 
-## What changes
+## 何が変わるのか
 
-Avoiding checked bags on fee-heavy carriers often saves 8–18% on total per-person flight cost for domestic round trips.
+手荷物料金の設定が厳しい航空会社を利用する場合、預け入れ荷物を避けて機内持ち込みのみにすることで、1人あたりの総旅費（航空券代＋手荷物料金）を8〜18%程度削減できることが多い。
 
-## When this tends to work
+## 効果が出やすい条件
 
-- Conditions similar to: US legacy and low-cost carriers, round-trip domestic, 2023–2025
-- You can measure `Airfare plus baggage fees per passenger` reliably
-- The intervention is implemented consistently, not half-measured
+- 引用元と近い条件：米国のレガシーキャリア／LCC、国内往復、2023〜2025年
+- 「乗客1人あたりの航空券代＋手荷物料金の合計」を自分たちのデータで正確に測定できる
+- 施策を中途半端にせず、一貫して実施できる（毎回きちんと機内持ち込みのみに揃えるなど）
 
-## When to be careful
+## 注意すべき点
 
-- Your audience or product differs materially from the cited context
-- Compliance costs or second-order effects outweigh the lift
-- Evidence label is **estimate**—treat wide ranges as planning bands, not promises
+- 対象としている利用者層や商品・サービスが、引用元の条件と大きく異なる場合
+- 施策実施にかかるコストや副次的な影響が、期待できる効果を上回る場合
+- 確信度ラベルは **推定値** であり、幅のある数値は「約束」ではなく計画時の目安として扱うべき
 
-## Practical takeaway
+## 実務への示唆
 
-Use the cited range for prioritization and test design. Verify against your own data before scaling.
+このレンジはあくまで優先順位付けや検証設計のための参考値として使い、実際に施策を展開する前に自分たちのデータで検証することを推奨する。

@@ -5,11 +5,23 @@ date: 2026-02-25
 hatena_path: /entry/2026/02/25/090000
 slug: pythonでpostgresqlを操作するならこれ-psycopg2-まだ難しく考えていませんか
 summary: '- psycopg2は、PythonからPostgreSQLデータベースを操作するための最も標準的で信頼性の高いデータベースアダプターです。'
-title: psycopg2とは？読み方から使い方までPython×PostgreSQL入門
-description: psycopg2とは、PythonでPostgreSQLを操作する定番ライブラリです。読み方や接続・使い方の基本をわかりやすく解説します。
-seo_title: psycopg2とは？読み方から使い方までPython×PostgreSQL入門
-seo_description: psycopg2とは、PythonでPostgreSQLを操作する定番ライブラリです。読み方や接続・使い方の基本をわかりやすく解説します。
+title: psycopg2の読み方とconnect接続・Pythonでの使い方
+description: psycopg2の読み方・connectでの接続方法・基本の使い方をコード付きで解説。PostgreSQLをPythonから使う定番アダプタの入門ガイドです。
+seo_title: psycopg2の読み方とconnect接続・Pythonでの使い方
+seo_description: psycopg2の読み方・connectでの接続方法・基本の使い方をコード付きで解説。PostgreSQLをPythonから使う定番アダプタの入門ガイドです。
 ---
+## psycopg2の読み方と基本
+
+**psycopg2**（読み方：サイコピージー・ツー）は、PythonからPostgreSQLを操作するための定番アダプタです。「psychopg2」「psycog2」「psycop2」のように表記が揺れることがありますが、正しいスペルは **psycopg2** です。
+
+## psycopg2.connect()での接続方法
+
+PostgreSQLへの接続は`psycopg2.connect(dbname=..., user=..., password=..., host=..., port=...)`のように必要な接続情報を指定して行います。接続後はカーソルを取得してSQLを実行し、`commit()`で変更を確定するのが基本的な使い方です。
+
+**psycopg2の読み方**は「サイコピージーツー」です。名前は「psycho（サイコ）」+「PG（PostgreSQL）」+「2（バージョン2）」に由来する開発者の言葉遊びで、正式な省略読みは決まっていませんが、この読み方が最も一般的です。
+
+PythonからPostgreSQLへ接続するには、`psycopg2.connect(host="localhost", dbname="mydb", user="postgres", password="password", port=5432)` のようにホスト・DB名・ユーザー名・パスワードを指定します。接続後はカーソルを作成してSQLを実行する、DB-API 2.0準拠のシンプルな流れで使えます。
+
 ## psycopg2とは何か
 
 psycopg2は、PythonからPostgreSQLデータベースを操作するための代表的なライブラリ（アダプタ）です。SQLを実行してデータの取得・更新を行う際に使われ、PythonのDB API 2.0に準拠しているため書き方も直感的です。読み方は「サイコピージー・ツー」と呼ばれることが多く、名称は「psycho」+「pg」+バージョン番号の2に由来します。

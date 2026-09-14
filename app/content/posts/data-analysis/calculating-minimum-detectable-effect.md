@@ -1,127 +1,124 @@
 ---
-title: How to Calculate Minimum Detectable Effect (MDE) for Effective Power Analysis
+title: 最小検出可能効果（MDE）の計算方法：効果的な検定力分析のために
 date: '2026-07-20'
 category: data-analysis
 slug: calculating-minimum-detectable-effect
-summary: Understanding Minimum Detectable Effect (MDE) is crucial for designing statistically
-  powerful experiments, ensuring you allocate appropriate resources to detect meaningful
-  changes. This guide provides a practical methodology for calculating MDE, enabling
-  product and growth teams to plan efficient A/B tests and data-driven initiatives.
-lang: en
+summary: 最小検出可能効果（Minimum Detectable Effect, MDE）を理解することは、統計的に十分な検定力を持つ実験を設計するうえで欠かせません。適切なリソース配分によって意味のある変化を検出できるようにするための考え方であり、本記事ではプロダクトチームやグロースチームが効率的なA/Bテストやデータドリブンな施策を計画するための実践的なMDE計算方法を解説します。
+lang: ja
 source: statfacts
 ---
 
-For product managers, growth specialists, and data analysts, the journey from an idea to a validated feature often runs through an A/B test. Yet, simply launching a test isn't enough; the real challenge lies in designing an experiment capable of detecting the actual impact of your changes. This is where the Minimum Detectable Effect (MDE) becomes your critical ally, serving as the smallest true effect you can reliably expect to observe with your chosen experiment parameters. Ignoring MDE can lead to inconclusive tests, wasted resources, and missed opportunities to improve your product or service.
+アイデアを検証済みの機能へと導く道のりは、多くの場合A/Bテストを経由します。しかし、テストを実施するだけでは不十分です。本当に重要なのは、変更による実際の影響を検出できるだけの実験を設計することです。ここで鍵となるのが最小検出可能効果（MDE）です。MDEとは、選んだ実験パラメータのもとで「信頼して観測できる最小の真の効果」を指します。MDEを軽視すると、結論の出ないテスト、無駄なリソース、そして本来得られたはずの改善機会の喪失につながります。
 
-## The Core Purpose of Minimum Detectable Effect (MDE)
+## MDEの本質的な役割
 
-At its heart, MDE quantifies the smallest "lift" or "drop" in a metric that your experiment is statistically powered to detect. It answers a fundamental question: "Given my budget, timeline, and desired confidence, what's the smallest real change I can actually *see*?" Without understanding your MDE, you risk running an experiment that is underpowered, meaning even if your new feature or design truly improves a metric, your test might not have enough statistical 'strength' to confirm it. This leads to frustrating "no significant difference" results, which often mask a genuine, albeit subtle, effect.
+MDEは、実験が統計的に検出できるメトリクスの最小の「上昇」または「低下」を定量化するものです。これは「予算・期間・求める信頼度が決まっているとき、実際に検出できる最小の真の変化はどれくらいか」という根本的な問いに答えます。MDEを理解しないままテストを行うと、実験が過小検出力（underpowered）になるリスクがあります。つまり、新機能やデザインが実際にメトリクスを改善していても、それを確認するだけの統計的な「強さ」がテストに備わっていない可能性があるのです。これは「有意差なし」というもどかしい結果を招き、実際には存在する微妙な効果を見逃してしまいます。
 
-MDE directly addresses the tension between Type I errors (false positives, incorrectly concluding an effect exists when it doesn't, controlled by your significance level α) and Type II errors (false negatives, failing to detect an effect that truly exists, controlled by your statistical power 1-β). A well-calculated MDE ensures that if an effect of a certain size or larger exists, your experiment has a high probability of detecting it, thus safeguarding against misinterpreting results and making poor business decisions. It’s about being pragmatic: what's the *smallest* effect that still offers practical value, and can your test actually confirm it?
+MDEは、第一種の過誤（有意水準αで制御される偽陽性：効果がないのにあると誤って結論すること）と第二種の過誤（検定力1-βで制御される偽陰性：実際に存在する効果を検出し損なうこと）の間の緊張関係に直接関わります。適切に計算されたMDEは、ある大きさ以上の効果が実在する場合に、それを高い確率で検出できることを保証し、誤った解釈やビジネス上の誤った意思決定を防ぎます。要するに「実用的な価値を持つ最小の効果は何か、そしてそのテストで実際にそれを確認できるのか」という現実的な問いへの答えなのです。
 
-## Deconstructing MDE: The Essential Inputs for Power Analysis
+## MDEを分解する：検定力分析に必要な入力パラメータ
 
-Calculating your MDE isn't a single, abstract step. It's a synthesis of several key parameters that define the statistical rigor and practical constraints of your experiment. Before you can determine your MDE, you must establish these foundational inputs:
+MDEの計算は単一の抽象的なステップではなく、実験の統計的厳密さと実務上の制約を定義するいくつかの主要パラメータの組み合わせです。MDEを求める前に、以下の基礎的な入力を確定させる必要があります。
 
-*   **Significance Level (Alpha, α):** This is your threshold for Type I error, typically set at 0.05 (or 5%). It represents the probability of incorrectly rejecting a true null hypothesis—in simpler terms, claiming there's an effect when there isn't one. A lower alpha (e.g., 0.01) makes it harder to detect an effect, thus increasing the MDE.
-*   **Statistical Power (1 - Beta, β):** This is the probability of correctly detecting an effect when one truly exists. Common power levels are 0.80 (80%) or 0.90 (90%). A higher power reduces your chance of a Type II error (missing a real effect), but it also requires a larger sample size, which in turn influences your MDE. When power is fixed, increasing sample size reduces MDE, allowing you to detect smaller effects.
-*   **Baseline Metric (p_baseline or µ_baseline, and standard deviation σ):** This is perhaps the most crucial input, representing the current performance of the metric you wish to change.
-    *   **For proportions (e.g., conversion rate, click-through rate):** You need the current baseline proportion (e.g., 10% conversion rate). The closer this proportion is to 0% or 100%, the less variance there is, potentially allowing for a smaller MDE given other parameters.
-    *   **For continuous metrics (e.g., average order value, time on site):** You need the current mean (µ_baseline) and its standard deviation (σ). The variability (standard deviation) of the metric heavily influences MDE; higher variability means a larger MDE to detect the same absolute change.
-    *   Reliable baseline data comes from historical performance and pilot studies.
-*   **Target Sample Size (N per group):** This is the number of users or observations you anticipate having in each experimental group (control and variation) at the end of your test. For MDE calculation, we often fix the sample size (based on traffic estimates or testing capacity) and then determine what MDE *can be detected* with that N. Alternatively, if you have a target MDE in mind, you'd calculate the N required to achieve it.
-*   **Test Type (One-sided vs. Two-sided):**
-    *   **Two-sided test:** Detects an effect in *either* direction (e.g., an increase or a decrease in conversion rate). This is the standard and generally recommended approach for most business experiments.
-    *   **One-sided test:** Detects an effect in only *one* pre-specified direction (e.g., only an increase in conversion rate). While it can reduce the required sample size for a given MDE (or reduce MDE for a given N), it carries a higher risk of missing an effect in the unhypothesized direction and should be used with extreme caution, only when you are absolutely certain no effect in the other direction is possible or relevant. For almost all product and growth experiments, stick to two-sided tests.
+*   **有意水準（α）**：第一種の過誤の閾値で、通常は0.05（5%）に設定されます。これは真の帰無仮説を誤って棄却する確率、つまり「効果がないのにあると主張してしまう」確率を表します。αを小さくする（例：0.01）と効果の検出が難しくなり、結果としてMDEは大きくなります。
+*   **検定力（1-β）**：真に効果が存在する場合に、それを正しく検出できる確率です。一般的な水準は0.80（80%）または0.90（90%）です。検定力を高めると第二種の過誤（真の効果を見逃すこと）のリスクは下がりますが、その分より大きなサンプルサイズが必要になり、これがMDEにも影響します。検定力を固定した場合、サンプルサイズを増やすほどMDEは小さくなり、より小さな効果を検出できるようになります。
+*   **ベースラインメトリクス（比率p_baselineまたは平均µ_baselineと標準偏差σ）**：おそらく最も重要な入力で、変化させたいメトリクスの現状のパフォーマンスを表します。
+    *   **比率の場合（コンバージョン率、クリック率など）**：現在のベースライン比率（例：コンバージョン率10%）が必要です。この比率が0%または100%に近いほど分散は小さくなり、他の条件が同じであれば、より小さなMDEを検出できる可能性があります。
+    *   **連続値の場合（平均注文額、滞在時間など）**：現在の平均値（µ_baseline）とその標準偏差（σ）が必要です。メトリクスのばらつき（標準偏差）はMDEに大きく影響し、ばらつきが大きいほど同じ絶対的変化を検出するためのMDEも大きくなります。
+    *   信頼できるベースラインデータは、過去の実績データやパイロット調査から得られます。
+*   **目標サンプルサイズ（グループごとのN）**：テスト終了時点で各実験グループ（コントロール群と施策群）に想定されるユーザー数や観測数です。MDE計算では、多くの場合サンプルサイズを（トラフィック見込みやテスト実施可能期間から）固定し、そのNで「検出可能なMDE」を求めます。逆に目標とするMDEが先にある場合は、それを達成するために必要なNを計算します。
+*   **検定の種類（片側検定 vs 両側検定）**：
+    *   **両側検定**：どちらの方向（増加・減少）の効果も検出します。ほとんどのビジネス実験における標準的かつ推奨される方法です。
+    *   **片側検定**：あらかじめ指定した一方向（例：コンバージョン率の増加のみ）の効果のみを検出します。同じMDEに対して必要なサンプルサイズを減らせる（または同じNに対してMDEを小さくできる）一方、想定していない方向の効果を見逃すリスクが高まります。他の方向に効果が生じる可能性が絶対にないと確信できる場合を除き、極めて慎重に扱うべきです。プロダクトやグロースの実験の大半では両側検定を用いるべきです。
 
-Here's a quick summary of these essential inputs:
+以下に、これらの必須入力の要点をまとめます。
 
-| Input                     | Description                                                                                             | Typical Value/Source          |
-| :------------------------ | :------------------------------------------------------------------------------------------------------ | :---------------------------- |
-| **Significance Level (α)** | Probability of a Type I error (false positive).                                                         | 0.05 (5%)                     |
-| **Statistical Power (1-β)** | Probability of detecting a true effect (avoiding a Type II error).                                      | 0.80 (80%) or 0.90 (90%)      |
-| **Baseline Metric**       | Current performance (proportion `p` or mean `µ` & standard deviation `σ`) of the metric being tested. | Historical data, past experiments |
-| **Target Sample Size (N)** | Number of observations per group.                                                                       | Traffic estimates, capacity |
-| **Test Type**             | Whether you're looking for an effect in one or both directions.                                         | Two-sided (recommended)       |
+| 入力項目 | 説明 | 一般的な値・情報源 |
+| :------------------------ | :------------------------------------------------------------------------------------------------------ | :----------------------------- |
+| **有意水準（α）** | 第一種の過誤（偽陽性）が起こる確率。 | 0.05（5%） |
+| **検定力（1-β）** | 真の効果を検出できる確率（第二種の過誤を回避する確率）。 | 0.80（80%）または 0.90（90%） |
+| **ベースラインメトリクス** | テスト対象メトリクスの現状のパフォーマンス（比率pまたは平均µと標準偏差σ）。 | 過去データ、過去の実験結果 |
+| **目標サンプルサイズ（N）** | グループごとの観測数。 | トラフィック見込み、実施可能な規模 |
+| **検定の種類** | 一方向のみ、または両方向の効果を検出するか。 | 両側検定（推奨） |
 
-## Practical Calculation of MDE for Product & Growth Metrics
+## プロダクト・グロースメトリクスにおけるMDEの実践的計算
 
-While the underlying statistical formulas can be complex, calculating MDE for your A/B tests is highly accessible thanks to numerous online power calculators and statistical software. The key is to input your established parameters correctly. Let's walk through examples for the two most common metric types.
+背後にある統計的な数式は複雑になり得ますが、A/Bテストの検定力計算は、オンラインの検定力計算ツールや統計ソフトウェアのおかげで非常に扱いやすくなっています。重要なのは、確立したパラメータを正しく入力することです。代表的な2種類のメトリクスについて例を見てみましょう。
 
-### Calculating MDE for Proportions (e.g., Conversion Rate, Click-Through Rate)
+### 比率（コンバージョン率、クリック率など）のMDE計算
 
-Imagine you're A/B testing a new call-to-action button on a landing page, aiming to increase its conversion rate.
+ランディングページの新しいCTAボタンをA/Bテストし、コンバージョン率の向上を狙う場合を考えます。
 
-**Scenario Parameters:**
-*   **Baseline Conversion Rate (p_baseline):** 10% (or 0.10)
-*   **Significance Level (α):** 0.05 (two-sided)
-*   **Statistical Power (1-β):** 0.80 (80%)
-*   **Target Sample Size (N) per group:** 5,000 unique visitors
+**シナリオのパラメータ：**
+*   **ベースラインのコンバージョン率（p_baseline）**：10%（0.10）
+*   **有意水準（α）**：0.05（両側検定）
+*   **検定力（1-β）**：0.80（80%）
+*   **グループごとの目標サンプルサイズ（N）**：ユニーク訪問者5,000人
 
-**Using an Online A/B Test Calculator (or a statistical library):**
-You would input these values into a power analysis tool. The calculator would then solve for the MDE.
+**オンラインA/Bテスト計算ツール（または統計ライブラリ）の利用：**
+これらの値を検定力分析ツールに入力すると、ツールがMDEを算出します。
 
-**MDE Result Example:**
-For these parameters, the calculator might indicate an **MDE of 1.2 percentage points** (absolute).
+**MDEの計算結果例：**
+このパラメータでは、計算ツールは**MDE 1.2ポイント（絶対値）**を示すことがあります。
 
-**What this MDE means:**
-This means that with 5,000 visitors per group, you can reliably detect a true change in conversion rate from 10% to 11.2% (a +1.2 percentage point absolute increase, or a +12% relative increase) or from 10% to 8.8% (a -1.2 percentage point absolute decrease, or a -12% relative decrease). If the true effect of your new CTA is, for instance, a +0.5 percentage point increase (from 10% to 10.5%), your experiment is **underpowered** to detect it. You'd likely conclude "no significant difference," even though a real improvement occurred.
+**このMDEが意味すること：**
+つまり、各グループ5,000人の訪問者がいれば、コンバージョン率が10%から11.2%へ（絶対値で+1.2ポイント、相対値で+12%の上昇）、あるいは10%から8.8%へ（-1.2ポイント、相対値で-12%の低下）と真に変化した場合に、それを確実に検出できるということです。もし新しいCTAの真の効果が、例えば+0.5ポイント（10%から10.5%）にとどまる場合、この実験はその効果を検出するには**検定力不足**です。実際には改善が起きていても、「有意差なし」という結論に至る可能性が高くなります。
 
-### Calculating MDE for Means (e.g., Average Order Value, Time on Site)
+### 平均値（平均注文額、滞在時間など）のMDE計算
 
-Consider testing a new product recommendation algorithm to see its impact on Average Order Value (AOV).
+新しい商品レコメンドアルゴリズムが平均注文額（AOV）に与える影響を検証するケースを考えます。
 
-**Scenario Parameters:**
-*   **Baseline Average Order Value (µ_baseline):** $50
-*   **Standard Deviation (σ) of AOV:** $30 (This is critical and usually derived from historical transaction data.)
-*   **Significance Level (α):** 0.05 (two-sided)
-*   **Statistical Power (1-β):** 0.80 (80%)
-*   **Target Sample Size (N) per group:** 2,000 users
+**シナリオのパラメータ：**
+*   **ベースラインの平均注文額（µ_baseline）**：50ドル
+*   **AOVの標準偏差（σ）**：30ドル（これは過去の取引データから算出されることが多く、非常に重要な値です）
+*   **有意水準（α）**：0.05（両側検定）
+*   **検定力（1-β）**：0.80（80%）
+*   **グループごとの目標サンプルサイズ（N）**：ユーザー2,000人
 
-**Using an Online A/B Test Calculator (or a statistical library):**
-Again, input these values into a power analysis tool designed for continuous metrics.
+**オンラインA/Bテスト計算ツール（または統計ライブラリ）の利用：**
+連続値メトリクス向けの検定力分析ツールに、同様に値を入力します。
 
-**MDE Result Example:**
-For these parameters, the calculator might return an **MDE of $2.50**.
+**MDEの計算結果例：**
+このパラメータでは、計算ツールは**MDE 2.50ドル**を返すことがあります。
 
-**What this MDE means:**
-This implies that your experiment, with 2,000 users per group, is robust enough to detect a true change in AOV of $2.50 or more (e.g., from $50 to $52.50 or to $47.50). If the recommendation algorithm actually boosts AOV by only $1.00, your test is unlikely to flag it as statistically significant, leading to a missed opportunity. The relatively high standard deviation ($30 compared to a $50 mean) often necessitates a larger sample size or results in a larger MDE to reliably detect smaller absolute changes.
+**このMDEが意味すること：**
+これは、グループごとに2,000人のユーザーがいれば、AOVの真の変化が2.50ドル以上（例：50ドルから52.50ドル、あるいは47.50ドルへ）であれば、確実に検出できるだけの検定力があることを意味します。もしレコメンドアルゴリズムによるAOVの向上がわずか1.00ドルにとどまる場合、このテストではそれを統計的有意として検出できない可能性が高く、改善機会を見逃すことになります。標準偏差が比較的大きい（平均50ドルに対して30ドル）場合、より小さな絶対的変化を確実に検出するには、より大きなサンプルサイズが必要になるか、結果としてMDEが大きくなる傾向があります。
 
-## Connecting MDE to Strategic Impact with StatFacts Benchmarks
+## MDEをOKPy Data Analysisのベンチマークと結びつけて戦略的インパクトを把握する
 
-A numerical MDE is useful, but its true value emerges when placed in context. An MDE of a 1.2 percentage point lift in conversion rate might sound small, but is it *meaningful* for your business? This is where StatFacts insight cards become invaluable. They offer context for common effect ranges—categorizing them as small, medium, or large—for various metrics across different industries and contexts.
+数値としてのMDEは有用ですが、その真の価値は文脈の中に置かれたときに発揮されます。コンバージョン率1.2ポイントのMDEは小さく聞こえるかもしれませんが、それは自社のビジネスにとって*意味のある*大きさでしょうか。ここでOKPy Data Analysisが提供する効果量の目安が役立ちます。業界やメトリクスごとに、効果の大きさを小・中・大といったカテゴリで捉えるための文脈を提供してくれるのです。
 
-When you calculate your MDE:
+MDEを計算したら、次のように活用します。
 
-1.  **Compare against StatFacts Effect Ranges:**
-    *   **Is your MDE considered "Small" by StatFacts benchmarks?** For instance, if StatFacts shows that a 0.5-1.0 percentage point lift in CR is typically considered a "small" but impactful effect in your industry, and your MDE is 1.2 percentage points, your test is set up to detect something slightly larger than the "small" benchmark. This means you might miss very subtle, yet valuable, improvements.
-    *   **Is your MDE considered "Medium" or "Large"?** If your MDE aligns with "medium" effects (e.g., StatFacts indicates a 1.0-2.5 percentage point lift is "medium") or even "large" effects (e.g., 2.5%+), it implies your experiment can only detect substantial changes. While detecting large effects is good, it also means smaller, potentially valuable improvements will be completely invisible to your test. This is a crucial signal that your experiment might be underpowered for the type of impact you genuinely expect or hope to see.
+1.  **一般的な効果量の目安と比較する：**
+    *   **算出したMDEは「小さい」効果に分類されるか？** 例えば、ある業界でCRの0.5〜1.0ポイントの上昇が「小さいが意味のある」効果とされているのに対し、あなたのMDEが1.2ポイントである場合、そのテストは「小さい」効果の目安よりやや大きな変化しか検出できない設計になっています。つまり、微妙ではあるが価値のある改善を見逃す可能性があるということです。
+    *   **算出したMDEは「中程度」または「大きい」効果に分類されるか？** もしMDEが「中程度」の効果（例：CRの1.0〜2.5ポイントの上昇）や「大きい」効果（例：2.5%以上）に相当する場合、その実験は大きな変化しか検出できないことを意味します。大きな効果を検出できること自体は良いことですが、同時に、より小さくても価値のある改善は完全に見逃されてしまいます。これは、想定している（あるいは期待している）効果の種類に対して、実験が検定力不足である可能性を示す重要なシグナルです。
 
-2.  **Evaluate Practical Significance alongside Statistical Significance:** Your MDE helps bridge the gap between statistical significance and *practical* or *business* significance. An MDE of $2.50 for AOV might be statistically detectable, but does a $2.50 increase translate into a substantial revenue boost that justifies the engineering effort? StatFacts provides `effect ranges` that help calibrate these expectations. If most "medium" effects on AOV in your category are $5-$10, then detecting only $2.50 might be on the lower end of what’s truly impactful.
+2.  **統計的有意性とあわせて実務的な意義を評価する：** MDEは、統計的有意性と*実務的*あるいは*ビジネス的*な意義との間のギャップを埋める助けになります。AOVのMDEが2.50ドルであれば統計的には検出可能かもしれませんが、2.50ドルの増加が、それに見合うだけのエンジニアリングコストを正当化するほどの売上増につながるでしょうか。一般的な効果量の目安は、こうした期待値の調整に役立ちます。あるカテゴリでAOVの「中程度」の効果が5〜10ドルであることが多いなら、2.50ドルの検出は本当に意味のある改善としては下限に近い水準かもしれません。
 
-3.  **Consider `sample_context`:** StatFacts insight cards also provide context on `sample_context`, illustrating how typical sample sizes in certain industries or for specific metrics influence what MDEs are usually achieved. This can help you understand if your target sample size is realistic for detecting effects of a certain magnitude, or if you're aiming for an MDE that requires an unfeasible number of users.
+3.  **サンプルサイズの実情を考慮する：** 業界や特定のメトリクスにおける典型的なサンプルサイズが、通常どの程度のMDEの達成につながっているかという文脈も参考になります。これにより、目標サンプルサイズが、特定の大きさの効果を検出するうえで現実的かどうか、あるいは非現実的な数のユーザーを必要とするMDEを狙ってしまっていないかを判断できます。
 
-4.  **Understand `confidence`:** The `confidence` aspect on StatFacts directly relates to your chosen alpha and power. It reinforces that higher confidence (lower alpha, higher power) will naturally push up your MDE for a fixed sample size, or demand a larger sample size for a fixed MDE.
+4.  **信頼度の意味を理解する：** 信頼度は、選択した有意水準と検定力に直接関係します。これは、より高い信頼度（低いα、高い検定力）を求めるほど、固定サンプルサイズのもとではMDEが自然と大きくなる、あるいは固定MDEのもとではより大きなサンプルサイズが必要になる、という関係を裏付けるものです。
 
-By leveraging StatFacts benchmarks, you move beyond just knowing your MDE to understanding its strategic implications. It helps you decide whether to proceed with an experiment as designed, modify its parameters, or even reconsider the business hypothesis itself if the detectable effects are not practically meaningful.
+こうしたベンチマークを活用することで、単にMDEの数値を知るだけでなく、その戦略的な意味を理解する段階へと進めます。設計どおりに実験を進めるべきか、パラメータを調整すべきか、あるいは検出可能な効果が実務的に意味を持たないのであればビジネス仮説そのものを再考すべきか、を判断する助けになります。
 
-## Optimizing Your Experiment Design Based on MDE Insights
+## MDEの示唆をもとに実験設計を最適化する
 
-After calculating your MDE and contextualizing it with StatFacts benchmarks, you might find that your experiment is only capable of detecting effects larger than what you consider practically significant. This is a common scenario, and there are several levers you can pull to optimize your design:
+MDEを計算し、一般的なベンチマークと照らし合わせた結果、実験が実務上意味があると考える効果よりも大きな効果しか検出できないと分かることがあります。これはよくあるケースであり、設計を最適化するためにいくつかの手段があります。
 
-1.  **Increase Sample Size:** This is the most direct and often most effective way to reduce your MDE. More data points provide greater statistical precision, allowing you to detect smaller true effects. If your current MDE is 1.2 percentage points for CR, increasing your sample size from 5,000 to 10,000 per group might reduce your MDE to 0.8 percentage points, making your test sensitive enough to detect those more subtle, yet valuable, lifts. This often means extending the test duration.
+1.  **サンプルサイズを増やす：** これはMDEを縮小するための最も直接的で、多くの場合最も効果的な方法です。データ量が増えるほど統計的な精度が高まり、より小さな真の効果を検出できるようになります。例えばCRのMDEが現在1.2ポイントであれば、グループごとのサンプルサイズを5,000人から10,000人に増やすことで、MDEを0.8ポイントまで縮小できるかもしれません。これにより、より微妙ではあるが価値のある改善にも十分な検出力を持つテストになります。ただし、これは多くの場合テスト期間の延長を意味します。
 
-2.  **Re-evaluate Your Significance Level (α) and Power (1-β):** While not typically recommended to change the industry-standard α = 0.05, you *could* slightly increase alpha (e.g., to 0.10) to decrease your MDE, but this significantly increases your risk of false positives. Conversely, increasing power from 0.80 to 0.90 will *increase* your MDE (or require a larger sample size) to achieve higher certainty. Adjust these only if you fully understand the trade-offs in Type I and Type II errors.
+2.  **有意水準（α）と検定力（1-β）を見直す：** 業界標準であるα=0.05を変更することは通常推奨されませんが、MDEを小さくするためにαをわずかに引き上げる（例：0.10）ことも理論上は可能です。ただしこれは偽陽性のリスクを大きく高めます。逆に、検定力を0.80から0.90に引き上げると、より高い確実性を得るためにMDEは*大きくなり*ます（あるいはより大きなサンプルサイズが必要になります）。これらの調整は、第一種・第二種の過誤のトレードオフを十分に理解したうえでのみ行うべきです。
 
-3.  **Reduce Variability in Your Metric:** For continuous metrics, a high standard deviation inflates your MDE. Consider these strategies:
-    *   **Segmentation:** Run your test on a more homogeneous segment of users. If your product appeals to both new and seasoned users with vastly different engagement patterns, testing them together might mask effects.
-    *   **Variance Reduction Techniques:** Employ statistical methods like CUPED (Controlled-experiment Using Pre-Experiment Data) where you adjust post-experiment metrics using pre-experiment covariates to statistically reduce noise and thus reduce your MDE without increasing sample size.
+3.  **メトリクスのばらつきを減らす：** 連続値メトリクスの場合、標準偏差が大きいほどMDEは膨らみます。以下のような対策が考えられます。
+    *   **セグメンテーション：** より均質なユーザーセグメントに絞ってテストを実施する。新規ユーザーと既存の熟練ユーザーでエンゲージメントのパターンが大きく異なる場合、両者を一緒にテストすると効果が打ち消し合ってしまうことがあります。
+    *   **分散削減の手法：** CUPED（Controlled-experiment Using Pre-Experiment Data）のような統計的手法を用いる。実験前の共変量を使って実験後のメトリクスを調整することで、サンプルサイズを増やすことなくノイズを統計的に減らし、結果としてMDEを縮小できます。
 
-4.  **Re-assess Your Business Hypothesis:** If, even after exploring all optimization options, your MDE remains higher than any effect you deem practically valuable, it might be a signal that the proposed change is unlikely to yield a detectable impact given your current testing capabilities. In such cases, it's wiser to reconsider the feature or seek a more impactful intervention rather than running an underpowered test destined for inconclusiveness.
+4.  **ビジネス仮説を再検討する：** あらゆる最適化の手段を試しても、なお実務的に価値があると考える効果よりもMDEの方が大きいままである場合、それは現在のテスト実施能力のもとでは、提案している変更が検出可能な影響をもたらす見込みが低いことを示すシグナルかもしれません。そのような場合は、結論の出ないまま終わる検定力不足のテストを実施するよりも、その機能自体を再考するか、より影響力の大きい施策を模索する方が賢明です。
 
-The process of calculating and interpreting MDE is iterative. Use the insights from StatFacts to compare your MDE against established benchmarks, then use tools like the StatFacts benchmark calculator to run "what if" scenarios. How much would your MDE shrink if you could double your sample size? What if you focused on a segment with lower baseline variability? These questions, informed by a solid MDE calculation, empower you to design experiments that are not just statistically sound but also strategically aligned with your business goals.
+MDEの計算と解釈は反復的なプロセスです。算出したMDEを一般的なベンチマークと比較し、さらに検定力計算ツールを使って「もしこうだったら」のシナリオを試してみましょう。サンプルサイズを2倍にできたらMDEはどれだけ縮小するか。ベースラインのばらつきが小さいセグメントに絞ったらどうなるか。こうした問いに、しっかりとしたMDE計算に基づいて向き合うことで、統計的に妥当であるだけでなく、ビジネス目標とも戦略的に整合した実験を設計できるようになります。
 
-For deeper insights into interpreting statistical benchmarks and optimizing your experimental design, explore these resources:
+統計的なベンチマークの読み方や実験設計の最適化についてさらに詳しく知りたい方は、以下のリソースもご覧ください。
 
-*   [How to Read Effect Size Benchmarks](/blog/how-to-read-benchmarks)
-*   [StatFacts Benchmark Calculator](/tools/benchmark-calculator)
+*   [効果量ベンチマークの読み方](/blog/how-to-read-benchmarks)
+*   [ベンチマーク計算ツール](/tools/benchmark-calculator)
