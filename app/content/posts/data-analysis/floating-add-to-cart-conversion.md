@@ -1,5 +1,5 @@
 ---
-title: Does a Sticky Mobile 'Add to Cart' Button Increase Conversions?
+title: 'Sticky Mobile ''Add to Cart'' Button: Conversion Lift Data — OKPy'
 date: '2026-07-25'
 category: data-analysis
 slug: floating-add-to-cart-conversion
@@ -8,7 +8,13 @@ summary: A/B tests on mobile product pages show a persistent bottom-of-viewport 
 lang: en
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/floating-add-to-cart-conversion.jpg
+description: 'A/B test data: a sticky mobile ''Add to Cart'' button lifts cart additions
+  7-14% vs a static button. See why and how to implement it.'
+seo_title: 'Sticky Mobile Add to Cart Button: Does It Boost Conversions?'
+seo_description: 'A/B test data: a sticky mobile ''Add to Cart'' button lifts cart
+  additions 7-14% vs a static button. See why and how to implement it.'
 ---
+
 
 ## Effect snapshot
 
@@ -44,3 +50,7 @@ A persistent bottom bar competes for the same real estate as browser chrome, coo
 ## Reading the Effect Size Correctly
 
 The 7-14% figure is a relative lift in the rate of adding an item to cart, not a lift in completed purchases or revenue — checkout, shipping cost, and payment friction still sit downstream and are untouched by this change. It also assumes a baseline where the button was not already persistent; sites that already pin the button, or that have very short product pages where the original button rarely scrolls out of view, should expect a smaller effect than sites with long, detail-heavy product pages. Treat the range as a starting expectation for a single, isolated A/B test on this one element, not a guaranteed outcome once other page changes are layered on top of it.
+
+## Who Should Implement This
+
+The lift applies most clearly to mobile product detail pages with a single, obvious purchase action — a clear candidate if your current 'Add to Cart' button scrolls out of view early in the page. Before rolling it out broadly, check that the sticky button doesn't overlap other fixed UI (chat widgets, cookie banners) and that it clearly reflects state changes like out-of-stock or selected variant, since a persistent button showing stale state can undercut the trust it's meant to build.
