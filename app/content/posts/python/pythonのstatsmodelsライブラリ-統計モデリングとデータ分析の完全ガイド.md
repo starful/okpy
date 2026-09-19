@@ -4,15 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250321143123.png
 date: 2025-03-21
 hatena_path: /entry/2025/03/21/143148
 slug: pythonのstatsmodelsライブラリ-統計モデリングとデータ分析の完全ガイド
-summary: Python の statsmodels は、統計モデリングとデータ分析を行うための強力なライブラリです。本記事では、statsmodels の主な機能と使い方を、10個の具体的なコード例とともに紹介します。
-title: Python statsmodelsの実践ガイド｜10コード例で学ぶ回帰分析・時系列解析 — OKPy
-description: statsmodelsの使い方を、すぐに使える実践コード10個で完全網羅。回帰分析から時系列解析まで、複雑な統計処理も分かりやすく解説します。
-seo_title: Python statsmodelsの実践ガイド｜10コード例で学ぶ回帰分析・時系列解析
-seo_description: statsmodelsの使い方を、すぐに使える実践コード10個で完全網羅。回帰分析から時系列解析まで、複雑な統計処理も分かりやすく解説します。
+summary: Python statsmodelsの主要機能を、OLS回帰からARIMA時系列解析まで10個の実行可能なコード例で紹介する完全ガイドです。
+title: Python statsmodelsの使い方｜OLS・ロジスティック回帰・ARIMAを10コード例で解説 — OKPy
+description: Python statsmodelsの基本を10個のコード例で解説。OLS回帰・ロジスティック回帰・ARIMA時系列解析・仮説検定まで、コピペで試せるサンプル付きです。
+seo_title: Python statsmodelsの使い方｜OLS・ロジスティック回帰・ARIMAを10コード例で解説 — OKPy
+seo_description: Python statsmodelsの基本を10個のコード例で解説。OLS回帰・ロジスティック回帰・ARIMA時系列解析・仮説検定まで、コピペで試せるサンプル付きです。
 ---
-
-
-
+> **この記事でわかること**: `statsmodels`のインストールから、OLS回帰・ロジスティック回帰・ARIMA時系列解析・仮説検定・GLM・PCAまで、10個のコード例を使って一つずつ動かしながら学べます。
 
 # Pythonのstatsmodelsライブラリ:統計モデリングとデータ分析の完全ガイド
 

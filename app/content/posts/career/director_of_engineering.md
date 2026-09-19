@@ -1,13 +1,17 @@
 ---
-title: Director of Engineering(DoE)の役割・年収・CTOやVPoEとの違い
+title: Director of Engineering(DoE)とは?役割・年収・CTOやVPoEとの違い
 date: '2026-06-19'
 category: career
 slug: director_of_engineering
-summary: 開発組織を牽引するDirector of Engineering（DoE）の役割、想定年収、CTOやVPoEとの違い、具体的なキャリアロードマップについて分かりやすく解説します。
+summary: Director of Engineering(DoE)の役割・年収相場・CTOやVPoEとの違いを解説。EMからのキャリアロードマップと面接対策も紹介します。
 cover: https://storage.googleapis.com/ok-project-assets/okpy/career/director_of_engineering.jpg
 lang: ja
 career_track: engineering
+description: Director of Engineering(DoE)の役割・年収相場・CTOやVPoEとの違いを徹底解説。EMからのキャリアロードマップと面接対策Q&Aも紹介する完全ガイド。
+seo_title: Director of Engineering(DoE)とは?役割・年収・CTOやVPoEとの違いを解説｜OKPy
+seo_description: Director of Engineering（DoE）の役割や平均年収、CTO・VPoEとの違いを徹底解説!エンジニアリングマネージャーからDoEを目指すキャリアロードマップや、面接対策Q&Aも紹介します。
 ---
+
 
 ---json
 {
@@ -244,3 +248,9 @@ Director of Engineeringの面接は、知識の量を競うテストではあり
 面接官は、あなたの答えの中に「覚悟」を見ています。技術的な正論を振りかざすだけでなく、ビジネスの泥臭い現実に寄り添い、それでもなお技術の力で未来を切り拓こうとする意志があるか。チームが崩壊しそうな時、プロジェクトが炎上した時、あなたが先頭に立って旗を振り、同時に最後尾でメンバーを支える強さを持っているか。
 
 自信を持ってください。DoEを求める企業は、あなたの「技術者としての誇り」と「経営者としての冷徹さ」の同居を待っています。これまでの修羅場経験のすべてを、組織を救うための知恵として語り尽くしてください。あなたのリーダーシップが、次世代のイノベーションを支える強固なエンジニアリング組織を創り上げることを信じています。
+
+## Director of Engineeringに向いている人・実務でのポイント
+
+DoEは、EM（エンジニアリングマネージャー）経験者や、複数チームを横断してマネジメントしてきたテックリードがステップアップ先として目指すことが多いポジションです。技術力だけでなく、事業指標とエンジニアリング指標を結び付けて経営陣に説明できる人、チーム間の優先順位を調整できる人に向いています。
+
+転職やキャリアアップを検討する場合は、まず自分のマネジメント範囲（人数・予算・意思決定権）を棚卸しし、DoEが担う「組織設計」「技術投資判断」「採用戦略」のどの領域で実績を語れるかを整理しておくと、面接でも説得力のある自己紹介につながります。
