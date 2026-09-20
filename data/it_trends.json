@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-06",
+  "updated": "2026-09-20",
   "headline": "今月のITトレンド",
   "note": "公式ランキングではありません。言語やモデル名ではなく、スキル・クラウドサービス・事業の型を編集部が整理しています。",
   "boards": [
@@ -7,18 +7,18 @@
       "id": "skills",
       "title": "AIスキル・概念",
       "items": [
-        {"rank": 1, "name": "MCP", "score": 96, "delta": "new", "href": "/guide/agentic-system"},
-        {"rank": 2, "name": "Context", "score": 92, "delta": 0, "href": "/guide/agentic-system"},
-        {"rank": 3, "name": "Agentic RAG", "score": 88, "delta": 0, "href": "/guide/agentic-system"},
-        {"rank": 4, "name": "Tool calling", "score": 84, "delta": 0, "href": "/guide/agentic-system"},
-        {"rank": 5, "name": "Eval", "score": 80, "delta": "new", "href": "/category/ai-models"},
-        {"rank": 6, "name": "Computer Use", "score": 76, "delta": "new", "href": "/guide/agentic-system"},
-        {"rank": 7, "name": "Guardrail", "score": 72, "delta": 0, "href": "/category/ai-models"},
-        {"rank": 8, "name": "Structured output", "score": 68, "delta": 0, "href": "/category/python"},
-        {"rank": 9, "name": "Prompt caching", "score": 64, "delta": "new", "href": "/category/ai-models"},
-        {"rank": 10, "name": "Multi-agent", "score": 60, "delta": 0, "href": "/guide/agentic-system"},
-        {"rank": 11, "name": "Fine-tune", "score": 54, "delta": 0, "href": "/category/ai-models"},
-        {"rank": 12, "name": "HITL", "score": 48, "delta": 0, "href": "/category/eng-comms"}
+        {"rank": 1, "name": "MCP", "score": 98, "delta": 0, "href": "/guide/agentic-system"},
+        {"rank": 2, "name": "Agent Skills", "score": 94, "delta": "new", "href": "/guide/agentic-system"},
+        {"rank": 3, "name": "Context", "score": 90, "delta": -1, "href": "/guide/agentic-system"},
+        {"rank": 4, "name": "Tool calling", "score": 86, "delta": 0, "href": "/guide/agentic-system"},
+        {"rank": 5, "name": "Eval", "score": 82, "delta": 0, "href": "/category/ai-models"},
+        {"rank": 6, "name": "Spec-driven", "score": 78, "delta": "new", "href": "/category/eng-comms"},
+        {"rank": 7, "name": "Computer Use", "score": 74, "delta": -1, "href": "/guide/agentic-system"},
+        {"rank": 8, "name": "Agentic RAG", "score": 70, "delta": -5, "href": "/guide/agentic-system"},
+        {"rank": 9, "name": "Structured output", "score": 66, "delta": -1, "href": "/category/python"},
+        {"rank": 10, "name": "Guardrail", "score": 62, "delta": -3, "href": "/category/ai-models"},
+        {"rank": 11, "name": "Multi-agent", "score": 56, "delta": -1, "href": "/guide/agentic-system"},
+        {"rank": 12, "name": "Prompt caching", "score": 50, "delta": -3, "href": "/category/ai-models"}
       ]
     },
     {
@@ -26,35 +26,35 @@
       "title": "クラウドサービス",
       "items": [
         {"rank": 1, "name": "Cloud Run", "score": 96, "delta": 0, "href": "/blog/コンテナ管理の革新-aws-ecsとgcp-cloud-run"},
-        {"rank": 2, "name": "Lambda", "score": 92, "delta": 0, "href": "/blog/クラウドコンピューティングの進化-aws-lambda-vs-gcp-cloud-functions"},
-        {"rank": 3, "name": "BigQuery", "score": 88, "delta": 0, "href": "/blog/aws-redshift-serverless-vs-bigquery-on-demand-vs-azure"},
-        {"rank": 4, "name": "Vertex AI", "score": 84, "delta": 0, "href": "/blog/クラウド機械学習の最適選択-sagemaker-vs-vertex-ai"},
-        {"rank": 5, "name": "Bedrock", "score": 80, "delta": "new", "href": "/category/ai-models"},
-        {"rank": 6, "name": "Cloud SQL", "score": 76, "delta": 0, "href": "/blog/マネージドデータベースサービスの選択-aws-rds-vs-gcp-cloud-sql"},
-        {"rank": 7, "name": "S3", "score": 72, "delta": 0, "href": "/blog/aws-s3-vs-gcp-cloud-storage-機能比較"},
-        {"rank": 8, "name": "IAM", "score": 68, "delta": 0, "href": "/blog/アクセス管理の進化-aws-iam-vs-gcp-cloud-iam"},
-        {"rank": 9, "name": "Secret Manager", "score": 64, "delta": 0, "href": "/blog/最適解-aws-secrets-manager-vs-gcp-secret-manager"},
-        {"rank": 10, "name": "ECS", "score": 60, "delta": 0, "href": "/blog/aws-ecs-vs-gcp-cloud-run-vs-azure-container-instances-サ"},
-        {"rank": 11, "name": "Cloud Functions", "score": 54, "delta": 0, "href": "/blog/クラウドコンピューティングの進化-aws-lambda-vs-gcp-cloud-functions"},
-        {"rank": 12, "name": "Cloud Build", "score": 48, "delta": 0, "href": "/blog/optimizing-development-environment-aws-codebuild-vs-gcp"}
+        {"rank": 2, "name": "Bedrock", "score": 92, "delta": 3, "href": "/category/ai-models"},
+        {"rank": 3, "name": "Vertex AI", "score": 88, "delta": 1, "href": "/blog/クラウド機械学習の最適選択-sagemaker-vs-vertex-ai"},
+        {"rank": 4, "name": "Lambda", "score": 84, "delta": -2, "href": "/blog/クラウドコンピューティングの進化-aws-lambda-vs-gcp-cloud-functions"},
+        {"rank": 5, "name": "BigQuery", "score": 80, "delta": -2, "href": "/blog/aws-redshift-serverless-vs-bigquery-on-demand-vs-azure"},
+        {"rank": 6, "name": "Secret Manager", "score": 76, "delta": 3, "href": "/blog/最適解-aws-secrets-manager-vs-gcp-secret-manager"},
+        {"rank": 7, "name": "IAM", "score": 72, "delta": 1, "href": "/blog/アクセス管理の進化-aws-iam-vs-gcp-cloud-iam"},
+        {"rank": 8, "name": "Cloud SQL", "score": 68, "delta": -2, "href": "/blog/マネージドデータベースサービスの選択-aws-rds-vs-gcp-cloud-sql"},
+        {"rank": 9, "name": "S3", "score": 64, "delta": -2, "href": "/blog/aws-s3-vs-gcp-cloud-storage-機能比較"},
+        {"rank": 10, "name": "ECS", "score": 58, "delta": 0, "href": "/blog/aws-ecs-vs-gcp-cloud-run-vs-azure-container-instances-サ"},
+        {"rank": 11, "name": "Cloud Build", "score": 52, "delta": 1, "href": "/blog/optimizing-development-environment-aws-codebuild-vs-gcp"},
+        {"rank": 12, "name": "Cloud Functions", "score": 46, "delta": -1, "href": "/blog/クラウドコンピューティングの進化-aws-lambda-vs-gcp-cloud-functions"}
       ]
     },
     {
       "id": "biz",
       "title": "ITビジネス",
       "items": [
-        {"rank": 1, "name": "PMF", "score": 96, "delta": 0, "href": "/blog/成長ロードマップ-フィット・ジャーニーのスタートアップ成功法"},
-        {"rank": 2, "name": "GTM", "score": 90, "delta": 0, "href": "/blog/成長戦略-gtmとは"},
-        {"rank": 3, "name": "CPF", "score": 86, "delta": 0, "href": "/blog/解決する価値を検証する-cpfの重要性"},
-        {"rank": 4, "name": "SPF", "score": 82, "delta": 0, "href": "/blog/solution-product-fit-重要なフェーズでのプロダクト評価"},
-        {"rank": 5, "name": "PLG", "score": 78, "delta": "new", "href": "/category/fit-journey"},
-        {"rank": 6, "name": "ICP", "score": 74, "delta": 0, "href": "/category/fit-journey"},
-        {"rank": 7, "name": "従量課金", "score": 70, "delta": "new", "href": "/category/cloud"},
+        {"rank": 1, "name": "Vertical AI", "score": 96, "delta": 8, "href": "/blog/reframing-just-add-ai"},
+        {"rank": 2, "name": "PLG", "score": 90, "delta": 3, "href": "/category/fit-journey"},
+        {"rank": 3, "name": "PMF", "score": 86, "delta": -2, "href": "/blog/成長ロードマップ-フィット・ジャーニーのスタートアップ成功法"},
+        {"rank": 4, "name": "GTM", "score": 82, "delta": -2, "href": "/blog/成長戦略-gtmとは"},
+        {"rank": 5, "name": "Time-to-value", "score": 78, "delta": 6, "href": "/category/fit-journey"},
+        {"rank": 6, "name": "従量課金", "score": 74, "delta": 1, "href": "/category/cloud"},
+        {"rank": 7, "name": "ICP", "score": 70, "delta": -1, "href": "/category/fit-journey"},
         {"rank": 8, "name": "ユニットエコノミクス", "score": 66, "delta": 0, "href": "/category/fit-journey"},
-        {"rank": 9, "name": "Vertical AI", "score": 62, "delta": "new", "href": "/blog/reframing-just-add-ai"},
-        {"rank": 10, "name": "A/Bテスト", "score": 58, "delta": 0, "href": "/category/data-analysis"},
-        {"rank": 11, "name": "Time-to-value", "score": 52, "delta": 0, "href": "/category/fit-journey"},
-        {"rank": 12, "name": "Land and expand", "score": 46, "delta": 0, "href": "/blog/成長戦略-gtmとは"}
+        {"rank": 9, "name": "CPF", "score": 60, "delta": -6, "href": "/blog/解決する価値を検証する-cpfの重要性"},
+        {"rank": 10, "name": "SPF", "score": 56, "delta": -6, "href": "/blog/solution-product-fit-重要なフェーズでのプロダクト評価"},
+        {"rank": 11, "name": "Land and expand", "score": 50, "delta": 1, "href": "/blog/成長戦略-gtmとは"},
+        {"rank": 12, "name": "A/Bテスト", "score": 44, "delta": -2, "href": "/category/data-analysis"}
       ]
     }
   ]

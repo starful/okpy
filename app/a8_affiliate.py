@@ -1,42 +1,35 @@
-"""A8.net affiliate banners for OKPy (Neuro Dive + @PRO人)."""
+"""A8.net affiliate banners for OKPy (career + お名前.com)."""
 
 from __future__ import annotations
 
 import os
 from typing import Any
 
-# Categories that show both career banners in one row
-A8_CATEGORIES: frozenset[str] = frozenset(
+# Career / 就労・転職 — Neuro Dive + @PRO人 (career + MBTI only)
+CAREER_CATEGORIES: frozenset[str] = frozenset({"career"})
+
+# Tech howto — お名前.com (domain / rental server)
+ONAMAE_CATEGORIES: frozenset[str] = frozenset(
     {
-        "data-analysis",
-        "ai-models",
-        "data-model",
-        "eng-comms",
-        "fit-journey",
         "python",
         "cloud",
         "terraform",
-        "dev-method",
-        "career",
     }
 )
 
+A8_CATEGORIES: frozenset[str] = CAREER_CATEGORIES | ONAMAE_CATEGORIES
+
 # Back-compat alias used by tests / older call sites
 CATEGORY_A8_PROGRAM: dict[str, str] = {
-    "data-analysis": "neuro_dive",
-    "ai-models": "neuro_dive",
-    "data-model": "neuro_dive",
-    "eng-comms": "pro_jin",
-    "fit-journey": "pro_jin",
-    "python": "pro_jin",
-    "cloud": "pro_jin",
-    "terraform": "pro_jin",
-    "dev-method": "pro_jin",
     "career": "pro_jin",
+    "python": "onamae",
+    "cloud": "onamae",
+    "terraform": "onamae",
 }
 
 NEURO_DIVE_PROGRAM_ID = "s00000019630003"
 PRO_JIN_PROGRAM_ID = "s00000020853002"
+ONAMAE_PROGRAM_ID = "s00000000018015"
 
 NEURO_DIVE_A8 = {
     "id": "neuro_dive",
@@ -80,6 +73,24 @@ PRO_JIN_A8 = {
     "title": "IT転職エージェント",
 }
 
+ONAMAE_A8 = {
+    "id": "onamae",
+    "program_id": ONAMAE_PROGRAM_ID,
+    "click_url": os.getenv(
+        "A8_ONAMAE_CLICK_URL",
+        "https://px.a8.net/svt/ejp?a8mat=4BACLH+2TT6RM+50+2HHVNM",
+    ),
+    "image_url": os.getenv("A8_ONAMAE_BANNER_URL", ""),
+    "pixel_url": os.getenv(
+        "A8_ONAMAE_PIXEL_URL",
+        "https://www18.a8.net/0.gif?a8mat=4BACLH+2TT6RM+50+2HHVNM",
+    ),
+    "label": "お名前.com — ドメイン・レンタルサーバー",
+    "desc": "検証用ドメインや個人プロジェクトの独自ドメイン取得",
+    "alt": "お名前.com — アフィリエイト",
+    "title": "ドメイン・レンタルサーバー",
+}
+
 
 def _banner_dict(src: dict[str, str]) -> dict[str, str]:
     return {
@@ -94,7 +105,7 @@ def _banner_dict(src: dict[str, str]) -> dict[str, str]:
 
 
 def a8_banner_context(category: str = "") -> dict[str, Any]:
-    """Neuro Dive + @PRO人 on career-related blog categories (one-row)."""
+    """Career banners or お名前.com on matching blog categories."""
     enabled = os.getenv("A8_OKPY_ENABLED", "1").strip().lower() in (
         "1",
         "true",
@@ -116,15 +127,22 @@ def a8_banner_context(category: str = "") -> dict[str, Any]:
             "a8_banners": [],
         }
 
-    banners = [_banner_dict(NEURO_DIVE_A8), _banner_dict(PRO_JIN_A8)]
+    if cat in ONAMAE_CATEGORIES:
+        banners = [_banner_dict(ONAMAE_A8)]
+        title = "ドメイン・サーバー（アフィリエイト）"
+    else:
+        banners = [_banner_dict(NEURO_DIVE_A8), _banner_dict(PRO_JIN_A8)]
+        title = "キャリア支援（アフィリエイト）"
+
     first = banners[0]
+    note = "アフィリエイト広告 · 新しいタブで開きます"
     return {
         "show_a8_banner": True,
         "a8_banner": first,
-        "a8_banner_title": "キャリア支援（アフィリエイト）",
-        "a8_banner_note": "アフィリエイト広告 · 新しいタブで開きます",
+        "a8_banner_title": title,
+        "a8_banner_note": note,
         "show_a8_banners": True,
         "a8_banners": banners,
-        "a8_banners_title": "キャリア支援（アフィリエイト）",
-        "a8_banners_note": "アフィリエイト広告 · 新しいタブで開きます",
+        "a8_banners_title": title,
+        "a8_banners_note": note,
     }

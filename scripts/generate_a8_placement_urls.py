@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 HUB = Path(__file__).resolve().parents[2] / "data" / "a8" / "generate_placement_urls.py"
-OKPY_PROGRAMS = ("neuro_dive", "pro_jin")
+OKPY_PROGRAMS = ("neuro_dive", "pro_jin", "onamae")
 
 
 def main() -> None:

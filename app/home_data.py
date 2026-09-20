@@ -156,12 +156,26 @@ def fallback_cover_for_post(post: dict, cover_pools: dict) -> str:
 
 
 def apply_card_covers(posts: list, cover_pools: dict) -> list:
-    """Ensure each post has card_cover for list/grid rendering."""
+    """Ensure each post has card_cover for list/grid rendering.
+
+    Own frontmatter covers win. Fallbacks avoid reusing an image already
+    shown on the same page when the category pool still has unused covers
+    (slug-hash collisions used to duplicate the same stock photo).
+    """
     enriched = []
+    used: set[str] = set()
     for post in posts:
         cover = str(post.get("cover") or "").strip()
         if not cover:
             cover = fallback_cover_for_post(post, cover_pools)
+            if cover in used:
+                pool = cover_pools.get(post.get("category")) or []
+                for candidate in pool:
+                    if candidate not in used:
+                        cover = candidate
+                        break
+        if cover:
+            used.add(cover)
         enriched.append({**post, "card_cover": cover})
     return enriched
 
