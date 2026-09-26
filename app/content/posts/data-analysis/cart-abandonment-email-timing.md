@@ -1,45 +1,44 @@
 ---
-title: 'Best Cart Abandonment Email Timing: When to Send for Max Revenue'
+title: カート放棄メールは「1時間以内」が鉄則？送信タイミングと復元売上の関係
 date: '2026-05-10'
 category: data-analysis
 slug: cart-abandonment-email-timing
-summary: Earlier abandonment emails (within ~1 hour) are often associated with 20–45%
-  higher recovery revenue versus waiting 24 hours.
-lang: en
+summary: カート放棄メールは、送信までの時間が早いほど復元売上が伸びる傾向にある。放棄から1時間以内に送った場合、24時間待ってから送った場合と比べて、復元売上が20〜45%高くなるというデータがある。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/cart-abandonment-email-timing.jpg
 ---
 
-## Effect snapshot
+## 効果のスナップショット
 
 | | |
 |--|--|
-| Intervention | Send first cart recovery email within 1 hour vs 24 hours |
-| Outcome | Recovered cart revenue per abandoned cart |
-| Effect | 20–45 percent relative increase |
-| Confidence | `study` |
-| Context | E-commerce email programs, opt-in shoppers, 2022–2025 |
+| 施策 | カート放棄後、最初のリカバリーメールを1時間以内に送信（24時間後との比較） |
+| 指標 | 放棄カート1件あたりの復元売上 |
+| 効果 | 20〜45%の相対的な増加 |
+| 確度 | `study`（研究・調査レベル） |
+| 前提条件 | ECのメール施策、オプトイン済みの購入者、2022〜2025年 |
 
-### Sources
+### 出典
 
 - [Klaviyo — Abandoned cart benchmarks](https://www.klaviyo.com/marketing-resources/abandoned-cart-email)
 
-## What changes
+## 何が変わるのか
 
-Earlier abandonment emails (within ~1 hour) are often associated with 20–45% higher recovery revenue versus waiting 24 hours.
+放棄から約1時間以内に送るカート放棄メールは、24時間待ってから送るケースと比べて、復元売上が20〜45%高くなる傾向がしばしば見られる。購入意欲がまだ高いうちにリマインドできることが、この差を生む主な要因と考えられる。
 
-## When this tends to work
+## この施策が効きやすい条件
 
-- Conditions similar to: E-commerce email programs, opt-in shoppers, 2022–2025
-- You can measure `Recovered cart revenue per abandoned cart` reliably
-- The intervention is implemented consistently, not half-measured
+- 出典と近い条件：ECのメール施策、オプトイン済みの購入者、2022〜2025年
+- 「放棄カート1件あたりの復元売上」を安定して計測できる体制がある
+- 施策を中途半端にせず、一貫して実施できる
 
-## When to be careful
+## 注意すべきポイント
 
-- Your audience or product differs materially from the cited context
-- Compliance costs or second-order effects outweigh the lift
-- Evidence label is **study**—treat wide ranges as planning bands, not promises
+- 自社のオーディエンスや商材が、引用元の前提条件と大きく異なる場合
+- 送信頻度を上げることによるコンプライアンスコストや副作用（配信停止率の上昇など）が、売上増加分を上回る可能性がある場合
+- 確度ラベルは **study**（研究・調査レベル）であり、幅のある数値は「約束」ではなく「計画のための目安」として扱うべき
 
-## Practical takeaway
+## 実務への落とし込み
 
-Use the cited range for prioritization and test design. Verify against your own data before scaling.
+この数値レンジは、優先順位付けやテスト設計の参考値として活用したい。本格展開する前に、必ず自社データで効果を検証すること。OKPy Data Analysisでは、こうした計測ベースの知見を継続的に取り上げていく。
