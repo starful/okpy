@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 from typing import Any
 
-# Career / 就労・転職 — Neuro Dive + @PRO人 (career + MBTI only)
+# Career / 就労 — Neuro Dive only (@PRO人 ended)
 CAREER_CATEGORIES: frozenset[str] = frozenset({"career"})
 
 # Tech howto — お名前.com (domain / rental server)
@@ -21,14 +21,13 @@ A8_CATEGORIES: frozenset[str] = CAREER_CATEGORIES | ONAMAE_CATEGORIES
 
 # Back-compat alias used by tests / older call sites
 CATEGORY_A8_PROGRAM: dict[str, str] = {
-    "career": "pro_jin",
+    "career": "neuro_dive",
     "python": "onamae",
     "cloud": "onamae",
     "terraform": "onamae",
 }
 
 NEURO_DIVE_PROGRAM_ID = "s00000019630003"
-PRO_JIN_PROGRAM_ID = "s00000020853002"
 ONAMAE_PROGRAM_ID = "s00000000018015"
 
 NEURO_DIVE_A8 = {
@@ -50,27 +49,6 @@ NEURO_DIVE_A8 = {
     "desc": "AI・データサイエンスを学べる就労移行支援（パーソルダイバース）",
     "alt": "Neuro Dive 就労移行支援 — アフィリエイト",
     "title": "就労移行支援（IT・データサイエンス）",
-}
-
-PRO_JIN_A8 = {
-    "id": "pro_jin",
-    "program_id": PRO_JIN_PROGRAM_ID,
-    "click_url": os.getenv(
-        "A8_PRO_JIN_CLICK_URL",
-        "https://px.a8.net/svt/ejp?a8mat=4BACLI+2IHY9U+4GWI+BZVU9",
-    ),
-    "image_url": os.getenv(
-        "A8_PRO_JIN_BANNER_URL",
-        "https://www24.a8.net/svt/bgt?aid=260823366152&wid=003&eno=01&mid=s00000020853002015000&mc=1",
-    ),
-    "pixel_url": os.getenv(
-        "A8_PRO_JIN_PIXEL_URL",
-        "https://www13.a8.net/0.gif?a8mat=4BACLI+2IHY9U+4GWI+BZVU9",
-    ),
-    "label": "IT転職エージェント @PRO人",
-    "desc": "IT職種・業界特化。キャリア相談の質にこだわった転職エージェント",
-    "alt": "IT転職エージェント @PRO人 — アフィリエイト",
-    "title": "IT転職エージェント",
 }
 
 ONAMAE_A8 = {
@@ -105,7 +83,7 @@ def _banner_dict(src: dict[str, str]) -> dict[str, str]:
 
 
 def a8_banner_context(category: str = "") -> dict[str, Any]:
-    """Career banners or お名前.com on matching blog categories."""
+    """Career banner (Neuro Dive) or お名前.com on matching blog categories."""
     enabled = os.getenv("A8_OKPY_ENABLED", "1").strip().lower() in (
         "1",
         "true",
@@ -131,7 +109,7 @@ def a8_banner_context(category: str = "") -> dict[str, Any]:
         banners = [_banner_dict(ONAMAE_A8)]
         title = "ドメイン・サーバー（アフィリエイト）"
     else:
-        banners = [_banner_dict(NEURO_DIVE_A8), _banner_dict(PRO_JIN_A8)]
+        banners = [_banner_dict(NEURO_DIVE_A8)]
         title = "キャリア支援（アフィリエイト）"
 
     first = banners[0]

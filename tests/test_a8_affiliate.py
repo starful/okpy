@@ -5,7 +5,6 @@ from app.a8_affiliate import (
     CATEGORY_A8_PROGRAM,
     NEURO_DIVE_A8,
     ONAMAE_A8,
-    PRO_JIN_A8,
     a8_banner_context,
 )
 
@@ -58,17 +57,14 @@ def test_category_map_keys():
     assert "cloud" in A8_CATEGORIES
     assert "career" in A8_CATEGORIES
     assert "data-analysis" not in A8_CATEGORIES
-    assert CATEGORY_A8_PROGRAM["career"] == "pro_jin"
+    assert CATEGORY_A8_PROGRAM["career"] == "neuro_dive"
     assert CATEGORY_A8_PROGRAM["python"] == "onamae"
     assert CATEGORY_A8_PROGRAM["cloud"] == "onamae"
     assert CATEGORY_A8_PROGRAM["terraform"] == "onamae"
 
 
-def test_career_shows_both():
+def test_career_shows_neuro_dive_only():
     ctx = a8_banner_context("career")
     assert ctx["show_a8_banners"] is True
-    assert len(ctx["a8_banners"]) == 2
-    assert ctx["a8_banners"][0]["id"] == "neuro_dive"
+    assert [b["id"] for b in ctx["a8_banners"]] == ["neuro_dive"]
     assert ctx["a8_banners"][0]["click_url"] == NEURO_DIVE_A8["click_url"]
-    assert ctx["a8_banners"][1]["id"] == "pro_jin"
-    assert ctx["a8_banners"][1]["click_url"] == PRO_JIN_A8["click_url"]

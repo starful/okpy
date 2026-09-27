@@ -3,7 +3,6 @@
 
 Preferred:
   python3 /opt/work/data/a8/generate_placement_urls.py --program neuro_dive
-  python3 /opt/work/data/a8/generate_placement_urls.py --program pro_jin
 """
 
 from __future__ import annotations
@@ -13,7 +12,7 @@ import sys
 from pathlib import Path
 
 HUB = Path(__file__).resolve().parents[2] / "data" / "a8" / "generate_placement_urls.py"
-OKPY_PROGRAMS = ("neuro_dive", "pro_jin", "onamae")
+OKPY_PROGRAMS = ("neuro_dive", "onamae")
 
 
 def main() -> None:
