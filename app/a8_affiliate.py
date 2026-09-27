@@ -45,8 +45,8 @@ NEURO_DIVE_A8 = {
         "A8_NEURO_DIVE_PIXEL_URL",
         "https://www12.a8.net/0.gif?a8mat=4BACLI+2KVOOY+47GS+HVNAP",
     ),
-    "label": "Neuro Dive — IT特化型 就労移行支援",
-    "desc": "AI・データサイエンスを学べる就労移行支援（パーソルダイバース）",
+    "label": "Neuro Dive",
+    "desc": "IT特化型の就労移行支援。AI・データサイエンスを学べます",
     "alt": "Neuro Dive 就労移行支援 — アフィリエイト",
     "title": "就労移行支援（IT・データサイエンス）",
 }
@@ -63,8 +63,8 @@ ONAMAE_A8 = {
         "A8_ONAMAE_PIXEL_URL",
         "https://www18.a8.net/0.gif?a8mat=4BACLH+2TT6RM+50+2HHVNM",
     ),
-    "label": "お名前.com — ドメイン・レンタルサーバー",
-    "desc": "検証用ドメインや個人プロジェクトの独自ドメイン取得",
+    "label": "お名前.com",
+    "desc": "独自ドメイン・レンタルサーバー",
     "alt": "お名前.com — アフィリエイト",
     "title": "ドメイン・レンタルサーバー",
 }
