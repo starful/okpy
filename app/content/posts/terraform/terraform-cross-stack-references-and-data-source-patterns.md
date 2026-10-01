@@ -1,12 +1,16 @@
 ---
-title: 'Terraform クロススタック参照とデータソースパターン実践ガイド'
+title: Terraform クロススタック参照とデータソースパターン完全ガイド｜remote_state実践 — OKPy
 date: 2026-08-02
 category: terraform
 slug: terraform-cross-stack-references-and-data-source-patterns
-summary: 'Terraform で本番環境を運用していると、単一の Terraform 設定（ステート）だけで完結することは稀です。ネットワーク、IAM、データベース、アプリケーションといったレイヤーごとにステートを分割し、それぞれを独立してデプロイ・変更したいというニーズが必ず出てきます。このとき問題になるのが「あるステー…'
-cover: 'https://storage.googleapis.com/ok-project-assets/okpy/20260802150058.jpg'
+summary: Terraform でステートを分割運用する際に必須となる、クロススタック参照とデータソースパターンの実践ガイド。
+cover: https://storage.googleapis.com/ok-project-assets/okpy/20260802150058.jpg
 lang: ja
+description: Terraform のステート分割でハマる「クロススタック参照」を terraform_remote_state・data source・SSM連携のHCL例で解説。AWS/GCP/Azure比較も収録。
+seo_title: Terraform クロススタック参照×データソースパターン実践ガイド — OKPy
+seo_description: Terraform のステート分割時に必須のクロススタック参照をHCLコード例で解説。remote_state・データソース・SSM連携・AWS/GCP/Azure比較を網羅。
 ---
+
 
 # Terraform クロススタック参照とデータソースパターン実践ガイド
 
@@ -195,3 +199,17 @@ output "vpc_id" {
 **Q3. モジュールを共通化すればステート分割は不要になりますか？**
 
 いいえ、別の問題です。モジュールはコードの再利用単位であり、ステートは実行・権限・変更頻度の分離単位です。共通モジュールを使っていても、それぞれのステートで `terraform apply` を個別に実行する構成であれば、クロススタック参照の設計は依然として必要です。逆に、モジュールを共有していなくても、output のインターフェースさえ合わせればクロススタック参照は成立します。
+
+## こんな方におすすめ
+
+- 複数の Terraform ステートを運用しており、ステート間でリソース情報を安全に受け渡したい方
+- `terraform_remote_state` とデータソース参照のどちらを使うべきか判断に迷っている方
+- AWS・GCP・Azure それぞれでクロススタック参照の設計方針を揺らしたくない方
+
+## 実践チェックリスト
+
+- 参照したい値は `output` として明示的に公開されているか
+- リモートステートの参照先バケット・キーはステート分割計画と一致しているか
+- タグ／ラベル経由の間接参照を使う場合、命名規則が全スタックで統一されているか
+
+既存のステート構成を見直す際の出発点として活用してください。
