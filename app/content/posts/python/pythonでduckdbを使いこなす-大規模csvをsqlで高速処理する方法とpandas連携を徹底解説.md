@@ -1,11 +1,15 @@
 ---
-title: 'PythonでDuckDBを使いこなす！大規模CSVをSQLで高速処理する方法とPandas連携を徹底解説'
+title: DuckDB×Python入門｜大規模CSVをメモリ不足なしでSQL高速処理 — OKPy
 date: 2026-04-28
 category: python
 slug: pythonでduckdbを使いこなす-大規模csvをsqlで高速処理する方法とpandas連携を徹底解説
-summary: 'Pythonでのデータ分析において、数千万行を超える大規模なCSVファイルの処理に苦労していませんか？DuckDBは、サーバー不要で動作し、Pandasではメモリ不足になるような巨大データもSQLで爆速処理できる「分析特化型」のデータベースです。'
-hatena_path: '/entry/2026/03/16/090000_1'
+summary: 数千万行のCSVもメモリ不足なしでSQL処理できるDuckDBの使い方を、インストールからPandas連携まで解説します。
+hatena_path: /entry/2026/03/16/090000_1
+description: 数千万行のCSVでPandasがメモリ不足に？DuckDBならサーバー不要・インストール一発で巨大データもSQLで爆速集計。Pandas連携の実践テクニックも解説します。
+seo_title: DuckDB×Python入門｜大規模CSVをメモリ不足なしでSQL高速処理 — OKPy
+seo_description: 数千万行のCSVでPandasがメモリ不足に？DuckDBならサーバー不要・インストール一発で巨大データもSQLで爆速集計。Pandas連携の実践テクニックも解説します。
 ---
+**ポイント**: PandasでCSVを読み込んで固まってしまう前に、DuckDBを試してみてください。サーバー不要・`pip install`だけで導入でき、数千万行規模のCSVでもメモリを使い切らずにSQLで直接集計できます。この記事ではインストール手順からPandas連携、実践的な高速化テクニックまで順を追って解説します。
 
 # PythonでDuckDBを使いこなす！大規模CSVをSQLで高速処理する方法とPandas連携を徹底解説
 

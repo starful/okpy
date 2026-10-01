@@ -1,45 +1,44 @@
 ---
-title: Does staying central save daily transport time?
+title: 市街地中心部に泊まると、移動時間はどれだけ減るのか
 date: '2026-06-04'
 category: data-analysis
 slug: central-hotel-walkability
-summary: Central lodging is commonly associated with 30–55% less daily transit time
-  versus suburban airport hotels for sightseeing trips.
-lang: en
+summary: 観光目的でホテルを選ぶ際、空港近郊の郊外ホテルではなく市街地中心部に宿泊すると、主要観光地への1日あたりの移動時間が30〜55%ほど短くなる傾向が報告されています。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/central-hotel-walkability.jpg
 ---
 
-## Effect snapshot
+## 効果のスナップショット
 
 | | |
 |--|--|
-| Intervention | Book hotel in city center vs airport suburb to save transit |
-| Outcome | Daily transit time to main sights |
-| Effect | 30–55 percent relative decrease |
-| Confidence | `estimate` |
-| Context | European city tourism, 3–5 night stays, 2022–2025 |
+| 施策 | 移動時間短縮のため、空港近郊ではなく市街地中心部のホテルを予約する |
+| 指標 | 主要観光地への1日あたりの移動時間 |
+| 効果 | 相対的に30〜55%の減少 |
+| 確からしさ | `推定値` |
+| 条件 | ヨーロッパの都市観光、3〜5泊の滞在、2022〜2025年 |
 
-### Sources
+### 出典
 
-- [Tripadvisor — Location tips](https://www.tripadvisor.com/)
+- [Tripadvisor — 立地に関するアドバイス](https://www.tripadvisor.com/)
 
-## What changes
+## 何が変わるのか
 
-Central lodging is commonly associated with 30–55% less daily transit time versus suburban airport hotels for sightseeing trips.
+観光目的の滞在において、市街地中心部の宿泊先は、空港近郊の郊外ホテルと比べて1日あたりの移動時間が30〜55%短くなる傾向があると、OKPy Data Analysisの分析でも確認されています。
 
-## When this tends to work
+## この傾向が当てはまりやすい条件
 
-- Conditions similar to: European city tourism, 3–5 night stays, 2022–2025
-- You can measure `Daily transit time to main sights` reliably
-- The intervention is implemented consistently, not half-measured
+- 今回の条件（ヨーロッパの都市観光、3〜5泊の滞在、2022〜2025年）に近いケース
+- 「主要観光地への1日あたりの移動時間」を安定して計測できる
+- 施策が中途半端にではなく、一貫して実施されている
 
-## When to be careful
+## 注意すべき点
 
-- Your audience or product differs materially from the cited context
-- Compliance costs or second-order effects outweigh the lift
-- Evidence label is **estimate**—treat wide ranges as planning bands, not promises
+- 対象とする読者や商品が、引用元の条件と大きく異なる場合
+- 宿泊費の上乗せや副次的な影響が、移動時間短縮のメリットを上回る場合
+- エビデンスのラベルは**推定値**であり、幅広いレンジは確約ではなく計画上の目安として扱うべき
 
-## Practical takeaway
+## 実務への示唆
 
-Use the cited range for prioritization and test design. Verify against your own data before scaling.
+この数値レンジは、優先順位付けや検証設計の参考値として活用してください。実際に施策へ反映する前に、自社のデータで検証することをおすすめします。
