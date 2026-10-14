@@ -1,5 +1,5 @@
 {
-  "last_category": "eng-comms",
+  "last_category": "data-analysis",
   "slugs": [
     "aws-route-53-vs-gcp-cloud-dns-企業向けサービス比較",
     "python-openai-api入門-あなたのコードに-賢い脳-を埋め込む方法-知りたくないですか",
@@ -42,6 +42,7 @@
     "blind-resume-screening-bias",
     "native-app-vs-web-tokyo-osaka",
     "social-proof-product-page",
-    "reframing-just-add-ai"
+    "reframing-just-add-ai",
+    "meditation-stress-cortisol"
   ]
 }
