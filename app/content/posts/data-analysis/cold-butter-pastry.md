@@ -8,6 +8,7 @@ lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/cold-butter-pastry.jpg
 ---
+
 ## 効果のスナップショット
 
 | | |

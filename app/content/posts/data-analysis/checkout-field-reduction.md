@@ -1,38 +1,38 @@
 ---
-title: チェックアウトの入力項目を削るだけでコンバージョンが20〜60%伸びる理由
+title: 'Why Cutting Checkout Form Fields Alone Can Boost Conversion by 20–60%'
 date: '2026-05-20'
 category: data-analysis
 slug: checkout-field-reduction
-summary: チェックアウトフォームの入力項目を平均23個から12〜14個程度まで減らすと、コンバージョン率が相対値で20〜60%向上するという調査結果があります。効果の幅は元のフォームがどれだけ使いにくかったかに依存し、改善余地が大きいサイトほど効果が大きく出る傾向にあります。
-lang: ja
+summary: Research shows that reducing checkout form fields from an average of 23 down to about 12-14 can increase conversion rates by a relative 20-60%. The size of the effect depends on how poorly designed the original form was — sites with more room for improvement tend to see larger gains.
+lang: en
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/checkout-field-reduction.jpg
 ---
 
-## 効果の概要
+## Overview of the Effect
 
 | | |
 |--|--|
-| 介入 | チェックアウトフォームの入力項目数を12〜14個まで削減（平均約23個から） |
-| 成果指標 | チェックアウトのコンバージョン率 |
-| 効果量 | 相対値で20〜60%の増加 |
-| 確度 | `メタ分析` |
-| 対象 | ECサイトのチェックアウトにおけるユーザビリティ調査、大規模サイトのベンチマーク |
+| Intervention | Reducing the number of checkout form fields to 12-14 (down from an average of about 23) |
+| Outcome metric | Checkout conversion rate |
+| Effect size | Relative increase of 20-60% |
+| Confidence | `Meta-analysis` |
+| Scope | Usability studies of e-commerce checkouts, benchmarks across large sites |
 
-### 出典
+### Source
 
 - [Baymard Institute — Checkout usability](https://baymard.com/research/checkout-usability)
 
-## 何が変わるのか
+## What Changes
 
-入力項目が少ないほど認知負荷と決済完了までの時間が下がり、特にモバイル環境でその効果が顕著になります。
+Fewer input fields reduce cognitive load and the time needed to complete a purchase, with the effect being especially pronounced on mobile.
 
-## 効果の大きい削減項目
+## Fields With the Biggest Impact When Removed
 
-- 会員登録の強制をやめ、ゲストチェックアウトを用意する
-- 決済ステップから任意のマーケティング項目（メルマガ登録など）を排除する
-- 住所・決済情報の入力欄をオートフィルに対応させる
+- Removing forced account creation and offering guest checkout
+- Eliminating optional marketing fields (e.g., newsletter sign-up) from the payment flow
+- Enabling autofill support for address and payment fields
 
-## 実務での活かし方
+## Applying This in Practice
 
-項目を一つずつ棚卸しして、本当に必要かを確認しましょう。**20〜60%**という幅は、元のフローがどれだけ崩れていたかを反映した数字であり、どのサイトにも当てはまる単一の「魔法の数値」ではない点に注意が必要です。
+Go through your form fields one by one and confirm whether each is truly necessary. Keep in mind that the **20-60%** range reflects how broken the original flow was — it isn't a single "magic number" that applies universally to every site.
