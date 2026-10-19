@@ -1,45 +1,44 @@
 ---
-title: Does colder butter improve flaky pastry lift?
+title: コールドバターでパイ生地の「立ち」は本当に良くなるのか
 date: '2026-05-21'
 category: data-analysis
 slug: cold-butter-pastry
-summary: Colder butter during lamination is often linked to 10–25% greater lift and
-  flakiness in controlled bakes.
-lang: en
+summary: 折り込み作業中のバター温度を18℃以下に保つと、常温の柔らかいバターに比べて焼き上がりの膨らみや層の見え方が10〜25%向上する、という報告が複数のベイキング検証で見られます。
+lang: ja
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/cold-butter-pastry.jpg
 ---
-
-## Effect snapshot
+## 効果のスナップショット
 
 | | |
 |--|--|
-| Intervention | Keep butter chunks at 18°C or below during lamination vs soft room-temp butter |
-| Outcome | Pastry rise and visible layer count |
-| Effect | 10–25 percent relative increase |
-| Confidence | `study` |
-| Context | Croissant and puff pastry, professional and home ovens |
+| 介入 | 折り込み用バターの塊を18℃以下に保つ vs 室温で柔らかくなったバターを使う |
+| 結果指標 | パイ生地の膨らみと目視できる層の数 |
+| 効果量 | 相対で10〜25%の増加 |
+| 確信度 | `study`（検証段階） |
+| コンテキスト | クロワッサン・パフペストリー、プロ用オーブンと家庭用オーブンの両方 |
 
-### Sources
+### 出典
 
 - [King Arthur Baking — Laminated dough](https://www.kingarthurbaking.com/learn)
 
-## What changes
+## 何が変わるのか
 
-Colder butter during lamination is often linked to 10–25% greater lift and flakiness in controlled bakes.
+折り込み中のバターを低温に保つと、管理された焼成条件下でパイ生地の膨らみやフレーキーさが10〜25%向上する傾向があります。
 
-## When this tends to work
+## この効果が出やすい条件
 
-- Conditions similar to: Croissant and puff pastry, professional and home ovens
-- You can measure `Pastry rise and visible layer count` reliably
-- The intervention is implemented consistently, not half-measured
+- クロワッサンやパフペストリーなど、近いコンテキストで焼成する場合
+- プロ用・家庭用いずれかのオーブンを使用する場合
+- 「パイ生地の膨らみと目視できる層の数」を安定して計測できる場合
+- 低温バターの維持という介入を、中途半端にではなく一貫して実施できる場合
 
-## When to be careful
+## 注意すべき点
 
-- Your audience or product differs materially from the cited context
-- Compliance costs or second-order effects outweigh the lift
-- Evidence label is **study**—treat wide ranges as planning bands, not promises
+- 対象の生地・オーブン・環境が引用元のコンテキストと大きく異なる場合
+- 温度管理の手間やコストが、得られる膨らみの改善を上回る場合
+- 確信度ラベルは**study（検証段階）**であり、示されている効果量の幅は「約束」ではなく「計画上の目安」として扱うべきこと
 
-## Practical takeaway
+## 実務での結論
 
-Use the cited range for prioritization and test design. Verify against your own data before scaling.
+この効果量の範囲は、優先順位付けやテスト設計の参考値として使うのが適切です。本格的に展開する前に、必ず自分のデータで効果を検証してください。

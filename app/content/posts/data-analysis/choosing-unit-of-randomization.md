@@ -1,10 +1,10 @@
 ---
-title: 'Unit of Randomization in Experiments: A/B Testing Design Guide'
+title: 実験における「ランダム化単位」の選び方：A/Bテスト設計ガイド
 date: '2026-07-08'
 category: data-analysis
 slug: choosing-unit-of-randomization
-summary: Choosing the correct unit of randomization in experiments
-lang: en
+summary: A/Bテストで誤った結論を導く最大の原因のひとつは、ユーザー・セッション・デバイスのいずれを「ランダム化単位」として割り当てるかという、設計の初期段階での選択ミスです。本記事では、ランダム化単位がなぜ重要なのか、代表的な単位ごとの特徴とリークのリスク、そして自分の実験に適した単位を選ぶための手順を整理します。
+lang: ja
 source: statfacts
 description: Learn how to choose the correct unit of randomization for accurate A/B
   tests. Prevent bias and ensure statistical validity in your experiments.
@@ -12,142 +12,134 @@ seo_title: 'Unit of Randomization in A/B Tests: Complete Design Guide'
 seo_description: Understand unit of randomization in experiments. Essential guide
   to avoiding bias, ensuring statistical validity, and designing reliable A/B tests.
 ---
+### ランダム化単位がなぜ重要なのか
 
+ランダム化単位とは、コントロール群・トリートメント群のいずれかに独立に割り当てられる対象のことです。個々のユーザーなのか、単一のセッションなのか、特定のデバイスなのか、あるいは組織全体なのか——この選択は些細な話ではなく、観測データ間の**統計的独立性**を保てるかどうかを決定づけます。独立性が崩れると、統計検定そのものが信頼できなくなり、**効果量の範囲**に関する結論も揺らいでしまいます。
 
----
+ランダム化単位を誤ると、次のような問題が生じます。
 
-For product managers, growth teams, and data analysts, the bedrock of confident, data-driven decisions is a well-designed experiment. Yet, even seasoned professionals can overlook a critical foundational step: selecting the correct unit of randomization. This decision profoundly impacts the validity of your A/B test results, determining whether the observed effects are truly attributable to your intervention or merely statistical noise.
+1. **第一種過誤（偽陽性）の増加:** 本来存在しない効果を「あった」と誤認してしまう。
+2. **検出力の低下:** 実際に存在する効果を検出できず、機会を逃す。
+3. **効果推定のバイアス:** 効果の大きさや方向を誤って推定し、誤った意思決定につながる。
+4. **一般化可能性の低下:** サンプルの文脈（対象範囲）が狭すぎる、または不適切に定義され、得られた知見を広く適用しづらくなる。
 
-### Why the Randomization Unit is Paramount
+根本的な問題は統計的独立性の侵害にあります。ある単位へのトリートメント割り当てが、同じ群内あるいは群をまたいで別の単位の結果に影響してしまうと、標準的な統計検定の前提が崩れます。これはしばしば「リーク（漏出）」や「コンタミネーション（汚染）」として現れます。
 
-The unit of randomization defines the entity that is independently assigned to either the control or treatment group. Is it an individual user, a single session, a specific device, or perhaps an entire organization? The choice is not trivial; it's central to achieving **statistical independence** among your observations. Without independence, your statistical tests—and thus your conclusions about **effect ranges**—become unreliable.
+### 実験で使われる代表的なランダム化単位
 
-An incorrect randomization unit can lead to several critical issues:
+#### 1. ユーザー単位のランダム化
 
-1.  **Inflated Type I Error Rate:** You might mistakenly conclude an effect exists when it doesn't (false positive).
-2.  **Reduced Statistical Power:** You might fail to detect a real effect, missing valuable opportunities.
-3.  **Biased Effect Estimation:** The magnitude and direction of the effect could be miscalculated, leading to suboptimal or harmful business decisions.
-4.  **Compromised Generalizability:** Your **sample_context** might be too narrow or incorrectly defined, making it difficult to apply insights broadly.
+**定義:** 個々のユーザーがコントロール群またはトリートメント群にランダムに割り当てられ、デバイスやセッション、アクティビティにかかわらず実験期間中はその群に固定されます。
 
-The core problem stems from violations of statistical independence. If the treatment assignment of one unit influences another unit's outcome within the same group, or across groups, your assumptions for standard statistical tests are violated. This often manifests as "leakage" or "contamination."
+**メリット:**
+- **高い統計的独立性:** 適切に実装されれば、ユーザー単位のランダム化は一般的に最も高い独立性を確保できます。異なるユーザーの行動が互いの処理経験に直接影響することは少ないため、**効果量の範囲**を頑健に推定し、結果への**確信度**を高めやすくなります。
+- **一貫したユーザー体験:** ユーザーの体験が安定するため、長期的なエンゲージメントやリテンションの測定、ユーザーの混乱回避に有利です。
+- **累積指標に強い:** コンバージョン率、リテンション、LTV、累積的な機能利用など、ユーザーのジャーニー全体が関わる指標の測定に適しています。
 
-### Common Units of Randomization in Experiments
+**デメリット:**
+- **リークのリスク（複数デバイス・共有アカウント）:** ユーザーが複数デバイスから利用したり、アカウントを共有している場合、割り当てが一貫したユーザーIDに基づいていないと両方の条件を経験してしまう可能性があります。
+- **永続的なユーザー識別が必要:** セッションやデバイスをまたいだユニークIDの頑健なトラッキングに依存します。
+- **短期効果の観測には不向き:** 割り当てが固定されるため、セッションごとに変動しうる即時的な短期効果が、ユーザー全体の行動パターンに埋もれてしまう可能性があります。
 
-Understanding the most frequently used randomization units is the first step towards making an informed choice for your **experimental design**.
+**使うべき場面:**
+- プロダクト機能のテスト、価格実験、パーソナライゼーション施策など、一貫した長期的なユーザー体験が重要な実験で最も一般的かつ推奨される選択です。
+- サブスクリプション、チャーン、リピート購買など、時間をかけた個人のユーザー行動に紐づく指標を測定する場合。
 
-#### 1. User-Level Randomization
+#### 2. セッション単位のランダム化
 
-**Definition:** Each unique user is randomly assigned to a control or treatment group and remains in that group for the duration of the experiment, regardless of their device, session, or activity.
+**定義:** ユーザーが開始する新しいセッションごとに、独立してコントロール群かトリートメント群に割り当てられます。同一ユーザーが異なるセッションでコントロール・トリートメントの両方を経験する可能性があります。
 
-**Pros:**
-*   **Strong Statistical Independence:** When properly implemented, user-level randomization generally offers the highest degree of independence, as different users' behaviors are less likely to directly influence each other's treatment experience. This makes it easier to robustly estimate **effect ranges** and maintain high **confidence** in results.
-*   **Consistent User Experience:** Users have a stable experience, which can be crucial for measuring long-term engagement or retention and avoiding user confusion.
-*   **Robust for Cumulative Metrics:** Ideal for measuring metrics like conversion rates, retention, lifetime value, or cumulative feature adoption, where the user's entire journey is relevant.
+**メリット:**
+- **セッション依存の効果を素早く収集:** 即時的なセッション内行動や短期的なUI/UX変更に関するデータを迅速に集められます。
+- **一過性の介入に有用:** 介入が極めて短命であったり、セッション内の単一のインタラクション（一度限りのポップアップ、そのクエリに対する特定の検索結果レイアウトなど）に限定される実験に適しています。
+- **永続的なユーザーIDへの依存が少ない:** セッションをまたぐ堅牢なユーザー識別が難しい場合に使える余地がありますが、その分別のリスクを伴います。
 
-**Cons:**
-*   **Potential for Leakage (Cross-Device/Shared Accounts):** If a user accesses the product from multiple devices or shares an account, they might experience both control and treatment conditions if not carefully managed (e.g., using a consistent user ID for assignment).
-*   **Requires Persistent User Identification:** Relies on robust tracking of unique user IDs across sessions and devices.
-*   **Slower to Gather Data for Short-Term Effects:** Because the user's assignment persists, observing immediate, short-term impacts that might vary by session can be masked by their overall behavior pattern.
+**デメリット:**
+- **統計的独立性が侵害されやすい:** 同じユーザーがコントロールとトリートメントの両方を経験することで、大きなコンタミネーションとバイアスが生じます。あるセッションでの経験が、新たな割り当てにかかわらず次のセッションの行動に影響することがあり、真の**効果量の範囲**を分離することが極めて難しくなります。
+- **ユーザーの混乱・不満:** 同一ユーザーに対する体験の不整合がフラストレーションを招き、両群のエンゲージメント指標に影響する可能性があります。
+- **分析が複雑化:** 観測が独立でなくなるため、ユーザー内相関を考慮したより高度な統計手法が必要となり、結果への**確信度**に影響します。
 
-**When to Use:**
-*   Most common and generally recommended for product feature tests, pricing experiments, personalization efforts, and any experiment where a consistent, long-term user experience is paramount.
-*   When measuring metrics tied to individual user behavior over time (e.g., subscription, churn, repeat purchases).
+**使うべき場面:**
+- 介入が本当に単一セッションに限定され、その後のセッションに持続的な影響を及ぼす可能性が低いと確信できる、非常に限定的なシナリオでのみ使用します。
+- 例: 一過性の通知、特定のクエリ結果レイアウト（ユーザーが離脱して完全に独立した新しい検索に戻る場合）、持続効果がないことを前提としたセッション内のバナー広告バリエーションなど。
+- **注意:** 時間をかけてユーザー行動を変化させることを意図した介入には、**リーク**と**統計的独立性**の欠如のリスクが高いため、一般的に推奨されません。
 
-#### 2. Session-Level Randomization
+#### 3. グループ/クラスタ単位のランダム化
 
-**Definition:** Each new session initiated by any user is independently randomized to either the control or treatment group. A single user might experience both control and treatment conditions across different sessions.
+**定義:** ユーザーのグループやクラスタ全体をまとめてランダム化します。チーム、組織、地域、特定のレガシーシステムの利用者などが対象になります。
 
-**Pros:**
-*   **Faster Data Collection for Session-Dependent Effects:** Can quickly gather data on immediate, in-session behaviors or short-term UI/UX changes.
-*   **Useful for Highly Transient Interventions:** Appropriate for experiments where the intervention is extremely short-lived or specific to a singular interaction within a session (e.g., a one-time pop-up, a specific search result layout for that query).
-*   **Less Dependent on Persistent User IDs:** Can sometimes be used where robust user identification across sessions is challenging, though this comes with other risks.
+**メリット:**
+- **スピルオーバー/リークの緩和:** 介入が本質的にグループ全体に影響する場合や、グループ内個人間のコンタミネーションが避けられない場合に必須です。例えば、チーム向けの新しいコラボレーション機能をテストする場合、チーム全体が同じ群に属する必要があります。
+- **「社会的」独立性の維持:** 密接に相互作用する個人がコントロールとトリートメントに分断されないようにし、特定の実験に重要な自然な社会的ダイナミクスを保持します。
 
-**Cons:**
-*   **High Risk of Statistical Independence Violations:** The same user experiencing both control and treatment conditions can introduce significant contamination and bias. A user's experience in one session might influence their behavior in the next, regardless of their new assignment. This makes it extremely difficult to isolate the true **effect ranges**.
-*   **User Confusion/Frustration:** Inconsistent experiences for the same user can lead to frustration, potentially impacting engagement metrics across both groups.
-*   **Complex Analysis:** Requires more sophisticated statistical methods to account for within-user correlation, as observations are no longer independent, impacting your **confidence** in the results.
+**デメリット:**
+- **検出力の低下:** 十分な検出力を得るには、個人ではなくクラスタの数を大幅に増やす必要があることが多く、「実効サンプルサイズ」は個人数ではなくクラスタ数になります。これは有意な**効果量の範囲**を検出する能力に直接影響します。
+- **分散の増大:** クラスタ間の分散が大きくなりやすく、トリートメント効果を見極めにくくなります。
+- **バランシングの難しさ:** 単位の数が少なく大きいため、コントロール群とトリートメント群の間で（属性や利用パターンなどの）バランスを取ることがより難しくなります。
+- **一般化が困難:** サンプルの文脈が、選定したクラスタの種類に強く依存してしまう可能性があります。
 
-**When to Use:**
-*   Only in very specific, carefully considered scenarios where the intervention is truly atomic to a single session and is unlikely to have any lasting impact on subsequent sessions.
-*   Examples: Testing ephemeral notifications, specific query result layouts (when the user leaves and returns to a new search entirely independent), or banner ad variations *within* a session, assuming no carry-over effect.
-*   **Caution:** Generally discouraged for interventions intended to change user behavior over time due to the high risk of **leakage** and lack of **statistical independence**.
+**使うべき場面:**
+- 介入が個人ではなくグループに影響する場合（新しいチームコミュニケーションツールなど）。
+- **リーク**や「ネットワーク効果」が大きな懸念であり、個人単位のランダム化では独立性が確保できない場合（バイラル性のあるプロダクト機能のA/Bテストなど）。
+- 法人アカウント向けの価格や機能をテストし、企業全体で同じ体験を見せる必要がある場合。
 
-#### 3. Group/Cluster-Level Randomization
+### リークとコンタミネーションの危険性
 
-**Definition:** Entire groups or clusters of users are randomized together. This could be a team, an organization, a geographic region, or even users of a specific legacy system.
+**リーク**（スピルオーバー、コンタミネーションとも呼ばれます）とは、ある単位のトリートメント状態が意図せず別の単位の結果や体験に影響を及ぼし、**統計的独立性**を損なう現象です。これは**実験設計**の妥当性に対する大きな脅威です。
 
-**Pros:**
-*   **Mitigates Spillover/Leakage:** Essential when an intervention inherently affects a group collectively, or when contamination between individuals within a group is unavoidable. For example, testing new collaboration features within a team means the entire team must be in the same group.
-*   **Maintains "Social" Independence:** Ensures that individuals who interact closely are not split across control and treatment, preserving the natural social dynamics crucial for certain experiments.
+**リークの例:**
 
-**Cons:**
-*   **Reduced Statistical Power:** Often requires a much larger number of clusters (not individuals) to achieve sufficient statistical power, as the "effective sample size" is the number of clusters, not the number of individuals. This directly impacts your ability to detect meaningful **effect ranges**.
-*   **Increased Variance:** Between-cluster variance can be high, making it harder to discern the treatment effect.
-*   **Challenges with Balancing:** Ensuring balance across control and treatment groups (e.g., similar demographics or usage patterns) can be more challenging with fewer, larger units.
-*   **Difficult to Generalize:** The **sample_context** can be very specific to the types of clusters chosen.
+- **デバイス/アカウントの共有:** あるユーザーがコントロール群に割り当てられているが、同じデバイス・アカウントを使う家族がトリートメントに触れてしまう。
+- **ユーザー間のコミュニケーション:** トリートメント群のユーザーが新機能についてコントロール群の友人に話し、その行動に影響を与える。
+- **プラットフォーム全体への変更:** 特定のユーザーセグメント（トリートメント）向けの最適化が、意図せずシステム全体（コントロールユーザーを含む）のパフォーマンスや体験に影響する。
+- **セッション単位のランダム化に起因する欠陥:** 前述の通り、ある「トリートメント」セッションでの経験が後続の「コントロール」セッションでの行動に影響する場合、観測はもはや独立ではありません。
 
-**When to Use:**
-*   When interventions affect groups rather than individuals (e.g., new team communication tools).
-*   When **leakage** or "network effects" are a significant concern and individual randomization would compromise independence (e.g., A/B testing a viral product feature).
-*   When testing pricing or features for business accounts where an entire company needs to see the same experience.
+**影響:**
+リークは一般的に効果推定値をゼロ方向に偏らせ、実際の効果を検出しにくくします（検出力の低下）、あるいはその真の大きさを隠してしまいます。場合によっては、効果をゼロから離れる方向に偏らせ、偽陽性を生むこともあります。いずれにしても、**効果量の範囲**の理解を歪め、意思決定への**確信度**を損ないます。
 
-### The Peril of Leakage and Contamination
+### ランダム化単位を選ぶための手順
 
-**Leakage**, also known as **spillover** or **contamination**, occurs when the treatment status of one unit unintentionally affects the outcome or experience of another unit, compromising **statistical independence**. This is a major threat to the validity of your **experimental design**.
+最適なランダム化単位を選ぶことは体系的なプロセスです。頑健な**実験設計**のために、以下のステップを踏みましょう。
 
-**Examples of Leakage:**
+1. **因果的な問いと介入を定義する:**
+   - 具体的にどのような変更を導入するのか？
+   - この変更に直接さらされる最小の単位は何か？
+   - 測定したい主要な結果指標は何か？
+   - *例:* 新しいオンボーディングフローをテストする場合、介入は*新規ユーザー*に適用されます。ボタンの色をテストする場合、介入はそのボタンを見る*ユーザー*に適用されます。
 
-*   **Shared Devices/Accounts:** A user is assigned to the control group, but another family member uses the same device/account and is exposed to the treatment.
-*   **Communication Between Users:** Users in the treatment group tell friends in the control group about a new feature, influencing their behavior.
-*   **Platform-Wide Changes:** An optimization for a specific user segment (treatment) inadvertently impacts the performance or experience of the entire system (including control users).
-*   **Session-Level Randomization Flaws:** As discussed, if a user's experience in a "treatment" session affects their behavior in a subsequent "control" session, their observations are no longer independent.
+2. **自然な行動単位を特定する:**
+   - 主に影響・測定したいのはどの対象の行動か？個人の全体的なエンゲージメント（ユーザー）か、短時間内の個別のインタラクション（セッション）か？
+   - *ヒント:* 効果が単一のインタラクションを超えて持続する、あるいは記憶や学習が関わると見込まれる場合は、ユーザー単位の方が一般的に安全です。
 
-**Impact:**
-Leakage generally biases effect estimates towards zero, making a real effect harder to detect (reducing power) or masking its true magnitude. In some cases, it can even bias effects away from zero, leading to false positives. Either way, it distorts your understanding of **effect ranges** and undermines your **confidence** in decision-making.
+3. **干渉やリークの可能性を評価する:**
+   - これが最も重要なステップです。ある単位のトリートメント割り当てが、別の単位の経験や結果に影響しうるすべての経路を洗い出しましょう。
+   - 共有リソース、ソーシャルネットワーク、複数デバイス利用、介入の時間的性質を考慮します。
+   - より小さな単位（セッション単位など）で大きなリークが起こりうると判断した場合は、より大きく独立性の高い単位（ユーザー単位、あるいはグループ単位）に移行する必要があります。
+   - *参考: OKPy Data Analysisの知見カード:* **効果量の範囲**やサンプルの文脈を正しく理解するには、トリートメント効果を正しく分離できているかが大きく関わります。リークはこれを曖昧にします。
 
-### Methodology for Choosing Your Unit
+4. **検出力への影響を評価する:**
+   - ランダム化単位の選択によって、統計的に有意な効果を検出するために必要な観測数は変わります。クラスタ単位のランダム化では、クラスタ内相関を補うために全体のサンプルサイズが大幅に大きくなることが多いです。
+   - 選んだ単位のレベルでの分散を推定しましょう。独立性がないにもかかわらずあると仮定してしまうと、検出力不足の実験になってしまいます。
+   - *OKPy Data Analysisの知見カードを活用:* 選んだ単位がサンプルサイズの要件や効果推定の精度にどう影響するかを把握するため、**確信度**と**効果量の範囲**を確認しましょう。
 
-Selecting the optimal randomization unit is a systematic process. Follow these steps to ensure robust **experimental design**:
+5. **実装とトラッキング能力を検討する:**
+   - 選んだ単位（一貫したユーザーID、正確なセッション定義など）を分析システムが確実に割り当て・トラッキングできるか？
+   - 特定の単位を実用上難しくしたり、エラーを招きやすくする技術的制約はないか？
+   - 頑健な実装はデータ品質と**実験設計**の妥当性にとって不可欠です。
 
-1.  **Define the Causal Question and Intervention:**
-    *   What specific change are you introducing?
-    *   What is the smallest unit directly exposed to this change?
-    *   What is the primary outcome you wish to measure?
-    *   *Example:* If you're testing a new onboarding flow, the intervention is applied to a *new user*. If you're testing a button color, it's applied to a *user* viewing that button.
+### 実践例
 
-2.  **Identify the Natural Unit of Behavior:**
-    *   Which entity's behavior are you primarily trying to influence or measure? Is it an individual's overall engagement (user), or a discrete interaction within a short timeframe (session)?
-    *   *Hint:* If the effect is expected to persist beyond a single interaction or involve memory/learning, a user-level unit is generally safer.
+| **介入の目的** | **推奨ランダム化単位** | **理由** | **リークのリスク** |
+| :--- | :--- | :--- | :--- |
+| 新規ユーザーのオンボーディングフローをテスト | ユーザー単位 | オンボーディングはユーザーのジャーニーそのもの。セッション単位では同一ユーザーに対して体験が一貫せず、混乱とバイアスを招く。 | ユーザーIDがデバイス間で一貫していれば低い。 |
+| チェックアウトページの特定のUI要素の色をテスト | ユーザー単位、または慎重にセッション単位 | 変化に持続的な心理的影響が見込まれる、あるいはユーザーがページを何度も訪れる場合はユーザー単位が安全。変化がそのセッションに完全に閉じており持続効果がない場合（そのセッション内の一時的なプロンプトなど）はセッション単位も検討しうるが稀。**一般的にはユーザー単位が安全。** | セッション単位はユーザーの混乱や持続効果により中〜高リスク。ユーザー単位は低リスク。 |
+| 法人顧客向けの新しい価格モデルをテスト | グループ/組織単位 | 価格変更は組織内の全ユーザーに影響する。組織内の個人をランダム化すると内部での対立やコミュニケーションによる**リーク**を招く。 | 組織が本当に独立していれば低い。 |
+| 新しい検索アルゴリズムのランキングをテスト | ユーザー単位（基本）、セッション単位（限定的） | ユーザー単位: 一貫した検索体験を保証し、長期的な満足度や学習効果の測定が可能。セッション単位: アルゴリズムの変更が単一の明確なクエリに完全に限定され、その後の検索が独立とみなせる場合は検討しうるが、ユーザーの記憶・学習の影響でリスクの高い前提になりやすい。**ユーザー単位が安全。** | セッション単位は学習・記憶の影響で中リスク。異なるアルゴリズムを見たユーザーは安定した意見を形成できない。ユーザー単位は一貫していれば低リスク。 |
 
-3.  **Assess Potential for Interference or Leakage:**
-    *   This is the most critical step. Brainstorm all possible ways a unit's treatment assignment could influence another unit's experience or outcome.
-    *   Consider shared resources, social networks, multi-device usage, and the temporal nature of the intervention.
-    *   If significant leakage is plausible with a smaller unit (e.g., session-level), you must move to a larger, more isolated unit (e.g., user-level or even group-level).
-    *   *Reference StatFacts insight cards:* Understanding **effect ranges** and the `sample_context` relies heavily on correctly isolating the treatment effect. Leakage obfuscates this.
+### まとめ
 
-4.  **Evaluate Statistical Power Implications:**
-    *   Each randomization unit choice has different implications for the number of observations needed to detect a statistically significant effect. Cluster randomization, for instance, often requires a substantially larger overall sample size to compensate for within-cluster correlation.
-    *   Estimate the variance at the chosen unit level. Incorrectly assuming independence when there is none will lead to underpowered experiments.
-    *   *Use StatFacts insight cards:* Consult `confidence` and `effect ranges` to understand how your chosen unit impacts the required sample size and the precision of your effect estimates.
+ランダム化単位の選択は、結果の妥当性を直接左右する**実験設計**上の基礎的な決定です。**統計的独立性**を優先し、**リーク**を積極的に排除することが、信頼できる知見を得るための要となります。介入の性質、ユーザー体験、コンタミネーションの可能性を丁寧に検討することで、正しい単位を選び、測定した**効果量の範囲**への**確信度**を高めることができます。この精度こそが、ビジネス上の意思決定を統計的なアーティファクトではなく頑健なデータに基づかせる基盤となります。
 
-5.  **Consider Implementation and Tracking Capabilities:**
-    *   Can your analytics system reliably assign and track the chosen unit (e.g., consistent user IDs, accurate session definitions)?
-    *   Are there technical limitations that make a certain unit impractical or prone to errors?
-    *   Robust implementation is key to data quality and the validity of your **experimental design**.
-
-### Practical Examples
-
-| **Intervention Goal**                                    | **Recommended Randomization Unit** | **Why?**                                                                                                                                                                                                                                                                                                                                                                                                | **Leakage Risk**                                                                                                                                                                          |
-| :------------------------------------------------------- | :--------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Test new user onboarding flow                            | User-Level                         | Onboarding is a user's journey. Session-level would lead to inconsistent experiences for the same user, causing confusion and biasing results.                                                                                                                                                                                                                                                        | Low, if user ID is consistent across devices.                                                                                                                                             |
-| Test a specific UI element color on a checkout page      | User-Level or Session-Level (Carefully) | If the change is expected to have a lasting psychological effect, or if users revisit the page multiple times, User-Level is safer. Session-Level *might* be used if the change is truly atomic to that session and has no carry-over (e.g., ephemeral prompt within that session), but this is rare. **Generally, user-level is safer.**                                                           | Moderate to High for Session-Level due to user confusion, carry-over effects. Low for User-Level.                                                                                       |
-| Test a new pricing model for enterprise customers        | Group/Organization-Level           | Pricing changes for an organization affect all users within it. Randomizing individuals within an organization would create internal conflict and communication **leakage**.                                                                                                                                                                                                                    | Low, if organizations are truly independent.                                                                                                                                              |
-| Test new search algorithm ranking                        | User-Level (Primary), Session-Level (Niche) | User-Level: ensures consistent search experience for a user, enabling measurement of long-term satisfaction and learning. Session-Level: *Could* be used if the algorithm change is highly specific to a single, distinct search query and subsequent searches are considered independent, but this is often a risky assumption due to user memory/learning. **User-level is safer.** | Moderate for Session-Level due to learning/memory; a user seeing different algorithms can't form a stable opinion. Low for User-Level if consistent.                                         |
-
-### Conclusion
-
-The choice of randomization unit is a foundational decision in **experimental design** that directly impacts the integrity of your results. Prioritizing **statistical independence** and actively mitigating **leakage** are paramount for generating reliable insights. By carefully considering the nature of your intervention, the user experience, and the potential for contamination, you can select the correct unit and build greater **confidence** in your measured **effect ranges**. This precision ensures that your business decisions are truly informed by robust data, not by statistical artifacts.
-
-Related guides:
-*   How to Interpret Your A/B Test Results: /guide/how-to-read-benchmarks
-*   Calculating Your Experiment's Power and Sample Size: /tools/benchmark-calculator
+関連ガイド:
+- A/Bテストの結果を読み解く方法: /guide/how-to-read-benchmarks
+- 実験の検出力とサンプルサイズの計算: /tools/benchmark-calculator
