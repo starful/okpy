@@ -5,11 +5,13 @@ date: 2025-10-31
 hatena_path: /entry/2025/10/31/131852
 slug: pythonistaのためのbokehでパワフルなグラフを作ろう
 summary: extra_y_rangesとadd_layoutを使ったBokehの左右Y軸（2軸）グラフの作り方を、コード例とともに手順で解説します。
-title: Bokehで2軸グラフ（左右Y軸）の作り方｜extra_y_rangesの使い方 — OKPy
-description: Bokehのextra_y_rangesとadd_layoutで左右Y軸グラフを作る手順をコード例とともに解説。単位の異なる2つのデータ系列を1つのグラフで比較したい方へ。
-seo_title: Bokehで2軸グラフ（左右Y軸）の作り方｜extra_y_rangesの使い方 — OKPy
-seo_description: Bokehのextra_y_rangesとadd_layoutで左右Y軸グラフを作る手順をコード例とともに解説。単位の異なる2つのデータ系列を1つのグラフで比較したい方へ。
+title: Bokehで異なる単位のデータを1グラフで比較【2軸グラフ作成ガイド】
+description: Bokehで2軸グラフを実装。異なる単位のデータを1つグラフで直感的に比較できる方法をコード例で解説します。
+seo_title: Bokehで異なる単位のデータを1グラフで比較【2軸グラフ作成ガイド】
+seo_description: Bokehで2軸グラフを実装。異なる単位のデータを1つグラフで直感的に比較できる方法をコード例で解説します。
 ---
+
+
 **結論から言うと**、Bokehで左右2軸グラフを作るには、`figure`に`extra_y_ranges`を設定し、`Range1d`で右軸の範囲を定義、`LinearAxis`と`add_layout`で軸を追加するだけです。単位やスケールが異なる2つの指標を1つのグラフで比較したいときに便利な方法で、以下で具体的なコード例を使って手順を解説します。
 
 Bokehで2軸グラフ（左右に異なるスケールのY軸を持つグラフ）を作るには、`figure`に`extra_y_ranges`を設定し、2つ目の軸用の`Range1d`を追加してから`add_layout`でその軸を配置します。これにより、単位や値の範囲が異なる2つのデータ系列を1つのグラフ上で分かりやすく比較できます。

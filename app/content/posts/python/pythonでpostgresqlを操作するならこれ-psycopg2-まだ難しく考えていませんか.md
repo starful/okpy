@@ -5,11 +5,13 @@ date: 2026-02-25
 hatena_path: /entry/2026/02/25/090000
 slug: pythonでpostgresqlを操作するならこれ-psycopg2-まだ難しく考えていませんか
 summary: psycopg2の読み方からconnect()での接続、DB-API 2.0準拠の基本的な使い方までをコード例つきで整理したガイドです。
-title: psycopg2の使い方まとめ｜読み方・connect接続・エラー対処 — OKPy
-description: psycopg2の読み方・connect接続・基本的な使い方をコード付きで解説。エラーが出やすいポイントも押さえた初心者向けガイドです。
-seo_title: psycopg2の使い方まとめ｜読み方・connect接続・エラー対処 — OKPy
-seo_description: psycopg2の読み方・connect接続・基本的な使い方をコード付きで解説。エラーが出やすいポイントも押さえた初心者向けガイドです。
+title: PostgreSQLをPythonで使うならpsycopg2【接続・操作・エラー対処ガイド】
+description: psycopg2でPostgreSQLに接続。基本的な使い方、エラー対処、トランザクション管理をコード例でわかりやすく解説。
+seo_title: PostgreSQLをPythonで使うならpsycopg2【接続・操作・エラー対処ガイド】
+seo_description: psycopg2でPostgreSQLに接続。基本的な使い方、エラー対処、トランザクション管理をコード例でわかりやすく解説。
 ---
+
+
 **psycopg2、実は迷うポイントは3つだけ**です。読み方「サイコピージーツー」、`connect()`での接続方法、そしてDB-API 2.0準拠のシンプルな使い方——この3つを押さえれば、PythonからPostgreSQLへの接続でつまずくことはありません。
 
 ## psycopg2の読み方と基本
