@@ -6,11 +6,9 @@ slug: choosing-unit-of-randomization
 summary: A/Bテストで誤った結論を導く最大の原因のひとつは、ユーザー・セッション・デバイスのいずれを「ランダム化単位」として割り当てるかという、設計の初期段階での選択ミスです。本記事では、ランダム化単位がなぜ重要なのか、代表的な単位ごとの特徴とリークのリスク、そして自分の実験に適した単位を選ぶための手順を整理します。
 lang: ja
 source: statfacts
-description: Learn how to choose the correct unit of randomization for accurate A/B
-  tests. Prevent bias and ensure statistical validity in your experiments.
-seo_title: 'Unit of Randomization in A/B Tests: Complete Design Guide'
-seo_description: Understand unit of randomization in experiments. Essential guide
-  to avoiding bias, ensuring statistical validity, and designing reliable A/B tests.
+description: 正確なA/Bテストを行うための適切なランダム化単位の選び方を解説します。バイアスを防ぎ、実験の統計的妥当性を確保しましょう。
+seo_title: 'A/Bテストのランダム化単位：設計完全ガイド'
+seo_description: 実験におけるランダム化単位を理解する。バイアスを避け、統計的妥当性を確保し、信頼できるA/Bテストを設計するための必須ガイド。
 ---
 ### ランダム化単位がなぜ重要なのか
 
