@@ -3,8 +3,6 @@
 
 import glob
 import os
-import re
-import sys
 
 import frontmatter
 import requests

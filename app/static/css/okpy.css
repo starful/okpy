@@ -1323,7 +1323,7 @@ a.trend-name:hover { color: var(--trend-accent); }
   font-size: inherit;
 }
 
-/* A8 Neuro Dive + @PRO人 partner buttons */
+/* A8.net partner buttons (career: Neuro Dive, tech: お名前.com) */
 .affiliate-box--a8 {
   margin: 24px auto;
   max-width: 100%;
@@ -1384,45 +1384,9 @@ a.trend-name:hover { color: var(--trend-accent); }
   line-height: 1;
   content: "🔗";
 }
-.a8-banners__item--agoda .a8-banners__link { background: #5c2d91; }
-.a8-banners__item--agoda .a8-banners__link:hover { background: #4a2474; }
-.a8-banners__item--agoda .a8-banners__link::before { content: "🏨"; }
-.a8-banners__item--kkday .a8-banners__link { background: #ea580c; }
-.a8-banners__item--kkday .a8-banners__link:hover { background: #c2410c; }
-.a8-banners__item--kkday .a8-banners__link::before { content: "🎫"; }
-.a8-banners__item--korean_college .a8-banners__link { background: #7c3aed; }
-.a8-banners__item--korean_college .a8-banners__link:hover { background: #6d28d9; }
-.a8-banners__item--korean_college .a8-banners__link::before { content: "📖"; }
-.a8-banners__item--buyma_travel .a8-banners__link { background: #db2777; }
-.a8-banners__item--buyma_travel .a8-banners__link:hover { background: #be185d; }
-.a8-banners__item--buyma_travel .a8-banners__link::before { content: "🧭"; }
-.a8-banners__item--tora_esim .a8-banners__link { background: #2563eb; }
-.a8-banners__item--tora_esim .a8-banners__link:hover { background: #1d4ed8; }
-.a8-banners__item--tora_esim .a8-banners__link::before { content: "📶"; }
-.a8-banners__item--oakhouse .a8-banners__link { background: #0f766e; }
-.a8-banners__item--oakhouse .a8-banners__link:hover { background: #0b5f59; }
-.a8-banners__item--oakhouse .a8-banners__link::before { content: "🏡"; }
-.a8-banners__item--cross_oneroom .a8-banners__link { background: #0e7490; }
-.a8-banners__item--cross_oneroom .a8-banners__link:hover { background: #155e75; }
-.a8-banners__item--cross_oneroom .a8-banners__link::before { content: "🏢"; }
-.a8-banners__item--shin_okubo_korean .a8-banners__link { background: #be185d; }
-.a8-banners__item--shin_okubo_korean .a8-banners__link:hover { background: #9d174d; }
-.a8-banners__item--shin_okubo_korean .a8-banners__link::before { content: "💬"; }
-.a8-banners__item--ski_tour .a8-banners__link { background: #0284c7; }
-.a8-banners__item--ski_tour .a8-banners__link:hover { background: #0369a1; }
-.a8-banners__item--ski_tour .a8-banners__link::before { content: "🎿"; }
-.a8-banners__item--glamping .a8-banners__link { background: #16a34a; }
-.a8-banners__item--glamping .a8-banners__link:hover { background: #15803d; }
-.a8-banners__item--glamping .a8-banners__link::before { content: "🏕️"; }
-.a8-banners__item--yumeyado .a8-banners__link { background: #c2410c; }
-.a8-banners__item--yumeyado .a8-banners__link:hover { background: #9a3412; }
-.a8-banners__item--yumeyado .a8-banners__link::before { content: "♨️"; }
 .a8-banners__item--neuro_dive .a8-banners__link { background: #0891b2; }
 .a8-banners__item--neuro_dive .a8-banners__link:hover { background: #0e7490; }
 .a8-banners__item--neuro_dive .a8-banners__link::before { content: "💻"; }
-.a8-banners__item--pro_jin .a8-banners__link { background: #4f46e5; }
-.a8-banners__item--pro_jin .a8-banners__link:hover { background: #4338ca; }
-.a8-banners__item--pro_jin .a8-banners__link::before { content: "👔"; }
 .a8-banners__label {
   display: block;
   margin: 0;
