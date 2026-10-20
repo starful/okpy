@@ -68,7 +68,9 @@ NumPyとシームレスに連携し、豊富なアルゴリズムが揃ってい
 
 `scikit-image`のインストールは非常に簡単です。ターミナル（WindowsならコマンドプロンプトやPowerShell）を開いて、以下のコマンドを一行入力するだけです。
 
+```bash
 pip install scikit-image
+```
 
 もし、Jupyter NotebookやGoogle Colabなどでサンプルコードを動かす場合は、多くの場合すでにインストールされていますが、もし`No module named 'skimage'`のようなエラーが出たら、このコマンドを実行してください。
 
@@ -84,6 +86,7 @@ pip install scikit-image
 
 このコードは、必要なライブラリがインストールされていれば、コピー＆ペーストするだけでそのまま実行できます。
 
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage import data
@@ -157,7 +160,7 @@ for i, region in enumerate(regions[:5]): # 最初の5つだけ表示
     y0, x0 = region.centroid
     area = region.area
     print(f"Coin #{i+1}: 中心座標({y0:.2f}, {x0:.2f}), 面積: {area} ピクセル")
-
+```
 
 このコードを実行すると、3枚の画像が表示されるはずです。左から「元の画像」「各コインが別々の色で塗り分けられた画像」「元の画像に色分け結果を重ねた画像」です。見事にコインが一つ一つ認識されているのがわかると思います。
 
@@ -169,6 +172,7 @@ for i, region in enumerate(regions[:5]): # 最初の5つだけ表示
 
 #### 【チャンク1】ライブラリのインポートと画像の準備 📚
 
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage import data
@@ -176,6 +180,7 @@ from skimage import data
 
 original_image = data.coins()
 image = rescale(original_image, 0.2, anti_aliasing=False)
+```
 
 - **役割**: プログラムの実行に必要な道具（ライブラリ）を揃え、分析対象の画像を読み込んでいます。
 - **解説**:
@@ -186,8 +191,10 @@ image = rescale(original_image, 0.2, anti_aliasing=False)
 
 #### 【チャンク2】２値化処理: 世界を白と黒に分ける 🌓
 
+```python
 thresh = threshold_otsu(image)
 bw = image > thresh
+```
 
 - **役割**: グレースケールの画像を、はっきりと「物体」と「背景」に分けるための前処理です。
 - **解説**:
@@ -196,8 +203,10 @@ bw = image > thresh
 
 #### 【チャンク3】ノイズ除去と穴埋め: 画像を綺麗にお掃除 🧹
 
+```python
 cleared = clear_border(bw)
 closed = closing(cleared, square(3))
+```
 
 - **役割**: ２値化した画像に残りやすい小さなゴミ（ノイズ）を取り除き、後の処理がうまくいくように画像を整形します。
 - **解説**:
@@ -206,16 +215,20 @@ closed = closing(cleared, square(3))
 
 #### 【チャンク4】ラベリング: 一つ一つの物体に名札をつける 🏷️
 
+```python
 label_image = label(closed)
+```
 - **役割**: このコードの核心部分です。綺麗になった白黒画像から、独立した白い塊（＝コイン）を見つけ出し、それぞれに`1`, `2`, `3`, ... とユニークな番号（ラベル）を割り振ります。
 - **解説**: `label`関数は、隣接している白いピクセルを探索し、それらを一つのグループと見なします。そして、グループごとに異なる整数値を割り当てた新しい画像を生成します。この結果、背景は`0`、1つ目のコインの領域はすべて`1`、2つ目のコインの領域はすべて`2`といった具合の画像が出来上がります。
 
 #### 【チャンク5】結果の可視化と情報抽出: 分析結果を人間に分かりやすく見せる 📊
 
+```python
 image_label_overlay = label2rgb(label_image, image=image, bg_label=0)
 # ... (matplotlibによる表示コード) ...
 regions = regionprops(label_image)
 # ... (コインの情報を表示するコード) ...
+```
 - **役割**: 機械が理解した結果（ラベル画像）を、人間が見て直感的に理解できる形（色分けされた画像）に変換し、さらに各物体の具体的な情報（面積や中心座標など）を抽出します。
 - **解説**:
     - `label2rgb`は、ラベル画像をカラフルな画像に変換してくれる便利な関数です。ラベル`1`は赤、`2`は青、といったように自動で色を割り当て、元の画像に半透明で重ねて表示することもできます。
@@ -235,6 +248,7 @@ regions = regionprops(label_image)
 - **なぜ罠なのか**: この違いを知らずに`uint8`の画像をそのまま関数に渡すと、予期しない真っ黒または真っ白な画像が出力されたり、エラーが出たりします。例えば、`0.5`を閾値にしたいのに、画像の全ピクセルが`0`～`255`の値を持っていたら、意図通りに動作しません。
 - **解決策**: 画像を読み込んだ後、`skimage.util.img_as_float()`という便利な関数を使って、値を`0.0`～`1.0`の範囲に正規化する習慣をつけましょう。逆に、画像を保存する前には`skimage.util.img_as_ubyte()`で`0`～`255`の範囲に戻すのが一般的です。
 
+```python
 from skimage import io
 from skimage.util import img_as_float, img_as_ubyte
 
@@ -249,6 +263,7 @@ image_float = img_as_float(image_uint8)
 # 保存する前にuint8に戻す
 image_to_save = img_as_ubyte(processed_image_float)
 io.imsave('processed_image.png', image_to_save)
+```
 
 #### ヒント: 公式ドキュメントのギャラリーは宝の山！ 💎
 

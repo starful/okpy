@@ -76,7 +76,9 @@ Pythonを学び始めると、「AIで何かすごいことをしてみたい！
 
 `mediapipe`のインストールはとても簡単です。また、カメラ映像を扱うために`opencv-python`も一緒にインストールするのが定番です。ターミナル（またはコマンドプロンプト）を開いて、以下のコマンドを実行しましょう。
 
+```bash
 pip install mediapipe opencv-python
+```
 
 たったこれだけで、あなたの開発環境に「魔法のメガネ」をかける準備が整いました！
 
@@ -88,6 +90,7 @@ pip install mediapipe opencv-python
 
 以下のコードをコピーして、`pose_detection.py`のような名前で保存し、実行してみてください。Webカメラが起動し、あなたの体の動きに合わせて骨格が線で描画されるはずです。（終了する時は、表示されたウィンドウを選択した状態で`q`キーを押してください）
 
+```python
 import cv2
 import mediapipe as mp
 
@@ -143,6 +146,7 @@ with mp_pose.Pose(
 # 使い終わったらリソースを解放
 cap.release()
 cv2.destroyAllWindows()
+```
 
 ***
 
@@ -152,11 +156,13 @@ cv2.destroyAllWindows()
 
 #### ① 準備運動: ライブラリのインポートと初期化 🏃‍♀️
 
+```python
 import cv2
 import mediapipe as mp
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
+```
 
 ここでは、このプログラムで使う道具を準備しています。
 - `cv2`: OpenCVライブラリです。Webカメラの映像を読み込んだり、画面に表示したりする「目」と「手」の役割を担います。
@@ -166,10 +172,12 @@ mp_pose = mp.solutions.pose
 
 #### ② メインエンジン: カメラの起動と姿勢推定モデルのセットアップ 🚀
 
+```python
 cap = cv2.VideoCapture(0)
 with mp_pose.Pose(...) as pose:
     while cap.isOpened():
         # ... (ループ内の処理) ...
+```
 
 ここからがプログラムの本体です。
 - `cap = cv2.VideoCapture(0)`: PCに接続されたWebカメラを起動し、映像を取り込む準備をします。`0`は通常、PC内蔵のカメラを指します。
@@ -178,10 +186,12 @@ with mp_pose.Pose(...) as pose:
 
 #### ③ 核心部分: AIによる画像分析 🧠
 
+```python
 success, image = cap.read()
 # ...
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 results = pose.process(image)
+```
 
 ループの中で、最も重要な処理を行っているのがこの部分です。
 - `success, image = cap.read()`: カメラから現在のフレーム（静止画）を1枚取得します。`image`にその画像データが入ります。
@@ -190,10 +200,12 @@ results = pose.process(image)
 
 #### ④ 結果の可視化: 検出結果を描画して表示 🎨
 
+```python
 image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 if results.pose_landmarks:
     mp_drawing.draw_landmarks(...)
 cv2.imshow('MediaPipe Pose', image)
+```
 
 AIが分析した結果は、ただの数値データです。それを人間が見て分かるように、画像に描き加えていきます。
 - `image = cv2.cvtColor(...)`: 分析が終わったので、今度は画面に表示するために、色の順番をOpenCVが扱うBGR形式に戻します。
@@ -226,6 +238,7 @@ AIが分析した結果は、ただの数値データです。それを人間が
 
 もし、実際のピクセル座標が知りたい場合は、以下のように画像の幅と高さを掛けてあげる必要があります。
 
+```python
 # 例: 右手首(インデックス16)のピクセル座標を取得する
 
 # まず、画像の高さと幅を取得
@@ -244,6 +257,7 @@ if results.pose_landmarks:
     
     # その位置に円を描画してみる
     cv2.circle(image, (pixel_x, pixel_y), 10, (0, 255, 0), -1)
+```
 
 この「正規化座標」の仕組みを理解しておけば、特定の関節が画像のどのエリアにあるかを判定したり、他のオブジェクトと連携させたりする応用がスムーズに実装できます。
 
