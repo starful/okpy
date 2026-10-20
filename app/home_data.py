@@ -4,11 +4,7 @@ from __future__ import annotations
 
 import json
 import os
-import urllib.parse
 
-GSC_POPULAR_JSON = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "gsc_popular.json"
-)
 IT_TRENDS_JSON = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "it_trends.json"
 )
@@ -16,74 +12,6 @@ HOME_LIMIT = 6
 HOME_LATEST_LIMIT = 4
 HOME_CAT_LIMIT = 3
 HOME_SECTION_LEAD = ("eng-comms", "data-analysis")
-GSC_SITE_URL = os.getenv("GSC_SITE_URL", "sc-domain:okpy.net")
-
-
-def _path_from_url(page_url: str) -> str:
-    path = urllib.parse.urlparse(page_url).path or ""
-    return path if path.startswith("/") else "/" + path
-
-
-def _slug_from_new_url(new_url: str) -> str:
-    if "/blog/" not in new_url:
-        return ""
-    return new_url.split("/blog/", 1)[1].split("?")[0].split("#")[0].strip("/")
-
-
-def path_to_slug(path: str, redirect_map: dict) -> str:
-    path = path.rstrip("/") or path
-    if path in redirect_map:
-        return _slug_from_new_url(redirect_map[path])
-    if not path.endswith("/"):
-        alt = path + "/"
-        if alt in redirect_map:
-            return _slug_from_new_url(redirect_map[alt])
-    if path.startswith("/blog/"):
-        return path[len("/blog/") :].strip("/")
-    return ""
-
-
-def load_gsc_popular_cache() -> dict:
-    if not os.path.isfile(GSC_POPULAR_JSON):
-        return {}
-    try:
-        with open(GSC_POPULAR_JSON, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (OSError, json.JSONDecodeError):
-        return {}
-
-
-def popular_posts_from_gsc(cached_posts: list, redirect_map: dict, limit: int = HOME_LIMIT) -> list:
-    """Resolve top GSC pages to post dicts; fallback to newest if cache missing."""
-    cache = load_gsc_popular_cache()
-    entries = cache.get("entries") or []
-    by_slug = {p["slug"]: p for p in cached_posts}
-    seen = set()
-    popular = []
-
-    for entry in entries:
-        slug = entry.get("slug") or path_to_slug(
-            _path_from_url(entry.get("page", "")), redirect_map
-        )
-        if not slug or slug in seen:
-            continue
-        post = by_slug.get(slug)
-        if post:
-            popular.append({**post, "gsc_clicks": entry.get("clicks", 0)})
-            seen.add(slug)
-        if len(popular) >= limit:
-            break
-
-    if len(popular) < limit:
-        for post in cached_posts:
-            if post["slug"] in seen:
-                continue
-            popular.append(post)
-            seen.add(post["slug"])
-            if len(popular) >= limit:
-                break
-
-    return popular[:limit]
 
 
 def ordered_home_categories(categories: dict) -> dict:

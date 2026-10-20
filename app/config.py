@@ -22,8 +22,8 @@ SITE_CONFIG = {
     "default_lang": "ja",
 
     "emoji": "🐍",
-  "accent_color": "#4a4540",
-  "bg_dot_color": "#c9c0b4",
+    "accent_color": "#4a4540",
+    "bg_dot_color": "#c9c0b4",
 
     "blog_categories": {
         "python": {

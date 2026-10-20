@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, abort, redirect, request, Response, send_from_directory
+from flask import Flask, render_template, abort, redirect, request, Response, send_from_directory
 from flask_compress import Compress
 import csv
 import json
