@@ -15,7 +15,7 @@ seo_description: Imageioで複雑な画像・動画処理を完全自動化。GI
 
 画像・動画処理の複雑さを一掃します。📸 複数の静止画をGIF・MP4に自動変換 📹 動画をフレーム単位で分解・加工 🎬 JPG・PNG・WebPなど複数形式を同じコードで処理——初心者でも数行で実現できます。
 
-# Python Imageio: 画像と動画の読み書き、もっとシンプルにしませんか？
+# Python Imageio: 画像と動画の読み書きをシンプルにする方法
 
 ![image](https://storage.googleapis.com/ok-project-assets/okpy/20251210210640.png)
 
@@ -70,15 +70,11 @@ Imageioのインストールは、Pythonのパッケージ管理ツールであ�
 
 今回のサンプルコードではGIFを作成しますが、ImageioがGIFを扱う際には内部で`Pillow`という別の有名な画像処理ライブラリを利用します。そのため、最初から`Pillow`も一緒にインストールしておくのが最もスムーズです。
 
-```bash
 pip install imageio pillow
-```
 
 もし、将来的にMP4などの動画ファイルも扱いたいと考えているなら、`ffmpeg`という強力な動画処理ツールを内部で利用できるように、以下のようにインストールすることもできます。（`ffmpeg`本体が別途必要な場合もあります）
 
-```bash
 pip install imageio[ffmpeg]
-```
 
 まずは`pillow`付きのインストールで、GIF作成から試してみましょう！
 
@@ -90,7 +86,6 @@ pip install imageio[ffmpeg]
 
 以下のコードは、Pythonプログラム内で動的に画像を生成し、それらを組み合わせて一つのGIFアニメーションファイルを作成する完全なサンプルです。特別な画像ファイルを用意する必要はありません。このコードをコピーして、`create_gif.py`のような名前で保存し、実行するだけです。
 
-```python
 import imageio
 import numpy as np
 
@@ -167,7 +162,6 @@ if __name__ == '__main__':
 
     print(f"\n✨ 完成！ '{output_filename}' がカレントディレクトリに保存されました。")
 
-```
 
 このスクリプトを実行すると、同じディレクトリに`expanding_circle.gif`というファイルが作成されます。ファイルを開いて、中心から円がカラフルに広がっていくアニメーションが表示されれば成功です！
 
@@ -178,26 +172,21 @@ if __name__ == '__main__':
 上記のサンプルコードが魔法のように見えるかもしれませんが、一つ一つの処理は非常にシンプルです。コードをいくつかの塊（チャンク）に分けて、それぞれの役割を解説します。
 
 #### **1. ライブラリのインポート**
-```python
 import imageio
 import numpy as np
-```
 - `import imageio`: まずは主役であるImageioライブラリをインポートします。これがないと始まりません。
 - `import numpy as np`: NumPyは、Pythonで数値計算、特に配列や行列を効率的に扱うための定番ライブラリです。画像データは、実は「ピクセルの色の値を格納した巨大な数値の配列（行列）」です。そのため、プログラムで画像を生成・操作する際にはNumPyが非常に役立ちます。`as np`は、`numpy`を`np`という短い名前で使えるようにするためのおまじないです。
 
 #### **2. 画像生成関数の定義 `create_circular_gradient_image`**
-```python
 def create_circular_gradient_image(width, height, frame_index, total_frames):
     # ... (中略) ...
     return img
-```
 - この関数は、GIFアニメーションの1コマにあたる画像を生成する役割を担っています。
 - `np.zeros(...)`で、指定された幅（`width`）と高さ（`height`）の真っ黒な画像データ（全てのピクセルの値が0）を作成します。`dtype=np.uint8`は、各色の値を0から255までの整数で表現するという、画像データで最も一般的な形式を指定しています。
 - 関数内の計算は、フレームの番号（`frame_index`）に応じて、描画する円の半径や色を少しずつ変化させるためのものです。これにより、連続して呼び出すとパラパラ漫画のような動きが生まれます。
 - 最終的に、完成した1フレーム分の画像データ（NumPy配列）を`return`で返します。
 
 #### **3. GIF設定とメイン処理**
-```python
 if __name__ == '__main__':
     # GIFの設定
     width, height = 200, 200
@@ -206,26 +195,21 @@ if __name__ == '__main__':
     duration_per_frame = 0.05
 
     # ... (ループ処理) ...
-```
 - `if __name__ == '__main__':`は、このファイルが直接実行されたときにだけ、以下の処理を行うというPythonの決まり文句です。
 - ここでは、作成するGIFのサイズ、総フレーム数、ファイル名、各フレームの表示時間といった、アニメーション全体の仕様を定義しています。`duration_per_frame = 0.05`は、1枚の画像を0.05秒表示することを意味し、1秒あたり20フレーム（1 / 0.05 = 20）のアニメーションになります。
 
 #### **4. フレーム生成ループ**
-```python
     images = []
     for i in range(total_frames):
         frame_image = create_circular_gradient_image(width, height, i, total_frames)
         images.append(frame_image)
-```
 - `images = []`で、これから生成する各フレームの画像データを格納するための空のリストを用意します。これがGIFの材料を入れる箱になります。
 - `for`ループを使って、`total_frames`（この例では60回）だけ処理を繰り返します。
 - ループの中で、先ほど定義した`create_circular_gradient_image`関数を呼び出し、引数を変えながら（`i`が0から59まで変化する）60枚の少しずつ異なる画像を生成します。
 - `images.append(frame_image)`で、できあがった画像を1枚ずつ`images`リストに追加していきます。
 
 #### **5. GIFファイルの保存（Imageioの核心部分）**
-```python
     imageio.mimsave(output_filename, images, duration=duration_per_frame, loop=0)
-```
 - これがImageioの真骨頂です。たったこの1行で、これまで`images`リストに溜め込んできた全ての画像フレームが、一つのGIFアニメーションファイルとして書き出されます。
 - `imageio.mimsave()`: `mim`は "multiple images" を意味し、複数の画像を扱える保存メソッドです。
 - **第1引数 `output_filename`**: 保存するファイル名を指定します。Imageioは拡張子（`.gif`）を賢く見て、自動的にGIF形式で保存しようと試みます。
@@ -245,10 +229,8 @@ Imageioは非常に便利ですが、初心者が陥りがちな罠や、知っ�
 
 GIFアニメーションの作成は比較的簡単ですが、同じ感覚でファイル名を`'output.mp4'`のように変更して動画を作成しようとすると、エラーが発生することがあります。
 
-```python
 # これはエラーになる可能性がある
 imageio.mimsave('output.mp4', images, fps=30)
-```
 
 このエラーの**最も一般的な原因は、バックエンドで動画のエンコード（変換）を行うためのプログラム `FFmpeg` が見つからないこと**です。Imageio自体は動画のエンコーダを持っておらず、外部の専門プログラムを利用して処理を行います。
 
@@ -257,9 +239,7 @@ imageio.mimsave('output.mp4', images, fps=30)
 もしMP4やAVIなどの動画形式で保存したい場合は、以下の点を覚えておいてください。
 
 1.  **`imageio-ffmpeg` をインストールする**: `pip`を使って、Imageioが`FFmpeg`を自動でダウンロード・利用できるようにする連携パッケージをインストールするのが最も簡単な解決策です。
-    ```bash
     pip install imageio[ffmpeg]
-    ```
     多くの場合、これだけでMP4の書き出しが成功するようになります。
 
 2.  **エラーメッセージを読む**: もしエラーが出た場合は、メッセージをよく読んでみましょう。「`FFmpeg not found`」のような文言が含まれていれば、原因はほぼ間違いなくこれです。

@@ -5,7 +5,7 @@ date: 2025-02-24
 hatena_path: /entry/2025/02/24/195826
 slug: 強力なツール-python-sys-ライブラリ
 summary: Python標準ライブラリsysの基本概念から実践的な使用例までをコード付きで解説します。
-title: 強力なツール：Python sys ライブラリ
+title: Python sys ライブラリの使い方｜基本から実践まで解説
 description: Pythonの標準ライブラリsysを基本から完全解説。コマンドライン引数取得・バージョン確認・標準出力制御など、スクリプト開発で役立つ実例を厳選して紹介します。
 seo_title: Python sys 完全ガイド｜引数・バージョン・出力制御を実装【初心者向け】
 seo_description: Python sysライブラリの使い方を初心者向けに完全解説。コマンドライン引数の取得、バージョン確認、標準出力の制御など、すぐに使えるコード例付きで習得できます。
@@ -36,9 +36,7 @@ Python 標準ライブラリの `sys` は、Python インタープリタと対�
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
-```
 
 ---
 
@@ -49,7 +47,6 @@ Python スクリプトが実行されたときの引数を取得できます。
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
 
 # コマンドライン引数の表示
@@ -58,7 +55,6 @@ print("コマンドライン引数:", sys.argv)
 # 第一引数を取得
 if len(sys.argv) > 1:
     print("第一引数:", sys.argv[1])
-```
 
 **使用例:**
 `python script.py argument1 argument2` と実行すると、`sys.argv` で `['script.py', 'argument1', 'argument2']` が取得されます。
@@ -69,12 +65,10 @@ if len(sys.argv) > 1:
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
 
 print("Python バージョン:", sys.version)
 print("バージョン情報:", sys.version_info)
-```
 
 **使用例:**
 特定の Python バージョンでスクリプトが実行されているかを確認する際に利用できます。
@@ -85,7 +79,6 @@ print("バージョン情報:", sys.version_info)
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
 
 # 標準出力のリダイレクト
@@ -95,21 +88,18 @@ sys.stdout.write("標準出力へのメッセージ\n")
 print("入力を待機しています...")
 user_input = sys.stdin.readline().strip()
 print("入力された内容:", user_input)
-```
 
 **使用例:**
 標準出力を別のファイルにリダイレクトすることも可能です。
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
 
 with open('output.txt', 'w') as f:
     sys.stdout = f
     print("このメッセージはファイルに出力されます")
     sys.stdout = sys.__stdout__
-```
 
 ---
 
@@ -117,7 +107,6 @@ with open('output.txt', 'w') as f:
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
 
 # 現在のモジュール検索パスを取得
@@ -126,7 +115,6 @@ print("モジュール検索パス:", sys.path)
 # 新しいパスを追加
 sys.path.append('/my/custom/path')
 print("追加後のパス:", sys.path)
-```
 
 **使用例:**
 カスタムモジュールが適切にインポートされるか確認する際に使用します。
@@ -137,12 +125,10 @@ print("追加後のパス:", sys.path)
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
 
 print("プログラムを終了します。")
 sys.exit(0)
-```
 
 **使用例:**
 エラー発生時に `sys.exit(1)` で異常終了を明示できます。
@@ -153,14 +139,12 @@ sys.exit(0)
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
 
 try:
     1 / 0
 except ZeroDivisionError:
     print("例外情報:", sys.exc_info())
-```
 
 **使用例:**
 エラーハンドリング時に詳細な情報を取得したい場合に利用します。
@@ -171,12 +155,10 @@ except ZeroDivisionError:
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
 
 x = [i for i in range(10000)]
 print("リスト x のメモリ使用量:", sys.getsizeof(x), "バイト")
-```
 
 **使用例:**
 変数がどれだけメモリを使用しているかを確認したいときに役立ちます。
@@ -187,13 +169,11 @@ print("リスト x のメモリ使用量:", sys.getsizeof(x), "バイト")
 
 <div style="position: relative;"><button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)" style="position: absolute; top: 5px; right: 5px; padding: 5px 10px; font-size: 12px; background-color: #007bff; color: white; border: none; cursor: pointer;">コピー</button>
 
-```python
 import sys
 
 print("現在の再帰制限:", sys.getrecursionlimit())
 sys.setrecursionlimit(2000)
 print("変更後の再帰制限:", sys.getrecursionlimit())
-```
 
 **使用例:**
 再帰的な処理を行う場合、デフォルトの制限を超えないよう調整できます。
