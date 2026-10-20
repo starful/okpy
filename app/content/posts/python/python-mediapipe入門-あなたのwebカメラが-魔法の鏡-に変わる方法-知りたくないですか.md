@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20251210205557.png
 date: 2025-12-24
 hatena_path: /entry/2025/12/24/090000_1
 slug: python-mediapipe入門-あなたのwebカメラが-魔法の鏡-に変わる方法-知りたくないですか
-summary: mediapipeは、Googleが開発した機械学習ベースのコンピュータビジョンライブラリです。
-title: 'Python mediapipe入門: Webカメラで顔認識・姿勢推定・ハンドトラッキングを実装する方法'
-description: mediapipeは、Googleが開発した機械学習ベースのコンピュータビジョンライブラリです。
-seo_title: Python mediapipe 入門｜顔認識・姿勢推定・ハンドトラッキング【コード例付き】
-seo_description: mediapipeでWebカメラから顔認識・姿勢推定・手の追跡が数行のコードで実現。Google提供の事前学習済みモデルで、難しいAI実装は不要。ARエフェクト・フィットネスアプリ・ジェスチャー認識まで対応。
+summary: Googleが提供するmediapipeは、事前学習済みモデルで顔認識や姿勢推定を数行のコードで実現できるコンピュータビジョンライブラリです。
+title: Python mediapipe完全ガイド｜数行のコードで顔認識・姿勢推定・手の追跡を実装
+description: mediapipeで顔認識・姿勢推定・ハンドトラッキングを簡単実装。Google提供の事前学習済みモデルで難しいAI知識不要。ARエフェクト・フィットネスアプリ・ジェスチャー認識に対応。
+seo_title: Python mediapipe完全ガイド｜数行のコードで顔認識・姿勢推定・手の追跡を実装
+seo_description: mediapipeで顔認識・姿勢推定・ハンドトラッキングを簡単実装。Google提供の事前学習済みモデルで難しいAI知識不要。ARエフェクト・フィットネスアプリ・ジェスチャー認識に対応。
 ---
+
 
 
 # Python mediapipe入門: Webカメラで顔認識・姿勢推定・ハンドトラッキングを実装する方法
