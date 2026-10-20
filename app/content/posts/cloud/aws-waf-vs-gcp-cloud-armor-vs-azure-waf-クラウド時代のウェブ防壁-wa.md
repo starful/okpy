@@ -12,7 +12,7 @@ seo_description: AWS WAF、GCP Cloud Armor、Azure WAFを技術・機能・コ�
 ---
 
 
-# AWS WAF vs GCP Cloud Armor vs Azure WAF: クラウド時代のウェブ防壁「WAF」の最適な選び方
+# AWS WAF vs GCP Cloud Armor vs Azure WAF｜クラウド時代の最適なWeb防壁選び
 
 ![image](https://storage.googleapis.com/ok-project-assets/okpy/20260127163815.png)
 
