@@ -17,7 +17,7 @@ seo_description: Adding twice-weekly interval sessions can improve 5K race times
 ---
 ## Quick Win for 5K Runners
 
-If your 5K time is 25 minutes, adding interval work could shave off 30–75 seconds. Most runners see gains within 4–6 weeks of consistent twice-weekly sessions combined with base training.
+Adding twice-weekly interval sessions to a base running program is associated with a 2–5% improvement in 5K race times (see Sources below). Actual gains and the time needed to see them vary by individual, starting fitness level, and training consistency.
 
 ## Effect snapshot
 
