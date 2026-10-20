@@ -5,11 +5,12 @@ date: 2025-12-16
 hatena_path: /entry/2025/12/16/093000_1
 slug: pythonで光速web-api開発-まだ重厚なフレームワークだけで消耗していませんか
 summary: 軽量で高速なStarletteの完全ガイド。Django/Flaskより負荷が低く、FastAPIの基盤として採用。マイクロサービスやリアルタイム通信に最適。
-title: Starlette：Pythonで軽量・超高速Web API開発｜Django/Flaskから卒業
-description: Starletteなら軽量で超高速。Django/Flaskの重さから解放。FastAPIの心臓部。WebSocket対応、マイクロサービス開発に最適。
-seo_title: Starlette：Pythonで軽量・超高速Web API開発｜Django/Flaskから卒業
-seo_description: Starletteなら軽量で超高速。Django/Flaskの重さから解放。FastAPIの心臓部。WebSocket対応、マイクロサービス開発に最適。
+title: Starlette完全ガイド：Django/Flaskより軽く高速。爆速Web API開発の決定版
+description: 軽量で高速なStarletteの完全ガイド。Django/Flaskより負荷が低く、FastAPIの基盤として採用。マイクロサービスやリアルタイム通信に最適。
+seo_title: Starlette完全ガイド：Django/Flaskより軽く高速。爆速Web API開発の決定版
+seo_description: DjangoやFlaskで消耗しているなら必見。Starletteなら軽量で爆速。FastAPIの基盤、WebSocket対応でマイクロサービス最適。
 ---
+
 
 
 # Pythonで光速Web API開発、まだ重厚なフレームワークだけで消耗していませんか？
