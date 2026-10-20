@@ -14,6 +14,11 @@ from datetime import datetime, timezone
 from typing import Any
 from urllib.parse import urlparse
 
+try:
+    from .json_utils import load_json_dict
+except ImportError:
+    from json_utils import load_json_dict
+
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
 APPROVED_JSON = os.environ.get("WALL_APPROVED_JSON") or os.path.join(DATA_DIR, "wall_approved.json")
 QUEUE_JSON = os.environ.get("WALL_QUEUE_JSON") or os.path.join(DATA_DIR, "wall_queue.json")
@@ -43,14 +48,7 @@ def type_label(kind: str) -> str:
 
 
 def _read_json(path: str) -> dict[str, Any]:
-    if not os.path.isfile(path):
-        return {}
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-    except (OSError, json.JSONDecodeError):
-        return {}
-    return data if isinstance(data, dict) else {}
+    return load_json_dict(path)
 
 
 def _write_json(path: str, payload: dict[str, Any]) -> None:

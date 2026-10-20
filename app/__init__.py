@@ -160,15 +160,19 @@ def _first_image_in_markdown(body: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+def _gcs_base() -> str:
+    return SITE_CONFIG.get(
+        "gcs_image_base",
+        "https://storage.googleapis.com/ok-project-assets/okpy",
+    ).rstrip("/")
+
+
 def _public_image_url(url: str) -> str:
     """Map legacy local post images to the shared GCS bucket URL."""
     if not url:
         return ""
     url = url.strip()
-    gcs_base = SITE_CONFIG.get(
-        "gcs_image_base",
-        "https://storage.googleapis.com/ok-project-assets/okpy",
-    ).rstrip("/")
+    gcs_base = _gcs_base()
     local_prefixes = (
         "/static/images/posts/",
         "static/images/posts/",
@@ -182,11 +186,7 @@ def _public_image_url(url: str) -> str:
 def _rewrite_local_post_images(text: str) -> str:
     if not text or "/static/images/posts/" not in text:
         return text
-    gcs_base = SITE_CONFIG.get(
-        "gcs_image_base",
-        "https://storage.googleapis.com/ok-project-assets/okpy",
-    ).rstrip("/")
-    return text.replace("/static/images/posts/", f"{gcs_base}/")
+    return text.replace("/static/images/posts/", f"{_gcs_base()}/")
 
 
 def _resolve_article_cover(post, match, body: str) -> str:
@@ -311,12 +311,16 @@ def _toc_has_entries(toc_html: str) -> bool:
     return bool(re.search(r"<li\b", toc_html))
 
 
+def _site_base() -> str:
+    return SITE_CONFIG["site_url"].rstrip("/")
+
+
 def _absolute_url(path_or_url):
     if not path_or_url:
         return ""
     if path_or_url.startswith("http://") or path_or_url.startswith("https://"):
         return path_or_url
-    return f"{SITE_CONFIG['site_url'].rstrip('/')}/{path_or_url.lstrip('/')}"
+    return f"{_site_base()}/{path_or_url.lstrip('/')}"
 
 
 def load_redirects():
@@ -374,6 +378,12 @@ def _strip_page_query_redirect():
     return redirect(path, code=301)
 
 
+def _load_frontmatter_post(path):
+    with open(path, "r", encoding="utf-8") as f:
+        raw = _clean_md(f.read())
+    return frontmatter.loads(raw)
+
+
 def load_posts():
     global CACHED_POSTS
     posts = []
@@ -383,9 +393,7 @@ def load_posts():
 
     for fpath in glob.glob(os.path.join(POST_DIR, "**", "*.md"), recursive=True):
         try:
-            with open(fpath, "r", encoding="utf-8") as f:
-                raw = _clean_md(f.read())
-            post = frontmatter.loads(raw)
+            post = _load_frontmatter_post(fpath)
             basename = os.path.basename(fpath).replace(".md", "")
             slug = str(post.get("slug") or basename).strip()
             category = str(post.get("category") or "python").strip().lower()
@@ -572,9 +580,7 @@ def blog_post(slug):
     if not match:
         abort(404)
 
-    with open(match["path"], "r", encoding="utf-8") as f:
-        raw = _clean_md(f.read())
-    post = frontmatter.loads(raw)
+    post = _load_frontmatter_post(match["path"])
     body = _normalize_markdown_lists(post.content.replace("```markdown", "").strip())
     body = _rewrite_local_post_images(body)
     title = str(post.get("title") or slug)
@@ -642,7 +648,7 @@ def legacy_item_redirect(_rest=None):
 
 @app.route("/robots.txt")
 def robots_txt():
-    base = SITE_CONFIG["site_url"].rstrip("/")
+    base = _site_base()
     content = (
         "User-agent: *\n"
         "Allow: /\n"
@@ -659,7 +665,7 @@ def ads_txt():
 
 @app.route("/sitemap.xml")
 def sitemap_xml():
-    base = SITE_CONFIG["site_url"].rstrip("/")
+    base = _site_base()
     today = datetime.now().strftime("%Y-%m-%d")
     urls = [f"{base}/", f"{base}/guide/agentic-system", f"{base}/wall"]
     for cat in _blog_categories():

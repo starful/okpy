@@ -2,8 +2,12 @@
 
 from __future__ import annotations
 
-import json
 import os
+
+try:
+    from .json_utils import load_json_dict
+except ImportError:
+    from json_utils import load_json_dict
 
 IT_TRENDS_JSON = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "it_trends.json"
@@ -137,14 +141,8 @@ def diverse_latest_posts(posts: list, limit: int = HOME_LATEST_LIMIT) -> list:
 
 def load_it_trends() -> dict:
     """Homepage editorial boards from data/it_trends.json (updated by okadmin)."""
-    if not os.path.isfile(IT_TRENDS_JSON):
-        return {}
-    try:
-        with open(IT_TRENDS_JSON, "r", encoding="utf-8") as f:
-            data = json.load(f)
-    except (OSError, json.JSONDecodeError):
-        return {}
-    if not isinstance(data, dict):
+    data = load_json_dict(IT_TRENDS_JSON)
+    if not data:
         return {}
     boards_out = []
     for board in data.get("boards") or []:
