@@ -96,6 +96,10 @@ ARCHIVE_CATEGORY_MAP = {
 }
 
 
+def _blog_categories():
+    return SITE_CONFIG.get("blog_categories", {})
+
+
 def _clean_md(text):
     text = re.sub(r"^```[a-z]*\n", "", text)
     text = re.sub(r"\n```$", "", text)
@@ -354,7 +358,7 @@ def _legacy_archive_redirect(path: str):
         raw = path[len(prefix) :]
         name = urllib.parse.unquote(raw.split("/")[0]).strip()
         cat = ARCHIVE_CATEGORY_MAP.get(name.lower()) or ARCHIVE_CATEGORY_MAP.get(name)
-        if cat and cat in SITE_CONFIG.get("blog_categories", {}):
+        if cat and cat in _blog_categories():
             return redirect(f"/category/{cat}", code=301)
     return redirect("/", code=301)
 
@@ -386,7 +390,7 @@ def load_posts():
             basename = os.path.basename(fpath).replace(".md", "")
             slug = str(post.get("slug") or basename).strip()
             category = str(post.get("category") or "python").strip().lower()
-            if category not in SITE_CONFIG.get("blog_categories", {}):
+            if category not in _blog_categories():
                 category = "python"
             cover = str(post.get("cover") or "").strip()
             if not cover:
@@ -423,14 +427,14 @@ def _mixed_feed_posts():
 
 
 def _category_counts():
-    cats = SITE_CONFIG.get("blog_categories", {})
+    cats = _blog_categories()
     counts = {k: len(_posts_for_category(k)) for k in cats}
     counts["all"] = len(CACHED_POSTS)
     return counts
 
 
 def _footer_ctx():
-    cats = SITE_CONFIG.get("blog_categories", {})
+    cats = _blog_categories()
     return {
         "site": SITE_CONFIG,
         "categories": cats,
@@ -481,7 +485,7 @@ def _default_og_image():
 
 @app.route("/")
 def index():
-    cats = SITE_CONFIG.get("blog_categories", {})
+    cats = _blog_categories()
     home_cats = ordered_home_categories(cats)
     ctx = _footer_ctx()
     pools = ctx["category_cover_pools"]
@@ -500,7 +504,7 @@ def index():
         it_trends=load_it_trends(),
         wall_items=load_home_wall(),
         active_category=None,
-        canonical=SITE_CONFIG["site_url"].rstrip("/") + "/",
+        canonical=_absolute_url("/"),
         og_image=_default_og_image(),
         **ctx,
     )
@@ -509,7 +513,7 @@ def index():
 @app.route("/category/career/mbti")
 def career_mbti_index():
     ctx = _footer_ctx()
-    canonical = f"{SITE_CONFIG['site_url'].rstrip('/')}/category/career/mbti"
+    canonical = _absolute_url("/category/career/mbti")
     a8 = a8_banner_context("career")
     return render_template(
         "mbti_index.html",
@@ -529,7 +533,7 @@ def career_mbti_type(code):
     if not mbti:
         abort(404)
     ctx = _footer_ctx()
-    canonical = f"{SITE_CONFIG['site_url'].rstrip('/')}/category/career/mbti/{mbti['code']}"
+    canonical = _absolute_url(f"/category/career/mbti/{mbti['code']}")
     a8 = a8_banner_context("career")
     return render_template(
         "mbti_type.html",
@@ -544,11 +548,11 @@ def career_mbti_type(code):
 
 @app.route("/category/<category>")
 def category_list(category):
-    cats = SITE_CONFIG.get("blog_categories", {})
+    cats = _blog_categories()
     if category not in cats:
         abort(404)
     ctx = _footer_ctx()
-    canonical = f"{SITE_CONFIG['site_url'].rstrip('/')}/category/{category}"
+    canonical = _absolute_url(f"/category/{category}")
     a8 = a8_banner_context(category)
     thumb = (ctx.get("category_thumbnails") or {}).get(category) or ""
     og_image = _absolute_url(thumb) if thumb else _default_og_image()
@@ -585,7 +589,7 @@ def blog_post(slug):
             body,
             count=1,
         )
-    cats = SITE_CONFIG.get("blog_categories", {})
+    cats = _blog_categories()
     if not cover:
         cover = fallback_cover_for_post(
             match, category_cover_pool(CACHED_POSTS, cats)
@@ -600,8 +604,8 @@ def blog_post(slug):
     word_count = len(re.sub(r"<[^>]+>", "", body).split())
     read_minutes = max(1, round(word_count / 400))
     category = match["category"]
-    cat_meta = SITE_CONFIG.get("blog_categories", {}).get(category, {})
-    canonical = f"{SITE_CONFIG['site_url'].rstrip('/')}/blog/{slug}"
+    cat_meta = _blog_categories().get(category, {})
+    canonical = _absolute_url(f"/blog/{slug}")
     cover_abs = _absolute_url(cover) if cover else ""
     a8 = a8_banner_context(category)
     career_mbti_types = types_for_career(slug) if category == "career" else []
@@ -659,7 +663,7 @@ def sitemap_xml():
     base = SITE_CONFIG["site_url"].rstrip("/")
     today = datetime.now().strftime("%Y-%m-%d")
     urls = [f"{base}/", f"{base}/guide/agentic-system", f"{base}/wall"]
-    for cat in SITE_CONFIG.get("blog_categories", {}):
+    for cat in _blog_categories():
         urls.append(f"{base}/category/{cat}")
     urls.append(f"{base}/category/career/mbti")
     for code in all_mbti_type_codes():
@@ -732,7 +736,7 @@ def wall_page():
         form_text=form_text,
         form_url=form_url,
         form_name=form_name,
-        canonical=SITE_CONFIG["site_url"].rstrip("/") + "/wall",
+        canonical=_absolute_url("/wall"),
         og_image=_default_og_image(),
         **_footer_ctx(),
     )
