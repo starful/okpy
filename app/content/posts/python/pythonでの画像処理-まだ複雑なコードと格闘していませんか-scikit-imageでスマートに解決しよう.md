@@ -4,15 +4,17 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20251210211058.png
 date: 2026-01-05
 hatena_path: /entry/2026/01/05/090000_1
 slug: pythonでの画像処理-まだ複雑なコードと格闘していませんか-scikit-imageでスマートに解決しよう
-summary: scikit-imageは、Pythonで科学的な画像分析や処理を行うための強力なライブラリです。
-title: 'Python画像処理: scikit-imageで複雑なコード卒業 | OKPy'
-description: scikit-imageを使ったPython画像処理の完全ガイド。複雑なコード管理から脱却し、効率的な実装方法を習得できます。
-seo_title: scikit-imageで簡単!Python画像処理・解析チュートリアル
-seo_description: Pythonで画像処理・解析するならscikit-image!わかりやすいコード例と実装パターンを解説。画像フィルタ・検出・変換がシンプルに。
+summary: scikit-imageは、Pythonで科学的な画像分析・処理を行うための強力なライブラリ。ノイズ除去から物体検出、特徴抽出まで、複雑なタスクを驚くほど簡単に実現できます。
+title: scikit-imageで画像処理|Pythonコード例で医療・衛星画像を自動解析
+description: scikit-imageはPythonの画像処理ライブラリ。ノイズ除去・物体検出・特徴抽出をコード例で解説。医療・衛星画像・工業検査の実務活用を網羅。
+seo_title: scikit-imageで画像処理|Pythonコード例で医療・衛星画像を自動解析
+seo_description: scikit-imageはPythonの画像処理を簡単にするライブラリ。ノイズ除去・物体検出・特徴抽出をコード例で解説。医療・衛星画像・工業検査の実務的活用方法を網羅。
 ---
 
 
-# Pythonでの画像処理、まだ複雑なコードと格闘していませんか？scikit-imageでスマートに解決しよう！
+
+
+# Pythonでの画像処理をスマートに解決するscikit-image入門
 
 ![image](https://storage.googleapis.com/ok-project-assets/okpy/20251210211058.png)
 
@@ -159,7 +161,6 @@ for i, region in enumerate(regions[:5]): # 最初の5つだけ表示
     y0, x0 = region.centroid
     area = region.area
     print(f"Coin #{i+1}: 中心座標({y0:.2f}, {x0:.2f}), 面積: {area} ピクセル")
-
 ```
 
 このコードを実行すると、3枚の画像が表示されるはずです。左から「元の画像」「各コインが別々の色で塗り分けられた画像」「元の画像に色分け結果を重ねた画像」です。見事にコインが一つ一つ認識されているのがわかると思います。

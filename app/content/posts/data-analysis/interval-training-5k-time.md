@@ -1,14 +1,23 @@
 ---
-title: Does adding interval training improve your 5K race time?
+title: 'Interval Training for 5K: How to Run 2–5% Faster (Research-Backed)'
 date: '2026-06-28'
 category: data-analysis
 slug: interval-training-5k-time
-summary: Incorporating two weekly interval training sessions into existing base training
-  can reduce 5K race times by 2% to 5%.
+summary: Incorporating two weekly interval training sessions into base running can
+  reduce 5K finish times by 2–5%, with benefits driven by improved VO2 max and lactate
+  threshold.
 lang: en
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/interval-training-5k-time.jpg
+description: Adding twice-weekly interval sessions can improve 5K race times by 2–5%.
+  Evidence-based guide to faster running with proven training methods.
+seo_title: 'Interval Training for 5K: How to Run 2–5% Faster (Research-Backed)'
+seo_description: Adding twice-weekly interval sessions can improve 5K race times by
+  2–5%. Evidence-based guide to faster running with proven training methods.
 ---
+## Quick Win for 5K Runners
+
+Adding twice-weekly interval sessions to a base running program is associated with a 2–5% improvement in 5K race times (see Sources below). Actual gains and the time needed to see them vary by individual, starting fitness level, and training consistency.
 
 ## Effect snapshot
 

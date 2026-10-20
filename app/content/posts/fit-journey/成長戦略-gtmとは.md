@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250225151923.png
 date: 2025-02-25
 hatena_path: /entry/2025/02/25/152109
 slug: 成長戦略-gtmとは
-summary: GTM（Go-To-Market）とは、プロダクトが市場に受け入れられた後、どのようにしてより多くの顧客に届け、スケールアップするかを決める戦略のことです。スタートアップがPMF（Product
-  Market Fit）を達成した後、効果的なGTM戦略を立てることで、ビジネスの成長を加速させることができます。
-title: '成長戦略: GTMとは？'
+summary: GTM戦略とは、PMF後に顧客獲得を加速させるマーケティング・販売の総合戦略。ターゲット顧客から実装まで、成長段階別に完全解説。
+title: GTM戦略とは？PMF後の成長を加速する販売・マーケティング実行ガイド
+description: GTM戦略とは？PMF後の顧客獲得を加速させるマーケティング・販売戦略。ターゲット顧客から価格設定、実装まで完全ガイド。
+seo_title: GTM戦略とは？PMF後の成長を加速する販売・マーケティング実行ガイド
+seo_description: GTM（Go-To-Market）戦略とは？PMF達成後に顧客獲得を加速させるマーケティング・販売戦略。ターゲット顧客選定から実装まで完全解説。
 ---
-
-# 成長戦略: GTMとは？
+# GTM戦略とは？PMF後の成長を加速する販売・マーケティング実行ガイド
 
 ## **GTM (Go-To-Market): 製品を市場に浸透させる戦略**
 
