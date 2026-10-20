@@ -17,8 +17,6 @@ from dotenv import load_dotenv
 HATENA_DIR = "/opt/work/hatena"
 OKPY_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-import importlib.util
-
 blog_categories = importlib.util.spec_from_file_location(
     "blog_categories", os.path.join(OKPY_ROOT, "app", "blog_categories.py")
 )
