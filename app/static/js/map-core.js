@@ -1,5 +1,3 @@
-import { getThemeColor, findMainTheme } from './utils.js';
-
 let map;
 let allMarkers = [];
 let infoWindow;
@@ -66,52 +64,6 @@ export async function renderPhotoMarkers(items) {
     _fitBounds(items.length, bounds);
 }
 
-// Render dot markers
-export async function renderDotMarkers(items) {
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-
-    allMarkers.forEach(m => m.map = null);
-    allMarkers = [];
-
-    const bounds = new google.maps.LatLngBounds();
-
-    items.forEach(item => {
-        const theme = findMainTheme(item.categories);
-        const color = getThemeColor(theme);
-
-        const el = document.createElement('div');
-        el.className = 'marker-dot';
-        el.style.backgroundColor = color;
-
-        const marker = new AdvancedMarkerElement({
-            map,
-            position: { lat: parseFloat(item.lat), lng: parseFloat(item.lng) },
-            title: item.title,
-            content: el,
-        });
-
-        marker.itemData = item;
-        marker.addListener('click', () => _showInfoWindow(marker, item));
-        allMarkers.push(marker);
-        bounds.extend(marker.position);
-    });
-
-    _fitBounds(items.length, bounds);
-}
-
-// Filter markers
-export function filterMarkers(theme) {
-    let hasVisible = false;
-    allMarkers.forEach(marker => {
-        const item = marker.itemData || {};
-        const themes = (item.categories || []).map(c => c.toLowerCase());
-        const visible = theme === 'all' || themes.includes(theme);
-        marker.map = visible ? map : null;
-        if (visible) hasVisible = true;
-    });
-    if (hasVisible) _updateBounds();
-}
-
 // Close all marker info windows
 export function closeInfoWindow() {
     if (infoWindow) infoWindow.close();
@@ -136,15 +88,6 @@ function _fitBounds(count, bounds) {
         map.setZoom(14);
     } else {
         map.fitBounds(bounds, { padding: 80 });
-    }
-}
-
-function _updateBounds() {
-    const bounds = new google.maps.LatLngBounds();
-    let n = 0;
-    allMarkers.forEach(m => { if (m.map) { bounds.extend(m.position); n++; } });
-    if (n > 0) {
-        map.fitBounds(bounds);
     }
 }
 
