@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20251210205900.png
 date: 2025-12-26
 hatena_path: /entry/2025/12/26/090000
 slug: python-tesseract-ocr-画像の中の文字-まだ手で打ち込んでいませんか
-summary: Tesseract OCRは、画像ファイル（スキャンした書類や写真など）からテキストを自動で読み取るための強力なオープンソースOCRエンジンです。Pythonのpytesseractライブラリと組み合わせることで、文字認識のプロセスを驚くほど簡単に自動化できます。紙媒体の情報をデジタル化したり、画像内の特定のデータを抽…
-title: Pythonでテキスト抽出｜Tesseract OCRの導入と実装ガイド — OKPy
-description: Pythonで画像のテキスト抽出を自動化。Tesseract OCRのインストール方法から実装例、実務活用まで完全解説。紙資料・写真のデジタル化に最適。
-seo_title: Python Tesseract OCRで画像から文字を自動抽出【実装完全ガイド】
-seo_description: 画像をテキストに自動変換するPython Tesseract OCR。導入からコード実装、業務効率化まで。紙や写真から文字認識を完全自動化します。
+summary: Tesseract OCRは、画像ファイル（スキャンした書類や写真など）からテキストを自動で読み取るための強力なオープンソースOCRエンジンです。Pythonのpytesseractライブラリと組み合わせることで、文字認識のプロセスを驚くほど簡単に自動化できます。
+title: Python Tesseract OCRで画像の文字を自動認識｜紙の書類を秒速デジタル化
+description: Pytesseractで画像の文字を自動認識。紙の書類、写真、領収書から秒速でテキスト抽出。手作業を劇的に削減できる完全ガイド。
+seo_title: Python Tesseract OCRで画像の文字を自動認識｜紙の書類を秒速デジタル化
+seo_description: Pytesseractで画像の文字を自動認識。紙の書類、写真、領収書から秒速でテキスト抽出。手作業を劇的に削減できる完全ガイド。
 ---
+
 
 
 

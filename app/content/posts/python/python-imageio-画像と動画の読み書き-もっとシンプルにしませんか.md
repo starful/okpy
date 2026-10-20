@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20251210210640.png
 date: 2026-01-01
 hatena_path: /entry/2026/01/01/090000_1
 slug: python-imageio-画像と動画の読み書き-もっとシンプルにしませんか
-summary: Imageioは、Pythonで様々な形式の画像や動画ファイルを驚くほど簡単に読み書きできるライブラリです。
-title: Python imageioで画像・動画処理が簡単に｜初心者向けガイド【GIF・MP4作成】
-description: 複雑な画像・動画処理もimageioなら簡単。GIFアニメーション・MP4動画の作成、フレーム分解まで、わずかなコードで実装できます。初心者向け完全ガイド。
-seo_title: Python imageioで画像・動画処理が簡単に｜初心者向けガイド【GIF・MP4作成】
-seo_description: 複雑な画像・動画処理もimageioなら簡単。GIFアニメーション・MP4動画の作成、フレーム分解まで、わずかなコードで実装できます。初心者向け完全ガイド。
+summary: Imageioは、Pythonで様々な形式の画像や動画ファイルを驚くほど簡単に読み書きできるライブラリです。複数の画像フレームからGIFアニメーションや動画を作成する作業をわずか数行のコードで実現します。
+title: Python Imageioで画像・動画処理を劇的に自動化｜わずか数行でGIF・MP4自動作成
+description: Imageioで複雑な画像・動画処理を完全自動化。GIFアニメーション・MP4作成、フレーム分解まで、わずか数行で実装可能な完全ガイド。
+seo_title: Python Imageioで画像・動画処理を劇的に自動化｜わずか数行でGIF・MP4自動作成
+seo_description: Imageioで複雑な画像・動画処理を完全自動化。GIFアニメーション・MP4作成、フレーム分解まで、わずか数行で実装可能な完全ガイド。
 ---
+
 ## imageioで何ができる？
 
 画像・動画処理の複雑さを一掃します。📸 複数の静止画をGIF・MP4に自動変換 📹 動画をフレーム単位で分解・加工 🎬 JPG・PNG・WebPなど複数形式を同じコードで処理——初心者でも数行で実現できます。
