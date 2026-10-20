@@ -136,7 +136,7 @@ def diverse_latest_posts(posts: list, limit: int = HOME_LATEST_LIMIT) -> list:
 
 
 def load_it_trends() -> dict:
-    """Homepage editorial boards from data/it_trends.json (okadmin 트렌드 갱신)."""
+    """Homepage editorial boards from data/it_trends.json (updated by okadmin)."""
     if not os.path.isfile(IT_TRENDS_JSON):
         return {}
     try:
