@@ -5,7 +5,7 @@
  */
 
 import { CATEGORY_MAP } from './config.js';
-import { initGoogleMap, renderPhotoMarkers, filterMarkers, closeInfoWindow } from './map-core.js';
+import { initGoogleMap, renderPhotoMarkers, closeInfoWindow } from './map-core.js';
 
 // State
 let allItems    = [];
