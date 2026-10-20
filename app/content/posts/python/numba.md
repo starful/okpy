@@ -1,12 +1,16 @@
 ---
-title: 'Numba実践ガイド：PythonコードをJITコンパイルで高速化する'
+title: Numba実践ガイド：PythonコードをJITコンパイルで高速化する
 date: 2026-08-08
 category: python
 slug: numba
-summary: '- NumbaはPythonの関数をJIT（Just-In-Time）コンパイルし、数値計算処理をC言語並みの速度に高速化するライブラリです - `@njit`デコレータを関数に付けるだけで、NumPy配列を使った数値ループ処理が数十〜数百倍高速化できます - ただし文字列処理や複雑なPythonオブジェクト操作…'
-cover: 'https://storage.googleapis.com/ok-project-assets/okpy/20260808081612.jpg'
+summary: NumbaはPythonの関数をJIT（Just-In-Time）コンパイルし、数値計算処理をC言語並みの速度に高速化するライブラリです。@njitデコレータを関数に付けるだけで、NumPy配列を使った数値ループ処理が数十～数百倍高速化できます。
+cover: https://storage.googleapis.com/ok-project-assets/okpy/20260808081612.jpg
 lang: ja
+description: NumbaはPythonの関数をJIT（Just-In-Time）コンパイルし、数値計算処理をC言語並みの速度に高速化するライブラリ。@njitデコレータ1行で実装可能。
+seo_title: Numba完全ガイド：数値計算を数十～百倍高速化【@njitで即実装】
+seo_description: Numbaで数値計算を数十～百倍高速化。@njitデコレータ1行で完成。NumPy配列処理を劇的に加速。C言語並みの速度。
 ---
+
 
 # Numba実践ガイド：PythonコードをJITコンパイルで高速化する
 
