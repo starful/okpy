@@ -61,10 +61,21 @@
             </aside>
             {% endif %}
 
-            <div class="article-body">
+            <div class="article-body" id="article-body">
                 {{ content | safe }}
             </div>
         </div>
+
+        {% if related_posts %}
+        <section class="related-reads" id="related-reads" aria-label="関連記事">
+            <h2 class="related-reads__title">関連記事</h2>
+            <div class="story-grid related-reads__grid">
+                {% for post in related_posts %}
+                {% include '_story_card.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
 
         {% if career_mbti_types %}
         <section class="career-mbti" aria-label="相性の良いMBTIタイプ">
@@ -91,6 +102,9 @@
 
     {% include 'footer.html' %}
     <script src="/static/js/copy-code.js?v=2"></script>
+    {% if related_posts %}
+    <script src="/static/js/scroll-cue.js?v=1"></script>
+    {% endif %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
