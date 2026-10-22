@@ -13,7 +13,7 @@ seo_description: '@njitデコレータを追加するだけで、Pythonの数値
 
 
 
-# Numba実践ガイド：PythonコードをJITコンパイルで高速化する
+# Numba完全ガイド：数値計算を数十～百倍高速化【@njitで即実装】
 
 ![cover](https://storage.googleapis.com/ok-project-assets/okpy/20260808081612.jpg)
 
