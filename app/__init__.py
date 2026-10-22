@@ -614,6 +614,11 @@ def blog_post(slug):
     cover_abs = _absolute_url(cover) if cover else ""
     a8 = a8_banner_context(category)
     career_mbti_types = types_for_career(slug) if category == "career" else []
+    ctx = _footer_ctx()
+    related_posts = apply_card_covers(
+        [p for p in _posts_for_category(category) if p["slug"] != slug][:3],
+        ctx["category_cover_pools"],
+    )
 
     return render_template(
         "blog_post.html",
@@ -630,8 +635,9 @@ def blog_post(slug):
         category_emoji=cat_meta.get("emoji", ""),
         canonical=canonical,
         career_mbti_types=career_mbti_types,
+        related_posts=related_posts,
         **a8,
-        **_footer_ctx(),
+        **ctx,
     )
 
 

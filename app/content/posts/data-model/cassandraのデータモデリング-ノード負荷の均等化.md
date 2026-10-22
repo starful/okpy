@@ -4,9 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250609183811.png
 date: 2025-06-14
 hatena_path: /entry/2025/06/14/162656
 slug: cassandraのデータモデリング-ノード負荷の均等化
-summary: Apache Cassandraは、高いスケーラビリティと可用性を持つ分散型NoSQLデータベースである。AmazonやNetflixなど、ミッションクリティカルな大規模アプリケーションで広く採用されており、特に書き込みが多く、地理的に分散されたデータ処理に強みを持つ。
+summary: Cassandraの分散型NoSQL設計手法を詳解。パーティション設計と負荷均等化の実装戦略により、Netflix規模のスケーラブルなシステムを構築できます。
 title: 'Cassandraのデータモデリング: ノード負荷の均等化'
+description: Apache Cassandraは、高いスケーラビリティと可用性を持つ分散型NoSQLデータベース。パーティション設計と負荷均等化の実装戦略を詳解します。
+seo_title: Cassandraのデータモデリング完全ガイド｜負荷均等化と設計戦略
+seo_description: Cassandraの分散型NoSQL設計手法を完全解説。パーティションキー選択、負荷均等化、クエリファースト設計で、大規模分散システムを構築するスキルを習得できます。
 ---
+
 
 # Cassandraのデータモデリング: ノード負荷の均等化
 
