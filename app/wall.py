@@ -43,10 +43,6 @@ _GITHUB_RE = re.compile(
 _SPAM_HOSTS = frozenset({"bit.ly", "t.co", "tinyurl.com", "goo.gl"})
 
 
-def _read_json(path: str) -> dict[str, Any]:
-    return load_json_dict(path)
-
-
 def _write_json(path: str, payload: dict[str, Any]) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     tmp = path + ".tmp"
@@ -119,7 +115,7 @@ def public_item(raw: dict[str, Any]) -> dict[str, Any] | None:
 
 def load_approved(*, limit: int | None = None) -> list[dict[str, Any]]:
     items = []
-    for raw in _read_json(APPROVED_JSON).get("items") or []:
+    for raw in load_json_dict(APPROVED_JSON).get("items") or []:
         got = public_item(raw)
         if got:
             items.append(got)
@@ -138,7 +134,7 @@ def _ip_hash(ip: str) -> str:
 
 
 def _queue_items() -> list[dict[str, Any]]:
-    raw = _read_json(QUEUE_JSON).get("items") or []
+    raw = load_json_dict(QUEUE_JSON).get("items") or []
     return [x for x in raw if isinstance(x, dict)]
 
 
