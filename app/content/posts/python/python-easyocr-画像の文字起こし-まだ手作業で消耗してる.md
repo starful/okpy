@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20251210210018.png
 date: 2025-12-29
 hatena_path: /entry/2025/12/29/090000_1
 slug: python-easyocr-画像の文字起こし-まだ手作業で消耗してる
-summary: 画像に含まれるテキストを、驚くほど簡単に抽出できるPythonライブラリです。
-title: 'Python EasyOCR: 画像の文字起こし、まだ手作業で消耗してる？'
-description: 画像に含まれるテキストを、驚くほど簡単に抽出できるPythonライブラリです。
-seo_title: 【Python EasyOCR】画像から文字を自動認識｜手書き・日本語も対応【コード例付】
-seo_description: EasyOCRで画像内の文字を自動認識。機械学習知識不要で、日本語含む80言語対応。書類・看板・レシートをテキスト化。実装方法・活用例・注意点。
+summary: 画像に含まれるテキストを驚くほど簡単に自動抽出できるPythonライブラリ。機械学習の専門知識は不要で、日本語含む80言語以上に対応しています。
+title: 画像の文字認識をコード数行で実装｜EasyOCRなら機械学習知識不要で日本語も対応【実装ガイド】
+description: 複雑な機械学習モデルなしで画像内の文字をテキスト化。EasyOCRは日本語・手書き対応、数行のコードで実装可能。OCR実装ガイド・活用例・トラブル解決。
+seo_title: 画像の文字認識をコード数行で実装｜EasyOCRなら機械学習知識不要で日本語も対応【実装ガイド】
+seo_description: 複雑な機械学習モデルなしで画像内の文字をテキスト化。EasyOCRは日本語・手書き対応、数行のコードで実装可能。OCR実装ガイド・活用例・トラブル解決。
 ---
+
 
 
 # Python EasyOCR: 画像の文字起こし、まだ手作業で消耗してる？

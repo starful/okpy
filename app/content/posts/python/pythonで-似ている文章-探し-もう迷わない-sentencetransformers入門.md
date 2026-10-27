@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20251111155852.png
 date: 2025-12-01
 hatena_path: /entry/2025/12/01/090000_1
 slug: pythonで-似ている文章-探し-もう迷わない-sentencetransformers入門
-summary: SentenceTransformersを使って、複雑なAI知識なしに、わずか3行のPythonコードでセマンティック検索を実装する方法を完全解説。
-title: Pythonで似た文章を自動判定【SentenceTransformersで3行実装・完全解説】
-description: 複雑なAI知識なしで、わずか3行コードで意味検索を実装。キーワード不一致でも文章を発見できるセマンティック検索を完全解説。
-seo_title: Pythonで似た文章を自動判定【SentenceTransformersで3行実装・完全解説】
-seo_description: 複雑なAI知識なしで、わずか3行コードで意味検索を実装。キーワード不一致でも文章を発見できるセマンティック検索を完全解説。
+summary: SentenceTransformersで複雑なAI知識なしに、わずか3行のPythonコードでセマンティック検索を実装。キーワード不一致な類似文章も自動発見できる実務的な方法を完全解説。
+title: Pythonで似た文章を自動判定！3行コードで実装【SentenceTransformers初心者向け完全ガイド】
+description: 複雑なAI知識は不要。たった3行のPythonコードで、キーワード不一致な似た文章も瞬時に発見。実装方法を完全解説。
+seo_title: Pythonで似た文章を自動判定！3行コードで実装【SentenceTransformers初心者向け完全ガイド】
+seo_description: 複雑なAI知識は不要。たった3行のPythonコードで、キーワード不一致な似た文章も瞬時に発見。実装方法を完全解説。
 ---
+
 
 🎯 **この記事で習得できること**
 

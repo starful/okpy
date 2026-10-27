@@ -33,6 +33,7 @@ try:
         ordered_home_categories,
         posts_by_category,
     )
+    from .related_posts import related_posts as related_posts_for
     from .wall import (
         enqueue_submission,
         load_approved,
@@ -60,6 +61,7 @@ except ImportError:
         ordered_home_categories,
         posts_by_category,
     )
+    from related_posts import related_posts as related_posts_for
     from wall import (
         enqueue_submission,
         load_approved,
@@ -616,7 +618,7 @@ def blog_post(slug):
     career_mbti_types = types_for_career(slug) if category == "career" else []
     ctx = _footer_ctx()
     related_posts = apply_card_covers(
-        [p for p in _posts_for_category(category) if p["slug"] != slug][:3],
+        related_posts_for(match, CACHED_POSTS),
         ctx["category_cover_pools"],
     )
 
