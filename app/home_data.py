@@ -1,4 +1,4 @@
-"""Map GSC page URLs to okpy blog post slugs."""
+"""Homepage data helpers: category ordering, cover selection, and IT trend boards."""
 
 from __future__ import annotations
 
