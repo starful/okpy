@@ -43,10 +43,6 @@ _GITHUB_RE = re.compile(
 _SPAM_HOSTS = frozenset({"bit.ly", "t.co", "tinyurl.com", "goo.gl"})
 
 
-def type_label(kind: str) -> str:
-    return TYPE_LABELS.get(kind, kind)
-
-
 def _read_json(path: str) -> dict[str, Any]:
     return load_json_dict(path)
 
