@@ -1196,6 +1196,55 @@ a.trend-name:hover { color: var(--trend-accent); }
 
 .toc a:hover { color: var(--accent); }
 
+.sidebar-related {
+  margin-top: 16px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+}
+
+.sidebar-related__label {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sidebar-related__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-related__item + .sidebar-related__item { margin-top: 12px; }
+
+.sidebar-related__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.sidebar-related__link:hover .sidebar-related__title { color: var(--accent); }
+
+.sidebar-related__thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sidebar-related__title {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
 .article-body {
   font-family: var(--font);
   font-size: 1.2rem;

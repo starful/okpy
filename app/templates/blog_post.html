@@ -16,7 +16,7 @@
     <meta name="twitter:image" content="{{ cover_abs }}">
     {% endif %}
     {% include '_head_icons.html' %}
-    <link rel="stylesheet" href="/static/css/okpy.css?v=32">
+    <link rel="stylesheet" href="/static/css/okpy.css?v=33">
 </head>
 <body class="page-article">
     {% include 'header.html' %}
@@ -55,6 +55,23 @@
                     <p class="toc__label">目次</p>
                     {{ toc | safe }}
                 </nav>
+                {% if related_posts %}
+                <div class="sidebar-related" aria-label="関連記事">
+                    <p class="sidebar-related__label">関連記事</p>
+                    <ul class="sidebar-related__list">
+                        {% for post in related_posts %}
+                        <li class="sidebar-related__item">
+                            <a href="/blog/{{ post.slug }}" class="sidebar-related__link">
+                                {% if post.card_cover or post.cover %}
+                                <img src="{{ post.card_cover or post.cover }}" alt="" loading="lazy" width="56" height="56" class="sidebar-related__thumb">
+                                {% endif %}
+                                <span class="sidebar-related__title">{{ post.title }}</span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
                 {% with back_nav_class='article-back--sidebar' %}
                 {% include '_article_back_nav.html' %}
                 {% endwith %}
