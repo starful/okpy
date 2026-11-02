@@ -43,7 +43,7 @@ def detect_category(tags: list, title: str = "", *, current: str | None = None) 
     Does not force unrelated topics into python.
     """
     cur = (current or "").strip().lower()
-    if cur in PRESERVE_CATEGORIES and cur not in ("python",):
+    if cur in PRESERVE_CATEGORIES and cur != "python":
         return cur
 
     tag_set = {t.strip() for t in tags if t}
@@ -65,7 +65,5 @@ def detect_category(tags: list, title: str = "", *, current: str | None = None) 
     if cur == "python" or any(t.lower() == "python" for t in tag_set):
         return "python"
 
-    # Unknown — keep current if valid, else leave unclassified as python only for new exports
-    if cur in PRESERVE_CATEGORIES:
-        return cur
+    # No tag/title match and no preserved category — default new exports to python.
     return "python"
