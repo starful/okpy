@@ -1,10 +1,13 @@
-"""Related-post recommendations by category/tag similarity.
+"""Related-post recommendations by category/tag/traffic similarity.
 
 Posts carry no explicit tags field, so the Hatena tag/keyword hints in
 blog_categories.py double as a lightweight tag vocabulary, combined with
 title keyword overlap to tell apart posts within the same category.
+Candidates that are already proven high-traffic (data/gsc_popular.json)
+get a small boost so popular posts pick up more internal links.
 """
 
+import os
 import re
 
 try:
@@ -15,6 +18,7 @@ try:
         TERRAFORM_TAGS,
         TERRAFORM_TITLE_KEYWORDS,
     )
+    from .json_utils import load_json_dict
 except ImportError:
     from blog_categories import (
         CLOUD_TAGS,
@@ -23,8 +27,16 @@ except ImportError:
         TERRAFORM_TAGS,
         TERRAFORM_TITLE_KEYWORDS,
     )
+    from json_utils import load_json_dict
 
 RELATED_POSTS_LIMIT = 3
+CATEGORY_MATCH_WEIGHT = 10
+VIEW_SCORE_CAP = 5
+VIEW_SCORE_DIVISOR = 2
+
+GSC_POPULAR_JSON = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "gsc_popular.json"
+)
 
 # Pseudo-tag vocabulary derived from blog_categories.py's own tag/keyword hints.
 _TAG_VOCAB = {t.lower() for t in CLOUD_TAGS | TERRAFORM_TAGS}
@@ -43,9 +55,33 @@ def _tags_for(title: str) -> set:
     return hits | tokens
 
 
+def _load_view_counts() -> dict:
+    """Slug -> GSC clicks (data/gsc_popular.json), used as a view-count proxy."""
+    data = load_json_dict(GSC_POPULAR_JSON)
+    counts = {}
+    for entry in data.get("entries") or []:
+        slug = str(entry.get("slug") or "").strip()
+        if not slug:
+            continue
+        try:
+            counts[slug] = int(entry.get("clicks") or 0)
+        except (TypeError, ValueError):
+            counts[slug] = 0
+    return counts
+
+
+_VIEW_COUNTS = _load_view_counts()
+
+
+def _view_score(slug: str) -> int:
+    """Small score bump for candidates with real traffic, capped so it only breaks ties."""
+    return min(VIEW_SCORE_CAP, _VIEW_COUNTS.get(slug, 0) // VIEW_SCORE_DIVISOR)
+
+
 def _score(post_category: str, post_tags: set, candidate: dict) -> int:
-    score = 10 if candidate["category"] == post_category else 0
+    score = CATEGORY_MATCH_WEIGHT if candidate["category"] == post_category else 0
     score += len(post_tags & _tags_for(candidate["title"]))
+    score += _view_score(candidate["slug"])
     return score
 
 
