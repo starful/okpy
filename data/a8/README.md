@@ -1,5 +1,7 @@
 # A8 掲載URL（okpy）
 
+> **2026-11: okpy サイトの A8 バナー（Neuro Dive / お名前.com）は停止。** 現在は Amazon JP（`app/amazon_affiliate.py`）のみ。以下は履歴用。
+
 **プログラム単位管理:** [`/opt/work/data/a8/`](../../../data/a8/README.md)
 
 | プログラム | ID | CSV（このフォルダ / ハブ同一内容） |

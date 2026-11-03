@@ -1,0 +1,23 @@
+{# Amazon JP Associates book CTA (replaces former A8 banners) #}
+{% if show_amazon_cta and amazon_cta %}
+<aside class="a8-banners affiliate-box affiliate-box--a8 affiliate-box--amazon"
+       role="complementary"
+       aria-label="アフィリエイト広告">
+    <p class="affiliate-box__title">{{ amazon_cta.title }}</p>
+    <div class="a8-banners__grid">
+        <div class="a8-banners__item a8-banners__item--amazon">
+            <a class="a8-banners__link"
+               href="{{ amazon_cta.click_url }}"
+               target="_blank"
+               rel="nofollow sponsored noopener noreferrer"
+               title="{{ amazon_cta.label }} — {{ amazon_cta.desc }}"
+               data-track="affiliate_amazon"
+               data-track-label="{{ amazon_cta.keyword }}">
+                <span class="a8-banners__label">{{ amazon_cta.label }}</span>
+                <span class="a8-banners__desc">{{ amazon_cta.desc }}</span>
+            </a>
+        </div>
+    </div>
+    <p class="affiliate-box__note">{{ amazon_cta.note }}</p>
+</aside>
+{% endif %}

@@ -1372,7 +1372,7 @@ a.trend-name:hover { color: var(--trend-accent); }
   font-size: inherit;
 }
 
-/* A8.net partner buttons (career: Neuro Dive, tech: お名前.com) */
+/* Affiliate buttons (Amazon JP; class names kept from former A8 banners) */
 .affiliate-box--a8 {
   margin: 24px auto;
   max-width: 100%;
@@ -1433,9 +1433,9 @@ a.trend-name:hover { color: var(--trend-accent); }
   line-height: 1;
   content: "🔗";
 }
-.a8-banners__item--neuro_dive .a8-banners__link { background: #0891b2; }
-.a8-banners__item--neuro_dive .a8-banners__link:hover { background: #0e7490; }
-.a8-banners__item--neuro_dive .a8-banners__link::before { content: "💻"; }
+.a8-banners__item--amazon .a8-banners__link { background: #232f3e; }
+.a8-banners__item--amazon .a8-banners__link:hover { background: #131a22; }
+.a8-banners__item--amazon .a8-banners__link::before { content: "📚"; }
 .a8-banners__label {
   display: block;
   margin: 0;
