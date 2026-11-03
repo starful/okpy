@@ -23,11 +23,33 @@
   });
 
   document.addEventListener('click', function (e) {
-    var link = e.target.closest('.article-cta__link');
+    var link = e.target.closest('.article-cta__link, .floating-cta__link');
     if (!link) return;
     var target = document.getElementById('related-reads');
     if (!target) return;
     e.preventDefault();
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  var SCROLL_SHOW_RATIO = 0.7;
+  var ticking = false;
+
+  function updateFloatingCta() {
+    ticking = false;
+    var cta = document.getElementById('floating-cta');
+    if (!cta) return;
+    var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+    cta.classList.toggle('is-visible', progress >= SCROLL_SHOW_RATIO);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!document.getElementById('floating-cta')) return;
+    updateFloatingCta();
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateFloatingCta);
+    }, { passive: true });
   });
 })();

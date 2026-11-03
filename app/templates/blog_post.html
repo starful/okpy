@@ -16,7 +16,7 @@
     <meta name="twitter:image" content="{{ cover_abs }}">
     {% endif %}
     {% include '_head_icons.html' %}
-    <link rel="stylesheet" href="/static/css/okpy.css?v=33">
+    <link rel="stylesheet" href="/static/css/okpy.css?v=34">
 </head>
 <body class="page-article">
     {% include 'header.html' %}
@@ -117,10 +117,16 @@
         </footer>
     </article>
 
+    {% if related_posts %}
+    <div class="floating-cta" id="floating-cta" aria-hidden="true">
+        <a href="#related-reads" class="floating-cta__link">関連記事を見る ↓</a>
+    </div>
+    {% endif %}
+
     {% include 'footer.html' %}
     <script src="/static/js/copy-code.js?v=2"></script>
     {% if related_posts %}
-    <script src="/static/js/scroll-cue.js?v=1"></script>
+    <script src="/static/js/scroll-cue.js?v=2"></script>
     {% endif %}
     <script type="application/ld+json">
     {
