@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """OKPy wrapper — delegates to hub program-unit A8 CSV generator.
 
+NOTE: OKPy no longer shows Neuro Dive / お名前.com banners (Amazon JP only);
+this script is kept for historical CSV regeneration.
+
 Preferred:
   python3 /opt/work/data/a8/generate_placement_urls.py --program neuro_dive
 """
