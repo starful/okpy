@@ -523,14 +523,14 @@ def index():
 def career_mbti_index():
     ctx = _footer_ctx()
     canonical = _absolute_url("/category/career/mbti")
-    a8 = amazon_banner_context("career")
+    amazon_ctx = amazon_banner_context("career")
     return render_template(
         "mbti_index.html",
         mbti_types=list_mbti_types(),
         active_category="career",
         canonical=canonical,
         og_image=_default_og_image(),
-        **a8,
+        **amazon_ctx,
         **ctx,
     )
 
@@ -543,14 +543,14 @@ def career_mbti_type(code):
         abort(404)
     ctx = _footer_ctx()
     canonical = _absolute_url(f"/category/career/mbti/{mbti['code']}")
-    a8 = amazon_banner_context("career")
+    amazon_ctx = amazon_banner_context("career")
     return render_template(
         "mbti_type.html",
         mbti=mbti,
         active_category="career",
         canonical=canonical,
         og_image=_default_og_image(),
-        **a8,
+        **amazon_ctx,
         **ctx,
     )
 
@@ -562,7 +562,7 @@ def category_list(category):
         abort(404)
     ctx = _footer_ctx()
     canonical = _absolute_url(f"/category/{category}")
-    a8 = amazon_banner_context(category)
+    amazon_ctx = amazon_banner_context(category)
     thumb = (ctx.get("category_thumbnails") or {}).get(category) or ""
     og_image = _absolute_url(thumb) if thumb else _default_og_image()
     return render_template(
@@ -571,7 +571,7 @@ def category_list(category):
         active_category=category,
         canonical=canonical,
         og_image=og_image,
-        **a8,
+        **amazon_ctx,
         **ctx,
     )
 
@@ -614,7 +614,7 @@ def blog_post(slug):
     cat_meta = _blog_categories().get(category, {})
     canonical = _absolute_url(f"/blog/{slug}")
     cover_abs = _absolute_url(cover) if cover else ""
-    a8 = amazon_banner_context(category)
+    amazon_ctx = amazon_banner_context(category)
     career_mbti_types = types_for_career(slug) if category == "career" else []
     ctx = _footer_ctx()
     related_posts = apply_card_covers(
@@ -638,7 +638,7 @@ def blog_post(slug):
         canonical=canonical,
         career_mbti_types=career_mbti_types,
         related_posts=related_posts,
-        **a8,
+        **amazon_ctx,
         **ctx,
     )
 

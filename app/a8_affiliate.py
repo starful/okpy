@@ -10,7 +10,6 @@ from __future__ import annotations
 from typing import Any
 
 A8_CATEGORIES: frozenset[str] = frozenset()
-CATEGORY_A8_PROGRAM: dict[str, str] = {}
 
 
 def a8_banner_context(category: str = "") -> dict[str, Any]:
