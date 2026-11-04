@@ -1465,17 +1465,6 @@ a.trend-name:hover { color: var(--trend-accent); }
   font-size: 0.68rem;
   color: #94a3b8;
 }
-.a8-affiliate-pixel {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
-}
-.cat-hero .a8-banners,
-.cat-hero .affiliate-box--a8 {
-  margin-top: 16px;
-}
 @media (max-width: 520px) {
   .a8-banners__item {
     flex: 1 1 100%;
