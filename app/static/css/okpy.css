@@ -1373,7 +1373,7 @@ a.trend-name:hover { color: var(--trend-accent); }
 }
 
 /* Affiliate buttons (Amazon JP; class names kept from former A8 banners) */
-.affiliate-box--a8 {
+.affiliate-box {
   margin: 24px auto;
   max-width: 100%;
   padding: 16px 14px 14px;
@@ -1382,7 +1382,7 @@ a.trend-name:hover { color: var(--trend-accent); }
   background: #f8fafc;
   text-align: center;
 }
-.affiliate-box--a8 .affiliate-box__title {
+.affiliate-box .affiliate-box__title {
   margin: 0 0 12px;
   font-size: 0.85rem;
   font-weight: 700;
@@ -1460,7 +1460,7 @@ a.trend-name:hover { color: var(--trend-accent); }
   overflow-wrap: break-word;
   line-break: strict;
 }
-.affiliate-box--a8 .affiliate-box__note {
+.affiliate-box .affiliate-box__note {
   margin: 10px 0 0;
   font-size: 0.68rem;
   color: #94a3b8;
