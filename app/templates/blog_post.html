@@ -16,7 +16,7 @@
     <meta name="twitter:image" content="{{ cover_abs }}">
     {% endif %}
     {% include '_head_icons.html' %}
-    <link rel="stylesheet" href="/static/css/okpy.css?v=34">
+    <link rel="stylesheet" href="/static/css/okpy.css?v=35">
 </head>
 <body class="page-article">
     {% include 'header.html' %}
@@ -118,6 +118,12 @@
     </article>
 
     {% if related_posts %}
+    <div class="scroll-banner-cta" id="scroll-banner-cta" aria-hidden="true">
+        <div class="scroll-banner-cta__inner">
+            <p class="scroll-banner-cta__text">半分まで読み進めました。あわせて読みたい記事もどうぞ。</p>
+            <a href="#related-reads" class="scroll-banner-cta__link">関連記事を見る →</a>
+        </div>
+    </div>
     <div class="floating-cta" id="floating-cta" aria-hidden="true">
         <a href="#related-reads" class="floating-cta__link">関連記事を見る ↓</a>
     </div>
@@ -126,7 +132,7 @@
     {% include 'footer.html' %}
     <script src="/static/js/copy-code.js?v=2"></script>
     {% if related_posts %}
-    <script src="/static/js/scroll-cue.js?v=2"></script>
+    <script src="/static/js/scroll-cue.js?v=3"></script>
     {% endif %}
     <script type="application/ld+json">
     {

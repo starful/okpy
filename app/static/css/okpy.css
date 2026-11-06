@@ -1731,6 +1731,50 @@ a.trend-name:hover { color: var(--trend-accent); }
 }
 .article-cta__link:hover { text-decoration: underline; }
 
+.scroll-banner-cta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 39;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border);
+}
+.scroll-banner-cta.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.scroll-banner-cta__inner {
+  max-width: var(--article-width);
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.scroll-banner-cta__text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--secondary);
+}
+.scroll-banner-cta__link {
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.scroll-banner-cta__link:hover { text-decoration: underline; }
+@media (prefers-reduced-motion: reduce) {
+  .scroll-banner-cta { transition: none; }
+}
+
 .floating-cta {
   position: fixed;
   left: 50%;
