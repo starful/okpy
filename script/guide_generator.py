@@ -39,9 +39,6 @@ def clean_ai_response(text: str) -> str:
 
 
 def generate_guide(guide_id: str, topic: str, lang: str, keywords: str):
-    pass  # Claude CLI auth checked in _claude_md
-
-
     print(f"🚀 [Guide AI] Generating {lang} guide: {topic}...")
 
     prompt = f"""

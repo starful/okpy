@@ -65,9 +65,6 @@ def clean_ai_response(text: str) -> str:
 
 def generate_item_article(safe_name: str, name: str, lat: str, lng: str,
                           address: str, lang: str, features: str):
-    pass  # Claude CLI auth checked in _claude_md
-
-
     cat_list = ", ".join(PROMPT_CONFIG["categories"][lang])
     item_type = PROMPT_CONFIG["item_type"] if lang == "en" else PROMPT_CONFIG["item_type_ko"]
     min_len   = PROMPT_CONFIG["min_length"]

@@ -48,9 +48,6 @@ def cdn_url_from_existing(url: str) -> tuple[str, str] | None:
     if not m:
         return None
     image_id = m.group(1)
-    ext = m.group(2).lower()
-    if ext == "jpeg":
-        ext = "jpg"
     return image_id, url.split("?")[0]
 
 
