@@ -32,19 +32,25 @@
   });
 
   var SCROLL_SHOW_RATIO = 0.7;
+  var SCROLL_BANNER_RATIO = 0.5;
   var ticking = false;
+
+  function scrollProgress() {
+    var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    return scrollable > 0 ? window.scrollY / scrollable : 0;
+  }
 
   function updateFloatingCta() {
     ticking = false;
+    var progress = scrollProgress();
     var cta = document.getElementById('floating-cta');
-    if (!cta) return;
-    var scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    var progress = scrollable > 0 ? window.scrollY / scrollable : 0;
-    cta.classList.toggle('is-visible', progress >= SCROLL_SHOW_RATIO);
+    if (cta) cta.classList.toggle('is-visible', progress >= SCROLL_SHOW_RATIO);
+    var banner = document.getElementById('scroll-banner-cta');
+    if (banner) banner.classList.toggle('is-visible', progress >= SCROLL_BANNER_RATIO);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    if (!document.getElementById('floating-cta')) return;
+    if (!document.getElementById('floating-cta') && !document.getElementById('scroll-banner-cta')) return;
     updateFloatingCta();
     window.addEventListener('scroll', function () {
       if (ticking) return;
