@@ -4,7 +4,9 @@ Posts carry no explicit tags field, so the Hatena tag/keyword hints in
 blog_categories.py double as a lightweight tag vocabulary, combined with
 title keyword overlap to tell apart posts within the same category.
 Candidates that are already proven high-traffic (data/gsc_popular.json)
-get a small boost so popular posts pick up more internal links.
+get a small boost so popular posts pick up more internal links. A handful of
+slugs can also be manually curated via RELATED_POSTS_OVERRIDES, for posts that
+should link out to other categories the scoring alone wouldn't surface.
 """
 
 import os
@@ -33,6 +35,17 @@ RELATED_POSTS_LIMIT = 3
 CATEGORY_MATCH_WEIGHT = 10
 VIEW_SCORE_CAP = 5
 VIEW_SCORE_DIVISOR = 2
+
+# Manual curation for specific high-traffic posts: slug -> ordered list of related
+# slugs to pin ahead of the scored ranking below. Useful when a post should link to
+# others outside its own category that the tag/keyword overlap can't find on its own.
+RELATED_POSTS_OVERRIDES = {
+    "pythonistaのためのbokehでパワフルなグラフを作ろう": [
+        "nicegui",
+        "python-pyarrow-大規模データの処理-まだ-遅い-と我慢していませんか",
+        "データベース設計におけるpk-fk-インデックスの重要性",
+    ],
+}
 
 GSC_POPULAR_JSON = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "gsc_popular.json"
@@ -86,12 +99,25 @@ def _score(post_category: str, post_tags: set, candidate: dict) -> int:
 
 
 def related_posts(post: dict, all_posts: list, limit: int = RELATED_POSTS_LIMIT) -> list:
-    """Rank `all_posts` by category/tag similarity to `post`, excluding itself."""
+    """Rank `all_posts` by category/tag similarity to `post`, excluding itself.
+
+    Slugs curated in RELATED_POSTS_OVERRIDES are pinned first (in order), with the
+    scored ranking filling any remaining slots.
+    """
+    by_slug = {p["slug"]: p for p in all_posts if p["slug"] != post["slug"]}
+
+    pinned = [
+        by_slug[slug]
+        for slug in RELATED_POSTS_OVERRIDES.get(post["slug"], [])
+        if slug in by_slug
+    ]
+    pinned_slugs = {p["slug"] for p in pinned}
+
     post_tags = _tags_for(post["title"])
-    candidates = [p for p in all_posts if p["slug"] != post["slug"]]
+    candidates = [p for p in by_slug.values() if p["slug"] not in pinned_slugs]
     ranked = sorted(
         candidates,
         key=lambda c: (_score(post["category"], post_tags, c), c["date"]),
         reverse=True,
     )
-    return ranked[:limit]
+    return (pinned + ranked)[:limit]
