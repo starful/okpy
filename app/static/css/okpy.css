@@ -1196,6 +1196,11 @@ a.trend-name:hover { color: var(--trend-accent); }
 
 .toc a:hover { color: var(--accent); }
 
+.toc a.is-active {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 .sidebar-related {
   margin-top: 16px;
   background: var(--bg-subtle);

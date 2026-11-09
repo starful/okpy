@@ -4,10 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250310160357.png
 date: 2025-03-10
 hatena_path: /entry/2025/03/10/160422
 slug: python-functools-ライブラリの活用方法
-summary: Python 標準ライブラリの functools は、関数プログラミングをより効果的に行うためのツールを提供します。本記事では、functools
-  の主要な機能とその活用方法について詳しく解説します。
-title: Python functools ライブラリの活用方法
+summary: Python標準ライブラリのfunctoolsを完全解説。lru_cacheの結果キャッシュからpartialの関数部分適用まで、実装例で学ぶ実践的なテクニック。
+title: Python functools完全解説｜lru_cache・partial・wrapsで関数プログラミング最適化
+description: functools.lru_cache、partial、wrapsの使い方を実装例で完全解説。計算結果のキャッシュから関数の部分適用まで、実践的なテクニックを学ぶ。
+seo_title: Python functools完全解説｜lru_cache・partial・wrapsで関数プログラミング最適化
+seo_description: functools.lru_cache、partial、wrapsの使い方を実装例で完全解説。計算結果のキャッシュから関数の部分適用まで、実践的なテクニックを学ぶ。
 ---
+
 
 # Python functools ライブラリの活用方法
 

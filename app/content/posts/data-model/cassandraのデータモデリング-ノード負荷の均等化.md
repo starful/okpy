@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250609183811.png
 date: 2025-06-14
 hatena_path: /entry/2025/06/14/162656
 slug: cassandraのデータモデリング-ノード負荷の均等化
-summary: Cassandraの分散型NoSQL設計手法を詳解。パーティション設計と負荷均等化の実装戦略により、Netflix規模のスケーラブルなシステムを構築できます。
-title: Cassandraのデータモデリング完全ガイド│ノード負荷均等化とスケーラブル設計の実装戦略
-description: Cassandraのパーティション設計とクエリファースト設計で、Netflix規模の大規模分散システムを構築。ノード負荷均等化・実装パターン・失敗事例を完全解説。
-seo_title: Cassandraデータモデリング完全ガイド｜ノード負荷均等化・パーティション設計【Netflix規模システム構築】
-seo_description: Cassandraで大規模分散システムを構築。クエリファースト設計・パーティション戦略・ホットパーティション対策で、Netflix規模のスケーラビリティを実現。
+summary: Cassandraのパーティション設計とホットパーティション対策を、Netflix規模のシステム構築から学ぶ。クエリファースト設計とキー分散戦略で、負荷均等化を実現する手法を詳解。
+title: Cassandraのホットパーティション問題を解く｜ノード負荷均等化とパーティション設計の実装ガイド
+description: Cassandraの設計ミスでホットパーティション発生。Netflix規模のシステムでも起こる。クエリファースト設計とキー分散戦略で負荷均等化を実現する方法を詳解。
+seo_title: Cassandraのホットパーティション問題を解く｜ノード負荷均等化とパーティション設計の実装ガイド
+seo_description: Cassandraの設計ミスでホットパーティション発生。Netflix規模のシステムでも起こる。クエリファースト設計とキー分散戦略で負荷均等化を実現する方法を詳解。
 ---
+
 
 ⚡ **大規模分散データベースの設計課題を解決**
 
