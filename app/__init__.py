@@ -225,6 +225,7 @@ def _normalize_article_headings(body: str) -> str:
 
 
 def _toc_root_ul_inner(toc_html: str) -> str:
+    """Inner HTML of the outermost <ul> in toc_html, skipping past any nested <ul>s."""
     start = toc_html.find('<div class="toc">')
     if start == -1:
         return ""
@@ -247,6 +248,7 @@ def _toc_root_ul_inner(toc_html: str) -> str:
 
 
 def _toc_top_level_items(ul_inner: str) -> list[str]:
+    """Split a <ul>'s inner HTML into its top-level <li>...</li> chunks, nested <ul>s and all."""
     items: list[str] = []
     i, n = 0, len(ul_inner)
     while i < n:
@@ -271,6 +273,7 @@ def _toc_top_level_items(ul_inner: str) -> list[str]:
 
 
 def _is_numbered_section(text: str) -> bool:
+    """True if a heading starts with (or is a label followed by) a "N." marker."""
     text = text.strip()
     return bool(re.match(r"^\d+\.", text)) or bool(
         re.match(r"^(?:\S+\s+)+\d+\.\s", text)
