@@ -48,6 +48,27 @@
         </figure>
         {% endif %}
 
+        {% if toc or related_posts %}
+        <section class="article-top-aside" aria-label="目次と関連記事">
+            {% if toc %}
+            <nav class="toc article-top-toc" aria-label="目次">
+                <p class="toc__label">目次</p>
+                {{ toc | safe }}
+            </nav>
+            {% endif %}
+            {% if related_posts %}
+            <div class="article-top-related" aria-label="関連記事">
+                <p class="article-top-related__label">あわせて読みたい</p>
+                <div class="story-grid article-top-related__grid">
+                    {% for post in related_posts[:2] %}
+                    {% include '_story_card.html' %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
         <div class="article-layout">
             {% if toc %}
             <aside class="article-sidebar">
