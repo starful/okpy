@@ -1150,7 +1150,29 @@ a.trend-name:hover { color: var(--trend-accent); }
 }
 
 .article-sidebar {
+  display: none;
   margin-bottom: 32px;
+}
+
+.article-top-aside {
+  margin: 0 0 32px;
+}
+
+.article-top-toc {
+  margin-bottom: 16px;
+}
+
+.article-top-related {
+  margin-top: 16px;
+}
+
+.article-top-related__label {
+  margin: 0 0 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .toc {
@@ -1889,11 +1911,16 @@ a.trend-name:hover { color: var(--trend-accent); }
   }
 
   .article-sidebar {
+    display: block;
     position: sticky;
     top: 80px;
     margin-bottom: 0;
     max-height: calc(100vh - 96px);
     overflow-y: auto;
+  }
+
+  .article-top-aside {
+    display: none;
   }
 
   .article {
