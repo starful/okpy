@@ -16,6 +16,7 @@
     var blocks = Array.prototype.filter.call(body.children, function (el) {
       return el.tagName === 'P' || el.tagName === 'UL' || el.tagName === 'OL';
     });
+    // Skip short articles: not enough content to justify a mid-article cue.
     if (blocks.length < 4) return;
 
     var mid = blocks[Math.floor(blocks.length / 2)];
