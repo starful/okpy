@@ -12,7 +12,6 @@ except ImportError:
 IT_TRENDS_JSON = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "it_trends.json"
 )
-HOME_LIMIT = 6
 HOME_LATEST_LIMIT = 4
 HOME_CAT_LIMIT = 3
 HOME_SECTION_LEAD = ("eng-comms", "data-analysis")
@@ -25,7 +24,7 @@ def ordered_home_categories(categories: dict) -> dict:
     return {k: categories[k] for k in (*lead, *rest)}
 
 
-def posts_by_category(cached_posts: list, categories: dict, limit: int = HOME_LIMIT) -> dict:
+def posts_by_category(cached_posts: list, categories: dict, limit: int = HOME_CAT_LIMIT) -> dict:
     """Pick recent posts per category, preferring ones that have cover images."""
     buckets = {cat: [] for cat in categories}
     leftovers = {cat: [] for cat in categories}

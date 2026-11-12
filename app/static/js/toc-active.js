@@ -16,6 +16,8 @@
       });
     };
 
+    // Treat a heading as "current" once it crosses into the upper band of the
+    // viewport (below the header, above the fold), not merely on screen.
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) setActive(entry.target.id);

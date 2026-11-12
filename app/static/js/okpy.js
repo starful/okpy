@@ -25,6 +25,8 @@
   var toc = document.querySelector(".home-toc");
   if (toc && "IntersectionObserver" in window) {
     var links = [].slice.call(toc.querySelectorAll("[data-toc-target]"));
+    // Same idea as toc-active.js: mark a section "current" once it reaches
+    // the upper band of the viewport, not just when it first becomes visible.
     var observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
