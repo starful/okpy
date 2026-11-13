@@ -14,8 +14,6 @@ seo_title: 'Micro-Interactions: Improve UX & Boost NPS by 8-16% — OKPy'
 seo_description: Learn how micro-interactions and animations improve user experience
   and increase NPS by 8-16%. Evidence-based UX design guide.
 ---
-
-
 ## Effect snapshot
 
 | | |
@@ -33,7 +31,7 @@ seo_description: Learn how micro-interactions and animations improve user experi
 
 ## Why Feel Beats Function in NPS Surveys
 
-Net Promoter Score is a gut-reaction metric — it asks users how they feel about recommending a product, not whether it technically works. That makes it unusually sensitive to sensory polish. When teams added coordinated micro-interactions — a button that compresses on tap, a spinner that morphs into a checkmark, a phone that buzzes softly on success — NPS moved by 8 to 16 percentage points in A/B tests. The functionality underneath didn't change; the same task got done. What changed was the felt sense of responsiveness, which survey respondents translate directly into "would I recommend this."
+Net Promoter Score is a gut-reaction metric: it asks users how they feel about recommending a product, not whether it technically works. That makes it unusually sensitive to sensory polish. When teams added coordinated micro-interactions — a button that compresses on tap, a spinner that morphs into a checkmark, a phone that buzzes softly on success — NPS moved by 8 to 16 percentage points in A/B tests. The functionality underneath didn't change, and the same task got done either way. What changed was the felt sense of responsiveness, which survey respondents translate directly into "would I recommend this."
 
 ## The Compounding Effect of Small Signals
 
@@ -45,12 +43,12 @@ The 8–16 point range in tests clustered around products with frequent, repetit
 
 ## Haptics as the Multiplier, Not the Base
 
-Across the tested variants, haptic feedback alone contributed less than visual animation alone, but combining both consistently landed at the top of the 8–16 range. Haptics work best as confirmation on top of an already-visible transition — a buzz timed to a checkmark animation, not a buzz replacing it. Devices without haptic hardware (most desktop and many low-end Android devices) still captured meaningful NPS gains from animation and press feedback alone, just closer to the lower end of the range.
+Across the tested variants, haptic feedback alone contributed less than visual animation alone, but combining both consistently landed at the top of the 8–16 range. Haptics work best as confirmation layered on top of an already-visible transition — a buzz timed to a checkmark animation, not a buzz replacing it. Devices without haptic hardware (most desktop and many low-end Android devices) still captured meaningful NPS gains from animation and press feedback alone, just closer to the lower end of the range.
 
 ## Costs That Don't Show Up in the NPS Number
 
-Micro-interactions add engineering and QA surface area: animation timing has to be tuned per platform, haptic APIs vary by OS, and poorly throttled effects can introduce jank on low-end devices, which reverses the gain. Teams that saw the full 16-point lift typically shipped animations behind a performance budget (sub-100ms response, capped frame drops) and included a reduced-motion fallback for accessibility settings — skipping that step risked alienating a subset of users even as aggregate NPS rose.
+Micro-interactions add engineering and QA surface area: animation timing has to be tuned per platform, haptic APIs vary by OS, and poorly throttled effects can introduce jank on low-end devices — which reverses the gain. Teams that saw the full 16-point lift typically shipped animations behind a performance budget (sub-100ms response, capped frame drops) and included a reduced-motion fallback for accessibility settings. Skipping that step risked alienating a subset of users even as aggregate NPS rose.
 
 ## Rolling It Out Without Guessing
 
-Treat this as a testable design change, not a blanket redesign. Instrument NPS before touching anything, then ship micro-interactions to one flow at a time — starting with the highest-frequency action in the product — and hold a control group without the polish. Expect the NPS delta to show up within the same survey cycle you're already running; if it doesn't move at all, suspect a performance regression eating the benefit rather than a flawed premise, since the underlying effect is well replicated across consumer product categories.
+Treat this as a testable design change, not a blanket redesign. Instrument NPS before touching anything, then ship micro-interactions to one flow at a time — starting with the highest-frequency action in the product — and hold a control group without the polish. Expect the NPS delta to show up within the same survey cycle you're already running. If it doesn't move at all, suspect a performance regression eating the benefit rather than a flawed premise, since the underlying effect is well replicated across consumer product categories.
