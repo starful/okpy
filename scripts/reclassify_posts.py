@@ -131,16 +131,12 @@ def main():
         fname = os.path.basename(fpath)
         dest = os.path.join(POSTS_DIR, category, fname)
 
-        content = frontmatter.dumps(post)
         if fpath != dest:
             with open(dest, "w", encoding="utf-8") as f:
-                f.write(content)
+                f.write(frontmatter.dumps(post))
             os.remove(fpath)
             moved += 1
         else:
-            if post.get("category") != category:
-                with open(dest, "w", encoding="utf-8") as f:
-                    f.write(frontmatter.dumps(post))
             unchanged += 1
 
         counts[category] += 1
