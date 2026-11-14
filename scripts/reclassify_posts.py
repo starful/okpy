@@ -136,6 +136,9 @@ def main():
             os.remove(fpath)
             moved += 1
         else:
+            if post.get("category") != category:
+                with open(fpath, "w", encoding="utf-8") as f:
+                    f.write(frontmatter.dumps(post))
             unchanged += 1
 
         counts[category] += 1
