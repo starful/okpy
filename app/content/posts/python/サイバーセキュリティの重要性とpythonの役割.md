@@ -4,11 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250204141008.png
 date: 2025-02-14
 hatena_path: /entry/2025/02/14/103802
 slug: サイバーセキュリティの重要性とpythonの役割
-summary: Pythonは、Web開発、データ分析、機械学習、IoT など幅広い分野で活用されていますが、サイバーセキュリティ（Cyber Security）
-  の分野でも非常に重要な役割を果たしています。Pythonを活用することで、セキュリティツールの開発、脆弱性診断、ネットワーク解析、ペネトレーションテスト（侵入テスト）
-  など…
-title: サイバーセキュリティの重要性とPythonの役割
+summary: Python の Scapy・PyCryptodome を活用したセキュリティツール開発実装。
+title: Pythonでセキュリティツール開発｜脆弱性診断・ネットワーク解析の実装例
+description: Scapy・PyCryptodomeを使ったセキュリティツール開発。脆弱性診断とネットワーク解析をコード例で解説。
+seo_title: Pythonでセキュリティツール開発｜脆弱性診断・ネットワーク解析の実装例
+seo_description: Scapy・PyCryptodomeを使ったセキュリティツール開発。脆弱性診断とネットワーク解析をコード例で解説。
 ---
+
 
 # サイバーセキュリティの重要性とPythonの役割
 

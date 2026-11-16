@@ -1,12 +1,16 @@
 ---
-title: 'matplotlibで2軸グラフを作る方法:複雑な実装にもう悩まない実践ガイド'
+title: matplotlibで2軸グラフを簡単に作成｜売上と成長率の同時表示をコード例で解説
 date: 2026-10-22
 category: python
 slug: matplotlib-2
-summary: '- `twinx()` を使えば、1つのグラフに単位の異なる2つのデータ(例:売上と成長率)を重ねて表示できる - 左右のY軸で色分けし、凡例を1つに統合することで見やすさが大きく変わる - 軸ラベルの位置やスケールのズレに注意すれば、実務のレポートやダッシュボードにそのまま使える'
-cover: 'https://storage.googleapis.com/ok-project-assets/okpy/20261022150140.jpg'
+summary: matplotlib の twinx() で単位の異なる2つの指標を同時表示する方法。
+cover: https://storage.googleapis.com/ok-project-assets/okpy/20261022150140.jpg
 lang: ja
+description: twinx()で単位が異なるデータを同じグラフに表示。売上と成長率を左右のY軸で比較する実装方法を解説。
+seo_title: matplotlibで2軸グラフを簡単に作成｜売上と成長率の同時表示をコード例で解説
+seo_description: twinx()で単位が異なるデータを同じグラフに表示。売上と成長率を左右のY軸で比較する実装方法を解説。
 ---
+
 
 # matplotlibで2軸グラフを作る方法:複雑な実装にもう悩まない実践ガイド
 

@@ -126,6 +126,7 @@ def main():
         if category not in SITE_CONFIG["blog_categories"]:
             category = "python"
 
+        old_category = post.get("category")
         post["category"] = category
         fname = os.path.basename(fpath)
         dest = os.path.join(POSTS_DIR, category, fname)
@@ -136,8 +137,9 @@ def main():
             os.remove(fpath)
             moved += 1
         else:
-            if post.get("category") != category:
-                with open(fpath, "w", encoding="utf-8") as f:
+            # old_category captured before post["category"] was updated above
+            if old_category != category:
+                with open(dest, "w", encoding="utf-8") as f:
                     f.write(frontmatter.dumps(post))
             unchanged += 1
 
