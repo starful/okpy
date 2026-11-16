@@ -50,3 +50,24 @@ def ai_models_limit() -> int:
     if raw is not None and str(raw).strip() != "":
         return _non_negative_int(raw, 1)
     return 0
+
+
+def dev_method_limit() -> int:
+    raw = os.getenv("DEV_METHOD_LIMIT")
+    if raw is not None and str(raw).strip() != "":
+        return _non_negative_int(raw, 1)
+    return content_limit()
+
+
+def data_analysis_limit() -> int:
+    raw = os.getenv("DATA_ANALYSIS_LIMIT")
+    if raw is not None and str(raw).strip() != "":
+        return _non_negative_int(raw, 1)
+    return content_limit()
+
+
+def career_limit() -> int:
+    raw = os.getenv("CAREER_LIMIT")
+    if raw is not None and str(raw).strip() != "":
+        return _non_negative_int(raw, 1)
+    return content_limit()

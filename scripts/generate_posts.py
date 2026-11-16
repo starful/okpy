@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
-"""Generate OKPy blog MD under app/content/posts/{python,cloud,terraform,eng-comms,ai-models}/.
+"""Generate OKPy blog MD under writable categories.
 
-One Claude CLI call per topic. Reads TOPIC_QUEUE_* CSVs from okadmin.
-Cover images still use Imagen (GEMINI_API_KEY) when available.
+Writable: python, cloud, terraform, dev-method, data-analysis, eng-comms, ai-models, career.
+data-analysis drafts are English (lang: en); Japanese is a separate convert step.
 Usage:
   python3 scripts/generate_posts.py python
-  python3 scripts/generate_posts.py cloud
-  python3 scripts/generate_posts.py terraform
-  python3 scripts/generate_posts.py eng-comms
-  python3 scripts/generate_posts.py ai-models
+  python3 scripts/generate_posts.py data-analysis
+  python3 scripts/generate_posts.py career
 """
 from __future__ import annotations
 
@@ -34,7 +32,10 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from batch_limits import (  # noqa: E402
     ai_models_limit,
+    career_limit,
     cloud_limit,
+    data_analysis_limit,
+    dev_method_limit,
     eng_comms_limit,
     python_limit,
     terraform_limit,
@@ -46,14 +47,20 @@ load_dotenv()
 
 POSTS_DIR = REPO_ROOT / "app" / "content" / "posts"
 IMAGES_DIR = REPO_ROOT / "app" / "static" / "images" / "posts"
-CATEGORIES = ("python", "cloud", "terraform", "eng-comms", "ai-models")
+CATEGORIES = (
+    "python", "cloud", "terraform", "dev-method",
+    "data-analysis", "eng-comms", "ai-models", "career",
+)
 # okadmin topic bank id (underscore) → blog category / posts folder (hyphen)
 QUEUE_BANK = {
     "python": "python",
     "cloud": "cloud",
     "terraform": "terraform",
+    "dev-method": "dev_method",
+    "data-analysis": "data_analysis",
     "eng-comms": "eng_comms",
     "ai-models": "ai_models",
+    "career": "career",
 }
 GCS_IMAGE_BASE = os.getenv(
     "GCS_IMAGE_BASE", "https://storage.googleapis.com/ok-project-assets/okpy"
@@ -65,8 +72,11 @@ COLUMN = {
     "python": "lib_name",
     "cloud": "Topic",
     "terraform": "Topic",
+    "dev-method": "Topic",
+    "data-analysis": "Topic",
     "eng-comms": "Topic",
     "ai-models": "Topic",
+    "career": "Topic",
 }
 
 
@@ -174,6 +184,44 @@ GPT / Claude / Gemini など主要LLMを横断比較する記事を Markdown の
 - 目安 5000〜8000文字
 - 前置き不要。H1から開始
 """
+    if category == "dev-method":
+        return f"""あなたは日本語の技術ブログ「OKPy」の編集者です。
+カテゴリ「開発方法論」の記事を Markdown のみで書いてください。
+テーマ: 「{topic}」
+
+要件:
+- 必ず日本語のみ（韓国語禁止）
+- 先頭は `# タイトル` の H1
+- 概念、現場での進め方、メリット・注意点、小さな実践例、FAQ 3件
+- 目安 3500〜6500文字
+- 前置き不要。H1から開始
+"""
+    if category == "career":
+        return f"""あなたは日本語の技術ブログ「OKPy」の編集者です。
+カテゴリ「Career」のIT職種ガイドを Markdown のみで書いてください。
+テーマ: 「{topic}」
+
+要件:
+- 必ず日本語のみ（韓国語禁止）
+- 先頭は `# タイトル` の H1
+- 年収帯の目安、必要スキル、未経験からのロードマップ、面接で聞かれやすいこと、FAQ 3件
+- 目安 3500〜6500文字
+- 前置き不要。H1から開始
+"""
+    if category == "data-analysis":
+        return f"""You are the editor of OKPy's Business Analysis section.
+Write an ENGLISH insight / methodology article in Markdown only.
+Topic: "{topic}"
+
+Requirements:
+- English only (this draft will be translated to Japanese later)
+- Start with `# Title` H1 (question or effect-size framing when possible)
+- Include an effect snapshot table (intervention, metric, effect size, confidence, context)
+- Cite plausible sources as links; do not invent precise stats — say "reported range" when unsure
+- Practical takeaway for PMs / analysts
+- About 2500–4500 words
+- No preamble. Start at H1
+"""
     return f"""あなたは日本語の技術ブログ「OKPy」の編集者です。
 Terraform テーマ「{topic}」の実践ガイドを Markdown のみで書いてください。
 
@@ -192,8 +240,11 @@ def _cover_prompt(category: str, topic: str) -> str:
         "python": "Python programming and libraries, soft green-gray accents",
         "cloud": "multi-cloud infrastructure comparison, soft blue-gray accents",
         "terraform": "Infrastructure as Code, blueprints and modules, soft terracotta accents",
+        "dev-method": "software process diagrams and sticky notes, soft indigo accents",
+        "data-analysis": "A/B test charts and effect-size bars, soft olive accents",
         "eng-comms": "engineer explaining with everyday business analogies, soft teal charcoal accents",
         "ai-models": "comparing abstract neural network blocks and balance scales, soft slate blue accents",
+        "career": "IT career path roadmap and craft tools, soft taupe accents",
     }.get(category, "technology")
     return (
         "Editorial tech blog cover illustration, warm paper cream background, "
@@ -337,6 +388,8 @@ def _write_md(category: str, topic: str, body: str, cover: str | None = None) ->
         lines.insert(insert_at, f"\n![cover]({cover})\n")
         body_text = "\n".join(lines).lstrip("\n")
 
+    lang = "en" if category == "data-analysis" else "ja"
+    extra = "ja_pending: true\nsource: hq-draft\n" if lang == "en" else ""
     fm = (
         "---\n"
         f"title: {title!r}\n"
@@ -345,7 +398,8 @@ def _write_md(category: str, topic: str, body: str, cover: str | None = None) ->
         f"slug: {slug}\n"
         f"summary: {summary!r}\n"
         f"{cover_line}"
-        "lang: ja\n"
+        f"lang: {lang}\n"
+        f"{extra}"
         "---\n\n"
     )
     path.write_text(fm + body_text + "\n", encoding="utf-8")
@@ -382,8 +436,11 @@ def generate_category(category: str, limit: int | None = None) -> dict:
             "python": python_limit(),
             "cloud": cloud_limit(),
             "terraform": terraform_limit(),
+            "dev-method": dev_method_limit(),
+            "data-analysis": data_analysis_limit(),
             "eng-comms": eng_comms_limit(),
             "ai-models": ai_models_limit(),
+            "career": career_limit(),
         }[category]
 
     topics = _read_queue(category, limit)
@@ -419,6 +476,71 @@ def generate_category(category: str, limit: int | None = None) -> dict:
         return {"ok": False, **payload}
     print(f"🎉 done generated={generated}")
     return {"ok": True, **payload}
+
+
+def list_en_data_analysis(limit: int = 20) -> list[Path]:
+    """English Business Analysis drafts waiting for Japanese conversion."""
+    d = POSTS_DIR / "data-analysis"
+    if not d.is_dir():
+        return []
+    out: list[Path] = []
+    for path in sorted(d.glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True):
+        text = path.read_text(encoding="utf-8")
+        if re.search(r"(?m)^lang:\s*en\s*$", text) or "ja_pending: true" in text:
+            out.append(path)
+            if len(out) >= limit:
+                break
+    return out
+
+
+def translate_data_analysis_to_ja(path: Path) -> Path:
+    """Convert one EN data-analysis post to Japanese in place."""
+    import frontmatter
+
+    post = frontmatter.loads(path.read_text(encoding="utf-8"))
+    if str(post.get("lang") or "").lower() == "ja" and not post.get("ja_pending"):
+        return path
+    body = (post.content or "").strip()
+    title = str(post.get("title") or path.stem)
+    prompt = f"""あなたは日本語の技術ブログ「OKPy」の編集者です。
+次の英語 Business Analysis 記事を自然な日本語に翻訳・ローカライズしてください。
+
+要件:
+- 出力は Markdown 本文のみ（YAML frontmatter は書かない）
+- 先頭は `# 日本語タイトル` の H1
+- 表・リンク・数値はそのまま活かし、説明文を日本語に
+- 韓国語禁止
+- 前置き不要
+
+英語タイトル: {title}
+
+英語本文:
+{body[:12000]}
+"""
+    ja = (_claude_md(prompt) or "").strip()
+    if ja.startswith("```"):
+        ja = re.sub(r"^```(?:markdown)?\s*", "", ja)
+        ja = re.sub(r"\s*```$", "", ja)
+    if not ja:
+        raise RuntimeError(f"JA translate failed: {path.name}")
+    ja_title = _title_from_body(ja, title)
+    ja_summary = _summary_from_body(ja, ja_title)
+    cover = post.get("cover")
+    cover_line = f"cover: {cover!r}\n" if cover else ""
+    fm = (
+        "---\n"
+        f"title: {ja_title!r}\n"
+        f"date: {post.get('date') or date.today().isoformat()}\n"
+        f"category: data-analysis\n"
+        f"slug: {post.get('slug') or path.stem}\n"
+        f"summary: {ja_summary!r}\n"
+        f"{cover_line}"
+        "lang: ja\n"
+        f"source: {post.get('source') or 'hq-draft'}\n"
+        "---\n\n"
+    )
+    path.write_text(fm + ja.strip() + "\n", encoding="utf-8")
+    return path
 
 
 def main() -> None:
