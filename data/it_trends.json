@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-20",
+  "updated": "2026-11-16",
   "headline": "今月のITトレンド",
   "note": "公式ランキングではありません。言語やモデル名ではなく、スキル・クラウドサービス・事業の型を編集部が整理しています。",
   "boards": [
@@ -7,54 +7,270 @@
       "id": "skills",
       "title": "AIスキル・概念",
       "items": [
-        {"rank": 1, "name": "MCP", "score": 98, "delta": 0, "href": "/guide/agentic-system"},
-        {"rank": 2, "name": "Agent Skills", "score": 94, "delta": "new", "href": "/guide/agentic-system"},
-        {"rank": 3, "name": "Context", "score": 90, "delta": -1, "href": "/guide/agentic-system"},
-        {"rank": 4, "name": "Tool calling", "score": 86, "delta": 0, "href": "/guide/agentic-system"},
-        {"rank": 5, "name": "Eval", "score": 82, "delta": 0, "href": "/category/ai-models"},
-        {"rank": 6, "name": "Spec-driven", "score": 78, "delta": "new", "href": "/category/eng-comms"},
-        {"rank": 7, "name": "Computer Use", "score": 74, "delta": -1, "href": "/guide/agentic-system"},
-        {"rank": 8, "name": "Agentic RAG", "score": 70, "delta": -5, "href": "/guide/agentic-system"},
-        {"rank": 9, "name": "Structured output", "score": 66, "delta": -1, "href": "/category/python"},
-        {"rank": 10, "name": "Guardrail", "score": 62, "delta": -3, "href": "/category/ai-models"},
-        {"rank": 11, "name": "Multi-agent", "score": 56, "delta": -1, "href": "/guide/agentic-system"},
-        {"rank": 12, "name": "Prompt caching", "score": 50, "delta": -3, "href": "/category/ai-models"}
+        {
+          "rank": 1,
+          "name": "MCP",
+          "score": 100,
+          "delta": 0,
+          "href": "/blog/mcp-model-context-protocol"
+        },
+        {
+          "rank": 2,
+          "name": "Tool calling",
+          "score": 97,
+          "delta": 2,
+          "href": "/blog/llm-tool-calling"
+        },
+        {
+          "rank": 3,
+          "name": "Computer Use",
+          "score": 94,
+          "delta": 4,
+          "href": "/blog/claude-opus-4-8-vs-gpt-4-1-vs-gemini-2-5-pro-for-computer-use-and-gui-automation"
+        },
+        {
+          "rank": 4,
+          "name": "Agent Skills",
+          "score": 90,
+          "delta": -2,
+          "href": "/category/ai-models"
+        },
+        {
+          "rank": 5,
+          "name": "Agentic RAG",
+          "score": 87,
+          "delta": 3,
+          "href": "/category/ai-models"
+        },
+        {
+          "rank": 6,
+          "name": "Eval",
+          "score": 83,
+          "delta": -1,
+          "href": "/category/dev-method"
+        },
+        {
+          "rank": 7,
+          "name": "Prompt caching",
+          "score": 80,
+          "delta": 5,
+          "href": "/category/ai-models"
+        },
+        {
+          "rank": 8,
+          "name": "Structured output",
+          "score": 77,
+          "delta": 1,
+          "href": "/blog/instructor"
+        },
+        {
+          "rank": 9,
+          "name": "Context",
+          "score": 73,
+          "delta": -6,
+          "href": "/category/ai-models"
+        },
+        {
+          "rank": 10,
+          "name": "Spec-driven",
+          "score": 70,
+          "delta": -4,
+          "href": "/category/dev-method"
+        },
+        {
+          "rank": 11,
+          "name": "Multi-agent",
+          "score": 66,
+          "delta": 0,
+          "href": "/category/ai-models"
+        },
+        {
+          "rank": 12,
+          "name": "Guardrail",
+          "score": 62,
+          "delta": -2,
+          "href": "/category/ai-models"
+        }
       ]
     },
     {
       "id": "cloud",
       "title": "クラウドサービス",
       "items": [
-        {"rank": 1, "name": "Cloud Run", "score": 96, "delta": 0, "href": "/blog/コンテナ管理の革新-aws-ecsとgcp-cloud-run"},
-        {"rank": 2, "name": "Bedrock", "score": 92, "delta": 3, "href": "/category/ai-models"},
-        {"rank": 3, "name": "Vertex AI", "score": 88, "delta": 1, "href": "/blog/クラウド機械学習の最適選択-sagemaker-vs-vertex-ai"},
-        {"rank": 4, "name": "Lambda", "score": 84, "delta": -2, "href": "/blog/クラウドコンピューティングの進化-aws-lambda-vs-gcp-cloud-functions"},
-        {"rank": 5, "name": "BigQuery", "score": 80, "delta": -2, "href": "/blog/aws-redshift-serverless-vs-bigquery-on-demand-vs-azure"},
-        {"rank": 6, "name": "Secret Manager", "score": 76, "delta": 3, "href": "/blog/最適解-aws-secrets-manager-vs-gcp-secret-manager"},
-        {"rank": 7, "name": "IAM", "score": 72, "delta": 1, "href": "/blog/アクセス管理の進化-aws-iam-vs-gcp-cloud-iam"},
-        {"rank": 8, "name": "Cloud SQL", "score": 68, "delta": -2, "href": "/blog/マネージドデータベースサービスの選択-aws-rds-vs-gcp-cloud-sql"},
-        {"rank": 9, "name": "S3", "score": 64, "delta": -2, "href": "/blog/aws-s3-vs-gcp-cloud-storage-機能比較"},
-        {"rank": 10, "name": "ECS", "score": 58, "delta": 0, "href": "/blog/aws-ecs-vs-gcp-cloud-run-vs-azure-container-instances-サ"},
-        {"rank": 11, "name": "Cloud Build", "score": 52, "delta": 1, "href": "/blog/optimizing-development-environment-aws-codebuild-vs-gcp"},
-        {"rank": 12, "name": "Cloud Functions", "score": 46, "delta": -1, "href": "/blog/クラウドコンピューティングの進化-aws-lambda-vs-gcp-cloud-functions"}
+        {
+          "rank": 1,
+          "name": "Cloud SQL",
+          "score": 100,
+          "delta": 7,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 2,
+          "name": "BigQuery",
+          "score": 97,
+          "delta": 3,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 3,
+          "name": "Lambda",
+          "score": 94,
+          "delta": 1,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 4,
+          "name": "Cloud Run",
+          "score": 91,
+          "delta": -3,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 5,
+          "name": "IAM",
+          "score": 88,
+          "delta": 2,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 6,
+          "name": "Secret Manager",
+          "score": 85,
+          "delta": 0,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 7,
+          "name": "Bedrock",
+          "score": 82,
+          "delta": -5,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 8,
+          "name": "Vertex AI",
+          "score": 79,
+          "delta": -5,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 9,
+          "name": "Cloud Functions",
+          "score": 76,
+          "delta": 3,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 10,
+          "name": "ECS",
+          "score": 72,
+          "delta": 0,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 11,
+          "name": "S3",
+          "score": 68,
+          "delta": -2,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 12,
+          "name": "Cloud Build",
+          "score": 64,
+          "delta": -1,
+          "href": "/category/cloud"
+        }
       ]
     },
     {
       "id": "biz",
       "title": "ITビジネス",
       "items": [
-        {"rank": 1, "name": "Vertical AI", "score": 96, "delta": 8, "href": "/blog/reframing-just-add-ai"},
-        {"rank": 2, "name": "PLG", "score": 90, "delta": 3, "href": "/category/fit-journey"},
-        {"rank": 3, "name": "PMF", "score": 86, "delta": -2, "href": "/blog/成長ロードマップ-フィット・ジャーニーのスタートアップ成功法"},
-        {"rank": 4, "name": "GTM", "score": 82, "delta": -2, "href": "/blog/成長戦略-gtmとは"},
-        {"rank": 5, "name": "Time-to-value", "score": 78, "delta": 6, "href": "/category/fit-journey"},
-        {"rank": 6, "name": "従量課金", "score": 74, "delta": 1, "href": "/category/cloud"},
-        {"rank": 7, "name": "ICP", "score": 70, "delta": -1, "href": "/category/fit-journey"},
-        {"rank": 8, "name": "ユニットエコノミクス", "score": 66, "delta": 0, "href": "/category/fit-journey"},
-        {"rank": 9, "name": "CPF", "score": 60, "delta": -6, "href": "/blog/解決する価値を検証する-cpfの重要性"},
-        {"rank": 10, "name": "SPF", "score": 56, "delta": -6, "href": "/blog/solution-product-fit-重要なフェーズでのプロダクト評価"},
-        {"rank": 11, "name": "Land and expand", "score": 50, "delta": 1, "href": "/blog/成長戦略-gtmとは"},
-        {"rank": 12, "name": "A/Bテスト", "score": 44, "delta": -2, "href": "/category/data-analysis"}
+        {
+          "rank": 1,
+          "name": "Vertical AI",
+          "score": 100,
+          "delta": 0,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 2,
+          "name": "PMF",
+          "score": 97,
+          "delta": 1,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 3,
+          "name": "GTM",
+          "score": 94,
+          "delta": 1,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 4,
+          "name": "PLG",
+          "score": 91,
+          "delta": -2,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 5,
+          "name": "CPF",
+          "score": 88,
+          "delta": 4,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 6,
+          "name": "SPF",
+          "score": 85,
+          "delta": 4,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 7,
+          "name": "ICP",
+          "score": 82,
+          "delta": 0,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 8,
+          "name": "従量課金",
+          "score": 79,
+          "delta": -2,
+          "href": "/category/cloud"
+        },
+        {
+          "rank": 9,
+          "name": "ユニットエコノミクス",
+          "score": 75,
+          "delta": -1,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 10,
+          "name": "Time-to-value",
+          "score": 71,
+          "delta": -5,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 11,
+          "name": "Land and expand",
+          "score": 67,
+          "delta": 0,
+          "href": "/category/fit-journey"
+        },
+        {
+          "rank": 12,
+          "name": "A/Bテスト",
+          "score": 63,
+          "delta": 0,
+          "href": "/category/data-analysis"
+        }
       ]
     }
   ]
