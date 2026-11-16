@@ -2,14 +2,14 @@
 """Reclassify exported posts into category subfolders using Hatena tags."""
 
 import glob
+import importlib.util
 import os
+import urllib.parse
+import xml.etree.ElementTree as ET
 
 import frontmatter
 import requests
-import xml.etree.ElementTree as ET
 from dotenv import load_dotenv
-
-import importlib.util
 
 OKPY_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HATENA_DIR = "/opt/work/hatena"
@@ -42,7 +42,6 @@ NS = {"atom": "http://www.w3.org/2005/Atom", "app": "http://www.w3.org/2007/app"
 
 
 def entry_path(alternate_url: str) -> str:
-    import urllib.parse
     if not alternate_url:
         return ""
     path = urllib.parse.urlparse(alternate_url).path
