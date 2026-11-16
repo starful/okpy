@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250310160357.png
 date: 2025-03-10
 hatena_path: /entry/2025/03/10/160422
 slug: python-functools-ライブラリの活用方法
-summary: Python標準ライブラリのfunctoolsを完全解説。lru_cacheの結果キャッシュからpartialの関数部分適用まで、実装例で学ぶ実践的なテクニック。
-title: Python functools完全解説｜lru_cache・partial・wrapsで関数プログラミング最適化
-description: functools.lru_cache、partial、wrapsの使い方を実装例で完全解説。計算結果のキャッシュから関数の部分適用まで、実践的なテクニックを学ぶ。
-seo_title: Python functools完全解説｜lru_cache・partial・wrapsで関数プログラミング最適化
-seo_description: functools.lru_cache、partial、wrapsの使い方を実装例で完全解説。計算結果のキャッシュから関数の部分適用まで、実践的なテクニックを学ぶ。
+summary: Python標準ライブラリfunctoolsの3つの主要機能を実装例で解説。lru_cacheの結果キャッシュからpartialの関数部分適用まで、開発効率を上げるテクニック。
+title: Python functoolsで関数を高速化：lru_cache・partial・wrapsの実装法
+description: functools.lru_cacheで結果をキャッシュして高速化、partialで関数の部分適用、wrapsでデコレータ作成。実装例で学ぶPython標準ライブラリ。
+seo_title: Python functoolsで関数を高速化：lru_cache・partial・wrapsの実装法
+seo_description: functools.lru_cacheで結果をキャッシュして高速化、partialで関数の部分適用、wrapsでデコレータ作成。実装例で学ぶPython標準ライブラリ。
 ---
+
 
 
 # Python functools ライブラリの活用方法

@@ -1,12 +1,16 @@
 ---
-title: 'Terraform plan with -target flag: スコープ適用のリスクとロールバック戦略'
+title: Terraform -targetフラグ：特定リソースを安全に適用するリスク対策とロールバック
 date: 2026-10-20
 category: terraform
 slug: terraform-plan-with-target-flag-scoped-apply-risks-and-rollback-strategies
-summary: 'Terraform を運用していると、「このリソースだけ先に反映したい」「大規模な plan のうち一部だけ検証したい」という場面に必ず遭遇します。そこで使われるのが `-target` フラグです。便利な反面、使い方を誤ると state の整合性が崩れ、思わぬリソース削除やドリフトを引き起こす危険なオプションで…'
-cover: 'https://storage.googleapis.com/ok-project-assets/okpy/20261020185132.jpg'
+summary: Terraform の -target フラグの概念、HCL 実装例、state への影響、リスク管理、ロールバック戦略を実践ガイドとしてまとめています。
+cover: https://storage.googleapis.com/ok-project-assets/okpy/20261020185132.jpg
 lang: ja
+description: Terraform の -target フラグで特定リソースを適用時、state 整合性のリスクを回避。実装例とロールバック手順で安全に運用します。
+seo_title: Terraform -targetフラグ：特定リソースを安全に適用するリスク対策とロールバック
+seo_description: Terraform の -target フラグで特定リソースを適用時、state 整合性のリスクを回避。実装例とロールバック手順で安全に運用します。
 ---
+
 
 # Terraform plan with -target flag: スコープ適用のリスクとロールバック戦略
 
