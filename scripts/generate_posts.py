@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import base64
 import csv
+import json
 import os
 import re
 import subprocess
@@ -412,8 +413,6 @@ def generate_category(category: str, limit: int | None = None) -> dict:
         "failed": failed,
         "ok": failed == 0,
     }
-    import json
-
     print(f"__OKADMIN_GENERATION_RESULT__{json.dumps(payload, ensure_ascii=False)}", flush=True)
     if failed:
         print(f"❌ {failed} failed")

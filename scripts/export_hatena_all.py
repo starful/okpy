@@ -17,11 +17,11 @@ from dotenv import load_dotenv
 HATENA_DIR = "/opt/work/hatena"
 OKPY_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-blog_categories = importlib.util.spec_from_file_location(
+_bc_spec = importlib.util.spec_from_file_location(
     "blog_categories", os.path.join(OKPY_ROOT, "app", "blog_categories.py")
 )
-_bc_mod = importlib.util.module_from_spec(blog_categories)
-blog_categories.loader.exec_module(_bc_mod)
+_bc_mod = importlib.util.module_from_spec(_bc_spec)
+_bc_spec.loader.exec_module(_bc_mod)
 detect_category = _bc_mod.detect_category
 
 POSTS_DIR = os.path.join(OKPY_ROOT, "app", "content", "posts")
