@@ -4,11 +4,11 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/2026072521491300.jp
 date: 2026-07-22
 lang: ja
 slug: opentofu-migration-from-terraform
-summary: HashiCorpのライセンス変更に伴うTerraformからOpenTofuへの移行方法。実務的な手順、チェックリスト、各主要クラウド対応を網羅。
-title: Terraformからの完全乗り換えガイド：OpenTofuで100%コード互換を実現【移行手順・チェックリスト】
+summary: HashiCorpのライセンス変更によりOpenTofuへの移行を検討する多くのエンタープライズ向け。HCL互換性、ステート移行、Provider対応を網羅した実践ガイド。
+title: OpenTofu完全移行ガイド：Terraformからの乗り換え手順・チェックリスト・互換性検証
 description: TerraformからOpenTofuへの乗り換えは思うより簡単。HCLコード・ステートファイル・Provider互換性、移行失敗を避けるチェックリスト、AWS/GCP/Azure別の実施手順を完全解説。
-seo_title: OpenTofu移行ガイド：Terraformからの完全切り替え【チェックリスト付き】
-seo_description: Terraform 1.5.7からOpenTofuへの移行手順。コード互換性確認、ステートファイル移行、Provider設定、AWS/GCP/Azure別対応を解説。
+seo_title: OpenTofu完全移行ガイド：Terraformからの乗り換え手順・チェックリスト・互換性検証
+seo_description: TerraformからOpenTofuへの乗り換えは思うより簡単。HCLコード・ステートファイル・Provider互換性、移行失敗を避けるチェックリスト、AWS/GCP/Azure別の実施手順を完全解説。
 ---
 
 ## TerraformからOpenTofuへ、乗り換えは避けられませんか？

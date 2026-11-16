@@ -1,13 +1,13 @@
 ---
-title: Pythonで構築する次世代TUI：Textualによる実践ターミナルUI開発ガイド
+title: Textualで実現するモダンPython TUI：Webのように美しいターミナルアプリ開発【実装例付き】
 date: 2026-07-22
 category: python
 slug: textual
-summary: PythonのTextualフレームワークでリアルタイムダッシュボード、ログ監視アプリを構築。async/await対応、CSSライクなスタイリングで美しいTUIを実現。
+summary: TextualでPythonから美しいターミナルUI（TUI）アプリを開発。Webアプリ水準の機能性とリアルタイムダッシュボード構築に対応。
 lang: ja
-description: Textualは、PythonでWebアプリケーションのように美しい「TUI（Terminal User Interface）」を構築できるモダンな非同期フレームワークです。
-seo_title: Textualで次世代TUIを構築：Pythonでターミナルアプリ開発ガイド
-seo_description: Textual はWebアプリのようなTUIをPythonで構築。TCSS、Widgets、イベント処理で複雑なダッシュボードを簡単に実装できます。
+description: PythonでWebアプリのような高度なTUI（ターミナルUI）を構築。TCSS・非同期処理・リアルタイムダッシュボード実装対応。
+seo_title: Textualで実現するモダンPython TUI：Webのように美しいターミナルアプリ開発【実装例付き】
+seo_description: PythonでWebアプリのような高度なTUI（ターミナルUI）を構築。TCSS・非同期処理・リアルタイムダッシュボード実装対応。
 ---
 
 

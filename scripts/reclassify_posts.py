@@ -136,11 +136,11 @@ def main():
                 f.write(frontmatter.dumps(post))
             os.remove(fpath)
             moved += 1
+        elif old_category != category:
+            with open(fpath, "w", encoding="utf-8") as f:
+                f.write(frontmatter.dumps(post))
+            unchanged += 1
         else:
-            # old_category captured before post["category"] was updated above
-            if old_category != category:
-                with open(dest, "w", encoding="utf-8") as f:
-                    f.write(frontmatter.dumps(post))
             unchanged += 1
 
         counts[category] += 1

@@ -4,11 +4,11 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250204141008.png
 date: 2025-02-14
 hatena_path: /entry/2025/02/14/103802
 slug: サイバーセキュリティの重要性とpythonの役割
-summary: Python の Scapy・PyCryptodome を活用したセキュリティツール開発実装。
-title: Pythonでセキュリティツール開発｜脆弱性診断・ネットワーク解析の実装例
-description: Scapy・PyCryptodomeを使ったセキュリティツール開発。脆弱性診断とネットワーク解析をコード例で解説。
-seo_title: Pythonでセキュリティツール開発｜脆弱性診断・ネットワーク解析の実装例
-seo_description: Scapy・PyCryptodomeを使ったセキュリティツール開発。脆弱性診断とネットワーク解析をコード例で解説。
+summary: Pythonのセキュリティライブラリを使ったツール開発、脆弱性診断、ネットワーク監視の実装方法。セキュリティの自動化とベストプラクティス。
+title: Pythonで実装するセキュリティ対策：脆弱性診断・ペネトレーション自動化ガイド
+description: Scapy・Paramiko などを使った脆弱性診断、ネットワーク解析、ペネトレーション。Pythonでセキュリティ運用を自動化する実装方法を解説。
+seo_title: Pythonで実装するセキュリティ対策：脆弱性診断・ペネトレーション自動化ガイド
+seo_description: Scapy・Paramiko などを使った脆弱性診断、ネットワーク解析、ペネトレーション。Pythonでセキュリティ運用を自動化する実装方法を解説。
 ---
 
 
