@@ -109,14 +109,22 @@ def _existing_slugs(category: str) -> set[str]:
 
 
 def _topic_already_covered(category: str, topic: str) -> bool:
+    """True when an existing post stem looks like the same topic (ASCII fold).
+
+    Japanese-only filenames strip to empty / tiny stems — those must NOT match
+    (``"" in needle`` is always True in Python and caused false "already written").
+    """
     needle = re.sub(r"[^a-z0-9]+", "", topic.lower())
-    if not needle:
+    if len(needle) < 4:
         return False
     d = POSTS_DIR / category
     if not d.is_dir():
         return False
     for p in d.glob("*.md"):
         stem = re.sub(r"[^a-z0-9]+", "", p.stem.lower())
+        # Skip CJK-only / tiny stems (e.g. "ai") — too weak for containment checks.
+        if len(stem) < 4:
+            continue
         if needle in stem or stem in needle:
             return True
     return False
