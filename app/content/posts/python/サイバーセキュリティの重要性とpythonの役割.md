@@ -5,11 +5,12 @@ date: 2025-02-14
 hatena_path: /entry/2025/02/14/103802
 slug: サイバーセキュリティの重要性とpythonの役割
 summary: Pythonのセキュリティライブラリを使ったツール開発、脆弱性診断、ネットワーク監視の実装方法。セキュリティの自動化とベストプラクティス。
-title: Pythonで実装するセキュリティ対策：脆弱性診断・ペネトレーション自動化ガイド
-description: Scapy・Paramiko などを使った脆弱性診断、ネットワーク解析、ペネトレーション。Pythonでセキュリティ運用を自動化する実装方法を解説。
-seo_title: Pythonで実装するセキュリティ対策：脆弱性診断・ペネトレーション自動化ガイド
-seo_description: Scapy・Paramiko などを使った脆弱性診断、ネットワーク解析、ペネトレーション。Pythonでセキュリティ運用を自動化する実装方法を解説。
+title: Pythonセキュリティライブラリ完全ガイド：Scapy・Paramiko・脆弱性診断
+description: PythonのセキュリティツールとPentest自動化。Scapyでネットワーク解析、Paramikoで脆弱性診断、実装例で学ぶ。
+seo_title: Pythonセキュリティライブラリ完全ガイド：Scapy・Paramiko・脆弱性診断
+seo_description: PythonでセキュリティツールとPentest自動化。Scapyでネットワーク解析、Paramikoで脆弱性診断、実装例で学ぶ。
 ---
+
 
 
 # サイバーセキュリティの重要性とPythonの役割

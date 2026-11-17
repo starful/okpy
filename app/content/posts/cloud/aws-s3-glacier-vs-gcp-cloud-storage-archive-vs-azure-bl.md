@@ -5,12 +5,20 @@ date: 2025-12-05
 hatena_path: /entry/2025/12/05/090000_2
 slug: aws-s3-glacier-vs-gcp-cloud-storage-archive-vs-azure-bl
 summary: AWS、GCP、Azureの3つのアーカイブストレージの料金体系、取り出し速度、ユースケースを徹底比較。企業のデータ保存戦略に最適なサービス選択をサポート。
-title: AWS S3 Glacier vs GCP Cloud Storage Archive vs Azure：コスト・速度・互換性で徹底比較
-description: AWS・GCP・Azureのアーカイブストレージ3つを、コスト・取り出し時間・ユースケースで徹底比較。企業向けデータ保存戦略ガイド。
-seo_title: AWS S3 Glacier vs GCP Cloud Storage Archive vs Azure：コスト・速度・互換性で徹底比較
-seo_description: AWS・GCP・Azureのアーカイブストレージ3つを、コスト・取り出し時間・ユースケースで徹底比較。企業向けデータ保存戦略ガイド。
+title: AWS S3 Glacier vs GCP Archive vs Azure：料金・速度で最適選択ガイド
+description: AWS・GCP・Azureのアーカイブストレージ3つを料金・復旧時間・互換性で徹底比較。企業のデータ保存戦略で最適なサービスを見つけよう。
+seo_title: AWS S3 Glacier vs GCP Archive vs Azure：コスト・速度で徹底比較
+seo_description: AWS・GCP・Azureのアーカイブストレージを料金・復旧時間・互換性で比較。企業のデータ保存戦略ガイド。
 ---
+## 📊 3サービス早見表
 
+| 項目 | AWS S3 Glacier | GCP Archive | Azure Archive |
+|------|---|---|---|
+| **最安GB単価** | 最低コスト層 | 競争力あり | 段階課金 |
+| **最速復旧** | Expedited 1-5分 | 1-5時間 | 1時間以内 |
+| **推奨用途** | 多様な取出頻度 | GCPエコシステム | Microsoftエコシステム |
+
+迷った時は：コスト重視ならGlacier Deep Archive、柔軟性ならGlacier標準、GCP/Azure既存環境なら各々のサービスが最適。
 
 # AWS S3 Glacier vs GCP Cloud Storage Archive vs Azure Blob Storage Archive Tier: あなたのデータを未来へ託す、最強のデジタル金庫はどれだ？
 
