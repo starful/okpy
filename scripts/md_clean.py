@@ -6,6 +6,8 @@ from datetime import datetime
 
 import frontmatter
 
+from content_quality import GUIDE_MIN_CHARS, assert_quality
+
 _FM_START = re.compile(r"^(id|lang|title|summary):", re.IGNORECASE)
 _BODY_START = re.compile(r"\n(?=## )")
 _FM_KV = re.compile(r"^([A-Za-z0-9_.-]+)\s*:\s*(.*)$")
@@ -260,8 +262,6 @@ def load_post(raw: str):
 
 
 def validate_insight_post(post, *, insight_id: str = "") -> None:
-    from content_quality import assert_quality
-
     title = str(post.get("title", "")).strip()
     if not title or title == "Untitled":
         raise ValueError(f"{insight_id or post.get('id')}: missing title")
@@ -277,8 +277,6 @@ def validate_insight_post(post, *, insight_id: str = "") -> None:
 
 
 def validate_guide_post(post, *, guide_id: str = "") -> None:
-    from content_quality import GUIDE_MIN_CHARS, assert_quality
-
     title = str(post.get("title", "")).strip()
     if not title or title == "Untitled":
         raise ValueError(f"{guide_id or 'guide'}: missing title")
