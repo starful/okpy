@@ -1,14 +1,15 @@
 ---
-title: Python TUI開発の新常識：Textualで美しいターミナルアプリ実装【完全解説】
+title: Textualで実現するモダンPython TUI：Webのように美しいターミナルアプリ開発
 date: 2026-07-22
 category: python
 slug: textual
 summary: TextualでPythonから美しいターミナルUI（TUI）アプリを開発。Webアプリ水準の機能性とリアルタイムダッシュボード構築に対応。
 lang: ja
-description: TextualでWebアプリ並みの高度なTUI（ターミナルUI）を構築。TCSS・非同期処理・ダッシュボード実装対応。
-seo_title: Textualで実現するモダンPython TUI：Webのように美しいターミナルアプリ開発
-seo_description: PythonでWebアプリのような高度なTUI（ターミナルUI）を構築。TCSS・非同期処理・リアルタイムダッシュボード実装対応。
+description: PythonでWebアプリのような高度なTUI（ターミナルUI）を構築。TCSS・非同期処理・リアルタイムダッシュボード実装対応。
+seo_title: Python Textual で次世代TUI開発【美しいターミナルアプリ実装ガイド】
+seo_description: PythonのTextualフレームワークでWeb級のターミナルUI（TUI）を構築。TCSS・非同期処理・ダッシュボード実装の完全ガイド。
 ---
+
 ## ✨ Textualが選ばれる理由
 
 ターミナルアプリなのに、Webフロントエンド級の美しさ・操作性を実現。SSH経由のサーバー作業からローカル監視ツールまで、GUIより軽量・高速。

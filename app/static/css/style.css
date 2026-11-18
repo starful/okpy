@@ -3,12 +3,12 @@
    ========================================= */
 :root {
     --primary-color: #2c3e50;
-    --accent-color: #e74c3c;       /* keep aligned with accent_color in config.py */
+    --accent-color: #e74c3c;
     --accent-hover: #c0392b;
     --bg-color: #fffaf0;
     --card-bg: #ffffff;
     --text-gray: #555;
-    --bg-dot-color: #f39c12;       /* keep aligned with bg_dot_color in config.py */
+    --bg-dot-color: #f39c12;
 }
 
 body {
