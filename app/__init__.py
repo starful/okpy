@@ -795,6 +795,16 @@ def webmanifest():
     return Response('{"name":"OKPy","icons":[]}', mimetype="application/manifest+json")
 
 
+# Anonymous visit log for Starful HQ「이용자 보기」(visitkit).
+try:
+    from visitkit.flask_api import register_visitlog
+except ImportError:
+    import sys
+    sys.path.insert(0, os.path.dirname(BASE_DIR))
+    from visitkit.flask_api import register_visitlog
+register_visitlog(app, site_id="okpy", db_path=os.path.join(DATA_DIR, "visitlog.sqlite3"))
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port)

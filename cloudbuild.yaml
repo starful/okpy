@@ -37,7 +37,8 @@ steps:
       - '--allow-unauthenticated'
       - '--port=8080'
       - '--memory=512Mi'
-      - '--set-env-vars=SITE_URL=${_SITE_URL},ASSET_VERSION=${_ASSET_VERSION},GCS_IMAGE_BASE=${_GCS_IMAGE_BASE},ADSENSE_CLIENT_ID=${_ADSENSE_CLIENT_ID},GA_ID=${_GA_ID}'
+      - '--set-env-vars=SITE_URL=${_SITE_URL},ASSET_VERSION=${_ASSET_VERSION},GCS_IMAGE_BASE=${_GCS_IMAGE_BASE},ADSENSE_CLIENT_ID=${_ADSENSE_CLIENT_ID},GA_ID=${_GA_ID},STORE_BACKEND=firestore,FIRESTORE_COLLECTION=okpy'
+      - '--set-secrets=VISITLOG_SECRET=VISITLOG_SECRET:latest'
     waitFor: ['docker-push']
 
 images:
