@@ -878,6 +878,7 @@ a.trend-name:hover { color: var(--trend-accent); }
   display: none;
 }
 
+#popular .story-grid,
 .section:not(#latest) .story-grid {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
