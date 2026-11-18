@@ -4,7 +4,6 @@
 // ============================================================
 
 // Theme key -> category label map
-// Must match `js_category_map` in app/config.py.
 export const CATEGORY_MAP = {
     'specialty': 'Specialty',
     'dessert':   'Dessert',

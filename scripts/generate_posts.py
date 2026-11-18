@@ -382,10 +382,10 @@ def _write_md(category: str, topic: str, body: str, cover: str | None = None) ->
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"{slug}.md"
 
-    # Strip duplicate H1 if present — keep body after first heading block
     summary = _summary_from_body(body, topic)
     cover_line = f"cover: {cover!r}\n" if cover else ""
     body_text = body.strip()
+    # Insert the cover image right after the H1 when the body has no image yet
     if cover and "![" not in body_text:
         lines = body_text.splitlines()
         insert_at = 0

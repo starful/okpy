@@ -6,10 +6,11 @@ slug: matplotlib-2
 summary: matplotlibの`twinx()`を使って、単位の異なる複数のデータを1つのグラフに表示する方法を実装例で解説。ダッシュボードで使える実務的なテクニック。
 cover: https://storage.googleapis.com/ok-project-assets/okpy/20261022150140.jpg
 lang: ja
-description: 単位が異なるデータをmatplotlibで2軸グラフに表示。売上と成長率など実務例で解説。twinx()の使い方から応用例まで。
-seo_title: matplotlib twinx()で2軸グラフ：複数単位データの実装完全ガイド
-seo_description: 単位が異なるデータを2軸グラフで表示するmatplotlib実装。売上と成長率、気温と降水量など実務例で解説。twinx()の使い方から応用まで。
+description: 単位が異なるデータを2軸グラフで表示するmatplotlib実装。売上と成長率、気温と降水量など実務例で解説。twinx()の使い方から応用まで。
+seo_title: matplotlibで2軸グラフを完成させる：複雑なデータ可視化の実装ガイド
+seo_description: 単位が異なるデータをtwinx()で同一グラフに表示。売上と成長率、気温と降水量など実務例で即座に活用できる実装テクニック。
 ---
+
 
 
 

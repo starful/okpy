@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20251111155959.png
 date: 2025-12-02
 hatena_path: /entry/2025/12/02/090000_2
 slug: python-sumy-長い文章の要約-まだ手作業で消耗していませんか
-summary: Pythonの自動要約ライブラリSumyで長文処理を効率化。複数の抽出型要約アルゴリズムから選択でき、ニュース・論文・アンケート分析に活用。
-title: Python Sumy：長文自動要約で手作業を撲滅【実装例付き】
-description: Pythonで長文テキストを自動要約。複数アルゴリズムから選択可能。ニュース・論文・アンケート分析に最適。
-seo_title: Python Sumy：長い文章の要約を自動化【複数アルゴリズム対応】
-seo_description: Pythonで長文テキストの自動要約を実装。複数アルゴリズムから選択可能。ニュース・論文・アンケート集計に最適。
+summary: 長文テキストをPython Sumyで自動要約する完全ガイド。複数の抽出型要約アルゴリズムの実装方法と使い分けを学びます。
+title: Python Sumyで手作業から解放：長文の要約を自動化【複数アルゴリズム対応】
+description: 長文の自動要約ならPython Sumy。面倒な要約作業を数行のコードで自動化。複数アルゴリズムから選べて、ニュース・論文・データ分析に即役立ちます。
+seo_title: Python Sumyで手作業から解放：長文の要約を自動化【複数アルゴリズム対応】
+seo_description: 長文の自動要約ならPython Sumy。面倒な要約作業を数行のコードで自動化。複数アルゴリズムから選べて、ニュース・論文・データ分析に即役立ちます。
 ---
+
 
 
 
