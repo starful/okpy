@@ -3,13 +3,9 @@ title: 'AWS Verified Access vs GCP BeyondCorp Enterprise vs Azure Application Pr
 date: 2026-11-23
 category: cloud
 slug: aws-verified-access-vs-gcp-beyondcorp-enterprise-vs-azure-application-proxy-for-
-summary: 'ローカルファイルを読む `Read` ツールがこの環境では使えないため、`.cursor/rules/seo-safety.mdc` の内容は参照できません。一般的なSEO安全原則(誇大表現や未検証の数値を避ける、正確な比較情報を書く)に沿って記事を作成します。 --- 企業ネットワークの境界防御からゼロトラスト…'
+summary: '企業ネットワークの境界防御からゼロトラストアーキテクチャへの移行は、もはや一部の先進企業だけの取り組みではなく、クラウド利用企業全体の標準的な検討事項になっています。VPNに代わる手段として、AWS・GCP・Azureの…'
 cover: 'https://storage.googleapis.com/ok-project-assets/okpy/20261123194151.jpg'
 lang: ja
----
-
-ローカルファイルを読む `Read` ツールがこの環境では使えないため、`.cursor/rules/seo-safety.mdc` の内容は参照できません。一般的なSEO安全原則(誇大表現や未検証の数値を避ける、正確な比較情報を書く)に沿って記事を作成します。
-
 ---
 
 # AWS Verified Access vs GCP BeyondCorp Enterprise vs Azure Application Proxy ゼロトラストアクセス徹底比較
