@@ -4,9 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250320142347.png
 date: 2025-03-21
 hatena_path: /entry/2025/03/21/142630
 slug: aws-cloudwatch-vs-gcp-cloud-monitoring
-summary: AWS CloudWatchは、AWSインフラストラクチャやアプリケーションのモニタリングを提供するマネージドサービスです。
+summary: AWS CloudWatchとGCP Cloud Monitoringは、いずれもクラウド環境の監視を実現しますが、ログ管理・アラート機能・統合サービスの点で異なります。本記事では機能比較と実装事例から、適切なサービス選定の判断基準を紹介します。
 title: AWS CloudWatch vs GCP Cloud Monitoring
+description: CloudWatchとCloud Monitoring、監視機能・ログ管理・アラート・統合を比較。選定ポイントと導入事例を解説。
+seo_title: CloudWatch vs Cloud Monitoring：AWS/GCP監視比較
+seo_description: CloudWatchとCloud Monitoring、監視機能・ログ管理・アラート・統合を比較。選定ポイントと導入事例を解説。
 ---
+
 
 # AWS CloudWatch vs GCP Cloud Monitoring
 

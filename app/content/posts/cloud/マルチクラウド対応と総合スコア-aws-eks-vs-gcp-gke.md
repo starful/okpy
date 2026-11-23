@@ -6,7 +6,11 @@ hatena_path: /entry/2025/02/07/185924
 slug: マルチクラウド対応と総合スコア-aws-eks-vs-gcp-gke
 summary: AWS EKS（Elastic Kubernetes Service）は、AWSが提供するマネージド型Kubernetesサービスです。
 title: 'マルチクラウド対応と総合スコア: AWS EKS vs GCP GKE'
+description: AWS EKS（Elastic Kubernetes Service）は、AWSが提供するマネージド型Kubernetesサービスです。
+seo_title: AWS EKS vs GCP GKE比較：マルチクラウド対応・性能・コスト選択ガイド
+seo_description: AWS EKS と GCP GKE をマルチクラウド対応・自動スケーリング・統合機能・コストで徹底比較。導入事例から最適なKubernetesサービスの選び方がわかります。
 ---
+
 
 # マルチクラウド対応と総合スコア: AWS EKS vs GCP GKE
 

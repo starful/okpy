@@ -4,9 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250318102838.png
 date: 2025-03-18
 hatena_path: /entry/2025/03/18/102918
 slug: データ保護のクラウド比較-aws-macie-vs-gcp-dlp
-summary: AWS Macieは、機械学習を活用して機密データ（PII、財務データ、機密情報など）を自動検出・分類し、データ漏洩リスクを低減するサービスです。
-title: データ保護のクラウド比較：AWS Macie vs GCP DLP
+summary: AWS Macieは機械学習でS3の機密データを自動検出、GCP DLPはストリーミング・静的データに対応。両者を機能・統合性で比較。
+title: AWS Macie vs GCP DLP｜データ保護サービス機能比較＆選定ガイド
+description: AWS Macieは機械学習でS3データを自動検出、GCP DLPはストリーミング対応。機能・料金・統合性を徹底比較。
+seo_title: AWS Macie vs GCP DLP｜データ保護サービス機能比較＆選定ガイド
+seo_description: AWS Macieは機械学習でS3データを自動検出、GCP DLPはストリーミング対応。機能・料金・統合性を徹底比較。
 ---
+
 
 # データ保護のクラウド比較：AWS Macie vs GCP DLP
 

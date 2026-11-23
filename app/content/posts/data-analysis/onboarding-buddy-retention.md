@@ -3,12 +3,18 @@ title: Does an onboarding buddy improve new hire retention?
 date: '2026-07-05'
 category: data-analysis
 slug: onboarding-buddy-retention
-summary: Implementing a dedicated peer buddy program for new hires significantly increases
-  90-day retention rates.
+summary: Peer buddy programs significantly increase new hire retention during the
+  critical first 90 days of employment.
 lang: en
 source: statfacts
 cover: https://storage.googleapis.com/ok-project-assets/okpy/onboarding-buddy-retention.jpg
+description: Onboarding buddy programs boost new hire retention by 15-36% in the first
+  90 days through peer support and integration.
+seo_title: 'Onboarding Buddy Programs: How They Boost New Hire Retention by 15-36%'
+seo_description: Onboarding buddy programs increase 90-day retention by 15-36%. Learn
+  research-backed implementation strategies and best practices.
 ---
+
 
 ## Effect snapshot
 

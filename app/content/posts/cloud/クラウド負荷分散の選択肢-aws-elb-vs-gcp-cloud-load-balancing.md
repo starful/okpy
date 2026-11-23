@@ -4,12 +4,13 @@ cover: https://storage.googleapis.com/ok-project-assets/okpy/20250228163040.png
 date: 2025-02-28
 hatena_path: /entry/2025/02/28/163054
 slug: クラウド負荷分散の選択肢-aws-elb-vs-gcp-cloud-load-balancing
-summary: AWS ELBとGCP Cloud Load Balancingの機能・仕組みの違いを比較し、用途別の選び方を導入事例とともに解説します。
-title: 【徹底比較】AWS ELB vs GCP Cloud Load Balancing｜違いと選び方ガイド
-description: AWS ELBとGCP Cloud Load Balancingを機能・仕組み・導入事例で比較。プロトコル対応やグローバル分散の違いから自社に合う選び方まで解説します。
-seo_title: AWS ELB vs GCP Cloud Load Balancing比較｜違いと選び方
-seo_description: AWS ELBとGCP Cloud Load Balancingの違いを徹底比較。ロードバランサーの種類・グローバル分散・Netflix/Snapchatの導入事例まで解説します。
+summary: AWS ELBとGCP Cloud Load Balancingは、共に高可用性を支える負荷分散サービスですが、対応プロトコルやグローバル分散の仕組みに違いがあります。本記事では機能比較から導入事例まで、選定時の判断ポイントを詳解します。
+title: クラウド負荷分散の選択肢：AWS ELB vs GCP Cloud Load Balancing
+description: ALBとNLBの性能、グローバル分散、自動スケーリング、コスト比較。Netflix・Expedia事例で選定ポイント解説。
+seo_title: ELB vs Cloud Load Balancing：負荷分散比較ガイド
+seo_description: ALBとNLBの性能、グローバル分散、自動スケーリング、コスト比較。Netflix・Expedia事例で選定ポイント解説。
 ---
+
 AWS ELBとGCP Cloud Load Balancingは、どちらも高可用性を支える負荷分散サービスですが、対応プロトコルやグローバル分散の仕組み、既存クラウド環境との統合性に違いがあります。本記事ではサービス概要から実際の導入事例まで、選定時に押さえておきたいポイントを比較しながら解説します。
 
 # クラウド負荷分散の選択肢：AWS ELB vs GCP Cloud Load Balancing
