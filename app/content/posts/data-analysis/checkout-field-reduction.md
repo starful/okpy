@@ -1,38 +1,40 @@
 ---
-title: 'Why Cutting Checkout Form Fields Alone Can Boost Conversion by 20–60%'
-date: '2026-05-20'
+title: 'チェックアウトの入力項目を減らすだけでコンバージョンが20〜60%伸びる理由'
+date: 2026-05-20
 category: data-analysis
 slug: checkout-field-reduction
-summary: Research shows that reducing checkout form fields from an average of 23 down to about 12-14 can increase conversion rates by a relative 20-60%. The size of the effect depends on how poorly designed the original form was — sites with more room for improvement tend to see larger gains.
-lang: en
+summary: '入力項目が少ないほど、ユーザーの認知負荷と購入完了までにかかる時間が減ります。この効果はモバイル環境で特に顕著に表れます。 自社のフォーム項目を1つずつ見直し、それぞれが本当に必要かどうかを確認してください。なお、**20〜60%**という数値は、元のフローがどれだけ非効率だったかを反映した結果であり、すべてのサ…'
+cover: 'https://storage.googleapis.com/ok-project-assets/okpy/checkout-field-reduction.jpg'
+lang: ja
 source: statfacts
-cover: https://storage.googleapis.com/ok-project-assets/okpy/checkout-field-reduction.jpg
 ---
 
-## Overview of the Effect
+# チェックアウトの入力項目を減らすだけでコンバージョンが20〜60%伸びる理由
+
+## 効果の概要
 
 | | |
 |--|--|
-| Intervention | Reducing the number of checkout form fields to 12-14 (down from an average of about 23) |
-| Outcome metric | Checkout conversion rate |
-| Effect size | Relative increase of 20-60% |
-| Confidence | `Meta-analysis` |
-| Scope | Usability studies of e-commerce checkouts, benchmarks across large sites |
+| 施策 | チェックアウトの入力項目数を（平均約23項目から）12〜14項目に削減する |
+| 成果指標 | チェックアウトのコンバージョン率 |
+| 効果の大きさ | 相対的に20〜60%の増加 |
+| 確度 | `メタ分析` |
+| 対象範囲 | ECサイトのチェックアウトに関するユーザビリティ調査、大手サイトを対象としたベンチマーク |
 
-### Source
+### 出典
 
 - [Baymard Institute — Checkout usability](https://baymard.com/research/checkout-usability)
 
-## What Changes
+## 何が変わるのか
 
-Fewer input fields reduce cognitive load and the time needed to complete a purchase, with the effect being especially pronounced on mobile.
+入力項目が少ないほど、ユーザーの認知負荷と購入完了までにかかる時間が減ります。この効果はモバイル環境で特に顕著に表れます。
 
-## Fields With the Biggest Impact When Removed
+## 削除すると効果が大きい項目
 
-- Removing forced account creation and offering guest checkout
-- Eliminating optional marketing fields (e.g., newsletter sign-up) from the payment flow
-- Enabling autofill support for address and payment fields
+- アカウント作成の強制をやめ、ゲストチェックアウトを用意する
+- 決済フローから、ニュースレター登録のようなマーケティング目的の任意項目を排除する
+- 住所・決済項目に自動入力（オートフィル）対応を実装する
 
-## Applying This in Practice
+## 実践への落とし込み
 
-Go through your form fields one by one and confirm whether each is truly necessary. Keep in mind that the **20-60%** range reflects how broken the original flow was — it isn't a single "magic number" that applies universally to every site.
+自社のフォーム項目を1つずつ見直し、それぞれが本当に必要かどうかを確認してください。なお、**20〜60%**という数値は、元のフローがどれだけ非効率だったかを反映した結果であり、すべてのサイトに等しく当てはまる「魔法の数字」ではない点に注意してください。
