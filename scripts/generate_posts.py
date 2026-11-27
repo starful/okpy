@@ -281,7 +281,8 @@ def _generate_body(category: str, topic: str) -> str | None:
 
 
 def _summary_from_body(body: str, fallback: str) -> str:
-    # prose only: tables (| … |), list bullets, quotes, images and HTML made summaries like "| | | |--|" (2026-11-27)
+    # Skip non-prose lines (tables, bullets, quotes, images, HTML) — otherwise
+    # summaries end up as fragments like "| | | |--|".
     lines = [ln.strip() for ln in body.splitlines()
              if ln.strip() and not ln.lstrip().startswith(("#", "|", "-", "*", ">", "!", "<", "```"))
              and not re.match(r"^\s*\d+\.\s", ln)]
