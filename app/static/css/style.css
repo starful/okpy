@@ -219,16 +219,6 @@ header {
 .detail-content th, .detail-content td { border: 1px solid #eee; padding: 10px 14px; text-align: left; }
 .detail-content th { background: #f5f5f5; font-weight: 700; }
 
-.booking-box {
-    text-align: center; margin: 50px 0; padding: 30px;
-    background: #fff5f5; border-radius: 15px; border: 2px dashed var(--accent-color);
-}
-.booking-btn {
-    display: inline-block; background: var(--accent-color); color: white;
-    padding: 15px 30px; font-weight: bold; border-radius: 30px;
-    text-decoration: none; margin-top: 10px;
-}
-
 .back-btn {
     display: inline-block; background: var(--primary-color); color: white;
     padding: 14px 35px; border-radius: 30px; font-weight: bold;
